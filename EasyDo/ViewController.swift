@@ -39,7 +39,7 @@ class ViewController: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
-        
+      
         button.setTitle("In Progress", for: .normal)
         label.text = "Interview Q"
         label.textColor = .black
