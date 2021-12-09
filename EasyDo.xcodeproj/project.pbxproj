@@ -14,6 +14,7 @@
 		386F83F4275AAD45004DC280 /* EasyDo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 386F83F2275AAD45004DC280 /* EasyDo.xcdatamodeld */; };
 		386F83F6275AAD47004DC280 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 386F83F5275AAD47004DC280 /* Assets.xcassets */; };
 		386F83F9275AAD47004DC280 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 386F83F7275AAD47004DC280 /* LaunchScreen.storyboard */; };
+		38E992892760F97C00E2D1E6 /* DataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E992882760F97C00E2D1E6 /* DataTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		386F83F5275AAD47004DC280 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		386F83F8275AAD47004DC280 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		386F83FA275AAD47004DC280 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		38E992882760F97C00E2D1E6 /* DataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				386F83F7275AAD47004DC280 /* LaunchScreen.storyboard */,
 				386F83FA275AAD47004DC280 /* Info.plist */,
 				386F83F2275AAD45004DC280 /* EasyDo.xcdatamodeld */,
+				38E992882760F97C00E2D1E6 /* DataTableViewCell.swift */,
 			);
 			path = EasyDo;
 			sourceTree = "<group>";
@@ -142,6 +145,7 @@
 			files = (
 				386F83F4275AAD45004DC280 /* EasyDo.xcdatamodeld in Sources */,
 				386F83EE275AAD45004DC280 /* ViewController.swift in Sources */,
+				38E992892760F97C00E2D1E6 /* DataTableViewCell.swift in Sources */,
 				386F83EA275AAD45004DC280 /* AppDelegate.swift in Sources */,
 				386F83EC275AAD45004DC280 /* SceneDelegate.swift in Sources */,
 			);
