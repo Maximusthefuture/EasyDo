@@ -7,10 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		380ADEDA2779F5B300B97EB9 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380ADED92779F5B300B97EB9 /* Project.swift */; };
+		380ADEDC2779F62A00B97EB9 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380ADEDB2779F62A00B97EB9 /* Task.swift */; };
+		385644552770E8750030B0C8 /* Extensions+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385644542770E8750030B0C8 /* Extensions+UIView.swift */; };
+		385644582770E9D70030B0C8 /* TagUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385644572770E9D70030B0C8 /* TagUIView.swift */; };
+		3868B92F276E376200F2B765 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868B92E276E376200F2B765 /* Model.swift */; };
+		3868B931276E376C00F2B765 /* Model+Dragging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868B930276E376C00F2B765 /* Model+Dragging.swift */; };
+		3868B933276E383700F2B765 /* TableViewController+Drag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868B932276E383600F2B765 /* TableViewController+Drag.swift */; };
+		3868B935276E383C00F2B765 /* TableViewController+Drop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868B934276E383C00F2B765 /* TableViewController+Drop.swift */; };
 		386F83EA275AAD45004DC280 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386F83E9275AAD45004DC280 /* AppDelegate.swift */; };
 		386F83EC275AAD45004DC280 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386F83EB275AAD45004DC280 /* SceneDelegate.swift */; };
 		386F83EE275AAD45004DC280 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386F83ED275AAD45004DC280 /* ViewController.swift */; };
-		386F83F1275AAD45004DC280 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 386F83EF275AAD45004DC280 /* Main.storyboard */; };
 		386F83F4275AAD45004DC280 /* EasyDo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 386F83F2275AAD45004DC280 /* EasyDo.xcdatamodeld */; };
 		386F83F6275AAD47004DC280 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 386F83F5275AAD47004DC280 /* Assets.xcassets */; };
 		386F83F9275AAD47004DC280 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 386F83F7275AAD47004DC280 /* LaunchScreen.storyboard */; };
@@ -18,11 +25,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		380ADED92779F5B300B97EB9 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		380ADEDB2779F62A00B97EB9 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		385644542770E8750030B0C8 /* Extensions+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+UIView.swift"; sourceTree = "<group>"; };
+		385644572770E9D70030B0C8 /* TagUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagUIView.swift; sourceTree = "<group>"; };
+		3868B92E276E376200F2B765 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		3868B930276E376C00F2B765 /* Model+Dragging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Model+Dragging.swift"; sourceTree = "<group>"; };
+		3868B932276E383600F2B765 /* TableViewController+Drag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TableViewController+Drag.swift"; sourceTree = "<group>"; };
+		3868B934276E383C00F2B765 /* TableViewController+Drop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TableViewController+Drop.swift"; sourceTree = "<group>"; };
 		386F83E6275AAD45004DC280 /* EasyDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		386F83E9275AAD45004DC280 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		386F83EB275AAD45004DC280 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		386F83ED275AAD45004DC280 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		386F83F0275AAD45004DC280 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		386F83F3275AAD45004DC280 /* EasyDo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EasyDo.xcdatamodel; sourceTree = "<group>"; };
 		386F83F5275AAD47004DC280 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		386F83F8275AAD47004DC280 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -41,6 +55,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		380ADEDD2779F81900B97EB9 /* Dragging */ = {
+			isa = PBXGroup;
+			children = (
+				3868B930276E376C00F2B765 /* Model+Dragging.swift */,
+				3868B932276E383600F2B765 /* TableViewController+Drag.swift */,
+				3868B934276E383C00F2B765 /* TableViewController+Drop.swift */,
+			);
+			path = Dragging;
+			sourceTree = "<group>";
+		};
+		385644562770E9C10030B0C8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				38E992882760F97C00E2D1E6 /* DataTableViewCell.swift */,
+				385644572770E9D70030B0C8 /* TagUIView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		386F83DD275AAD45004DC280 = {
 			isa = PBXGroup;
 			children = (
@@ -60,17 +93,45 @@
 		386F83E8275AAD45004DC280 /* EasyDo */ = {
 			isa = PBXGroup;
 			children = (
-				386F83E9275AAD45004DC280 /* AppDelegate.swift */,
-				386F83EB275AAD45004DC280 /* SceneDelegate.swift */,
-				386F83ED275AAD45004DC280 /* ViewController.swift */,
-				386F83EF275AAD45004DC280 /* Main.storyboard */,
-				386F83F5275AAD47004DC280 /* Assets.xcassets */,
-				386F83F7275AAD47004DC280 /* LaunchScreen.storyboard */,
+				38EEFFA72773B806002FA3DB /* ViewControllers */,
+				38EEFFA62773B7FE002FA3DB /* ViewModels */,
+				385644562770E9C10030B0C8 /* Views */,
+				38EEFFA52773B7D6002FA3DB /* Support files */,
+				3868B92E276E376200F2B765 /* Model.swift */,
+				380ADEDD2779F81900B97EB9 /* Dragging */,
+				385644542770E8750030B0C8 /* Extensions+UIView.swift */,
 				386F83FA275AAD47004DC280 /* Info.plist */,
-				386F83F2275AAD45004DC280 /* EasyDo.xcdatamodeld */,
-				38E992882760F97C00E2D1E6 /* DataTableViewCell.swift */,
+				380ADED92779F5B300B97EB9 /* Project.swift */,
+				380ADEDB2779F62A00B97EB9 /* Task.swift */,
 			);
 			path = EasyDo;
+			sourceTree = "<group>";
+		};
+		38EEFFA52773B7D6002FA3DB /* Support files */ = {
+			isa = PBXGroup;
+			children = (
+				386F83F7275AAD47004DC280 /* LaunchScreen.storyboard */,
+				386F83E9275AAD45004DC280 /* AppDelegate.swift */,
+				386F83EB275AAD45004DC280 /* SceneDelegate.swift */,
+				386F83F5275AAD47004DC280 /* Assets.xcassets */,
+				386F83F2275AAD45004DC280 /* EasyDo.xcdatamodeld */,
+			);
+			path = "Support files";
+			sourceTree = "<group>";
+		};
+		38EEFFA62773B7FE002FA3DB /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		38EEFFA72773B806002FA3DB /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				386F83ED275AAD45004DC280 /* ViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -132,7 +193,6 @@
 			files = (
 				386F83F9275AAD47004DC280 /* LaunchScreen.storyboard in Resources */,
 				386F83F6275AAD47004DC280 /* Assets.xcassets in Resources */,
-				386F83F1275AAD45004DC280 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,25 +203,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3868B935276E383C00F2B765 /* TableViewController+Drop.swift in Sources */,
+				3868B92F276E376200F2B765 /* Model.swift in Sources */,
+				3868B933276E383700F2B765 /* TableViewController+Drag.swift in Sources */,
 				386F83F4275AAD45004DC280 /* EasyDo.xcdatamodeld in Sources */,
+				385644552770E8750030B0C8 /* Extensions+UIView.swift in Sources */,
 				386F83EE275AAD45004DC280 /* ViewController.swift in Sources */,
 				38E992892760F97C00E2D1E6 /* DataTableViewCell.swift in Sources */,
 				386F83EA275AAD45004DC280 /* AppDelegate.swift in Sources */,
+				380ADEDC2779F62A00B97EB9 /* Task.swift in Sources */,
+				3868B931276E376C00F2B765 /* Model+Dragging.swift in Sources */,
+				385644582770E9D70030B0C8 /* TagUIView.swift in Sources */,
 				386F83EC275AAD45004DC280 /* SceneDelegate.swift in Sources */,
+				380ADEDA2779F5B300B97EB9 /* Project.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		386F83EF275AAD45004DC280 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				386F83F0275AAD45004DC280 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		386F83F7275AAD47004DC280 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -224,7 +284,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -279,7 +339,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -297,6 +357,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WSCHZVTX6D;
 				INFOPLIST_FILE = EasyDo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -316,6 +377,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WSCHZVTX6D;
 				INFOPLIST_FILE = EasyDo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
