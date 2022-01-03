@@ -22,6 +22,7 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
         collectionView.register(TasksCollectionViewCell.self, forCellWithReuseIdentifier: "apps")
         collectionView.backgroundColor = #colorLiteral(red: 0.9682769179, green: 0.9684478641, blue: 1, alpha: 1)
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.dragDelegate = self
         
     }
     
@@ -44,19 +45,33 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
         guard let taskss = tasksList?[indexPath.item] else { return }
 //        coreDataStack?.managedContext.delete(taskss)
         //delegate? reload collection view in maincontroller???˘
-        tasksList?[indexPath.row].title = "In Progress Here"
-        tasksList?[indexPath.row].mainTag = "In Progress"
-        changeDelegate?.mainTagChanged()
-        coreDataStack?.saveContext()
+//        tasksList?[indexPath.row].title = "In Progress Here"
+//        tasksList?[indexPath.row].mainTag = "In Progress"
+//        changeDelegate?.mainTagChanged()
+//        coreDataStack?.saveContext()
 //        collectionView.deleteItems(at: [indexPath])
-        collectionView.reloadItems(at: [indexPath])
+//        collectionView.reloadItems(at: [indexPath])
+        
+        let vc = AddDetailViewController()
+//        vc.currentProject = project
+        vc.cardName.text = taskss.title
+        present(vc, animated: true)
+    }
+    
+    func dragItems(at indexPath: IndexPath) -> [UIDragItem] {
+        if let cell = collectionView.cellForItem(at: indexPath) as? TasksCollectionViewCell {
+            let dragItem = UIDragItem(itemProvider: NSItemProvider(object: cell.title.text as! NSString))
+            dragItem.localObject = indexPath
+            return [dragItem]
+        } else {
+            return []
+        }
     }
     
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return tasksList?.count ?? 0
-//        return project?.tasks?.count ?? 0
     }
     
     let topBottomPadding: CGFloat = 12
@@ -74,4 +89,13 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return lineSpacing
     }
+}
+
+extension TagsHorizontalController: UICollectionViewDragDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        session.localContext = collectionView
+        return dragItems(at: indexPath)
+    }
+
 }

@@ -170,11 +170,8 @@ extension ViewController: UITableViewDataSource {
         
         let controller = ProjectMainViewController()
         controller.currentProject = projects[indexPath.row]
-        
+        controller.coreDataStack = coreDataStack
         let navBar = UINavigationController(rootViewController: controller)
-        let backItem = UIBarButtonItem()
-           backItem.title = "Something Else"
-        navigationItem.backBarButtonItem = backItem
         navBar.modalPresentationStyle = .fullScreen
         present(navBar, animated: true)
     }
@@ -196,16 +193,13 @@ extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 20
     }
-//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-////        UIContextualAction
-//        return nil
-//    }
     
-//    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-//        return true
-//    }
     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        true
     }
     
   

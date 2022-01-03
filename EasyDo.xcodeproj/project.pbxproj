@@ -33,6 +33,7 @@
 		38B20B7E2779FFAA002AD934 /* TasksCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B20B7D2779FFAA002AD934 /* TasksCollectionViewCell.swift */; };
 		38E992892760F97C00E2D1E6 /* DataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E992882760F97C00E2D1E6 /* DataTableViewCell.swift */; };
 		38EF6DFC277DF1C700261125 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38EF6DFB277DF1C700261125 /* TaskViewModel.swift */; };
+		38F4175327830BDF00B7EDAB /* AddDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F4175227830BDF00B7EDAB /* AddDetailViewController.swift */; };
 		38F6A4CD277A124A004CB65D /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F6A4CC277A124A004CB65D /* ProjectViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,7 @@
 		38B20B7D2779FFAA002AD934 /* TasksCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksCollectionViewCell.swift; sourceTree = "<group>"; };
 		38E992882760F97C00E2D1E6 /* DataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableViewCell.swift; sourceTree = "<group>"; };
 		38EF6DFB277DF1C700261125 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
+		38F4175227830BDF00B7EDAB /* AddDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDetailViewController.swift; sourceTree = "<group>"; };
 		38F6A4CC277A124A004CB65D /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -186,6 +188,7 @@
 				380ADEDE2779F95000B97EB9 /* ProjectMainViewController.swift */,
 				38B20B752779FADC002AD934 /* BaseListController.swift */,
 				38B20B7B2779FF3A002AD934 /* TagsHorizontalViewController.swift */,
+				38F4175227830BDF00B7EDAB /* AddDetailViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 				381CAACC278207F900E8AB00 /* Project+CoreDataProperties.swift in Sources */,
 				386F83EA275AAD45004DC280 /* AppDelegate.swift in Sources */,
 				380ADEDC2779F62A00B97EB9 /* Task.swift in Sources */,
+				38F4175327830BDF00B7EDAB /* AddDetailViewController.swift in Sources */,
 				3868B931276E376C00F2B765 /* Model+Dragging.swift in Sources */,
 				385644582770E9D70030B0C8 /* TagUIView.swift in Sources */,
 				386F83EC275AAD45004DC280 /* SceneDelegate.swift in Sources */,

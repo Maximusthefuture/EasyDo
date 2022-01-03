@@ -21,6 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
         var controller = ProjectMainViewController()
         var viewController = ViewController()
+        var addVC = AddDetailViewController()
         window?.rootViewController = UINavigationController(rootViewController: viewController)
     }
 

@@ -19,54 +19,17 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
     var addButton = UIButton()
     var viewModel: ProjectViewModel?
     var currentProject: Project?
-    var coreDataStack:CoreDataStack?
-
-    func initCoreDataDummyData() {
-        let task = Task(context: coreDataStack!.managedContext)
-        task.tags = ["No tag"]
-        task.mainTag = "Done"
-        task.title = "HEllo title"
-        task.taskDescription = "MY NEW TASK"
-        if let project = currentProject,
-           let tasks = project.tasks?.mutableCopy() as? NSMutableOrderedSet {
-            tasks.add(task)
-            project.tasks = tasks
-        }
-        coreDataStack?.saveContext()
-        collectionView.reloadData()
-        changeDelegate = self
-        
-    }
+    var coreDataStack: CoreDataStack?
     
+
+   
+    
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.backItem?.backButtonTitle = "Title"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
-//        let projectFetch: NSFetchRequest<Project> = Project.fetchRequest()
-//        let task = Task(context: coreDataStack!.managedContext)
-//        task.tags = ["No tag"]
-//        task.mainTag = "No tag"
-//        task.taskDescription = "ffffff"
-//        do {
-//            let results = try coreDataStack.managedContext.fetch(projectFetch)
-//            if results.isEmpty {
-//                currentProject = Project(context: coreDataStack.managedContext)
-//                currentProject?.title = "Hello project data"
-//                currentProject?.tags = ["No tag", "In Progress", "Done"]
-//                currentProject?.tasks = [task]
-//                if let project = currentProject,
-//                   let tasks = project.tasks?.mutableCopy() as? NSMutableOrderedSet {
-//                    tasks.add(task)
-//                    project.tasks = tasks
-//                }
-//                coreDataStack.saveContext()
-//            } else {
-//                currentProject = results.first
-//            }
-//        } catch let error as NSError {
-//
-//        }
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(goBack))
+       
         addButtonInit()
         collectionView.backgroundColor = #colorLiteral(red: 0.9682769179, green: 0.9684478641, blue: 1, alpha: 1)
         collectionView.register(ProjectsViewCell.self, forCellWithReuseIdentifier: "AppsViewCell")
@@ -76,6 +39,30 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
         }
         
 //       initCoreDataDummyData()
+    }
+    
+    @objc func goBack(sender: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
+    
+    func initCoreDataDummyData() {
+        if let coreDataStack = coreDataStack {
+            let task = Task(context: coreDataStack.managedContext)
+            task.tags = ["No tag"]
+            task.mainTag = "Done"
+            task.title = "HEllo title"
+            task.taskDescription = "MY NEW TASK"
+            if let project = currentProject,
+               let tasks = project.tasks?.mutableCopy() as? NSMutableOrderedSet {
+                tasks.add(task)
+                project.tasks = tasks
+            }
+            coreDataStack.saveContext()
+            collectionView.reloadData()
+            changeDelegate = self
+        }
+        
+        
     }
 
     func deleteAll() {
@@ -96,9 +83,16 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
     
     
     @objc private func addNewCardButton(button: UIButton) {
-        initCoreDataDummyData()
-//        deleteAll()
-        collectionView.reloadData()
+//        initCoreDataDummyData()
+////        deleteAll()
+//        collectionView.reloadData()
+        
+        let vc = AddDetailViewController()
+        let navController = UINavigationController(rootViewController: vc)
+        vc.coreDataStack = coreDataStack
+        vc.currentProject = currentProject
+        navController.modalPresentationStyle = .fullScreen
+        present(navController, animated: true)
         
     }
  
@@ -139,9 +133,32 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
     }
     
     
-    
-    
-    
+//    fileprivate func someOfCoreData() {
+//        let projectFetch: NSFetchRequest<Project> = Project.fetchRequest()
+//        let task = Task(context: coreDataStack!.managedContext)
+//        task.tags = ["No tag"]
+//        task.mainTag = "No tag"
+//        task.taskDescription = "ffffff"
+//        do {
+//            let results = try coreDataStack.managedContext.fetch(projectFetch)
+//            if results.isEmpty {
+//                currentProject = Project(context: coreDataStack.managedContext)
+//                currentProject?.title = "Hello project data"
+//                currentProject?.tags = ["No tag", "In Progress", "Done"]
+//                currentProject?.tasks = [task]
+//                if let project = currentProject,
+//                   let tasks = project.tasks?.mutableCopy() as? NSMutableOrderedSet {
+//                    tasks.add(task)
+//                    project.tasks = tasks
+//                }
+//                coreDataStack.saveContext()
+//            } else {
+//                currentProject = results.first
+//            }
+//        } catch let error as NSError {
+//
+//        }
+//    }
 }
 
 extension ProjectMainViewController: ChangeTagDelegate {
