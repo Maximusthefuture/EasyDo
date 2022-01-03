@@ -9,8 +9,8 @@ import Foundation
 
 
 //ViewModel???
-struct Project {
+struct ProjectsDataStruct {
     var title: String
     var tags: [String]
-    var tasks: [Task]
+    var tasks: [TasksDataStruct]
 }

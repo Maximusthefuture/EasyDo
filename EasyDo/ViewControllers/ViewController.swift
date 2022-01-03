@@ -7,40 +7,69 @@
 
 import UIKit
 import MobileCoreServices
+import CoreData
 
+//MARK: DELETE
 class ViewController: UIViewController {
     //In viewmodel?
     var tableView: UITableView!
     var model = Model()
     var label = UILabel()
-    var button = UIButton()
     var addButton = UIButton()
     var tagView = TagUIView()
-
+    
+    var fetchRequest: NSFetchRequest<Project>?
+    var projects: [Project] = []
+    lazy var coreDataStack = CoreDataStack(modelName: "EasyDo")
+   
+   //MARK: TODO: ADD PROJECT FROM COREDATA
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.9682769179, green: 0.9684478641, blue: 1, alpha: 1)
-        navigationItem.title = "Interview Q"
+        navigationItem.title = "Projects"
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
         tableViewInit()
-//        tableView.panGestureRecognizer.addTarget(self, action: #selector(tableViewPanGesture))
-        button.setTitle("In Progress", for: .normal)
+        labelInit()
+        fetchRequest = Project.fetchRequest()
+        fetchAndReload()
+//        tagViewInit()
+        addButtonInit()
+//        let task = Task(context: coreDataStack.managedContext)
+
+    }
+    
+    func fetchAndReload() {
+        guard let fetchRequest = fetchRequest else {
+          return
+        }
+        do {
+        projects = try coreDataStack.managedContext.fetch(fetchRequest)
+          tableView.reloadData()
+        } catch let err as NSError {
+          print("err while fetching: ", err)
+        }
+    }
+    
+    fileprivate func labelInit() {
+        //        tableView.panGestureRecognizer.addTarget(self, action: #selector(tableViewPanGesture)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         label.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
         label.font = UIFont.systemFont(ofSize: 32, weight: .heavy)
+    }
+    
+    
+    fileprivate func tagViewInit() {
         tagView.translatesAutoresizingMaskIntoConstraints = false
         tagView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 16).isActive = true
         tagView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
         tagView.label.text = "IN-PROGRESS"
         tagView.backgroundColor = #colorLiteral(red: 0.8898780942, green: 0.8974478841, blue: 0.9981856942, alpha: 1)
-//        tagView.backgroundColor = .blue
-        button.setTitleColor(#colorLiteral(red: 0.5596068501, green: 0.5770205855, blue: 1, alpha: 1), for: .normal)
-        button.layer.cornerRadius = 10
-        addButtonInit()
-
+        tagView.backgroundColor = .blue
     }
+    
     
     
     fileprivate func addButtonInit() {
@@ -52,6 +81,18 @@ class ViewController: UIViewController {
         addButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
         addButton.layer.cornerRadius = 10
         addButton.backgroundColor = .blue
+        addButton.addTarget(self, action: #selector(addProject), for: .touchUpInside)
+        
+    }
+    
+    @objc func addProject(sender: UIButton) {
+        
+        let project = Project(context: coreDataStack.managedContext)
+        project.title = "New project"
+        project.tags = ["Hello", "Net", "Da"]
+        coreDataStack.saveContext()
+        tableView.reloadData()
+        
     }
  
     
@@ -61,7 +102,6 @@ class ViewController: UIViewController {
         tableView.register(DataTableViewCell.self, forCellReuseIdentifier: "Cell")
         view.addSubview(tableView)
         view.addSubview(label)
-        view.addSubview(button)
         view.addSubview(addButton)
         view.addSubview(tagView)
         
@@ -78,7 +118,7 @@ class ViewController: UIViewController {
         tableView.dataSource = self
         tableView.showsHorizontalScrollIndicator = false
         tableView.showsVerticalScrollIndicator = false
-        tableView.allowsSelection = false
+        tableView.allowsSelection = true
         tableView.separatorStyle = .none
     }
     
@@ -106,14 +146,15 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return model.placeNames.count
+        return projects.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! DataTableViewCell
         
 //        cell.config(label: array[indexPath.row])
-        cell.title.text = model.placeNames[indexPath.row]
+        cell.title.text = projects[indexPath.row].title
+        cell.config(label: projects[indexPath.row].title ?? "zopa")
         cell.delegateDelete = self
         var myIndexPath = IndexPath(item: indexPath.row, section: 0)
         cell.completion = {
@@ -122,6 +163,20 @@ extension ViewController: UITableViewDataSource {
         }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("DID SELECT")
+        
+        let controller = ProjectMainViewController()
+        controller.currentProject = projects[indexPath.row]
+        
+        let navBar = UINavigationController(rootViewController: controller)
+        let backItem = UIBarButtonItem()
+           backItem.title = "Something Else"
+        navigationItem.backBarButtonItem = backItem
+        navBar.modalPresentationStyle = .fullScreen
+        present(navBar, animated: true)
     }
 }
 
@@ -136,7 +191,7 @@ extension ViewController: DeleteThatShit {
 
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
+        return 120
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 20
@@ -152,6 +207,8 @@ extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false
     }
+    
+  
     
 }
 

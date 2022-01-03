@@ -56,21 +56,18 @@ class DataTableViewCell: UITableViewCell {
         title.text = label
     }
     
+    //MARK: ADD ALL POMODOROS!
+    
     
     
     override func layoutSubviews() {
         super.layoutSubviews()
-//        roundedView.bounds = roundedView.bounds.inset(by: .init(top: 16, left: 16, bottom: 16, right: 16))
-//        roundedView.bounds = roundedView.bounds.inset(by: .init(top: 0, left: 0, bottom: -20, right: 0))
-//        roundedView.clipsToBounds = true
-        let margins = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
         roundedView.translatesAutoresizingMaskIntoConstraints = false
         roundedView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         roundedView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20).isActive = true
         roundedView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         roundedView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         roundedView.clipsToBounds = true
-        roundedView.layer.masksToBounds = true
         
  
         
@@ -84,18 +81,22 @@ class DataTableViewCell: UITableViewCell {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
         self.layer.cornerRadius = 16
 //        addGestureRecognizer(panGesture)
+//        contentView.addSubview(title)
         addSubview(roundedView)
         addSubview(title)
+        
+       
+//        roundedView.layer.masksToBounds = true
         addSubview(tagView)
-        addSubview(iconView)
+//        addSubview(iconView)
         
+        title.anchor(top: topAnchor, leading: leadingAnchor , bottom: nil, trailing: nil)
+//        iconView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: title.leadingAnchor, padding: .init(top: 20, left: 16, bottom: 0, right: 0))
         
-        iconView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: title.leadingAnchor, padding: .init(top: 20, left: 16, bottom: 0, right: 0))
-        title.anchor(top: topAnchor, leading: iconView.trailingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 16, left: 16, bottom: 0, right: 0))
         //collection view?
-        tagView.label.text = "Tag here"
-        tagView.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 0, left: 16, bottom: 40, right: 0))
-//
+//        tagView.label.text = "Tag here"
+//        tagView.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 0, left: 16, bottom: 40, right: 0))
+
 //        title.translatesAutoresizingMaskIntoConstraints = false
 //        title.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
 //        title.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true

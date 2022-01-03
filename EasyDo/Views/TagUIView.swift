@@ -12,10 +12,13 @@ class TagUIView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         layer.cornerRadius = 6
-        clipsToBounds = true
+       
 //        layer.masksToBounds = true
+        clipsToBounds = true
+        
         addSubview(label)
         label.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 8, left: 16, bottom: 8, right: 16))
+//        label.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 8, left: 16, bottom: 8, right: 16))
 //        translatesAutoresizingMaskIntoConstraints = false
 //        heightAnchor.constraint(equalToConstant: label.frame.height).isActive = true
 //        widthAnchor.constraint(equalToConstant: label.frame.width).isActive = true
@@ -40,6 +43,11 @@ class TagUIView: UIView {
 //        ctx.setFillColor(UIColor.red.cgColor)
         ctx.closePath()
 //        ctx.fillPath()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
     }
     
 }

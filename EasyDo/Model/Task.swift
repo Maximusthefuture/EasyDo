@@ -7,8 +7,11 @@
 
 import Foundation
 
-struct Task {
+struct TasksDataStruct {
     var title: String
-    var tags: [String] //Or [UIView] ???
+    var tags: [String]
     var pomodoroCount: Int
+    var dueDate: Date
+    var description: String
+    var mainTag: String //????
 }
