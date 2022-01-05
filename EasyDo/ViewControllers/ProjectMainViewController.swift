@@ -20,11 +20,8 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
     var viewModel: ProjectViewModel?
     var currentProject: Project?
     var coreDataStack: CoreDataStack?
-    
+    var isAddMyDay: Bool?
 
-   
-    
- 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -116,6 +113,7 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
         
         cell.tagView.label.text = currentProject?.tags?[indexPath.item]
         cell.horizontalController.project = currentProject
+        cell.horizontalController.isAddMyDay = self.isAddMyDay
         cell.horizontalController.tasksList = filter as? [Task]
         cell.horizontalController.coreDataStack = coreDataStack
         cell.horizontalController.collectionView.reloadData()

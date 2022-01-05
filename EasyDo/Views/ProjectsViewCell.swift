@@ -10,7 +10,7 @@ import UIKit
 class ProjectsViewCell: UICollectionViewCell {
     
     
-    let tagView: TagUIView = {
+    var tagView: TagUIView = {
         var view = TagUIView()
         view.backgroundColor = #colorLiteral(red: 0.8898780942, green: 0.8974478841, blue: 0.9981856942, alpha: 1)
         view.label.textColor = #colorLiteral(red: 0.5596068501, green: 0.5770205855, blue: 1, alpha: 1)
@@ -34,5 +34,10 @@ class ProjectsViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        tagView = TagUIView(frame: .zero)
     }
 }

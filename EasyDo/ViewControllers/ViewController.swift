@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     var label = UILabel()
     var addButton = UIButton()
     var tagView = TagUIView()
+    var isAddMyDay: Bool?
     
     var fetchRequest: NSFetchRequest<Project>?
     var projects: [Project] = []
@@ -35,6 +36,7 @@ class ViewController: UIViewController {
         fetchAndReload()
 //        tagViewInit()
         addButtonInit()
+//        print("BOOLEAN IS: \(isAddMyDay)")
 //        let task = Task(context: coreDataStack.managedContext)
 
     }
@@ -89,7 +91,7 @@ class ViewController: UIViewController {
         
         let project = Project(context: coreDataStack.managedContext)
         project.title = "New project"
-        project.tags = ["Hello", "Net", "Da"]
+        project.tags = ["No tag", "In Progress", "Done"]
         coreDataStack.saveContext()
         tableView.reloadData()
         
@@ -120,6 +122,7 @@ class ViewController: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.allowsSelection = true
         tableView.separatorStyle = .none
+        
     }
     
     @objc func tableViewPanGesture(_ gesture: UIPanGestureRecognizer) {
@@ -156,7 +159,8 @@ extension ViewController: UITableViewDataSource {
         cell.title.text = projects[indexPath.row].title
         cell.config(label: projects[indexPath.row].title ?? "zopa")
         cell.delegateDelete = self
-        var myIndexPath = IndexPath(item: indexPath.row, section: 0)
+        cell.selectionStyle = .none
+//        var myIndexPath = IndexPath(item: indexPath.row, section: 0)
         cell.completion = {
 //            tableView.deleteRows(at: [myIndexPath], with: .automatic)
             cell.removeFromSuperview()
@@ -171,6 +175,7 @@ extension ViewController: UITableViewDataSource {
         let controller = ProjectMainViewController()
         controller.currentProject = projects[indexPath.row]
         controller.coreDataStack = coreDataStack
+        controller.isAddMyDay = self.isAddMyDay
         let navBar = UINavigationController(rootViewController: controller)
         navBar.modalPresentationStyle = .fullScreen
         present(navBar, animated: true)

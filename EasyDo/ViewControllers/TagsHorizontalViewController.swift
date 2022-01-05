@@ -15,6 +15,8 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
     var project: Project?
     var coreDataStack: CoreDataStack?
     var controller = ProjectMainViewController()
+    var isAddMyDay: Bool?
+    
 //    var coreDataStack = CoreDataStack(modelName: "EasyDo")
     
     override func viewDidLoad() {
@@ -23,8 +25,11 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
         collectionView.backgroundColor = #colorLiteral(red: 0.9682769179, green: 0.9684478641, blue: 1, alpha: 1)
         collectionView.showsVerticalScrollIndicator = false
         collectionView.dragDelegate = self
+
         
     }
+    
+  
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -54,7 +59,8 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
         
         let vc = AddDetailViewController()
 //        vc.currentProject = project
-        vc.cardName.text = taskss.title
+        vc.isAddMyDay = isAddMyDay
+        vc.task = taskss
         present(vc, animated: true)
     }
     

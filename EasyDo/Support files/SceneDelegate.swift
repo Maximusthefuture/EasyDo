@@ -22,7 +22,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         var controller = ProjectMainViewController()
         var viewController = ViewController()
         var addVC = AddDetailViewController()
-        window?.rootViewController = UINavigationController(rootViewController: viewController)
+        var timeVC = DayTasksViewController()
+        window?.rootViewController = UINavigationController(rootViewController: timeVC)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

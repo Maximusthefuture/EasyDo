@@ -28,7 +28,7 @@ class TasksCollectionViewCell: UICollectionViewCell {
     }()
     
     //One more collectionview?
-    let tagView: TagUIView = {
+    var tagView: TagUIView = {
         var view = TagUIView()
         view.backgroundColor = #colorLiteral(red: 0.8789672256, green: 0.9762962461, blue: 0.9438448548, alpha: 1)
         view.label.textColor = #colorLiteral(red: 0.3214970827, green: 0.8934875727, blue: 0.7464131117, alpha: 1)
@@ -69,10 +69,15 @@ class TasksCollectionViewCell: UICollectionViewCell {
         tagView.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 0, left: 16, bottom: 40, right: 0))
 //        roundedView.layer.masksToBounds = true
         iconView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: title.leadingAnchor, padding: .init(top: 20, left: 16, bottom: 0, right: 0))
-        title.anchor(top: topAnchor, leading: iconView.trailingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 16, left: 16, bottom: 0, right: 0))
+        title.anchor(top: topAnchor, leading: iconView.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 16, left: 16, bottom: 0, right: 0))
         //collection view?
         
         backgroundColor = #colorLiteral(red: 0.9682769179, green: 0.9684478641, blue: 1, alpha: 1)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        tagView = TagUIView(frame: .zero)
     }
     
 //    @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
