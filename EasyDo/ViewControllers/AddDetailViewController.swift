@@ -89,19 +89,22 @@ class AddDetailViewController: UIViewController, IsNeedToAddDayTaskDelegate {
         initCoreDataDummyData()
 //        navigationController?.popViewController(animated: true)
         dismiss(animated: true)
+        
     }
     
     @objc fileprivate func addCardToDayTask(sender: UIButton) {
         //add task to new db?
         print("ADD TASK: \(task?.title)")
-        guard let coreDataStack = coreDataStack else { return }
-        var dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .none
-        dateFormatter.timeStyle = .short
-        let dailyItem = DailyItems(context: coreDataStack.managedContext)
-        dailyItem.task = task
-        dailyItem.inTime = Date()
-        coreDataStack.saveContext()
+//        guard let coreDataStack = coreDataStack else { return }
+        if let coreDataStack = coreDataStack {
+            let dailyItem = DailyItems(context: coreDataStack.managedContext)
+            dailyItem.task = task
+            dailyItem.inTime = Date()
+            coreDataStack.saveContext()
+        } else {
+            print("NULL NULL NULL")
+        }
+      
         
     }
     

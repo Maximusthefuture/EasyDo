@@ -25,12 +25,8 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
         collectionView.backgroundColor = #colorLiteral(red: 0.9682769179, green: 0.9684478641, blue: 1, alpha: 1)
         collectionView.showsVerticalScrollIndicator = false
         collectionView.dragDelegate = self
-
-        
     }
-    
-  
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -47,20 +43,12 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        guard let task = project?.tasks?[indexPath.item] as? Task else { return }
-        guard let taskss = tasksList?[indexPath.item] else { return }
-//        coreDataStack?.managedContext.delete(taskss)
-        //delegate? reload collection view in maincontroller???˘
-//        tasksList?[indexPath.row].title = "In Progress Here"
-//        tasksList?[indexPath.row].mainTag = "In Progress"
-//        changeDelegate?.mainTagChanged()
-//        coreDataStack?.saveContext()
-//        collectionView.deleteItems(at: [indexPath])
-//        collectionView.reloadItems(at: [indexPath])
-        
+        guard let tasks = tasksList?[indexPath.item] else { return }
         let vc = AddDetailViewController()
 //        vc.currentProject = project
         vc.isAddMyDay = isAddMyDay
-        vc.task = taskss
+        vc.task = tasks
+        vc.coreDataStack = coreDataStack
         present(vc, animated: true)
     }
     
@@ -73,9 +61,7 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
             return []
         }
     }
-    
-    
-    
+   
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return tasksList?.count ?? 0
     }

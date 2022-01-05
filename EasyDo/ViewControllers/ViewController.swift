@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     
     var fetchRequest: NSFetchRequest<Project>?
     var projects: [Project] = []
-    lazy var coreDataStack = CoreDataStack(modelName: "EasyDo")
+     var coreDataStack: CoreDataStack?
    
    //MARK: TODO: ADD PROJECT FROM COREDATA
     override func viewDidLoad() {
@@ -46,8 +46,11 @@ class ViewController: UIViewController {
           return
         }
         do {
-        projects = try coreDataStack.managedContext.fetch(fetchRequest)
-          tableView.reloadData()
+            if let coreDataStack = coreDataStack {
+                projects = try coreDataStack.managedContext.fetch(fetchRequest)
+              tableView.reloadData()
+            }
+            
         } catch let err as NSError {
           print("err while fetching: ", err)
         }
@@ -88,13 +91,33 @@ class ViewController: UIViewController {
     }
     
     @objc func addProject(sender: UIButton) {
-        
+        guard let coreDataStack = coreDataStack else {
+            return
+        }
+//
         let project = Project(context: coreDataStack.managedContext)
         project.title = "New project"
         project.tags = ["No tag", "In Progress", "Done"]
         coreDataStack.saveContext()
         tableView.reloadData()
+//        deleteAll()
         
+        
+    }
+    
+    func deleteAll() {
+        guard let coreDataStack = coreDataStack else {
+            return
+        }
+        let fetchRequest = Project.fetchRequest()
+        let item = try? coreDataStack.managedContext.fetch(fetchRequest)
+        guard let item = item else { return }
+        for i in item {
+            coreDataStack.managedContext.delete(i)
+        }
+//            let item = DailyItems(context: coreDataStack.managedContext)
+
+            coreDataStack.saveContext()
     }
  
     
