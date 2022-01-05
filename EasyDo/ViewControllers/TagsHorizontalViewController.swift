@@ -47,7 +47,7 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
         let vc = AddDetailViewController()
 //        vc.currentProject = project
         vc.isAddMyDay = isAddMyDay
-        vc.task = tasks
+        vc.taskDetail = tasks
         vc.coreDataStack = coreDataStack
         present(vc, animated: true)
     }

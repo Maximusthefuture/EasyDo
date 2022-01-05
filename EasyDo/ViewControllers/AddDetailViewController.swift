@@ -10,15 +10,9 @@ import UIKit
 
 
 
-class AddDetailViewController: UIViewController, IsNeedToAddDayTaskDelegate {
+class AddDetailViewController: UIViewController {
     
-    func isShowButton(vc: DayTasksViewController, show: Bool) {
-        addButton.isHidden = false
-        print("SHOW: \(show)")
-        vc.dayTaskDelegate = self
-    }
 
-    
     let cardName: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Enter card title"
@@ -40,44 +34,41 @@ class AddDetailViewController: UIViewController, IsNeedToAddDayTaskDelegate {
     }()
     
     
-    var task: Task?
+    
     var isAddMyDay: Bool?
     var addButton = UIButton()
     
     var currentProject: Project?
     var coreDataStack: CoreDataStack?
     var dayVC: DayTasksViewController?
-    
-    fileprivate func addButtonInit() {
-        view.addSubview(addButton)
-        addButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 16, bottom: 0, right: 16),size: CGSize(width: 0, height: 60))
-        addButton.setTitle("+ Add Card", for: .normal)
-        addButton.layer.cornerRadius = 10
-        addButton.backgroundColor = .blue
-        addButton.addTarget(self, action: #selector(addCardToDayTask), for: .touchUpInside)
-    }
+    var taskDetail: Task?
+   
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .white
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneCreatingEditing))
+    fileprivate func initViews() {
         view.addSubview(cardName)
         view.addSubview(cardDescription)
         cardName.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 16, bottom: 0, right: 0))
         cardDescription.anchor(top: cardName.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 16, left: 16, bottom: 0, right: 16))
         addButtonInit()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneCreatingEditing))
+        initViews()
         addButton.isHidden = true
-        dayVC = DayTasksViewController()
-        dayVC?.dayTaskDelegate = self
         guard let isAddMyDay = isAddMyDay else { return }
         if isAddMyDay {
            addButton.isHidden = false
         }
-        cardName.text = task?.title
-        cardDescription.text = task?.taskDescription
-        
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        cardName.text = taskDetail?.title
+        cardDescription.text = taskDetail?.taskDescription
     }
     
     @objc func close() {
@@ -87,28 +78,32 @@ class AddDetailViewController: UIViewController, IsNeedToAddDayTaskDelegate {
     @objc fileprivate func doneCreatingEditing(sender: UIBarButtonItem) {
         print("Done editing save")
         initCoreDataDummyData()
-//        navigationController?.popViewController(animated: true)
         dismiss(animated: true)
         
     }
     
+    fileprivate func addButtonInit() {
+        view.addSubview(addButton)
+        addButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 16, bottom: 0, right: 16),size: CGSize(width: 0, height: 60))
+        addButton.setTitle("+ Add Card", for: .normal)
+        addButton.layer.cornerRadius = 10
+        addButton.backgroundColor = .blue
+        addButton.addTarget(self, action: #selector(addCardToDayTask), for: .touchUpInside)
+    }
+    
     @objc fileprivate func addCardToDayTask(sender: UIButton) {
-        //add task to new db?
-        print("ADD TASK: \(task?.title)")
-//        guard let coreDataStack = coreDataStack else { return }
         if let coreDataStack = coreDataStack {
             let dailyItem = DailyItems(context: coreDataStack.managedContext)
-            dailyItem.task = task
+            dailyItem.task = taskDetail
             dailyItem.inTime = Date()
+            taskDetail?.mainTag = "In Progress"
             coreDataStack.saveContext()
+            dismiss(animated: true)
         } else {
             print("NULL NULL NULL")
         }
-      
-        
     }
-    
-    
+
     func initCoreDataDummyData() {
         if let coreDataStack = coreDataStack {
             let task = Task(context: coreDataStack.managedContext)
@@ -122,14 +117,8 @@ class AddDetailViewController: UIViewController, IsNeedToAddDayTaskDelegate {
                 project.tasks = tasks
             }
             coreDataStack.saveContext()
-//            collectionView.reloadData()
-//            changeDelegate = self
         }
-        
-        
     }
-    
-    
 
 }
 //

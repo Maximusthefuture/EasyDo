@@ -69,14 +69,6 @@ class DayTasksViewController: BaseListController {
     
     
     @objc fileprivate func addNewTask(sender: UIButton) {
-//        let item = DailyItems(context: coreDataStack.managedContext)
-//        let task = Task(context: coreDataStack.managedContext)
-//        task.title = "NEW ITEMS"
-//        item.inTime = Date()
-//        item.task = task
-//       try? coreDataStack.saveContext()
-//        collectionView.reloadData()
-        
         let vc = ViewController()
         self.isAddMyDay = true
         vc.isAddMyDay = self.isAddMyDay
@@ -94,17 +86,13 @@ class DayTasksViewController: BaseListController {
         for i in item {
             coreDataStack.managedContext.delete(i)
         }
-//            let item = DailyItems(context: coreDataStack.managedContext)
-
             coreDataStack.saveContext()
     }
 
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-        // #warning Incomplete implementation, return the number of sections
-//        return fetchedResultsController.sections?.count ?? 1
+        return fetchedResultsController.sections?.count ?? 1
     }
     override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         if velocity.y > 0 {
@@ -123,18 +111,17 @@ class DayTasksViewController: BaseListController {
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
         return fetchedResultsController.sections?[section].numberOfObjects ?? 0
-//        return myDailyItems.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! DayTaskViewCell
         let items = fetchedResultsController.object(at: indexPath)
-//        let items = myDailyItems[indexPath.item]
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .none
         dateFormatter.timeStyle = .short
+        dateFormatter.dateFormat = "HH:mm"
+        
         cell.timeLabel.text = dateFormatter.string(from: items.inTime ?? Date())
         //        cell.backgroundColor = .red
         cell.taskLabel.text = items.task?.title
@@ -150,10 +137,13 @@ class DayTasksViewController: BaseListController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        present(ViewController(), animated: true) {
-//            print("COMPLETE HERE")
-//        }
-        
+        guard let item = fetchedResultsController.object(at: indexPath).task else { return }
+        let vc = AddDetailViewController()
+        vc.coreDataStack = coreDataStack
+        vc.taskDetail = item
+        print(vc.taskDetail)
+        print("TITLE",  vc.taskDetail?.taskDescription)
+        present(vc, animated: true)
     }
 
     // MARK: UICollectionViewDelegate
