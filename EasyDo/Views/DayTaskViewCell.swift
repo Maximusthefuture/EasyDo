@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DayTaskViewCell: UICollectionViewCell {
+class DayTaskViewCell: UITableViewCell {
     
     
     let timeLabel: UILabel = {
@@ -41,8 +41,11 @@ class DayTaskViewCell: UICollectionViewCell {
     
     var path = UIBezierPath()
     var shapeLayer = CAShapeLayer()
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    
+        
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubview(lineView)
         addSubview(timeLabel)
         addSubview(roundedView)
