@@ -24,8 +24,8 @@ class ProjectsViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        addSubview(horizontalController.view)
-        addSubview(tagView)
+        contentView.addSubview(horizontalController.view)
+        contentView.addSubview(tagView)
     
         
         tagView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 20, left: 18, bottom: 0, right: 0))

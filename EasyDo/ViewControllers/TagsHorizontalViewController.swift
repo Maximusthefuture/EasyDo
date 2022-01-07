@@ -44,7 +44,7 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        guard let task = project?.tasks?[indexPath.item] as? Task else { return }
         guard let tasks = tasksList?[indexPath.item] else { return }
-        let vc = AddDetailViewController()
+        let vc = AddEditCardViewController()
 //        vc.currentProject = project
         vc.isAddMyDay = isAddMyDay
         vc.taskDetail = tasks

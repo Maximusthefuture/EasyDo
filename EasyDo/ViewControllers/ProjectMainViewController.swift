@@ -84,7 +84,7 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
 ////        deleteAll()
 //        collectionView.reloadData()
         
-        let vc = AddDetailViewController()
+        let vc = AddEditCardViewController()
         let navController = UINavigationController(rootViewController: vc)
         vc.coreDataStack = coreDataStack
         vc.currentProject = currentProject

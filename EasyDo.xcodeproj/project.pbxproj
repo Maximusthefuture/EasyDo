@@ -18,6 +18,11 @@
 		381CAACD278207F900E8AB00 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CAAC9278207F900E8AB00 /* Task+CoreDataClass.swift */; };
 		381CAACE278207F900E8AB00 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CAACA278207F900E8AB00 /* Task+CoreDataProperties.swift */; };
 		382C8C1D2787077200BE2B8A /* MenuLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382C8C1C2787077200BE2B8A /* MenuLabel.swift */; };
+		383A8AB927888099003EE8F7 /* AddEditCardPropertiesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383A8AB827888099003EE8F7 /* AddEditCardPropertiesViewCell.swift */; };
+		383A8ABB2788810D003EE8F7 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383A8ABA2788810D003EE8F7 /* RoundedView.swift */; };
+		383A8ABD27888321003EE8F7 /* AttachmentsCardViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383A8ABC27888321003EE8F7 /* AttachmentsCardViewCell.swift */; };
+		383A8ABF27888381003EE8F7 /* HorizontalAttachmentsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383A8ABE27888381003EE8F7 /* HorizontalAttachmentsController.swift */; };
+		383A8AC127888408003EE8F7 /* AttachmentsHorizontallViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383A8AC027888408003EE8F7 /* AttachmentsHorizontallViewCell.swift */; };
 		385644552770E8750030B0C8 /* Extensions+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385644542770E8750030B0C8 /* Extensions+UIView.swift */; };
 		385644582770E9D70030B0C8 /* TagUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385644572770E9D70030B0C8 /* TagUIView.swift */; };
 		3868B92F276E376200F2B765 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868B92E276E376200F2B765 /* Model.swift */; };
@@ -36,7 +41,7 @@
 		38B20B7E2779FFAA002AD934 /* TasksCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B20B7D2779FFAA002AD934 /* TasksCollectionViewCell.swift */; };
 		38E992892760F97C00E2D1E6 /* DataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E992882760F97C00E2D1E6 /* DataTableViewCell.swift */; };
 		38EF6DFC277DF1C700261125 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38EF6DFB277DF1C700261125 /* TaskViewModel.swift */; };
-		38F4175327830BDF00B7EDAB /* AddDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F4175227830BDF00B7EDAB /* AddDetailViewController.swift */; };
+		38F4175327830BDF00B7EDAB /* AddEditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F4175227830BDF00B7EDAB /* AddEditCardViewController.swift */; };
 		38F6A4CD277A124A004CB65D /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F6A4CC277A124A004CB65D /* ProjectViewModel.swift */; };
 		38FF9F11278488F100EB9805 /* DayTasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FF9F10278488F100EB9805 /* DayTasksViewController.swift */; };
 		38FF9F132784892F00EB9805 /* DayTaskViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FF9F122784892F00EB9805 /* DayTaskViewCell.swift */; };
@@ -64,6 +69,11 @@
 		381CAAD027820A3B00E8AB00 /* EasyDo v5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EasyDo v5.xcdatamodel"; sourceTree = "<group>"; };
 		381CAAD127820BBE00E8AB00 /* EasyDo v6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EasyDo v6.xcdatamodel"; sourceTree = "<group>"; };
 		382C8C1C2787077200BE2B8A /* MenuLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuLabel.swift; sourceTree = "<group>"; };
+		383A8AB827888099003EE8F7 /* AddEditCardPropertiesViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditCardPropertiesViewCell.swift; sourceTree = "<group>"; };
+		383A8ABA2788810D003EE8F7 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
+		383A8ABC27888321003EE8F7 /* AttachmentsCardViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentsCardViewCell.swift; sourceTree = "<group>"; };
+		383A8ABE27888381003EE8F7 /* HorizontalAttachmentsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalAttachmentsController.swift; sourceTree = "<group>"; };
+		383A8AC027888408003EE8F7 /* AttachmentsHorizontallViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentsHorizontallViewCell.swift; sourceTree = "<group>"; };
 		385644542770E8750030B0C8 /* Extensions+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+UIView.swift"; sourceTree = "<group>"; };
 		385644572770E9D70030B0C8 /* TagUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagUIView.swift; sourceTree = "<group>"; };
 		3868B92E276E376200F2B765 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -84,7 +94,7 @@
 		38B20B7D2779FFAA002AD934 /* TasksCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksCollectionViewCell.swift; sourceTree = "<group>"; };
 		38E992882760F97C00E2D1E6 /* DataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableViewCell.swift; sourceTree = "<group>"; };
 		38EF6DFB277DF1C700261125 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
-		38F4175227830BDF00B7EDAB /* AddDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDetailViewController.swift; sourceTree = "<group>"; };
+		38F4175227830BDF00B7EDAB /* AddEditCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditCardViewController.swift; sourceTree = "<group>"; };
 		38F6A4CC277A124A004CB65D /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
 		38FF9F10278488F100EB9805 /* DayTasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTasksViewController.swift; sourceTree = "<group>"; };
 		38FF9F122784892F00EB9805 /* DayTaskViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTaskViewCell.swift; sourceTree = "<group>"; };
@@ -117,6 +127,7 @@
 			children = (
 				381CAAAA2781EA8000E8AB00 /* CoreDataStack.swift */,
 				38FF9F1427848C8B00EB9805 /* Extensions.swift */,
+				383A8ABA2788810D003EE8F7 /* RoundedView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -137,6 +148,9 @@
 				38B20B792779FD1E002AD934 /* ProjectsViewCell.swift */,
 				38FF9F122784892F00EB9805 /* DayTaskViewCell.swift */,
 				382C8C1C2787077200BE2B8A /* MenuLabel.swift */,
+				383A8AB827888099003EE8F7 /* AddEditCardPropertiesViewCell.swift */,
+				383A8ABC27888321003EE8F7 /* AttachmentsCardViewCell.swift */,
+				383A8AC027888408003EE8F7 /* AttachmentsHorizontallViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -209,8 +223,9 @@
 				380ADEDE2779F95000B97EB9 /* ProjectMainViewController.swift */,
 				38B20B752779FADC002AD934 /* BaseListController.swift */,
 				38B20B7B2779FF3A002AD934 /* TagsHorizontalViewController.swift */,
-				38F4175227830BDF00B7EDAB /* AddDetailViewController.swift */,
+				38F4175227830BDF00B7EDAB /* AddEditCardViewController.swift */,
 				38FF9F10278488F100EB9805 /* DayTasksViewController.swift */,
+				383A8ABE27888381003EE8F7 /* HorizontalAttachmentsController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -306,20 +321,25 @@
 				381CAACB278207F900E8AB00 /* Project+CoreDataClass.swift in Sources */,
 				381CAACD278207F900E8AB00 /* Task+CoreDataClass.swift in Sources */,
 				38B20B7C2779FF3A002AD934 /* TagsHorizontalViewController.swift in Sources */,
+				383A8AB927888099003EE8F7 /* AddEditCardPropertiesViewCell.swift in Sources */,
 				38E992892760F97C00E2D1E6 /* DataTableViewCell.swift in Sources */,
 				38FF9F11278488F100EB9805 /* DayTasksViewController.swift in Sources */,
 				381CAACE278207F900E8AB00 /* Task+CoreDataProperties.swift in Sources */,
 				380759392785A90900A1AEE6 /* DailyItems+CoreDataClass.swift in Sources */,
+				383A8ABF27888381003EE8F7 /* HorizontalAttachmentsController.swift in Sources */,
 				381CAACC278207F900E8AB00 /* Project+CoreDataProperties.swift in Sources */,
 				38FF9F132784892F00EB9805 /* DayTaskViewCell.swift in Sources */,
 				386F83EA275AAD45004DC280 /* AppDelegate.swift in Sources */,
 				380ADEDC2779F62A00B97EB9 /* Task.swift in Sources */,
-				38F4175327830BDF00B7EDAB /* AddDetailViewController.swift in Sources */,
+				38F4175327830BDF00B7EDAB /* AddEditCardViewController.swift in Sources */,
+				383A8AC127888408003EE8F7 /* AttachmentsHorizontallViewCell.swift in Sources */,
 				3807593A2785A90900A1AEE6 /* DailyItems+CoreDataProperties.swift in Sources */,
 				3868B931276E376C00F2B765 /* Model+Dragging.swift in Sources */,
 				385644582770E9D70030B0C8 /* TagUIView.swift in Sources */,
 				386F83EC275AAD45004DC280 /* SceneDelegate.swift in Sources */,
 				381CAAAB2781EA8000E8AB00 /* CoreDataStack.swift in Sources */,
+				383A8ABD27888321003EE8F7 /* AttachmentsCardViewCell.swift in Sources */,
+				383A8ABB2788810D003EE8F7 /* RoundedView.swift in Sources */,
 				38F6A4CD277A124A004CB65D /* ProjectViewModel.swift in Sources */,
 				380ADEDF2779F95000B97EB9 /* ProjectMainViewController.swift in Sources */,
 				380ADEDA2779F5B300B97EB9 /* Project.swift in Sources */,

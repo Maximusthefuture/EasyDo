@@ -197,7 +197,7 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let item = fetchedResultsController.object(at: indexPath).task else { return }
-               let vc = AddDetailViewController()
+               let vc = AddEditCardViewController()
                vc.coreDataStack = coreDataStack
                vc.taskDetail = item
                present(vc, animated: true)
