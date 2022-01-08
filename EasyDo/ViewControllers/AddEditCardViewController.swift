@@ -70,9 +70,9 @@ class AddEditCardViewController: UIViewController {
         let header = UIView()
         header.addSubview(cardName)
         header.addSubview(cardDescription)
-        header.backgroundColor = .yellow
+//        header.backgroundColor = .yellow
         cardName.anchor(top: header.topAnchor, leading: header.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 16, bottom: 0, right: 0))
-        cardDescription.anchor(top: cardName.bottomAnchor, leading: header.leadingAnchor, bottom: header.bottomAnchor, trailing: header.trailingAnchor, padding: .init(top: 16, left: 16, bottom: 0, right: 16))
+        cardDescription.anchor(top: cardName.bottomAnchor, leading: header.leadingAnchor, bottom: header.bottomAnchor, trailing: header.trailingAnchor, padding: .init(top: 16, left: 16, bottom: 20, right: 16))
         return header
     }()
     
@@ -148,6 +148,16 @@ class AddEditCardViewController: UIViewController {
     }
     
     class HeaderLabel: UILabel {
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            font = UIFont.systemFont(ofSize: 18, weight: .bold)
+            textColor = UIColor.gray
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
         override func drawText(in rect: CGRect) {
             super.drawText(in: rect.insetBy(dx: 16, dy: 0))
         }
@@ -191,8 +201,9 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
         //AddEditCardPropertiesViewCell()
         if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: propertiesCell, for: indexPath) as! AddEditCardPropertiesViewCell
-            cell.backgroundColor = .red
-            cell.view.backgroundColor = .black
+//            cell.backgroundColor = .red
+//            cell.roundedView.backgroundColor = .black]
+            tableView.separatorStyle = .none
             return cell
         } else if indexPath.section == 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: attachmentsCell, for: indexPath) as! AttachmentsCardViewCell
