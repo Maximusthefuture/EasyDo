@@ -38,6 +38,12 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
 //       initCoreDataDummyData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("VIEW WILL APPEAR")
+        collectionView.reloadData()
+    }
+    
     @objc func goBack(sender: UIBarButtonItem) {
         dismiss(animated: true)
     }

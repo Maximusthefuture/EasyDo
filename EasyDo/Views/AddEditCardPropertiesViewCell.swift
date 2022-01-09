@@ -37,10 +37,20 @@ class AddEditCardPropertiesViewCell: UITableViewCell {
         return view
     }()
     
+    
+    //?????
+    let datePicker: UIDatePicker = {
+        let dp = UIDatePicker()
+        dp.datePickerMode = .dateAndTime
+        return dp
+    }()
+    
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(roundedView)
         addSubview(icon)
+        roundedView.addSubview(datePicker)
         contentView.addSubview(label)
         
         icon.anchor(top: roundedView.topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 30, left: 40, bottom: 0, right: 16), size: .init(width: 30, height: 30))
@@ -49,6 +59,8 @@ class AddEditCardPropertiesViewCell: UITableViewCell {
         
        
         roundedView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 24, bottom: 10, right: 24))
+        datePicker.anchor(top: roundedView.topAnchor, leading: nil, bottom: roundedView.bottomAnchor, trailing: roundedView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 16))
+        datePicker.isHidden = true
         roundedView.backgroundColor = #colorLiteral(red: 0.9722431302, green: 0.972392261, blue: 1, alpha: 1)
         roundedView.clipsToBounds = true
         

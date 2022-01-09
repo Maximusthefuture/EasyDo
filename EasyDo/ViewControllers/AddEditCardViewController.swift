@@ -10,6 +10,8 @@ import UIKit
 
 
 
+
+
 class AddEditCardViewController: UIViewController {
     
 
@@ -200,7 +202,7 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("IndexPath: ", indexPath.row)
         if indexPath.row == 2 {
-            openDatePicker(for: indexPath)
+//            openDatePicker(for: indexPath)
         }
     }
     
@@ -231,6 +233,10 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
             cell.selectionStyle = .none
             tableView.separatorStyle = .none
             cell.accessoryType = .disclosureIndicator
+//            cell.delegate = self
+            if indexPath.row == 2 {
+                cell.datePicker.isHidden = false
+            }
             return cell
         } else if indexPath.section == 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: attachmentsCell, for: indexPath) as! AttachmentsCardViewCell
