@@ -29,8 +29,6 @@ class AddEditCardPropertiesViewCell: UITableViewCell {
         let systemIcon = UIImage(systemName: "calendar")
         image.image = systemIcon
 //        image.backgroundColor = .red
-        
-        
         return image
     }()
     
@@ -50,7 +48,7 @@ class AddEditCardPropertiesViewCell: UITableViewCell {
         label.anchor(top: topAnchor, leading: icon.trailingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 0, left: 16, bottom: 10, right: 16))
         
        
-        roundedView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 16, bottom: 10, right: 16))
+        roundedView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 24, bottom: 10, right: 24))
         roundedView.backgroundColor = #colorLiteral(red: 0.9722431302, green: 0.972392261, blue: 1, alpha: 1)
         roundedView.clipsToBounds = true
         

@@ -57,7 +57,7 @@ class AddEditCardViewController: UIViewController {
     //MARK: Init tableView
     fileprivate func initTableView() {
         view.addSubview(tableView)
-        tableView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+        tableView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
@@ -76,15 +76,17 @@ class AddEditCardViewController: UIViewController {
         return header
     }()
     
+    let propertiesArray = ["Pomodoro count", "Label", "Due Date"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneCreatingEditing))
 //        initViews()
-        addButtonInit()
-        initTableView()
         
+        initTableView()
+        addButtonInit()
         addButton.isHidden = true
         guard let isAddMyDay = isAddMyDay else { return }
         if isAddMyDay {
@@ -114,7 +116,7 @@ class AddEditCardViewController: UIViewController {
         addButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 16, bottom: 0, right: 16),size: CGSize(width: 0, height: 60))
         addButton.setTitle("+ Add Card", for: .normal)
         addButton.layer.cornerRadius = 10
-        addButton.backgroundColor = .blue
+        addButton.backgroundColor = .red
         addButton.addTarget(self, action: #selector(addCardToDayTask), for: .touchUpInside)
     }
     
@@ -171,7 +173,7 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
         if section == 0 {
             return 0
         } else if section == 1 {
-            return 3
+            return propertiesArray.count
         }
         
         return 1
@@ -195,6 +197,27 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
         return headerLabel
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("IndexPath: ", indexPath.row)
+        if indexPath.row == 2 {
+            openDatePicker(for: indexPath)
+        }
+    }
+    
+    
+    //Add to alert?
+    fileprivate func openDatePicker(for indexPath: IndexPath) {
+       let alert = UIAlertAction()
+        
+        var datePicker = UIDatePicker()
+        if datePicker != nil {
+            datePicker.datePickerMode = .dateAndTime
+    //        view.addSubview(datePicker)
+            var cell = tableView.cellForRow(at: indexPath) as! AddEditCardPropertiesViewCell
+            cell.roundedView.addSubview(datePicker)
+        }
+        
+    }
     
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -203,12 +226,16 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
             let cell = tableView.dequeueReusableCell(withIdentifier: propertiesCell, for: indexPath) as! AddEditCardPropertiesViewCell
 //            cell.backgroundColor = .red
 //            cell.roundedView.backgroundColor = .black]
+            let propepties = propertiesArray[indexPath.row]
+            cell.label.text = propepties
+            cell.selectionStyle = .none
             tableView.separatorStyle = .none
+            cell.accessoryType = .disclosureIndicator
             return cell
         } else if indexPath.section == 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: attachmentsCell, for: indexPath) as! AttachmentsCardViewCell
             cell.selectionStyle = .none
-            tableView.allowsSelection = false
+//            tableView.allowsSelection = true
 //            tableView.separatorStyle = .none
             
             return cell
@@ -218,12 +245,14 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
             cell.backgroundColor = .blue
             return cell
         }
+        
+        
        
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
-            return 150
+            return 100
         
         } else {
             return 40
@@ -234,8 +263,9 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
         if indexPath.section == 2 {
             return 150
         }
-        return 100
+        return 80
     }
+  
     
 }
 

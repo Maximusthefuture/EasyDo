@@ -37,6 +37,8 @@ class DayTasksViewController: UIViewController {
     }()
 
     var tableView = UITableView()
+    
+    //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -53,9 +55,12 @@ class DayTasksViewController: UIViewController {
           print("cannot fetch", err)
         }
         tableView.register(DayTaskViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.backgroundColor = .white
         tableView.delegate = self
         tableView.dataSource = self
+        fetchedResultsController.delegate = self
+
         addButtonInit()
     }
     
@@ -82,7 +87,7 @@ class DayTasksViewController: UIViewController {
         myDayLabel.menu = menu
         myDayLabel.showsMenuAsPrimaryAction = true
     }
-
+   
 
     fileprivate func addButtonInit() {
         view.addSubview(addButton)
@@ -157,42 +162,69 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return fetchedResultsController.sections?.count ?? 0
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        fetchedResultsController.sections?[section].numberOfObjects ?? 0
+        return fetchedResultsController.sections![section].numberOfObjects
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCell.EditingStyle.delete {
             let fetchRequest = DailyItems.fetchRequest()
             let item = try? coreDataStack.managedContext.fetch(fetchRequest)
+            item?[indexPath.row].task?.mainTag = "Done"
             coreDataStack.managedContext.delete(item![indexPath.row])
             coreDataStack.saveContext()
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-            
         }
     }
     
+    func configure(cell: UITableViewCell, for indexPath: IndexPath) {
+        guard let cell = cell as? DayTaskViewCell else { return }
+        let items = fetchedResultsController.object(at: indexPath)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .none
+        dateFormatter.timeStyle = .short
+        dateFormatter.dateFormat = "HH:mm"
+        cell.timeLabel.text = dateFormatter.string(from: items.inTime ?? Date())
+        var d = dateFormatter.string(from: items.inTime ?? Date())
+        //        cell.backgroundColor = .red
+        cell.taskLabel.text = items.task?.title
+    }
+    
+  
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DayTaskViewCell
-                let items = fetchedResultsController.object(at: indexPath)
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateStyle = .none
-                dateFormatter.timeStyle = .short
-                dateFormatter.dateFormat = "HH:mm"
-                cell.timeLabel.text = dateFormatter.string(from: items.inTime ?? Date())
-                //        cell.backgroundColor = .red
-                cell.taskLabel.text = items.task?.title
-                if indexPath.item == 0 {
-                    cell.shapeLayer.removeFromSuperlayer()
-        
-                } else if indexPath.item == (tableView.numberOfSections - 1) {
-        
-                }
-                return cell
+
+//        let items = fetchedResultsController.object(at: indexPath)
+//        let nextItem = fetchedResultsController.fetchedObjects?.last
+//        let calendar = Calendar.current
+//        let hour = calendar.component(.hour, from: items.inTime ?? Date())
+//        let nextTime = calendar.component(.hour, from: nextItem?.inTime ?? Date())
+//        if hour < nextTime {
+//            let cell2 = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+//            cell2.textLabel?.text = "HER"
+//            return cell2
+//            print("HOUR: \(indexPath.row)")
+//            //        }
+//            //промежуток времени
+//            //        if hour > nextItemHour  {
+//            //
+//            //
+//        }else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DayTaskViewCell
+            configure(cell: cell, for: indexPath)
+            if indexPath.item == 0 {
+                cell.shapeLayer.removeFromSuperlayer()
+                
+            } else if indexPath.item == (tableView.numberOfSections - 1) {
+                
+            }
+            return cell
+//        }
+               
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -204,6 +236,8 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+
+//MARK: UIContextMenuInteractionDelegate
 extension DayTasksViewController: UIContextMenuInteractionDelegate {
     
 func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
@@ -229,6 +263,38 @@ func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurati
         let visiblePath = UIBezierPath(roundedRect: visibleRect, cornerRadius: 10.0)
         parameters.visiblePath = visiblePath
         return UITargetedPreview(view: myDayLabel, parameters: parameters)
+    }
+    
+}
+
+//MARK: NSFetchedResultsControllerDelegate
+extension DayTasksViewController: NSFetchedResultsControllerDelegate {
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .insert:
+            tableView.insertRows(at: [newIndexPath!], with: .automatic)
+        case .delete:
+            tableView.deleteRows(at: [indexPath!], with: .automatic)
+        case .update:
+            let cell = tableView.cellForRow(at: indexPath!) as! DayTaskViewCell
+            configure(cell: cell, for: indexPath!)
+            
+        case .move:
+            tableView.deleteRows(at: [indexPath!], with: .automatic)
+            tableView.insertRows(at: [newIndexPath!], with: .automatic)
+        @unknown default:
+            print("Unexpected NSFetchesultChangeType")
+        }
+    }
+    
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates()
     }
     
 }
