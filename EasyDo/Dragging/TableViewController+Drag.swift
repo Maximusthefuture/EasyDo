@@ -7,7 +7,7 @@ Implements the delegate methods for providing data for a drag interaction.
 
 import UIKit
 
-extension ViewController: UITableViewDragDelegate {
+extension ProjectsListViewController: UITableViewDragDelegate {
     // MARK: - UITableViewDragDelegate
     
     /**

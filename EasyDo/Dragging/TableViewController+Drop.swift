@@ -7,7 +7,7 @@ Implements the delegate methods for consuming data for a drop interaction.
 
 import UIKit
 
-extension ViewController: UITableViewDropDelegate {
+extension ProjectsListViewController: UITableViewDropDelegate {
     // MARK: - UITableViewDropDelegate
     
     /**

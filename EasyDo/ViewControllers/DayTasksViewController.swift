@@ -76,7 +76,7 @@ class DayTasksViewController: UIViewController {
         //MARK: TODO
         let menu = UIMenu(title: "", options: .destructive, children: [
             UIAction(title: "Projects")  { _ in
-                let vc = ViewController()
+                let vc = ProjectsListViewController()
                 vc.coreDataStack = self.coreDataStack
                 //                vc.modalPresentationStyle = .fullScreen
                 self.present(vc, animated: true)
@@ -100,7 +100,7 @@ class DayTasksViewController: UIViewController {
     
     
     @objc fileprivate func addNewTask(sender: UIButton) {
-        let vc = ViewController()
+        let vc = ProjectsListViewController()
         self.isAddMyDay = true
         vc.isAddMyDay = self.isAddMyDay
         dayTaskDelegate?.isShowButton(vc: self, show: true)
@@ -167,6 +167,8 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //When we have time difference, change count?????
+        //or change section count?? use section intead of new cell???
         return fetchedResultsController.sections![section].numberOfObjects
     }
     

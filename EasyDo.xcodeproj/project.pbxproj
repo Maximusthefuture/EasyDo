@@ -31,14 +31,20 @@
 		3868B935276E383C00F2B765 /* TableViewController+Drop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868B934276E383C00F2B765 /* TableViewController+Drop.swift */; };
 		386F83EA275AAD45004DC280 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386F83E9275AAD45004DC280 /* AppDelegate.swift */; };
 		386F83EC275AAD45004DC280 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386F83EB275AAD45004DC280 /* SceneDelegate.swift */; };
-		386F83EE275AAD45004DC280 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386F83ED275AAD45004DC280 /* ViewController.swift */; };
+		386F83EE275AAD45004DC280 /* ProjectsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386F83ED275AAD45004DC280 /* ProjectsListViewController.swift */; };
 		386F83F4275AAD45004DC280 /* EasyDo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 386F83F2275AAD45004DC280 /* EasyDo.xcdatamodeld */; };
 		386F83F6275AAD47004DC280 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 386F83F5275AAD47004DC280 /* Assets.xcassets */; };
 		386F83F9275AAD47004DC280 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 386F83F7275AAD47004DC280 /* LaunchScreen.storyboard */; };
+		388AF31C278D6A3100C44021 /* CreateProjectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388AF31B278D6A3100C44021 /* CreateProjectVC.swift */; };
+		389DABD2278DC00E00A600BF /* BottomSheetModalDissmisalHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389DABD1278DC00E00A600BF /* BottomSheetModalDissmisalHandler.swift */; };
+		389DABD5278DC05B00A600BF /* BottomSheetPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389DABD4278DC05B00A600BF /* BottomSheetPresentationController.swift */; };
+		389DABD7278DC0A200A600BF /* BottomSheetPresentationController+PullBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389DABD6278DC0A200A600BF /* BottomSheetPresentationController+PullBar.swift */; };
+		389DABD9278DC2FB00A600BF /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389DABD8278DC2FB00A600BF /* CustomTextField.swift */; };
 		38B20B762779FADC002AD934 /* BaseListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B20B752779FADC002AD934 /* BaseListController.swift */; };
 		38B20B7A2779FD1E002AD934 /* ProjectsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B20B792779FD1E002AD934 /* ProjectsViewCell.swift */; };
 		38B20B7C2779FF3A002AD934 /* TagsHorizontalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B20B7B2779FF3A002AD934 /* TagsHorizontalViewController.swift */; };
 		38B20B7E2779FFAA002AD934 /* TasksCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B20B7D2779FFAA002AD934 /* TasksCollectionViewCell.swift */; };
+		38DC14A8278D711400E42E76 /* BottomSheetTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC14A7278D711400E42E76 /* BottomSheetTransitioningDelegate.swift */; };
 		38E992892760F97C00E2D1E6 /* DataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E992882760F97C00E2D1E6 /* DataTableViewCell.swift */; };
 		38EF6DFC277DF1C700261125 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38EF6DFB277DF1C700261125 /* TaskViewModel.swift */; };
 		38F4175327830BDF00B7EDAB /* AddEditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F4175227830BDF00B7EDAB /* AddEditCardViewController.swift */; };
@@ -83,15 +89,21 @@
 		386F83E6275AAD45004DC280 /* EasyDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		386F83E9275AAD45004DC280 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		386F83EB275AAD45004DC280 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		386F83ED275AAD45004DC280 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		386F83ED275AAD45004DC280 /* ProjectsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsListViewController.swift; sourceTree = "<group>"; };
 		386F83F3275AAD45004DC280 /* EasyDo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EasyDo.xcdatamodel; sourceTree = "<group>"; };
 		386F83F5275AAD47004DC280 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		386F83F8275AAD47004DC280 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		386F83FA275AAD47004DC280 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		388AF31B278D6A3100C44021 /* CreateProjectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectVC.swift; sourceTree = "<group>"; };
+		389DABD1278DC00E00A600BF /* BottomSheetModalDissmisalHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetModalDissmisalHandler.swift; sourceTree = "<group>"; };
+		389DABD4278DC05B00A600BF /* BottomSheetPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetPresentationController.swift; sourceTree = "<group>"; };
+		389DABD6278DC0A200A600BF /* BottomSheetPresentationController+PullBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BottomSheetPresentationController+PullBar.swift"; sourceTree = "<group>"; };
+		389DABD8278DC2FB00A600BF /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		38B20B752779FADC002AD934 /* BaseListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseListController.swift; sourceTree = "<group>"; };
 		38B20B792779FD1E002AD934 /* ProjectsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsViewCell.swift; sourceTree = "<group>"; };
 		38B20B7B2779FF3A002AD934 /* TagsHorizontalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsHorizontalViewController.swift; sourceTree = "<group>"; };
 		38B20B7D2779FFAA002AD934 /* TasksCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksCollectionViewCell.swift; sourceTree = "<group>"; };
+		38DC14A7278D711400E42E76 /* BottomSheetTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetTransitioningDelegate.swift; sourceTree = "<group>"; };
 		38E992882760F97C00E2D1E6 /* DataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableViewCell.swift; sourceTree = "<group>"; };
 		38EF6DFB277DF1C700261125 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		38F4175227830BDF00B7EDAB /* AddEditCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditCardViewController.swift; sourceTree = "<group>"; };
@@ -142,15 +154,11 @@
 		385644562770E9C10030B0C8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				388AF31A278D69DE00C44021 /* Cells */,
 				38B20B7D2779FFAA002AD934 /* TasksCollectionViewCell.swift */,
-				38E992882760F97C00E2D1E6 /* DataTableViewCell.swift */,
 				385644572770E9D70030B0C8 /* TagUIView.swift */,
-				38B20B792779FD1E002AD934 /* ProjectsViewCell.swift */,
-				38FF9F122784892F00EB9805 /* DayTaskViewCell.swift */,
 				382C8C1C2787077200BE2B8A /* MenuLabel.swift */,
-				383A8AB827888099003EE8F7 /* AddEditCardPropertiesViewCell.swift */,
-				383A8ABC27888321003EE8F7 /* AttachmentsCardViewCell.swift */,
-				383A8AC027888408003EE8F7 /* AttachmentsHorizontallViewCell.swift */,
+				389DABD8278DC2FB00A600BF /* CustomTextField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -181,6 +189,7 @@
 		386F83E8275AAD45004DC280 /* EasyDo */ = {
 			isa = PBXGroup;
 			children = (
+				389DABD0278DBFF400A600BF /* BottomSheetHelpers */,
 				381CAAA82781EA6F00E8AB00 /* Helpers */,
 				38EF6DF8277DE9DA00261125 /* Model */,
 				38EEFFA72773B806002FA3DB /* ViewControllers */,
@@ -193,6 +202,30 @@
 				386F83FA275AAD47004DC280 /* Info.plist */,
 			);
 			path = EasyDo;
+			sourceTree = "<group>";
+		};
+		388AF31A278D69DE00C44021 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				38E992882760F97C00E2D1E6 /* DataTableViewCell.swift */,
+				38B20B792779FD1E002AD934 /* ProjectsViewCell.swift */,
+				38FF9F122784892F00EB9805 /* DayTaskViewCell.swift */,
+				383A8AB827888099003EE8F7 /* AddEditCardPropertiesViewCell.swift */,
+				383A8ABC27888321003EE8F7 /* AttachmentsCardViewCell.swift */,
+				383A8AC027888408003EE8F7 /* AttachmentsHorizontallViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		389DABD0278DBFF400A600BF /* BottomSheetHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				389DABD1278DC00E00A600BF /* BottomSheetModalDissmisalHandler.swift */,
+				389DABD4278DC05B00A600BF /* BottomSheetPresentationController.swift */,
+				389DABD6278DC0A200A600BF /* BottomSheetPresentationController+PullBar.swift */,
+				38DC14A7278D711400E42E76 /* BottomSheetTransitioningDelegate.swift */,
+			);
+			path = BottomSheetHelpers;
 			sourceTree = "<group>";
 		};
 		38EEFFA52773B7D6002FA3DB /* Support files */ = {
@@ -219,13 +252,14 @@
 		38EEFFA72773B806002FA3DB /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				386F83ED275AAD45004DC280 /* ViewController.swift */,
+				386F83ED275AAD45004DC280 /* ProjectsListViewController.swift */,
 				380ADEDE2779F95000B97EB9 /* ProjectMainViewController.swift */,
 				38B20B752779FADC002AD934 /* BaseListController.swift */,
 				38B20B7B2779FF3A002AD934 /* TagsHorizontalViewController.swift */,
 				38F4175227830BDF00B7EDAB /* AddEditCardViewController.swift */,
 				38FF9F10278488F100EB9805 /* DayTasksViewController.swift */,
 				383A8ABE27888381003EE8F7 /* HorizontalAttachmentsController.swift */,
+				388AF31B278D6A3100C44021 /* CreateProjectVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -317,11 +351,14 @@
 				38B20B762779FADC002AD934 /* BaseListController.swift in Sources */,
 				38FF9F1527848C8B00EB9805 /* Extensions.swift in Sources */,
 				38B20B7A2779FD1E002AD934 /* ProjectsViewCell.swift in Sources */,
-				386F83EE275AAD45004DC280 /* ViewController.swift in Sources */,
+				386F83EE275AAD45004DC280 /* ProjectsListViewController.swift in Sources */,
 				381CAACB278207F900E8AB00 /* Project+CoreDataClass.swift in Sources */,
 				381CAACD278207F900E8AB00 /* Task+CoreDataClass.swift in Sources */,
+				388AF31C278D6A3100C44021 /* CreateProjectVC.swift in Sources */,
 				38B20B7C2779FF3A002AD934 /* TagsHorizontalViewController.swift in Sources */,
+				389DABD5278DC05B00A600BF /* BottomSheetPresentationController.swift in Sources */,
 				383A8AB927888099003EE8F7 /* AddEditCardPropertiesViewCell.swift in Sources */,
+				389DABD9278DC2FB00A600BF /* CustomTextField.swift in Sources */,
 				38E992892760F97C00E2D1E6 /* DataTableViewCell.swift in Sources */,
 				38FF9F11278488F100EB9805 /* DayTasksViewController.swift in Sources */,
 				381CAACE278207F900E8AB00 /* Task+CoreDataProperties.swift in Sources */,
@@ -334,6 +371,7 @@
 				38F4175327830BDF00B7EDAB /* AddEditCardViewController.swift in Sources */,
 				383A8AC127888408003EE8F7 /* AttachmentsHorizontallViewCell.swift in Sources */,
 				3807593A2785A90900A1AEE6 /* DailyItems+CoreDataProperties.swift in Sources */,
+				389DABD2278DC00E00A600BF /* BottomSheetModalDissmisalHandler.swift in Sources */,
 				3868B931276E376C00F2B765 /* Model+Dragging.swift in Sources */,
 				385644582770E9D70030B0C8 /* TagUIView.swift in Sources */,
 				386F83EC275AAD45004DC280 /* SceneDelegate.swift in Sources */,
@@ -341,6 +379,8 @@
 				383A8ABD27888321003EE8F7 /* AttachmentsCardViewCell.swift in Sources */,
 				383A8ABB2788810D003EE8F7 /* RoundedView.swift in Sources */,
 				38F6A4CD277A124A004CB65D /* ProjectViewModel.swift in Sources */,
+				38DC14A8278D711400E42E76 /* BottomSheetTransitioningDelegate.swift in Sources */,
+				389DABD7278DC0A200A600BF /* BottomSheetPresentationController+PullBar.swift in Sources */,
 				380ADEDF2779F95000B97EB9 /* ProjectMainViewController.swift in Sources */,
 				380ADEDA2779F5B300B97EB9 /* Project.swift in Sources */,
 				38B20B7E2779FFAA002AD934 /* TasksCollectionViewCell.swift in Sources */,

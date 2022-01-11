@@ -10,7 +10,7 @@ import MobileCoreServices
 import CoreData
 
 //MARK: DELETE
-class ViewController: UIViewController {
+class ProjectsListViewController: UIViewController {
     //In viewmodel?
     var tableView: UITableView!
     var model = Model()
@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     
     var fetchRequest: NSFetchRequest<Project>?
     var projects: [Project] = []
-     var coreDataStack: CoreDataStack?
+    var coreDataStack: CoreDataStack?
    
    //MARK: TODO: ADD PROJECT FROM COREDATA
     override func viewDidLoad() {
@@ -41,6 +41,11 @@ class ViewController: UIViewController {
 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
     func fetchAndReload() {
         guard let fetchRequest = fetchRequest else {
           return
@@ -57,7 +62,6 @@ class ViewController: UIViewController {
     }
     
     fileprivate func labelInit() {
-        //        tableView.panGestureRecognizer.addTarget(self, action: #selector(tableViewPanGesture)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
@@ -89,17 +93,16 @@ class ViewController: UIViewController {
         addButton.addTarget(self, action: #selector(addProject), for: .touchUpInside)
         
     }
+    private var bottomSheetTransitionDelegate: UIViewControllerTransitioningDelegate?
     
     @objc func addProject(sender: UIButton) {
-        guard let coreDataStack = coreDataStack else {
-            return
-        }
-//
-        let project = Project(context: coreDataStack.managedContext)
-        project.title = "New project"
-        project.tags = ["No tag", "In Progress", "Done"]
-        coreDataStack.saveContext()
-        tableView.reloadData()
+        let vc = CreateProjectVC(initialHeight: 300)
+        vc.coreDataStack = coreDataStack
+        bottomSheetTransitionDelegate = BottomSheetTransitioningDelegate(factory: self)
+        vc.modalPresentationStyle = .custom
+        vc.transitioningDelegate = bottomSheetTransitionDelegate
+        present(vc, animated: true)
+        
 //        deleteAll()
         
         
@@ -170,7 +173,7 @@ class ViewController: UIViewController {
 }
 
 
-extension ViewController: UITableViewDataSource {
+extension ProjectsListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return projects.count
     }
@@ -205,7 +208,7 @@ extension ViewController: UITableViewDataSource {
     }
 }
 
-extension ViewController: DeleteThatShit {
+extension ProjectsListViewController: DeleteThatShit {
     
     func delete(cell: DataTableViewCell) {
 //        cell.removeFromSuperview()
@@ -214,7 +217,7 @@ extension ViewController: DeleteThatShit {
     }
 }
 
-extension ViewController: UITableViewDelegate {
+extension ProjectsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
     }
@@ -233,6 +236,23 @@ extension ViewController: UITableViewDelegate {
   
     
 }
+
+//MARK: BottomSheetPresentationControllerFactory
+extension ProjectsListViewController: BottomSheetPresentationControllerFactory {
+    func makeBottomSheetPresentationController(presentedViewController: UIViewController?, presentingViewController: UIViewController?) -> BottomSheetPresentationController {
+        .init(presentedViewController: presentedViewController!, presenting: presentingViewController, dissmisalHandler: self)
+    }
+    
+    
+}
+
+//MARK: BottomSheetModalDissmisalHandler
+extension ProjectsListViewController: BottomSheetModalDissmisalHandler {
+    func performDismissal(animated: Bool) {
+        presentedViewController?.dismiss(animated: animated)
+    }
+}
+
 
 
 
