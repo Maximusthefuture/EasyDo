@@ -46,15 +46,12 @@ class DayTaskViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
-//        addSubview(lineView)
         addSubview(timeLabel)
         addSubview(roundedView)
         roundedView.addSubview(taskLabel)
         
-        
         timeLabel.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor , trailing: trailingAnchor)
         roundedView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 10, left: 60, bottom: 10, right: 30))
-//        drawLine()
         taskLabel.anchor(top: roundedView.topAnchor, leading: roundedView.leadingAnchor, bottom: roundedView.bottomAnchor, trailing: roundedView.trailingAnchor, padding: .init(top: 0, left: 16, bottom: 0, right: 0))
         
         path.move(to: CGPoint(x: self.frame.minX + 20, y: roundedView.bounds.origin.y + 30))
@@ -64,15 +61,7 @@ class DayTaskViewCell: UITableViewCell {
         shapeLayer.path = path.cgPath
         shapeLayer.strokeColor = #colorLiteral(red: 0.4374618232, green: 0.4814278483, blue: 0.999235332, alpha: 1).cgColor
         shapeLayer.lineWidth = 5.0
-        layer.addSublayer(shapeLayer)
-       
-//        lineView.translatesAutoresizingMaskIntoConstraints = false
-//        lineView.centerXAnchor.constraint(equalTo: roundedView.centerXAnchor).isActive = true
-//        lineView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-//        lineView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-//        lineView.heightAnchor.constraint(equalToConstant: 30).isActive = true
-//        lineView.widthAnchor.constraint(equalToConstant: 5).isActive = true
-        
+        contentView.layer.addSublayer(shapeLayer)
         roundedView.backgroundColor = #colorLiteral(red: 0.9722431302, green: 0.972392261, blue: 1, alpha: 1)
     }
     

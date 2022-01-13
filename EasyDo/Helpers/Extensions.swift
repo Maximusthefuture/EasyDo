@@ -8,6 +8,17 @@
 import Foundation
 import UIKit
 
+
+extension UIColor {
+    func randomColor() -> UIColor {
+       let red = CGFloat(arc4random_uniform(255)) / 255.0
+       let green = CGFloat(arc4random_uniform(255)) / 255.0
+       let blue = CGFloat(arc4random_uniform(255)) / 255.0
+        
+       return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
+   }
+}
+
 extension UIView {
     func roundedView() -> UIView {
             self.layer.cornerRadius = 16

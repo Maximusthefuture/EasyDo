@@ -162,6 +162,7 @@ class AddEditCardViewController: UIViewController {
     
     
     var date: Date?
+    
     @objc fileprivate func addCardToDayTask(sender: UIButton) {
         let vc = PickTimeViewController(initialHeight: 300)
         
@@ -174,27 +175,27 @@ class AddEditCardViewController: UIViewController {
             self?.date = date
         }
         
-        vc.dataIsSaved = {
-            if let coreDataStack = self.coreDataStack {
+        vc.dataIsSaved = { [weak self] in
+            if let coreDataStack = self?.coreDataStack {
                 let dailyItem = DailyItems(context: coreDataStack.managedContext)
-                dailyItem.task = self.taskDetail
-                guard let date = self.date else {
+                dailyItem.task = self?.taskDetail
+                guard let date = self?.date else {
                     return
                 }
                 dailyItem.inTime = date
-                self.taskDetail?.mainTag = "In Progress"
+                self?.taskDetail?.mainTag = "In Progress"
                 coreDataStack.saveContext()
             } else {
                 print("NULL NULL NULL")
             }
-            self.presentingViewController?.dismiss(animated: true)
+            self?.presentingViewController?.dismiss(animated: true)
         }
     }
     
     func initCoreDataDummyData() {
         if let coreDataStack = coreDataStack {
             let task = Task(context: coreDataStack.managedContext)
-            task.tags = ["No tag"]
+            task.tags = ["No tag", "Productivity", "Motivation"]
             task.mainTag = "No tag"
             task.title = cardName.text
             task.taskDescription = cardDescription.text

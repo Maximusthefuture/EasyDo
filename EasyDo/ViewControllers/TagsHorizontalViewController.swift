@@ -44,7 +44,10 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "apps", for: indexPath) as! TasksCollectionViewCell
         let task = tasksList?[indexPath.row]
         cell.title.text = task?.title
-        cell.tagView.label.text = task?.tags?[0]
+//        cell.tagView.label.text = task?.tags?[0]
+//        cell.task = task
+        cell.initTask(initialTask: task)
+//        cell.initStackView(task: task ?? Task())
         return cell
 }
     
@@ -55,6 +58,13 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
 //        let vc = AddEditCardViewController()
         print("ON CLICK")
         didSelectHandler?(tasks)
+        
+//
+        var cell = collectionView.cellForItem(at: indexPath) as! TasksCollectionViewCell
+        let tag =  TagUIView()
+        tag.label.text  = "New Tag"
+        tag.backgroundColor = .green
+        cell.addOneMoreTag(view: tag)
 //        var navController = UINavigationController(rootViewController: vc)
 
 //        navController.modalPresentationStyle = .fullScreen

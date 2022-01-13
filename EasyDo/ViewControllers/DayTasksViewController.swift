@@ -26,7 +26,7 @@ class DayTasksViewController: UIViewController {
     lazy var fetchedResultsController:
     NSFetchedResultsController<DailyItems> = {
         let fetchRequest: NSFetchRequest<DailyItems> = DailyItems.fetchRequest()
-        let sort = NSSortDescriptor(key: #keyPath(DailyItems.inTime), ascending: true)
+        let sort = NSSortDescriptor(key: #keyPath(DailyItems.inTime.timeIntervalSince1970), ascending: true)
         fetchRequest.sortDescriptors = [sort]
         let fetchedResultsController = NSFetchedResultsController(
             fetchRequest: fetchRequest,
@@ -43,11 +43,11 @@ class DayTasksViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(tableView)
-        tableView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom:  view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 40, left: 0, bottom: 0, right: 0))
+        tableViewInit()
         myDayLabelInit()
         navigationController?.navigationBar.isHidden = true
         view.backgroundColor = .white
+        
         
         do {
           try fetchedResultsController.performFetch()
@@ -55,14 +55,21 @@ class DayTasksViewController: UIViewController {
         } catch let err as NSError {
           print("cannot fetch", err)
         }
+       
+        fetchedResultsController.delegate = self
+
+        addButtonInit()
+    }
+    
+    fileprivate func tableViewInit() {
+        view.addSubview(tableView)
+        tableView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom:  view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 40, left: 0, bottom: 0, right: 0))
         tableView.register(DayTaskViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.backgroundColor = .white
         tableView.delegate = self
         tableView.dataSource = self
-        fetchedResultsController.delegate = self
-
-        addButtonInit()
+        tableView.separatorStyle = .none
     }
     
     
@@ -203,11 +210,22 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var time = 0
         let items = fetchedResultsController.object(at: indexPath)
-        
+
+            let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DayTaskViewCell
+            configure(cell: cell, for: indexPath)
+            if indexPath.item == 0 {
+                cell.shapeLayer.removeFromSuperlayer()
+                
+            } else if indexPath.item == (tableView.numberOfSections - 1) {
+                
+            }
+            return cell
+    }
+    
+    func compateDates() {
         let calendar = Calendar.current
-        let hour = calendar.component(.hour, from: items.inTime ?? Date())
+//        let hour = calendar.component(.hour, from: items.inTime ?? Date())
 //        tableView.insertRows(at: <#T##[IndexPath]#>, with: <#T##UITableView.RowAnimation#>)
 //        let nextTime = calendar.component(.hour, from: nextItem?.inTime ?? Date())
         
@@ -221,33 +239,23 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
 //            //
 //        } else {
         
-        if indexPath.row == fetchedResultsController.fetchedObjects?.count {
-            print("EQUALS")
-        }
         
-//        if indexPath.row == 1 {
-//            let cell2 = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-//                                  cell2.textLabel?.text = "HER"
-//                                  return cell2
-//        }
-        
-//        if equals(indexA: indexPath, indexB: indexPath) {
-//            let cell2 = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-//                       cell2.textLabel?.text = "HER"
-//                       return cell2
-//        } else {
-        
-            let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DayTaskViewCell
-            configure(cell: cell, for: indexPath)
-            if indexPath.item == 0 {
-                cell.shapeLayer.removeFromSuperlayer()
+        //        if indexPath.row == 1 {
+        //            let cell2 = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        //                                  cell2.textLabel?.text = "HER"
+        //                                  return cell2
+        //        }
                 
-            } else if indexPath.item == (tableView.numberOfSections - 1) {
+        //        if equals(indexA: indexPath, indexB: indexPath) {
+        //            let cell2 = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        //                       cell2.textLabel?.text = "HER"
+        //                       return cell2
+        //        } else {
                 
-            }
-            return cell
+        
+//        if indexPath.row == fetchedResultsController.fetchedObjects?.count {
+//            print("EQUALS")
 //        }
-               
     }
     
     func equals(indexA: IndexPath, indexB: IndexPath) -> Bool {
