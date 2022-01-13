@@ -11,6 +11,8 @@ import UIKit
 
 class AttachmentsHorizontallViewCell: UICollectionViewCell {
     
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .green

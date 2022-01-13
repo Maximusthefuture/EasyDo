@@ -24,11 +24,10 @@ class ProjectsViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        contentView.addSubview(horizontalController.view)
-        contentView.addSubview(tagView)
-    
         
+        contentView.addSubview(tagView)
         tagView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 20, left: 18, bottom: 0, right: 0))
+        addSubview(horizontalController.view)
         horizontalController.view.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 60, left: 0, bottom: 80, right: 0))
     }
     
@@ -39,5 +38,6 @@ class ProjectsViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         tagView = TagUIView(frame: .zero)
+        
     }
 }

@@ -29,7 +29,7 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
        
         addButtonInit()
         collectionView.backgroundColor = #colorLiteral(red: 0.9682769179, green: 0.9684478641, blue: 1, alpha: 1)
-        collectionView.register(ProjectsViewCell.self, forCellWithReuseIdentifier: "AppsViewCell")
+        
         navigationItem.title = currentProject?.title
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
@@ -42,7 +42,16 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
         super.viewWillAppear(animated)
         print("VIEW WILL APPEAR")
         collectionView.reloadData()
+        collectionView.register(ProjectsViewCell.self, forCellWithReuseIdentifier: "AppsViewCell")
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+//        [self.parentViewController presentViewController:viewController animated:YES completion:nil];
+      
+       
+    }
+
     
     @objc func goBack(sender: UIBarButtonItem) {
         dismiss(animated: true)
@@ -124,7 +133,13 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
         cell.horizontalController.coreDataStack = coreDataStack
         cell.horizontalController.collectionView.reloadData()
         cell.horizontalController.changeDelegate = changeDelegate
-      
+        cell.horizontalController.didSelectHandler = { [weak self] task in
+            let vc = AddEditCardViewController()
+            vc.isAddMyDay = self?.isAddMyDay
+            vc.taskDetail = task
+            vc.coreDataStack = self?.coreDataStack
+            self?.navigationController?.present(vc, animated: true)
+        }
         return cell
     }
     

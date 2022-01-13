@@ -23,7 +23,6 @@ class ProjectsListViewController: UIViewController {
     var projects: [Project] = []
     var coreDataStack: CoreDataStack?
    
-   //MARK: TODO: ADD PROJECT FROM COREDATA
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.9682769179, green: 0.9684478641, blue: 1, alpha: 1)
@@ -43,6 +42,13 @@ class ProjectsListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print("VIEW WILL APEAR")
+        tableView.reloadData()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("VIEW DID APEAR")
         tableView.reloadData()
     }
     
@@ -195,6 +201,11 @@ extension ProjectsListViewController: UITableViewDataSource {
         return cell
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+       
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("DID SELECT")
         
@@ -202,9 +213,11 @@ extension ProjectsListViewController: UITableViewDataSource {
         controller.currentProject = projects[indexPath.row]
         controller.coreDataStack = coreDataStack
         controller.isAddMyDay = self.isAddMyDay
+        
         let navBar = UINavigationController(rootViewController: controller)
         navBar.modalPresentationStyle = .fullScreen
         present(navBar, animated: true)
+//        showDetailViewController(TagsHorizontalController(), sender: self)
     }
 }
 
@@ -232,9 +245,6 @@ extension ProjectsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         true
     }
-    
-  
-    
 }
 
 //MARK: BottomSheetPresentationControllerFactory
@@ -242,14 +252,14 @@ extension ProjectsListViewController: BottomSheetPresentationControllerFactory {
     func makeBottomSheetPresentationController(presentedViewController: UIViewController?, presentingViewController: UIViewController?) -> BottomSheetPresentationController {
         .init(presentedViewController: presentedViewController!, presenting: presentingViewController, dissmisalHandler: self)
     }
-    
-    
 }
 
 //MARK: BottomSheetModalDissmisalHandler
 extension ProjectsListViewController: BottomSheetModalDissmisalHandler {
     func performDismissal(animated: Bool) {
+        fetchAndReload()
         presentedViewController?.dismiss(animated: animated)
+       
     }
 }
 

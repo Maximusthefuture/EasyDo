@@ -25,11 +25,19 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
         collectionView.backgroundColor = #colorLiteral(red: 0.9682769179, green: 0.9684478641, blue: 1, alpha: 1)
         collectionView.showsVerticalScrollIndicator = false
         collectionView.dragDelegate = self
+        print("IS PRESENTED: \(self.isBeingPresented)")
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print("IS PRESENTED: \(self.isBeingPresented)")
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("IS PRESENTED: \(self.isBeingPresented)")
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -40,16 +48,24 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
         return cell
 }
     
-    
+    var didSelectHandler: ((Task) -> ())?
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        guard let task = project?.tasks?[indexPath.item] as? Task else { return }
         guard let tasks = tasksList?[indexPath.item] else { return }
-        let vc = AddEditCardViewController()
+//        let vc = AddEditCardViewController()
+        print("ON CLICK")
+        didSelectHandler?(tasks)
+//        var navController = UINavigationController(rootViewController: vc)
+
+//        navController.modalPresentationStyle = .fullScreen
 //        vc.currentProject = project
-        vc.isAddMyDay = isAddMyDay
-        vc.taskDetail = tasks
-        vc.coreDataStack = coreDataStack
-        present(vc, animated: true)
+//        vc.isAddMyDay = isAddMyDay
+//        vc.taskDetail = tasks
+//        vc.coreDataStack = coreDataStack
+//        navigationController?.pushViewController(vc, animated: true)
+       
+//        present(vc, animated: true)
+//        present(vc, animated: true)
     }
     
     func dragItems(at indexPath: IndexPath) -> [UIDragItem] {

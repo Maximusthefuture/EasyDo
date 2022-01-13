@@ -16,6 +16,7 @@ protocol IsNeedToAddDayTaskDelegate: AnyObject {
 }
 
 class DayTasksViewController: UIViewController {
+    
     var addButton = UIButton()
     lazy var isAddMyDay: Bool = false
     weak var dayTaskDelegate: IsNeedToAddDayTaskDelegate?
@@ -105,6 +106,7 @@ class DayTasksViewController: UIViewController {
         vc.isAddMyDay = self.isAddMyDay
         dayTaskDelegate?.isShowButton(vc: self, show: true)
         vc.coreDataStack = coreDataStack
+//        letsInsert()
         present(vc, animated: true)
 //        array.add(delegate?) closure?
 //        deleteAll()
@@ -195,27 +197,46 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
         cell.taskLabel.text = items.task?.title
     }
     
-  
-    
+    func letsInsert() {
+        let index = IndexPath(row: 1, section: 0)
+        tableView.insertRows(at: [index], with: .automatic)
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-//        let items = fetchedResultsController.object(at: indexPath)
-//        let nextItem = fetchedResultsController.fetchedObjects?.last
-//        let calendar = Calendar.current
-//        let hour = calendar.component(.hour, from: items.inTime ?? Date())
+        var time = 0
+        let items = fetchedResultsController.object(at: indexPath)
+        
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: items.inTime ?? Date())
+//        tableView.insertRows(at: <#T##[IndexPath]#>, with: <#T##UITableView.RowAnimation#>)
 //        let nextTime = calendar.component(.hour, from: nextItem?.inTime ?? Date())
+        
 //        if hour < nextTime {
-//            let cell2 = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-//            cell2.textLabel?.text = "HER"
-//            return cell2
+//
 //            print("HOUR: \(indexPath.row)")
 //            //        }
 //            //промежуток времени
 //            //        if hour > nextItemHour  {
 //            //
 //            //
-//        }else {
+//        } else {
+        
+        if indexPath.row == fetchedResultsController.fetchedObjects?.count {
+            print("EQUALS")
+        }
+        
+//        if indexPath.row == 1 {
+//            let cell2 = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+//                                  cell2.textLabel?.text = "HER"
+//                                  return cell2
+//        }
+        
+//        if equals(indexA: indexPath, indexB: indexPath) {
+//            let cell2 = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+//                       cell2.textLabel?.text = "HER"
+//                       return cell2
+//        } else {
+        
             let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DayTaskViewCell
             configure(cell: cell, for: indexPath)
             if indexPath.item == 0 {
@@ -228,6 +249,21 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
 //        }
                
     }
+    
+    func equals(indexA: IndexPath, indexB: IndexPath) -> Bool {
+        let calendar = Calendar.current
+        let items = fetchedResultsController.object(at: indexA)
+        let hour = calendar.component(.hour, from: items.inTime ?? Date())
+        let nextItem = fetchedResultsController.object(at: indexB)
+        let nextHour = calendar.component(.hour, from: nextItem.inTime ?? Date())
+        let difference = hour - nextHour
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "yyyy/MM/dd HH:mm"
+//        let xmas = formatter.for
+//        let newYear = formatter.date(from: nextItem.inTime!)
+//        print("DIFFERENCE: \(difference)")
+        return (nextItem.inTime?.timeIntervalSince1970.asMinutes())! - (items.inTime?.timeIntervalSinceNow.asMinutes())! > 30 ? true : false
+        }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let item = fetchedResultsController.object(at: indexPath).task else { return }
@@ -300,4 +336,15 @@ extension DayTasksViewController: NSFetchedResultsControllerDelegate {
     }
     
 }
+
+
+extension Date {
+    static func - (lhs: Date, rhs: Date) -> TimeInterval {
+        return lhs.timeIntervalSinceReferenceDate - rhs.timeIntervalSinceReferenceDate
+    }
+}
+extension TimeInterval {
+    func asMinutes() -> Double { return self / (60.0) }
+}
+
 

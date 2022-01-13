@@ -94,4 +94,43 @@ extension UIView {
         }
     }
     
+    func centerInTop(size: CGSize = .zero, padding: UIEdgeInsets = .zero) {
+        translatesAutoresizingMaskIntoConstraints = false
+        if let superviewCenterXAnchor = superview?.centerXAnchor {
+            centerXAnchor.constraint(equalTo: superviewCenterXAnchor).isActive = true
+        }
+        
+//        if let superviewCenterYAnchor = superview?.centerYAnchor {
+//            centerYAnchor.constraint(equalTo: superviewCenterYAnchor).isActive = true
+//        }
+        if let superViewTopAnchor = superview?.topAnchor {
+            topAnchor.constraint(equalTo: superViewTopAnchor, constant: padding.top).isActive = true
+        }
+        if size.width != 0 {
+            widthAnchor.constraint(equalToConstant: size.width).isActive = true
+        }
+        
+        if size.height != 0 {
+            heightAnchor.constraint(equalToConstant: size.height).isActive = true
+        }
+    }
+    
+    func centerInBottom(size: CGSize = .zero, padding: UIEdgeInsets = .zero) {
+        translatesAutoresizingMaskIntoConstraints = false
+        if let superviewCenterXAnchor = superview?.centerXAnchor {
+            centerXAnchor.constraint(equalTo: superviewCenterXAnchor).isActive = true
+        }
+
+        if let superViewBottomAnchor = superview?.safeAreaLayoutGuide.bottomAnchor {
+            bottomAnchor.constraint(equalTo: superViewBottomAnchor, constant: padding.bottom).isActive = true
+        }
+        if size.width != 0 {
+            widthAnchor.constraint(equalToConstant: size.width).isActive = true
+        }
+        
+        if size.height != 0 {
+            heightAnchor.constraint(equalToConstant: size.height).isActive = true
+        }
+    }
+    
 }

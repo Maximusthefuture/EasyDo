@@ -42,14 +42,7 @@ class DataTableViewCell: UITableViewCell {
     
     let roundedView: UIView = {
         var view = UIView()
-        view.layer.cornerRadius = 16
-        view.backgroundColor = .white
-        view.layer.shadowColor = UIColor.gray.cgColor
-        view.layer.shadowOpacity = 10
-        view.layer.shadowOffset = .zero
-        view.layer.shadowRadius = 10
-        view.layer.masksToBounds = true
-        return view
+        return view.roundedView()
     }()
     
     func config(label: String) {
@@ -75,33 +68,13 @@ class DataTableViewCell: UITableViewCell {
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-  
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+        
         self.layer.cornerRadius = 16
-//        addGestureRecognizer(panGesture)
-//        contentView.addSubview(title)
-        addSubview(roundedView)
+        contentView.addSubview(roundedView)
         addSubview(title)
-        
-       
-//        roundedView.layer.masksToBounds = true
         addSubview(tagView)
-//        addSubview(iconView)
-        
         title.anchor(top: topAnchor, leading: leadingAnchor , bottom: nil, trailing: nil)
-//        iconView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: title.leadingAnchor, padding: .init(top: 20, left: 16, bottom: 0, right: 0))
-        
-        //collection view?
-//        tagView.label.text = "Tag here"
-//        tagView.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 0, left: 16, bottom: 40, right: 0))
-
-//        title.translatesAutoresizingMaskIntoConstraints = false
-//        title.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-//        title.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-//        title.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
-        
         backgroundColor = #colorLiteral(red: 0.9682769179, green: 0.9684478641, blue: 1, alpha: 1)
         
        
@@ -126,17 +99,8 @@ class DataTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
- 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        
     }
-
 }

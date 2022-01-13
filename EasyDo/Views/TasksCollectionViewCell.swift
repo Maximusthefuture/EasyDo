@@ -39,11 +39,11 @@ class TasksCollectionViewCell: UICollectionViewCell {
         var view = UIView()
         view.layer.cornerRadius = 16
         view.backgroundColor = .white
-        view.layer.shadowColor = UIColor.gray.cgColor
-        view.layer.shadowOpacity = 10
-        view.layer.shadowOffset = .zero
-        view.layer.shadowRadius = 10
-        view.layer.masksToBounds = true
+//        view.layer.shadowColor = UIColor.gray.cgColor
+//        view.layer.shadowOpacity = 10
+//        view.layer.shadowOffset = .zero
+//        view.layer.shadowRadius = 10
+//        view.layer.masksToBounds = true
         return view
     }()
     
@@ -56,10 +56,10 @@ class TasksCollectionViewCell: UICollectionViewCell {
         self.layer.cornerRadius = 16
 //        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
 //        addGestureRecognizer(panGesture)
-        addSubview(roundedView)
-        addSubview(title)
-        addSubview(tagView)
-        addSubview(iconView)
+        contentView.addSubview(roundedView)
+        contentView.addSubview(title)
+        contentView.addSubview(tagView)
+        contentView.addSubview(iconView)
         roundedView.translatesAutoresizingMaskIntoConstraints = false
         roundedView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         roundedView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20).isActive = true

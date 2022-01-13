@@ -17,6 +17,10 @@
 		381CAACC278207F900E8AB00 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CAAC8278207F900E8AB00 /* Project+CoreDataProperties.swift */; };
 		381CAACD278207F900E8AB00 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CAAC9278207F900E8AB00 /* Task+CoreDataClass.swift */; };
 		381CAACE278207F900E8AB00 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CAACA278207F900E8AB00 /* Task+CoreDataProperties.swift */; };
+		381E8E26278ED0850021FDC6 /* HeaderLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E8E25278ED0850021FDC6 /* HeaderLabel.swift */; };
+		381E8E29278ED7040021FDC6 /* AttachmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E8E28278ED7040021FDC6 /* AttachmentsViewController.swift */; };
+		381E8E2B278ED8B70021FDC6 /* ResizableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E8E2A278ED8B70021FDC6 /* ResizableViewController.swift */; };
+		381E8E2D278F0B4A0021FDC6 /* PickTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E8E2C278F0B4A0021FDC6 /* PickTimeViewController.swift */; };
 		382C8C1D2787077200BE2B8A /* MenuLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382C8C1C2787077200BE2B8A /* MenuLabel.swift */; };
 		383A8AB927888099003EE8F7 /* AddEditCardPropertiesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383A8AB827888099003EE8F7 /* AddEditCardPropertiesViewCell.swift */; };
 		383A8ABB2788810D003EE8F7 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383A8ABA2788810D003EE8F7 /* RoundedView.swift */; };
@@ -74,6 +78,10 @@
 		381CAACF27820A1C00E8AB00 /* EasyDo v4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EasyDo v4.xcdatamodel"; sourceTree = "<group>"; };
 		381CAAD027820A3B00E8AB00 /* EasyDo v5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EasyDo v5.xcdatamodel"; sourceTree = "<group>"; };
 		381CAAD127820BBE00E8AB00 /* EasyDo v6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EasyDo v6.xcdatamodel"; sourceTree = "<group>"; };
+		381E8E25278ED0850021FDC6 /* HeaderLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderLabel.swift; sourceTree = "<group>"; };
+		381E8E28278ED7040021FDC6 /* AttachmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentsViewController.swift; sourceTree = "<group>"; };
+		381E8E2A278ED8B70021FDC6 /* ResizableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizableViewController.swift; sourceTree = "<group>"; };
+		381E8E2C278F0B4A0021FDC6 /* PickTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickTimeViewController.swift; sourceTree = "<group>"; };
 		382C8C1C2787077200BE2B8A /* MenuLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuLabel.swift; sourceTree = "<group>"; };
 		383A8AB827888099003EE8F7 /* AddEditCardPropertiesViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditCardPropertiesViewCell.swift; sourceTree = "<group>"; };
 		383A8ABA2788810D003EE8F7 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
@@ -159,6 +167,7 @@
 				385644572770E9D70030B0C8 /* TagUIView.swift */,
 				382C8C1C2787077200BE2B8A /* MenuLabel.swift */,
 				389DABD8278DC2FB00A600BF /* CustomTextField.swift */,
+				381E8E25278ED0850021FDC6 /* HeaderLabel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -260,6 +269,9 @@
 				38FF9F10278488F100EB9805 /* DayTasksViewController.swift */,
 				383A8ABE27888381003EE8F7 /* HorizontalAttachmentsController.swift */,
 				388AF31B278D6A3100C44021 /* CreateProjectVC.swift */,
+				381E8E28278ED7040021FDC6 /* AttachmentsViewController.swift */,
+				381E8E2A278ED8B70021FDC6 /* ResizableViewController.swift */,
+				381E8E2C278F0B4A0021FDC6 /* PickTimeViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -345,6 +357,7 @@
 				3868B935276E383C00F2B765 /* TableViewController+Drop.swift in Sources */,
 				38EF6DFC277DF1C700261125 /* TaskViewModel.swift in Sources */,
 				3868B92F276E376200F2B765 /* Model.swift in Sources */,
+				381E8E2D278F0B4A0021FDC6 /* PickTimeViewController.swift in Sources */,
 				3868B933276E383700F2B765 /* TableViewController+Drag.swift in Sources */,
 				386F83F4275AAD45004DC280 /* EasyDo.xcdatamodeld in Sources */,
 				385644552770E8750030B0C8 /* Extensions+UIView.swift in Sources */,
@@ -357,6 +370,7 @@
 				388AF31C278D6A3100C44021 /* CreateProjectVC.swift in Sources */,
 				38B20B7C2779FF3A002AD934 /* TagsHorizontalViewController.swift in Sources */,
 				389DABD5278DC05B00A600BF /* BottomSheetPresentationController.swift in Sources */,
+				381E8E29278ED7040021FDC6 /* AttachmentsViewController.swift in Sources */,
 				383A8AB927888099003EE8F7 /* AddEditCardPropertiesViewCell.swift in Sources */,
 				389DABD9278DC2FB00A600BF /* CustomTextField.swift in Sources */,
 				38E992892760F97C00E2D1E6 /* DataTableViewCell.swift in Sources */,
@@ -371,6 +385,7 @@
 				38F4175327830BDF00B7EDAB /* AddEditCardViewController.swift in Sources */,
 				383A8AC127888408003EE8F7 /* AttachmentsHorizontallViewCell.swift in Sources */,
 				3807593A2785A90900A1AEE6 /* DailyItems+CoreDataProperties.swift in Sources */,
+				381E8E26278ED0850021FDC6 /* HeaderLabel.swift in Sources */,
 				389DABD2278DC00E00A600BF /* BottomSheetModalDissmisalHandler.swift in Sources */,
 				3868B931276E376C00F2B765 /* Model+Dragging.swift in Sources */,
 				385644582770E9D70030B0C8 /* TagUIView.swift in Sources */,
@@ -382,6 +397,7 @@
 				38DC14A8278D711400E42E76 /* BottomSheetTransitioningDelegate.swift in Sources */,
 				389DABD7278DC0A200A600BF /* BottomSheetPresentationController+PullBar.swift in Sources */,
 				380ADEDF2779F95000B97EB9 /* ProjectMainViewController.swift in Sources */,
+				381E8E2B278ED8B70021FDC6 /* ResizableViewController.swift in Sources */,
 				380ADEDA2779F5B300B97EB9 /* Project.swift in Sources */,
 				38B20B7E2779FFAA002AD934 /* TasksCollectionViewCell.swift in Sources */,
 				382C8C1D2787077200BE2B8A /* MenuLabel.swift in Sources */,

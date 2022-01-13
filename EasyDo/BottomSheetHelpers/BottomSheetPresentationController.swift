@@ -10,7 +10,6 @@ import UIKit
 
 public final class BottomSheetPresentationController: UIPresentationController {
     
-    
     private enum State {
         case dismised
         case presenting
@@ -71,7 +70,7 @@ public final class BottomSheetPresentationController: UIPresentationController {
     }
     
     private func setupShadingView(containerView: UIView) {
-        var shadingView = UIView()
+        let shadingView = UIView()
         containerView.addSubview(shadingView)
         shadingView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         shadingView.frame = containerView.bounds
@@ -99,8 +98,6 @@ public final class BottomSheetPresentationController: UIPresentationController {
             dissmisalHandler.performDismissal(animated: true)
         }
     }
-    
-    
     
     private let dissmisalHandler: BottomSheetModalDissmisalHandler
     

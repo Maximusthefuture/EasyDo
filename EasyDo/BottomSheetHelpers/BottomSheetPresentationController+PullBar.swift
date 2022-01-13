@@ -11,6 +11,7 @@ import UIKit
 
 extension BottomSheetPresentationController {
     final class PullBar: UIView {
+        
         enum Style {
             static let size = CGSize(width: 40, height: 4)
         }

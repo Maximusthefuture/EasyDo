@@ -35,8 +35,6 @@ class AddEditCardViewController: UIViewController {
         return tf
     }()
     
-    
-    
     var isAddMyDay: Bool?
     var addButton = UIButton()
     let cellId = "CellID"
@@ -47,7 +45,8 @@ class AddEditCardViewController: UIViewController {
     var dayVC: DayTasksViewController?
     var taskDetail: Task?
     var tableView = UITableView()
-
+    
+    //MARK: Init views
     fileprivate func initViews() {
         view.addSubview(cardName)
         view.addSubview(cardDescription)
@@ -68,6 +67,7 @@ class AddEditCardViewController: UIViewController {
         
     }
     
+    
     lazy var header: UIView = {
         let header = UIView()
         header.addSubview(cardName)
@@ -78,10 +78,46 @@ class AddEditCardViewController: UIViewController {
         return header
     }()
     
+    let seeAllButton: UIButton = {
+        let b = UIButton()
+//        b.backgroundColor = .brown
+        b.setTitleColor(.black, for: .normal)
+        b.setTitle("See all", for: .normal)
+        b.addTarget(self, action: #selector(handleSeeAllAttachments), for: .touchUpInside)
+        return b
+    }()
+    
+    private var bottomSheetTransitionDelegate: UIViewControllerTransitioningDelegate?
+    
+    //MARK: TODO Bottom Sheet when we can add items? First image then can add 
+    @objc private func handleSeeAllAttachments() {
+        let vc = AttachmentsViewController(initialHeight: 300)
+        bottomSheetTransitionDelegate = BottomSheetTransitioningDelegate(factory: self)
+        vc.modalPresentationStyle = .custom
+        vc.transitioningDelegate = bottomSheetTransitionDelegate
+        present(vc, animated: true)
+        print("SEE ALL")
+    }
+    
+    lazy var attachmentsHeader: UIView = {
+        let headerLabel = HeaderLabel()
+        let properties = UIView()
+        properties.addSubview(seeAllButton)
+        properties.addSubview(headerLabel)
+        headerLabel.anchor(top: properties.topAnchor, leading: properties.leadingAnchor, bottom: properties.bottomAnchor, trailing: nil, size: .init(width: 200, height: 0))
+        headerLabel.text = "Attachments"
+        seeAllButton.anchor(top: properties.topAnchor, leading: nil, bottom: properties.bottomAnchor, trailing: properties.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 16))
+        return properties
+        
+    }()
+   
+    
     let propertiesArray = ["Pomodoro count", "Label", "Due Date"]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        definesPresentationContext = true
         view.backgroundColor = .white
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneCreatingEditing))
@@ -89,6 +125,13 @@ class AddEditCardViewController: UIViewController {
         
         initTableView()
         addButtonInit()
+       
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        cardName.text = taskDetail?.title
+        cardDescription.text = taskDetail?.taskDescription
         addButton.isHidden = true
         guard let isAddMyDay = isAddMyDay else { return }
         if isAddMyDay {
@@ -96,15 +139,10 @@ class AddEditCardViewController: UIViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        cardName.text = taskDetail?.title
-        cardDescription.text = taskDetail?.taskDescription
-    }
-    
     @objc func close() {
         dismiss(animated: true)
     }
+    
     
     @objc fileprivate func doneCreatingEditing(sender: UIBarButtonItem) {
         print("Done editing save")
@@ -122,19 +160,37 @@ class AddEditCardViewController: UIViewController {
         addButton.addTarget(self, action: #selector(addCardToDayTask), for: .touchUpInside)
     }
     
+    
+    var date: Date?
     @objc fileprivate func addCardToDayTask(sender: UIButton) {
-        if let coreDataStack = coreDataStack {
-            let dailyItem = DailyItems(context: coreDataStack.managedContext)
-            dailyItem.task = taskDetail
-            dailyItem.inTime = Date()
-            taskDetail?.mainTag = "In Progress"
-            coreDataStack.saveContext()
-            dismiss(animated: true)
-        } else {
-            print("NULL NULL NULL")
+        let vc = PickTimeViewController(initialHeight: 300)
+        
+        bottomSheetTransitionDelegate = BottomSheetTransitioningDelegate(factory: self)
+        vc.modalPresentationStyle = .custom
+        vc.transitioningDelegate = bottomSheetTransitionDelegate
+        present(vc, animated: true)
+       
+        vc.changeDate = { [weak self] date in
+            self?.date = date
+        }
+        
+        vc.dataIsSaved = {
+            if let coreDataStack = self.coreDataStack {
+                let dailyItem = DailyItems(context: coreDataStack.managedContext)
+                dailyItem.task = self.taskDetail
+                guard let date = self.date else {
+                    return
+                }
+                dailyItem.inTime = date
+                self.taskDetail?.mainTag = "In Progress"
+                coreDataStack.saveContext()
+            } else {
+                print("NULL NULL NULL")
+            }
+            self.presentingViewController?.dismiss(animated: true)
         }
     }
-
+    
     func initCoreDataDummyData() {
         if let coreDataStack = coreDataStack {
             let task = Task(context: coreDataStack.managedContext)
@@ -150,23 +206,6 @@ class AddEditCardViewController: UIViewController {
             coreDataStack.saveContext()
         }
     }
-    
-    class HeaderLabel: UILabel {
-        
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            font = UIFont.systemFont(ofSize: 18, weight: .bold)
-            textColor = UIColor.gray
-        }
-        
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-        override func drawText(in rect: CGRect) {
-            super.drawText(in: rect.insetBy(dx: 16, dy: 0))
-        }
-    }
-
 }
 
 extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource {
@@ -186,48 +225,28 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-       let headerLabel = HeaderLabel()
-    switch section {
-    case 0: return header
-    case 1: headerLabel.text = "Properties"
-    case 2: headerLabel.text = "Attachments"
-   
-    default:
-     headerLabel.text = "TO-DO"
-    }
-//         return header
+        let headerLabel = HeaderLabel()
+        switch section {
+        case 0: return header
+        case 1: headerLabel.text = "Properties"
+        case 2: return attachmentsHeader
+            
+        default:
+            headerLabel.text = "TO-DO"
+        }
         return headerLabel
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("IndexPath: ", indexPath.row)
         if indexPath.row == 2 {
-//            openDatePicker(for: indexPath)
+            
         }
     }
     
-    
-    //Add to alert?
-    fileprivate func openDatePicker(for indexPath: IndexPath) {
-       let alert = UIAlertAction()
-        
-        var datePicker = UIDatePicker()
-        if datePicker != nil {
-            datePicker.datePickerMode = .dateAndTime
-    //        view.addSubview(datePicker)
-            var cell = tableView.cellForRow(at: indexPath) as! AddEditCardPropertiesViewCell
-            cell.roundedView.addSubview(datePicker)
-        }
-        
-    }
-    
-
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //AddEditCardPropertiesViewCell()
         if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: propertiesCell, for: indexPath) as! AddEditCardPropertiesViewCell
-//            cell.backgroundColor = .red
-//            cell.roundedView.backgroundColor = .black]
             let propepties = propertiesArray[indexPath.row]
             cell.label.text = propepties
             cell.selectionStyle = .none
@@ -241,9 +260,6 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
         } else if indexPath.section == 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: attachmentsCell, for: indexPath) as! AttachmentsCardViewCell
             cell.selectionStyle = .none
-//            tableView.allowsSelection = true
-//            tableView.separatorStyle = .none
-            
             return cell
         }
         else  {
@@ -251,9 +267,6 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
             cell.backgroundColor = .blue
             return cell
         }
-        
-        
-       
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -271,15 +284,22 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
         }
         return 80
     }
-  
+}
+
+
+//MARK: BottomSheetPresentationControllerFactory
+extension AddEditCardViewController: BottomSheetPresentationControllerFactory {
+    func makeBottomSheetPresentationController(presentedViewController: UIViewController?, presentingViewController: UIViewController?) -> BottomSheetPresentationController {
+        .init(presentedViewController: presentedViewController!, presenting: presentingViewController, dissmisalHandler: self)
+    }
+    
     
 }
 
-//
-//extension AddDetailViewController: IsNeedToAddDayTaskDelegate {
-//    func isShowButton(show: Bool) {
-//
-//    }
-//
-//
-//}
+//MARK: BottomSheetModalDissmisalHandler
+extension AddEditCardViewController: BottomSheetModalDissmisalHandler {
+    func performDismissal(animated: Bool) {
+        presentedViewController?.dismiss(animated: animated)
+       
+    }
+}
