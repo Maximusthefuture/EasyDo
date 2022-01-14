@@ -57,7 +57,10 @@ class CreateProjectVC: ResizableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.9682769179, green: 0.9684478641, blue: 1, alpha: 1)
+        view.resignFirstResponder()
+        setupEndEditingGesture()
         initViews()
+        setupNotificationObserver()
     }
     
    
@@ -102,9 +105,34 @@ class CreateProjectVC: ResizableViewController {
         stackView.addArrangedSubview(tagView)
     }
     
+    fileprivate func setupNotificationObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyBoardHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func handleKeyboardShow(notification: Notification) {
+        guard let value = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        let keyBoardFrame = value.cgRectValue
+        let bottomSpace = view.frame.height - addProjectButton.frame.origin.y - addProjectButton.frame.height
+        let difference =  keyBoardFrame.height - bottomSpace
+        self.view.transform = CGAffineTransform(translationX: 0, y: -difference - 8)
+        print("OBSERVERL: \(keyBoardFrame)")
+    }
+    
+    @objc func handleKeyBoardHide() {
+        self.view.transform = .identity
+    }
+    
+    fileprivate func setupEndEditingGesture() {
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleEndEditingGesture)))
+    }
+    
+    @objc func handleEndEditingGesture(tapGesture: UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
+    
     //How to reload tableview previous vc
     @objc func  handleAddProject(_ sender: UIButton) {
-        
         guard let coreDataStack = coreDataStack else {
             return
         }
