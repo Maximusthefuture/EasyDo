@@ -39,6 +39,7 @@
 		386F83F4275AAD45004DC280 /* EasyDo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 386F83F2275AAD45004DC280 /* EasyDo.xcdatamodeld */; };
 		386F83F6275AAD47004DC280 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 386F83F5275AAD47004DC280 /* Assets.xcassets */; };
 		386F83F9275AAD47004DC280 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 386F83F7275AAD47004DC280 /* LaunchScreen.storyboard */; };
+		387F2EF92790761000FBCB70 /* CardAddTagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F2EF82790761000FBCB70 /* CardAddTagsViewController.swift */; };
 		388AF31C278D6A3100C44021 /* CreateProjectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388AF31B278D6A3100C44021 /* CreateProjectVC.swift */; };
 		389DABD2278DC00E00A600BF /* BottomSheetModalDissmisalHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389DABD1278DC00E00A600BF /* BottomSheetModalDissmisalHandler.swift */; };
 		389DABD5278DC05B00A600BF /* BottomSheetPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389DABD4278DC05B00A600BF /* BottomSheetPresentationController.swift */; };
@@ -102,6 +103,7 @@
 		386F83F5275AAD47004DC280 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		386F83F8275AAD47004DC280 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		386F83FA275AAD47004DC280 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		387F2EF82790761000FBCB70 /* CardAddTagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAddTagsViewController.swift; sourceTree = "<group>"; };
 		388AF31B278D6A3100C44021 /* CreateProjectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectVC.swift; sourceTree = "<group>"; };
 		389DABD1278DC00E00A600BF /* BottomSheetModalDissmisalHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetModalDissmisalHandler.swift; sourceTree = "<group>"; };
 		389DABD4278DC05B00A600BF /* BottomSheetPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetPresentationController.swift; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 				381E8E28278ED7040021FDC6 /* AttachmentsViewController.swift */,
 				381E8E2A278ED8B70021FDC6 /* ResizableViewController.swift */,
 				381E8E2C278F0B4A0021FDC6 /* PickTimeViewController.swift */,
+				387F2EF82790761000FBCB70 /* CardAddTagsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 				381CAACC278207F900E8AB00 /* Project+CoreDataProperties.swift in Sources */,
 				38FF9F132784892F00EB9805 /* DayTaskViewCell.swift in Sources */,
 				386F83EA275AAD45004DC280 /* AppDelegate.swift in Sources */,
+				387F2EF92790761000FBCB70 /* CardAddTagsViewController.swift in Sources */,
 				380ADEDC2779F62A00B97EB9 /* Task.swift in Sources */,
 				38F4175327830BDF00B7EDAB /* AddEditCardViewController.swift in Sources */,
 				383A8AC127888408003EE8F7 /* AttachmentsHorizontallViewCell.swift in Sources */,

@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+class CardAddTagsViewController: ResizableViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .blue
+    }
+}

@@ -80,7 +80,9 @@ class DayTasksViewController: UIViewController {
         myDayLabel.titleLabel?.font = UIFont.systemFont(ofSize: 32, weight: .bold)
         myDayLabel.setTitleColor(.black, for: .normal)
         let interaction = UIContextMenuInteraction(delegate: self)
+        myDayLabel.showsMenuAsPrimaryAction = true
         self.myDayLabel.addInteraction(interaction)
+       
         //MARK: TODO
         let menu = UIMenu(title: "", options: .destructive, children: [
             UIAction(title: "Projects")  { _ in
@@ -92,8 +94,12 @@ class DayTasksViewController: UIViewController {
             UIAction(title: "????") { _ in
             }
         ])
-        myDayLabel.menu = menu
-        myDayLabel.showsMenuAsPrimaryAction = true
+        let duplicateAction = self.duplicateAction()
+        let deleteAction = self.deleteAction()
+        //Submenu
+        let mainMenu = UIMenu(title: "", children: [duplicateAction, menu])
+        myDayLabel.menu = mainMenu
+       
     }
    
 
@@ -283,20 +289,43 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 
+extension DayTasksViewController {
+    func inspectAction() -> UIAction {
+        return UIAction(title: NSLocalizedString("InspectTitle", comment: ""),
+                        image: UIImage(systemName: "arrow.up.square")) { action in
+           
+        }
+    }
+        
+    func duplicateAction() -> UIAction {
+        return UIAction(title: NSLocalizedString("DuplicateTitle", comment: ""),
+                        image: UIImage(systemName: "plus.square.on.square")) { action in
+           
+        }
+    }
+    func deleteAction() -> UIAction {
+        return UIAction(title: NSLocalizedString("DeleteTitle", comment: ""),
+                        image: UIImage(systemName: "trash"),
+                        attributes: .destructive) { action in
+//           self.performDelete()
+        }
+    }
+}
 //MARK: UIContextMenuInteractionDelegate
 extension DayTasksViewController: UIContextMenuInteractionDelegate {
     
+    
 func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
     let configuration = UIContextMenuConfiguration(identifier: NSString(""), previewProvider: nil) { (elements) -> UIMenu? in
+        
+      
         guard self.myDayLabel != nil else { return nil }
-        let menu = UIMenu(title: "HI", options: .destructive, children: [
-            UIAction(title: "Hello", attributes: .disabled, state: .mixed)  { _ in
-                
-            },
-            UIAction(title: "Projects", attributes: .destructive, state: .on) { _ in
-            }
-        ])
-        return menu
+        let inspectAction = self.inspectAction()
+        let duplicateAction = self.duplicateAction()
+        let deleteAction = self.deleteAction()
+        let editMenu = UIMenu(title: NSLocalizedString("EditTitle", comment: ""),
+                              children: [duplicateAction, deleteAction])
+        return UIMenu(title: "", children: [inspectAction, editMenu])
     }
     return configuration
     

@@ -113,11 +113,13 @@ class AddEditCardViewController: UIViewController {
    
     
     let propertiesArray = ["Pomodoro count", "Label", "Due Date"]
-    
-    
+    //MARK: TODO
+   
     override func viewDidLoad() {
         super.viewDidLoad()
 //        definesPresentationContext = true
+        view.resignFirstResponder()
+        setupEndEditingGesture()
         view.backgroundColor = .white
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneCreatingEditing))
@@ -125,6 +127,7 @@ class AddEditCardViewController: UIViewController {
         
         initTableView()
         addButtonInit()
+   
        
     }
     
@@ -139,6 +142,14 @@ class AddEditCardViewController: UIViewController {
         }
     }
     
+    fileprivate func setupEndEditingGesture() {
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleEndEditingGesture)))
+    }
+    
+    @objc func handleEndEditingGesture(tapGesture: UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
+    
     @objc func close() {
         dismiss(animated: true)
     }
@@ -146,7 +157,7 @@ class AddEditCardViewController: UIViewController {
     
     @objc fileprivate func doneCreatingEditing(sender: UIBarButtonItem) {
         print("Done editing save")
-        initCoreDataDummyData()
+        createNewTask()
         dismiss(animated: true)
         
     }
@@ -192,10 +203,10 @@ class AddEditCardViewController: UIViewController {
         }
     }
     
-    func initCoreDataDummyData() {
+    func createNewTask() {
         if let coreDataStack = coreDataStack {
             let task = Task(context: coreDataStack.managedContext)
-            task.tags = ["No tag", "Productivity", "Motivation"]
+            task.tags = ["№1 Prior", "Product"]
             task.mainTag = "No tag"
             task.title = cardName.text
             task.taskDescription = cardDescription.text
@@ -207,6 +218,7 @@ class AddEditCardViewController: UIViewController {
             coreDataStack.saveContext()
         }
     }
+ 
 }
 
 extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource {
@@ -238,11 +250,20 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
         return headerLabel
     }
     
+   
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("IndexPath: ", indexPath.row)
-        if indexPath.row == 2 {
-            
+        if indexPath.row == 1 {
+            //MARK: TODO add textField with color picker max 2 tags.
+            let vc = CardAddTagsViewController(initialHeight: 200)
+            bottomSheetTransitionDelegate = BottomSheetTransitioningDelegate(factory: self)
+            vc.modalPresentationStyle = .custom
+            vc.transitioningDelegate = bottomSheetTransitionDelegate
+            print("CLICK?????")
+            present(vc, animated: true)
         }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -254,6 +275,10 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
             tableView.separatorStyle = .none
             cell.accessoryType = .disclosureIndicator
 //            cell.delegate = self
+            if indexPath.row == 1 {
+                cell.stackView.isHidden = false
+                cell.initTask(initialTask: taskDetail)
+            }
             if indexPath.row == 2 {
                 cell.datePicker.isHidden = false
             }

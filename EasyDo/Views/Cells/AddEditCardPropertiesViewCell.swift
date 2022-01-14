@@ -37,6 +37,8 @@ class AddEditCardPropertiesViewCell: UITableViewCell {
         return view
     }()
     
+   
+    
     
     //?????
     let datePicker: UIDatePicker = {
@@ -44,26 +46,51 @@ class AddEditCardPropertiesViewCell: UITableViewCell {
         dp.datePickerMode = .dateAndTime
         return dp
     }()
+    //lazy?
+    let stackView = UIStackView()
     
+    var task: Task?
     
+    func initTask(initialTask: Task?) {
+        task = initialTask
+        guard let count = task?.tags else { return }
+        for title in count {
+            if stackView.subviews.count == (task?.tags?.count)! {
+                break
+            }
+            let tagView =  TagUIView()
+            tagView.label.text = title
+            tagView.backgroundColor = UIColor().randomColor()
+            stackView.addArrangedSubview(tagView)
+        }
+    }
+  
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(roundedView)
         addSubview(icon)
         roundedView.addSubview(datePicker)
         contentView.addSubview(label)
+        roundedView.addSubview(stackView)
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.spacing = 10
+       
+       
         
         icon.anchor(top: roundedView.topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 30, left: 40, bottom: 0, right: 16), size: .init(width: 30, height: 30))
 //        icon.centerYAnchor.constraint(equalTo: roundedView.centerYAnchor).isActive = true
         label.anchor(top: topAnchor, leading: icon.trailingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 0, left: 16, bottom: 10, right: 16))
         
-       
+        stackView.centerInRight(leading: nil, padding: .init(top: 0, left: 16, bottom: 0, right: 16))
+//        stackView.backgroundColor = .gray
         roundedView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 24, bottom: 10, right: 24))
         datePicker.anchor(top: roundedView.topAnchor, leading: nil, bottom: roundedView.bottomAnchor, trailing: roundedView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 16))
         datePicker.isHidden = true
+        
         roundedView.backgroundColor = #colorLiteral(red: 0.9722431302, green: 0.972392261, blue: 1, alpha: 1)
         roundedView.clipsToBounds = true
-        
+        stackView.isHidden = true
     }
     
     required init?(coder: NSCoder) {

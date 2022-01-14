@@ -133,4 +133,33 @@ extension UIView {
         }
     }
     
+    func centerInRight(leading: NSLayoutXAxisAnchor?, size: CGSize = .zero, padding: UIEdgeInsets = .zero) {
+        translatesAutoresizingMaskIntoConstraints = false
+        var anchoredConstraints = AnchoredConstraints()
+        
+        
+        if let superviewCenterYAnchor = superview?.centerYAnchor {
+            centerYAnchor.constraint(equalTo: superviewCenterYAnchor).isActive = true
+        }
+
+//        if let superViewBottomAnchor = superview?.safeAreaLayoutGuide.bottomAnchor {
+//            bottomAnchor.constraint(equalTo: superViewBottomAnchor, constant: padding.bottom).isActive = true
+//        }
+        
+        if let leading = leading {
+            anchoredConstraints.leading = leadingAnchor.constraint(equalTo: leading, constant: padding.left)
+        }
+        
+        if size.width != 0 {
+            widthAnchor.constraint(equalToConstant: size.width).isActive = true
+        }
+        
+        if size.height != 0 {
+            heightAnchor.constraint(equalToConstant: size.height).isActive = true
+        }
+        if let superViewTrailingAnchor = superview?.trailingAnchor {
+            trailingAnchor.constraint(equalTo: superViewTrailingAnchor, constant: -padding.right).isActive = true
+        }
+    }
+    
 }
