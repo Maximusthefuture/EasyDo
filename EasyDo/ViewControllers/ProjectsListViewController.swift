@@ -104,9 +104,9 @@ class ProjectsListViewController: UIViewController {
     @objc func addProject(sender: UIButton) {
         let vc = CreateProjectVC(initialHeight: 300)
         vc.coreDataStack = coreDataStack
-        bottomSheetTransitionDelegate = BottomSheetTransitioningDelegate(factory: self)
-        vc.modalPresentationStyle = .custom
-        vc.transitioningDelegate = bottomSheetTransitionDelegate
+//        bottomSheetTransitionDelegate = BottomSheetTransitioningDelegate(factory: self)
+//        vc.modalPresentationStyle = .custom
+//        vc.transitioningDelegate = bottomSheetTransitionDelegate
         present(vc, animated: true)
         
 //        deleteAll()
@@ -244,22 +244,6 @@ extension ProjectsListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         true
-    }
-}
-
-//MARK: BottomSheetPresentationControllerFactory
-extension ProjectsListViewController: BottomSheetPresentationControllerFactory {
-    func makeBottomSheetPresentationController(presentedViewController: UIViewController?, presentingViewController: UIViewController?) -> BottomSheetPresentationController {
-        .init(presentedViewController: presentedViewController!, presenting: presentingViewController, dissmisalHandler: self)
-    }
-}
-
-//MARK: BottomSheetModalDissmisalHandler
-extension ProjectsListViewController: BottomSheetModalDissmisalHandler {
-    func performDismissal(animated: Bool) {
-        fetchAndReload()
-        presentedViewController?.dismiss(animated: animated)
-       
     }
 }
 

@@ -92,9 +92,9 @@ class AddEditCardViewController: UIViewController {
     //MARK: TODO Bottom Sheet when we can add items? First image then can add 
     @objc private func handleSeeAllAttachments() {
         let vc = AttachmentsViewController(initialHeight: 300)
-        bottomSheetTransitionDelegate = BottomSheetTransitioningDelegate(factory: self)
-        vc.modalPresentationStyle = .custom
-        vc.transitioningDelegate = bottomSheetTransitionDelegate
+//        bottomSheetTransitionDelegate = BottomSheetTransitioningDelegate(factory: self)
+//        vc.modalPresentationStyle = .custom
+//        vc.transitioningDelegate = bottomSheetTransitionDelegate
         present(vc, animated: true)
         print("SEE ALL")
     }
@@ -184,9 +184,9 @@ class AddEditCardViewController: UIViewController {
     @objc fileprivate func addCardToDayTask(sender: UIButton) {
         let vc = PickTimeViewController(initialHeight: 300)
         
-        bottomSheetTransitionDelegate = BottomSheetTransitioningDelegate(factory: self)
-        vc.modalPresentationStyle = .custom
-        vc.transitioningDelegate = bottomSheetTransitionDelegate
+//        bottomSheetTransitionDelegate = BottomSheetTransitioningDelegate(factory: self)
+//        vc.modalPresentationStyle = .custom
+//        vc.transitioningDelegate = bottomSheetTransitionDelegate
         present(vc, animated: true)
        
         vc.changeDate = { [weak self] date in
@@ -272,11 +272,11 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
         if indexPath.row == 1 {
             //MARK: TODO add textField with color picker max 2 tags.
             let vc = CardAddTagsViewController(initialHeight: 200)
-            bottomSheetTransitionDelegate = BottomSheetTransitioningDelegate(factory: self)
-            vc.modalPresentationStyle = .custom
+//            bottomSheetTransitionDelegate = BottomSheetTransitioningDelegate(factory: self)
+//            vc.modalPresentationStyle = .custom
             vc.taskDetail = taskDetail
             vc.coreData = coreDataStack
-            vc.transitioningDelegate = bottomSheetTransitionDelegate
+//            vc.transitioningDelegate = bottomSheetTransitionDelegate
             vc.refreshTags = {
                 tableView.reloadData()
             }
@@ -338,19 +338,19 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
 }
 
 
-//MARK: BottomSheetPresentationControllerFactory
-extension AddEditCardViewController: BottomSheetPresentationControllerFactory {
-    func makeBottomSheetPresentationController(presentedViewController: UIViewController?, presentingViewController: UIViewController?) -> BottomSheetPresentationController {
-        .init(presentedViewController: presentedViewController!, presenting: presentingViewController, dissmisalHandler: self)
-    }
-    
-    
-}
-
-//MARK: BottomSheetModalDissmisalHandler
-extension AddEditCardViewController: BottomSheetModalDissmisalHandler {
-    func performDismissal(animated: Bool) {
-        presentedViewController?.dismiss(animated: animated)
-       
-    }
-}
+////MARK: BottomSheetPresentationControllerFactory
+//extension AddEditCardViewController: BottomSheetPresentationControllerFactory {
+//    func makeBottomSheetPresentationController(presentedViewController: UIViewController?, presentingViewController: UIViewController?) -> BottomSheetPresentationController {
+//        .init(presentedViewController: presentedViewController!, presenting: presentingViewController, dissmisalHandler: self)
+//    }
+//
+//
+//}
+//
+////MARK: BottomSheetModalDissmisalHandler
+//extension AddEditCardViewController: BottomSheetModalDissmisalHandler {
+//    func performDismissal(animated: Bool) {
+//        presentedViewController?.dismiss(animated: animated)
+//
+//    }
+//}

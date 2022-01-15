@@ -215,6 +215,17 @@
 			path = EasyDo;
 			sourceTree = "<group>";
 		};
+		38756E102793027A0079FD11 /* AddCardScreen */ = {
+			isa = PBXGroup;
+			children = (
+				38F4175227830BDF00B7EDAB /* AddEditCardViewController.swift */,
+				381E8E28278ED7040021FDC6 /* AttachmentsViewController.swift */,
+				381E8E2C278F0B4A0021FDC6 /* PickTimeViewController.swift */,
+				387F2EF82790761000FBCB70 /* CardAddTagsViewController.swift */,
+			);
+			path = AddCardScreen;
+			sourceTree = "<group>";
+		};
 		388AF31A278D69DE00C44021 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -263,18 +274,15 @@
 		38EEFFA72773B806002FA3DB /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				38756E102793027A0079FD11 /* AddCardScreen */,
 				386F83ED275AAD45004DC280 /* ProjectsListViewController.swift */,
 				380ADEDE2779F95000B97EB9 /* ProjectMainViewController.swift */,
 				38B20B752779FADC002AD934 /* BaseListController.swift */,
 				38B20B7B2779FF3A002AD934 /* TagsHorizontalViewController.swift */,
-				38F4175227830BDF00B7EDAB /* AddEditCardViewController.swift */,
 				38FF9F10278488F100EB9805 /* DayTasksViewController.swift */,
 				383A8ABE27888381003EE8F7 /* HorizontalAttachmentsController.swift */,
 				388AF31B278D6A3100C44021 /* CreateProjectVC.swift */,
-				381E8E28278ED7040021FDC6 /* AttachmentsViewController.swift */,
 				381E8E2A278ED8B70021FDC6 /* ResizableViewController.swift */,
-				381E8E2C278F0B4A0021FDC6 /* PickTimeViewController.swift */,
-				387F2EF82790761000FBCB70 /* CardAddTagsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";

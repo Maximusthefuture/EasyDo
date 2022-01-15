@@ -9,8 +9,12 @@ import Foundation
 import UIKit
 
 class AttachmentsViewController: ResizableViewController {
+   
+
     
-    private var currentHeight: CGFloat
+//    private var currentHeight: CGFloat
+    
+  
     
     let button: UIButton = {
        let b = UIButton()
@@ -24,17 +28,17 @@ class AttachmentsViewController: ResizableViewController {
         super.viewDidLoad()
         view.backgroundColor = .blue
         view.addSubview(button)
-        button.centerInSuperview(size: .init(width: 100, height: 100))
+        button.centerInSuperview(size: .init(width: 100, height: 100))   
     }
     
-    override init(initialHeight: CGFloat) {
-        currentHeight = initialHeight
-        super.init(initialHeight: initialHeight)
-    }
+//    override init(initialHeight: CGFloat) {
+//        currentHeight = initialHeight
+//        super.init(initialHeight: initialHeight)
+//    }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
     @objc private func handleAddAttachment() {
         //Image picker for start? than pdf? download from url, then store in filesystem
