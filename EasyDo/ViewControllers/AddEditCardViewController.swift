@@ -129,9 +129,13 @@ class AddEditCardViewController: UIViewController {
         //MARK: BUG can't tap on cell while this is active
 //                setupEndEditingGesture()
         addButtonInit()
+        
+        
    
        
     }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -206,6 +210,8 @@ class AddEditCardViewController: UIViewController {
         }
     }
     
+    var myDate: Date?
+    
     func createNewTask() {
         if let coreDataStack = coreDataStack {
             let task = Task(context: coreDataStack.managedContext)
@@ -213,6 +219,8 @@ class AddEditCardViewController: UIViewController {
             task.mainTag = "No tag"
             task.title = cardName.text
             task.taskDescription = cardDescription.text
+            //MARK: If mydate nil, add date + 2 days?
+            task.dueDate = myDate ?? Date()
             if let project = currentProject,
                let tasks = project.tasks?.mutableCopy() as? NSMutableOrderedSet {
                 tasks.add(task)
@@ -220,6 +228,10 @@ class AddEditCardViewController: UIViewController {
             }
             coreDataStack.saveContext()
         }
+    }
+    
+    @objc func datePickerChange(datePicker: UIDatePicker) {
+        myDate = datePicker.date
     }
  
 }
@@ -282,13 +294,18 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
             cell.selectionStyle = .none
             tableView.separatorStyle = .none
             cell.accessoryType = .disclosureIndicator
+            cell.initTask(initialTask: taskDetail)
 //            cell.delegate = self
             if indexPath.row == 1 {
                 cell.stackView.isHidden = false
-                cell.initTask(initialTask: taskDetail)
             }
             if indexPath.row == 2 {
                 cell.datePicker.isHidden = false
+                cell.datePicker.addTarget(self, action: #selector(datePickerChange), for: .editingDidEnd)
+                
+//                var date = Date(timeIntervalSinceReferenceDate: TimeInterval(1000))
+//                cell.initTask(initialTask: taskDetail)
+//                cell.datePicker.date = date
             }
             return cell
         } else if indexPath.section == 2 {

@@ -58,11 +58,12 @@ class AddEditCardPropertiesViewCell: UITableViewCell {
             if stackView.subviews.count == (task?.tags?.count)! {
                 break
             }
-            let tagView =  TagUIView()
+            let tagView = TagUIView()
             tagView.label.text = title
             tagView.backgroundColor = UIColor().randomColor()
             stackView.addArrangedSubview(tagView)
         }
+        datePicker.date = task?.dueDate ?? Date()
     }
   
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

@@ -53,6 +53,13 @@ class CardAddTagsViewController: ResizableViewController {
         tagsNameTextField.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: padding, left: padding, bottom: padding, right: padding))
         addTagsButton.anchor(top: tagsNameTextField.bottomAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 16, left: 0, bottom: 0, right: 0))
         stackView.anchor(top: tagsNameTextField.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: addTagsButton.trailingAnchor, padding: .init(top: 16, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 40))
+        
+        //MARK: TODO when want to rename tag show textField
+        if isStackViewFull(stackView: stackView) {
+            addTagsButton.isHidden = true
+            tagsNameTextField.isHidden = true
+            stackView.transform = CGAffineTransform(translationX: 0, y: -60)
+        }
        
     }
     
@@ -79,9 +86,16 @@ class CardAddTagsViewController: ResizableViewController {
         }
     }
     
+    func isStackViewFull(stackView: UIStackView) -> Bool{
+        return stackView.subviews.count == 2 ?  true : false
+    }
+    
     @objc func handleTapTag(tag: TagUIView) {
-        print("clicked", tag.label.text)
+//        print("clicked", tag.label.text)
+        print("CLICKED", tag.description)
         stackView.removeArrangedSubview(tag)
+//        view.layoutIfNeeded()
+        tag.removeFromSuperview()
     }
     
     @objc func handleAddTagsButton(sender: UIButton) {
@@ -89,9 +103,10 @@ class CardAddTagsViewController: ResizableViewController {
         tagView.backgroundColor = UIColor().randomColor()
         tagView.label.text = tagsNameTextField.text
         
-        if stackView.subviews.count == 2 {
+        if isStackViewFull(stackView: stackView) {
             sender.isHidden = true
         }
+        
         if tagsNameTextField.text!.count < 1 {
             tagsNameTextField.placeholder = "ENTER TAG NAME"
             UIView.animate(withDuration: 0.5, delay: 0, options: .autoreverse) {
