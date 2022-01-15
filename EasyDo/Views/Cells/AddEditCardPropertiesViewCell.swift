@@ -43,7 +43,7 @@ class AddEditCardPropertiesViewCell: UITableViewCell {
     //?????
     let datePicker: UIDatePicker = {
         let dp = UIDatePicker()
-        dp.datePickerMode = .dateAndTime
+        dp.datePickerMode = .date
         return dp
     }()
     //lazy?

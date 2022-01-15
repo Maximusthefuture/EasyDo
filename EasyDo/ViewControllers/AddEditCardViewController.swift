@@ -118,14 +118,16 @@ class AddEditCardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 //        definesPresentationContext = true
-        view.resignFirstResponder()
-        setupEndEditingGesture()
+
         view.backgroundColor = .white
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneCreatingEditing))
 //        initViews()
         
         initTableView()
+//                view.resignFirstResponder()
+        //MARK: BUG can't tap on cell while this is active
+//                setupEndEditingGesture()
         addButtonInit()
    
        
@@ -148,6 +150,7 @@ class AddEditCardViewController: UIViewController {
     
     @objc func handleEndEditingGesture(tapGesture: UITapGestureRecognizer) {
         self.view.endEditing(true)
+        
     }
     
     @objc func close() {
@@ -206,7 +209,7 @@ class AddEditCardViewController: UIViewController {
     func createNewTask() {
         if let coreDataStack = coreDataStack {
             let task = Task(context: coreDataStack.managedContext)
-            task.tags = ["№1 Prior", "Product"]
+            task.tags = []
             task.mainTag = "No tag"
             task.title = cardName.text
             task.taskDescription = cardDescription.text
@@ -259,7 +262,12 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
             let vc = CardAddTagsViewController(initialHeight: 200)
             bottomSheetTransitionDelegate = BottomSheetTransitioningDelegate(factory: self)
             vc.modalPresentationStyle = .custom
+            vc.taskDetail = taskDetail
+            vc.coreData = coreDataStack
             vc.transitioningDelegate = bottomSheetTransitionDelegate
+            vc.refreshTags = {
+                tableView.reloadData()
+            }
             print("CLICK?????")
             present(vc, animated: true)
         }
