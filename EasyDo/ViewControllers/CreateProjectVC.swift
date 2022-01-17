@@ -33,6 +33,7 @@ class CreateProjectVC: ResizableViewController {
         button.setImage(UIImage(systemName: "add"), for: .normal)
         button.backgroundColor = .blue
         button.addTarget(self, action: #selector(handleAddTagsButton), for: .touchUpInside)
+        
         return button
     }()
     
@@ -49,6 +50,7 @@ class CreateProjectVC: ResizableViewController {
        let tf = CustomTextField(padding: 24)
         tf.placeholder = "Enter project name"
         tf.addTarget(self, action: #selector(handleTextChange), for: .editingChanged)
+       
         return tf
     }()
     
@@ -62,8 +64,6 @@ class CreateProjectVC: ResizableViewController {
         initViews()
         setupNotificationObserver()
     }
-    
-   
     
     fileprivate func initViews() {
 //        var scrollView = UIScrollView(frame: .init(x: 0, y: 0, width: view.bounds.width, height: 100))

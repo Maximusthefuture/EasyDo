@@ -211,11 +211,12 @@ class AddEditCardViewController: UIViewController {
     }
     
     var myDate: Date?
+    var tagsArray = [String]()
     
     func createNewTask() {
         if let coreDataStack = coreDataStack {
             let task = Task(context: coreDataStack.managedContext)
-            task.tags = []
+            task.tags = tagsArray
             task.mainTag = "No tag"
             task.title = cardName.text
             task.taskDescription = cardDescription.text
@@ -272,13 +273,11 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
         if indexPath.row == 1 {
             //MARK: TODO add textField with color picker max 2 tags.
             let vc = CardAddTagsViewController(initialHeight: 200)
-//            bottomSheetTransitionDelegate = BottomSheetTransitioningDelegate(factory: self)
-//            vc.modalPresentationStyle = .custom
             vc.taskDetail = taskDetail
             vc.coreData = coreDataStack
-//            vc.transitioningDelegate = bottomSheetTransitionDelegate
-            vc.refreshTags = {
-                tableView.reloadData()
+            vc.refreshTags = { tag in
+                self.tagsArray.append(tag)
+                self.tableView.reloadData()
             }
             print("CLICK?????")
             present(vc, animated: true)

@@ -17,7 +17,7 @@ class CardAddTagsViewController: ResizableViewController {
         return tf
     }()
     
-    var refreshTags: (() -> ())?
+    var refreshTags: ((String) -> ())?
     var taskDetail: Task?
     var coreData: CoreDataStack?
     
@@ -42,7 +42,6 @@ class CardAddTagsViewController: ResizableViewController {
     
     let padding: CGFloat = 16
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.9722431302, green: 0.972392261, blue: 1, alpha: 1)
@@ -53,7 +52,7 @@ class CardAddTagsViewController: ResizableViewController {
         tagsNameTextField.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: padding, left: padding, bottom: padding, right: padding))
         addTagsButton.anchor(top: tagsNameTextField.bottomAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 16, left: 0, bottom: 0, right: 0))
         stackView.anchor(top: tagsNameTextField.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: addTagsButton.trailingAnchor, padding: .init(top: 16, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 40))
-        
+        setupNotificationObserver()
         //MARK: TODO when want to rename tag show textField
         if isStackViewFull(stackView: stackView) {
             addTagsButton.isHidden = true
@@ -75,10 +74,11 @@ class CardAddTagsViewController: ResizableViewController {
             if stackView.subviews.count == (taskDetail?.tags?.count)! {
                 break
             }
-            let tagView =  TagUIView(frame: CGRect(origin: CGPoint.zero, size: .init(width: 100, height: 20)))
+            let tagView =  TagUIView()
             
             tagView.label.text = title
             tagView.backgroundColor = UIColor().randomColor()
+            
             tagView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapTag)))
             stackView.addArrangedSubview(tagView)
            
@@ -86,16 +86,35 @@ class CardAddTagsViewController: ResizableViewController {
         }
     }
     
+    fileprivate func setupNotificationObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyBoardHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func handleKeyboardShow(notification: Notification) {
+        guard let value = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        let keyBoardFrame = value.cgRectValue
+        let bottomSpace = view.frame.height - stackView.frame.origin.y - stackView.frame.height
+        let difference =  keyBoardFrame.height - bottomSpace
+        self.view.transform = CGAffineTransform(translationX: 0, y: -difference - 8)
+        print("OBSERVERL: \(keyBoardFrame)")
+    }
+    
+    @objc func handleKeyBoardHide() {
+        self.view.transform = .identity
+    }
+    
     func isStackViewFull(stackView: UIStackView) -> Bool{
         return stackView.subviews.count == 2 ?  true : false
     }
     
-    @objc func handleTapTag(tag: TagUIView) {
-//        print("clicked", tag.label.text)
-        print("CLICKED", tag.description)
-        stackView.removeArrangedSubview(tag)
-//        view.layoutIfNeeded()
-        tag.removeFromSuperview()
+    @objc func handleTapTag(gesture: UITapGestureRecognizer) {
+        print("CLICKED", gesture.description)
+        stackView.removeArrangedSubview(gesture.view!)
+        gesture.view?.removeFromSuperview()
+        
+        //How delete from coredata?
+        //show textfield when stackvewisubviews count < 2
     }
     
     @objc func handleAddTagsButton(sender: UIButton) {
@@ -115,10 +134,12 @@ class CardAddTagsViewController: ResizableViewController {
             }
         } else {
             taskDetail?.tags?.append(tagsNameTextField.text ?? "")
+            stackView.addArrangedSubview(tagView)
+            refreshTags?(tagsNameTextField.text ?? "")
             coreData?.saveContext()
             tagsNameTextField.text = nil
-            stackView.addArrangedSubview(tagView)
-            refreshTags?()
+           
+           
             
         }
     }
