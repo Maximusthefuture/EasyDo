@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		380759392785A90900A1AEE6 /* DailyItems+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380759372785A90900A1AEE6 /* DailyItems+CoreDataClass.swift */; };
-		3807593A2785A90900A1AEE6 /* DailyItems+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380759382785A90900A1AEE6 /* DailyItems+CoreDataProperties.swift */; };
+		3808A1922796F1C700460A16 /* ViewControllerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3808A1912796F1C700460A16 /* ViewControllerRepresentable.swift */; };
 		380ADEDA2779F5B300B97EB9 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380ADED92779F5B300B97EB9 /* Project.swift */; };
 		380ADEDC2779F62A00B97EB9 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380ADEDB2779F62A00B97EB9 /* Task.swift */; };
 		380ADEDF2779F95000B97EB9 /* ProjectMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380ADEDE2779F95000B97EB9 /* ProjectMainViewController.swift */; };
@@ -22,6 +21,8 @@
 		381E8E2B278ED8B70021FDC6 /* ResizableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E8E2A278ED8B70021FDC6 /* ResizableViewController.swift */; };
 		381E8E2D278F0B4A0021FDC6 /* PickTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E8E2C278F0B4A0021FDC6 /* PickTimeViewController.swift */; };
 		382C8C1D2787077200BE2B8A /* MenuLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382C8C1C2787077200BE2B8A /* MenuLabel.swift */; };
+		3832ABF02798600800FFFE85 /* DailyItems+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3832ABEE2798600800FFFE85 /* DailyItems+CoreDataClass.swift */; };
+		3832ABF12798600800FFFE85 /* DailyItems+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3832ABEF2798600800FFFE85 /* DailyItems+CoreDataProperties.swift */; };
 		383A8AB927888099003EE8F7 /* AddEditCardPropertiesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383A8AB827888099003EE8F7 /* AddEditCardPropertiesViewCell.swift */; };
 		383A8ABB2788810D003EE8F7 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383A8ABA2788810D003EE8F7 /* RoundedView.swift */; };
 		383A8ABD27888321003EE8F7 /* AttachmentsCardViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383A8ABC27888321003EE8F7 /* AttachmentsCardViewCell.swift */; };
@@ -66,8 +67,7 @@
 		380759282785A6F600A1AEE6 /* EasyDo v8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EasyDo v8.xcdatamodel"; sourceTree = "<group>"; };
 		380759352785A81700A1AEE6 /* EasyDo v9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EasyDo v9.xcdatamodel"; sourceTree = "<group>"; };
 		380759362785A8E500A1AEE6 /* EasyDo v10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EasyDo v10.xcdatamodel"; sourceTree = "<group>"; };
-		380759372785A90900A1AEE6 /* DailyItems+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DailyItems+CoreDataClass.swift"; sourceTree = "<group>"; };
-		380759382785A90900A1AEE6 /* DailyItems+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DailyItems+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3808A1912796F1C700460A16 /* ViewControllerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRepresentable.swift; sourceTree = "<group>"; };
 		380ADED92779F5B300B97EB9 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		380ADEDB2779F62A00B97EB9 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		380ADEDE2779F95000B97EB9 /* ProjectMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectMainViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +86,9 @@
 		381E8E2A278ED8B70021FDC6 /* ResizableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizableViewController.swift; sourceTree = "<group>"; };
 		381E8E2C278F0B4A0021FDC6 /* PickTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickTimeViewController.swift; sourceTree = "<group>"; };
 		382C8C1C2787077200BE2B8A /* MenuLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuLabel.swift; sourceTree = "<group>"; };
+		3832ABED27985FDF00FFFE85 /* EasyDo v11.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EasyDo v11.xcdatamodel"; sourceTree = "<group>"; };
+		3832ABEE2798600800FFFE85 /* DailyItems+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DailyItems+CoreDataClass.swift"; path = "CoreDataClass/DailyItems+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3832ABEF2798600800FFFE85 /* DailyItems+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DailyItems+CoreDataProperties.swift"; path = "CoreDataClass/DailyItems+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		383A8AB827888099003EE8F7 /* AddEditCardPropertiesViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditCardPropertiesViewCell.swift; sourceTree = "<group>"; };
 		383A8ABA2788810D003EE8F7 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		383A8ABC27888321003EE8F7 /* AttachmentsCardViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentsCardViewCell.swift; sourceTree = "<group>"; };
@@ -181,8 +184,8 @@
 		386F83DD275AAD45004DC280 = {
 			isa = PBXGroup;
 			children = (
-				380759372785A90900A1AEE6 /* DailyItems+CoreDataClass.swift */,
-				380759382785A90900A1AEE6 /* DailyItems+CoreDataProperties.swift */,
+				3832ABEE2798600800FFFE85 /* DailyItems+CoreDataClass.swift */,
+				3832ABEF2798600800FFFE85 /* DailyItems+CoreDataProperties.swift */,
 				381CAAC7278207F900E8AB00 /* Project+CoreDataClass.swift */,
 				381CAAC8278207F900E8AB00 /* Project+CoreDataProperties.swift */,
 				381CAAC9278207F900E8AB00 /* Task+CoreDataClass.swift */,
@@ -297,6 +300,7 @@
 				383A8ABE27888381003EE8F7 /* HorizontalAttachmentsController.swift */,
 				388AF31B278D6A3100C44021 /* CreateProjectVC.swift */,
 				381E8E2A278ED8B70021FDC6 /* ResizableViewController.swift */,
+				3808A1912796F1C700460A16 /* ViewControllerRepresentable.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -385,6 +389,7 @@
 				381E8E2D278F0B4A0021FDC6 /* PickTimeViewController.swift in Sources */,
 				3868B933276E383700F2B765 /* TableViewController+Drag.swift in Sources */,
 				386F83F4275AAD45004DC280 /* EasyDo.xcdatamodeld in Sources */,
+				3832ABF02798600800FFFE85 /* DailyItems+CoreDataClass.swift in Sources */,
 				385644552770E8750030B0C8 /* Extensions+UIView.swift in Sources */,
 				38B20B762779FADC002AD934 /* BaseListController.swift in Sources */,
 				38FF9F1527848C8B00EB9805 /* Extensions.swift in Sources */,
@@ -402,7 +407,6 @@
 				38E992892760F97C00E2D1E6 /* DataTableViewCell.swift in Sources */,
 				38FF9F11278488F100EB9805 /* DayTasksViewController.swift in Sources */,
 				381CAACE278207F900E8AB00 /* Task+CoreDataProperties.swift in Sources */,
-				380759392785A90900A1AEE6 /* DailyItems+CoreDataClass.swift in Sources */,
 				383A8ABF27888381003EE8F7 /* HorizontalAttachmentsController.swift in Sources */,
 				381CAACC278207F900E8AB00 /* Project+CoreDataProperties.swift in Sources */,
 				38FF9F132784892F00EB9805 /* DayTaskViewCell.swift in Sources */,
@@ -411,13 +415,13 @@
 				380ADEDC2779F62A00B97EB9 /* Task.swift in Sources */,
 				38F4175327830BDF00B7EDAB /* AddEditCardViewController.swift in Sources */,
 				383A8AC127888408003EE8F7 /* AttachmentsHorizontallViewCell.swift in Sources */,
-				3807593A2785A90900A1AEE6 /* DailyItems+CoreDataProperties.swift in Sources */,
 				381E8E26278ED0850021FDC6 /* HeaderLabel.swift in Sources */,
 				389DABD2278DC00E00A600BF /* BottomSheetModalDissmisalHandler.swift in Sources */,
 				3868B931276E376C00F2B765 /* Model+Dragging.swift in Sources */,
 				385644582770E9D70030B0C8 /* TagUIView.swift in Sources */,
 				386F83EC275AAD45004DC280 /* SceneDelegate.swift in Sources */,
 				381CAAAB2781EA8000E8AB00 /* CoreDataStack.swift in Sources */,
+				3808A1922796F1C700460A16 /* ViewControllerRepresentable.swift in Sources */,
 				383A8ABD27888321003EE8F7 /* AttachmentsCardViewCell.swift in Sources */,
 				38E69BEE2795BB7F00E942BA /* HDayPickerUICollectionView.swift in Sources */,
 				383A8ABB2788810D003EE8F7 /* RoundedView.swift in Sources */,
@@ -429,6 +433,7 @@
 				380ADEDA2779F5B300B97EB9 /* Project.swift in Sources */,
 				38B20B7E2779FFAA002AD934 /* TasksCollectionViewCell.swift in Sources */,
 				382C8C1D2787077200BE2B8A /* MenuLabel.swift in Sources */,
+				3832ABF12798600800FFFE85 /* DailyItems+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -631,6 +636,7 @@
 		386F83F2275AAD45004DC280 /* EasyDo.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				3832ABED27985FDF00FFFE85 /* EasyDo v11.xcdatamodel */,
 				380759362785A8E500A1AEE6 /* EasyDo v10.xcdatamodel */,
 				380759352785A81700A1AEE6 /* EasyDo v9.xcdatamodel */,
 				380759282785A6F600A1AEE6 /* EasyDo v8.xcdatamodel */,
@@ -642,7 +648,7 @@
 				381CAAB52781F48D00E8AB00 /* EasyDo v2.xcdatamodel */,
 				386F83F3275AAD45004DC280 /* EasyDo.xcdatamodel */,
 			);
-			currentVersion = 380759362785A8E500A1AEE6 /* EasyDo v10.xcdatamodel */;
+			currentVersion = 3832ABED27985FDF00FFFE85 /* EasyDo v11.xcdatamodel */;
 			path = EasyDo.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

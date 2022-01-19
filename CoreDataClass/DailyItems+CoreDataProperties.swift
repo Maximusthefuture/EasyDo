@@ -2,7 +2,7 @@
 //  DailyItems+CoreDataProperties.swift
 //  EasyDo
 //
-//  Created by Maximus on 05.01.2022.
+//  Created by Maximus on 19.01.2022.
 //
 //
 
@@ -17,6 +17,7 @@ extension DailyItems {
     }
 
     @NSManaged public var inTime: Date?
+    @NSManaged public var inDate: Date?
     @NSManaged public var task: Task?
 
 }

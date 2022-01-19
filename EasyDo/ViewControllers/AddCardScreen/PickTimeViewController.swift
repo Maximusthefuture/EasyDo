@@ -29,10 +29,19 @@ class PickTimeViewController: ResizableViewController {
         return b
     }()
     
-    let datePicker: UIDatePicker = {
+    let timePicker: UIDatePicker = {
         let dp = UIDatePicker()
         dp.locale = Locale.current
         dp.datePickerMode = .time
+        dp.addTarget(self, action: #selector(handleDatePickerChange), for: .editingDidEnd)
+        
+        return dp
+    }()
+    
+    let datePicker: UIDatePicker = {
+        let dp = UIDatePicker()
+        dp.locale = Locale.current
+        dp.datePickerMode = .date
         dp.addTarget(self, action: #selector(handleDatePickerChange), for: .editingDidEnd)
         
         return dp
@@ -44,12 +53,14 @@ class PickTimeViewController: ResizableViewController {
         super.viewDidLoad()
         view.backgroundColor = .red
         view.addSubview(whenLabel)
-        view.addSubview(datePicker)
+        view.addSubview(timePicker)
         view.addSubview(saveButton)
+        view.addSubview(datePicker)
         whenLabel.text = "When?"
         whenLabel.centerInTop(padding: .init(top: 20, left: 0, bottom: 0, right: 0))
         saveButton.centerInBottom()
-        datePicker.centerInSuperview()
+        timePicker.centerInSuperview()
+        datePicker.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: timePicker.topAnchor, trailing: view.trailingAnchor)
     
     }
     

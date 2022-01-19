@@ -54,29 +54,9 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
     var didSelectHandler: ((Task) -> ())?
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        guard let task = project?.tasks?[indexPath.item] as? Task else { return }
         guard let tasks = tasksList?[indexPath.item] else { return }
-//        let vc = AddEditCardViewController()
         print("ON CLICK")
         didSelectHandler?(tasks)
-        
-//
-//        var cell = collectionView.cellForItem(at: indexPath) as! TasksCollectionViewCell
-//        let tag =  TagUIView()
-//        tag.label.text  = "New Tag"
-//        tag.backgroundColor = .green
-//        cell.addOneMoreTag(view: tag)
-//        var navController = UINavigationController(rootViewController: vc)
-
-//        navController.modalPresentationStyle = .fullScreen
-//        vc.currentProject = project
-//        vc.isAddMyDay = isAddMyDay
-//        vc.taskDetail = tasks
-//        vc.coreDataStack = coreDataStack
-//        navigationController?.pushViewController(vc, animated: true)
-       
-//        present(vc, animated: true)
-//        present(vc, animated: true)
     }
     
     func dragItems(at indexPath: IndexPath) -> [UIDragItem] {

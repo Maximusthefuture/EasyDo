@@ -2,7 +2,7 @@
 //  DailyItems+CoreDataClass.swift
 //  EasyDo
 //
-//  Created by Maximus on 05.01.2022.
+//  Created by Maximus on 19.01.2022.
 //
 //
 

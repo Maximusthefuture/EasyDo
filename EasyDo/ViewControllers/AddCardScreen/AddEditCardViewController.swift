@@ -201,6 +201,8 @@ class AddEditCardViewController: UIViewController {
                     return
                 }
                 dailyItem.inTime = date
+                dailyItem.inDate = date.onlyDate
+                
                 self?.taskDetail?.mainTag = "In Progress"
                 coreDataStack.saveContext()
             } else {

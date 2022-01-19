@@ -75,10 +75,10 @@ extension UIView {
         }
     }
     
-    func centerInSuperview(size: CGSize = .zero) {
+    func centerInSuperview(size: CGSize = .zero, padding: UIEdgeInsets = .zero) {
         translatesAutoresizingMaskIntoConstraints = false
         if let superviewCenterXAnchor = superview?.centerXAnchor {
-            centerXAnchor.constraint(equalTo: superviewCenterXAnchor).isActive = true
+            centerXAnchor.constraint(equalTo: superviewCenterXAnchor, constant: padding.top).isActive = true
         }
         
         if let superviewCenterYAnchor = superview?.centerYAnchor {

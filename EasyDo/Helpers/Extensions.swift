@@ -9,6 +9,9 @@ import Foundation
 import UIKit
 
 
+
+
+
 extension UIColor {
     func randomColor() -> UIColor {
        let red = CGFloat(arc4random_uniform(255)) / 255.0
@@ -64,6 +67,45 @@ extension CGPoint {
     func isAlmostEqual(to other: CGPoint) -> Bool {
         x.isAlmostEqual(to: other.x) && y.isAlmostEqual(to: other.y)
     }
+}
+
+extension Date {
+    
+    
+    func getStartOfDate() -> Date {
+        let calendar = Calendar.current
+        let dateFrom = calendar.startOfDay(for: self)
+        let date = calendar.date(byAdding: .day, value: 1, to: dateFrom)
+        
+        return date ?? self
+    }
+    
+   
+
+        var onlyDate: Date {
+            get {
+                let calender = Calendar.current
+                var dateComponents = calender.dateComponents([.year, .month, .day], from: self)
+                dateComponents.hour = 0
+                dateComponents.minute = 0
+                dateComponents.second = 0
+//                dateComponents.timeZone = NSTimeZone.system
+                return calender.date(from: dateComponents) ?? self
+            }
+        }
+
+    
+  
+    func format(format:String = "dd-MM-yyyy") -> Date {
+             let dateFormatter = DateFormatter()
+             dateFormatter.dateFormat = format
+             let dateString = dateFormatter.string(from: self)
+             if let newDate = dateFormatter.date(from: dateString) {
+                 return newDate
+             } else {
+                 return self
+             }
+}
 }
 
 
