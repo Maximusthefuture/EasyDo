@@ -138,15 +138,9 @@ class ProjectsListViewController: UIViewController {
         view.addSubview(label)
         view.addSubview(addButton)
         view.addSubview(tagView)
-        
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: tagView.bottomAnchor, constant: 24).isActive = true
-        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: addButton.topAnchor, constant: -16).isActive = true
+        tableView.anchor(top: tagView.bottomAnchor, leading: view.leadingAnchor, bottom: addButton.topAnchor, trailing: view.trailingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 0))
         tableView.backgroundColor = #colorLiteral(red: 0.9682769179, green: 0.9684478641, blue: 1, alpha: 1)
         tableView.dragDelegate = self
-        //        tableView.dropDelegate = self
         tableView.dragInteractionEnabled = true
         tableView.delegate = self
         tableView.dataSource = self
@@ -175,9 +169,7 @@ class ProjectsListViewController: UIViewController {
             return []
         }
     }
-
 }
-
 
 extension ProjectsListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
