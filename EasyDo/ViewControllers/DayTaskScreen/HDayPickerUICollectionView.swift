@@ -67,8 +67,9 @@ class HDayPickerUICollectionView: BaseListController {
     //MARK: MOVE TO VIEWMODEL
     func fetchCurrentWeek() {
         let today = Date()
-        let calendar = Calendar.current
+        var calendar = Calendar.current
         let week = calendar.dateInterval(of: .weekOfMonth, for: today)
+        calendar.timeZone = .current
         
         guard let firstWeekDay = week?.start else { return }
         

@@ -24,6 +24,8 @@ class DayTasksViewController: UIViewController {
     weak var dayTaskDelegate: IsNeedToAddDayTaskDelegate?
     let coreDataStack = CoreDataStack(modelName: "EasyDo")
     var myDayLabel = UIButton()
+    var tableView = UITableView()
+    var emptyLabel = UILabel()
     var weeklyPickerCollectionView = HDayPickerUICollectionView()
     var fetchRequest: NSFetchRequest<DailyItems>?
     lazy var fetchedResultsController:
@@ -39,29 +41,22 @@ class DayTasksViewController: UIViewController {
             managedObjectContext: coreDataStack.managedContext,
             sectionNameKeyPath: nil,
             cacheName: nil)
-        
         return fetchedResultsController
     }()
     
-    var tableView = UITableView()
-    var emptyLabel = UILabel()
     
     //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         fetchRequest = DailyItems.fetchRequest()
         weeklyPickerCollectionView.delegate = self
         myDayLabelInit()
         initWeeklyDayPickerCollection()
         tableViewInit()
         navigationController?.navigationBar.isHidden = true
-        view.backgroundColor = .white
+        emptyLabelInit()
         
-        emptyLabel.text = "NOTHING HERE"
-        view.addSubview(emptyLabel)
-        emptyLabel.centerInSuperview()
-        emptyLabel.isHidden = true
-       
         do {
             try fetchedResultsController.performFetch()
             
@@ -76,6 +71,13 @@ class DayTasksViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("VIEW WILL APPEAR")
+    }
+    
+    fileprivate func emptyLabelInit() {
+        emptyLabel.text = "NOTHING HERE Add item + "
+        view.addSubview(emptyLabel)
+        emptyLabel.centerInSuperview()
+        emptyLabel.isHidden = true
     }
     
     fileprivate func tableViewInit() {
@@ -94,8 +96,6 @@ class DayTasksViewController: UIViewController {
         weeklyPickerCollectionView.view.anchor(top: myDayLabel.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0),size: .init(width: 0, height: 80))
     }
     
-    
-    
     fileprivate func myDayLabelInit() {
         view.addSubview(myDayLabel)
         myDayLabel.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 40, left: 16, bottom: 0, right: 0))
@@ -105,9 +105,7 @@ class DayTasksViewController: UIViewController {
         let interaction = UIContextMenuInteraction(delegate: self)
         myDayLabel.showsMenuAsPrimaryAction = true
         self.myDayLabel.addInteraction(interaction)
-        
         contextMenuLabel()
-        
     }
     
     fileprivate func contextMenuLabel() {
@@ -130,7 +128,7 @@ class DayTasksViewController: UIViewController {
         myDayLabel.menu = mainMenu
     }
     
-    
+    //MARK: ADD to external file
     fileprivate func addButtonInit() {
         view.addSubview(addButton)
         addButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 16, bottom: 0, right: 16),size: CGSize(width: 0, height: 60))
@@ -140,6 +138,15 @@ class DayTasksViewController: UIViewController {
         addButton.addTarget(self, action: #selector(addNewTask), for: .touchUpInside)
     }
     
+    //MARK: Move to VM
+    func isCurrentHour(date: Date) -> Bool {
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: date)
+        let currentHour = calendar.component(.hour, from: Date())
+//        calendar.isDate(<#T##date1: Date##Date#>, inSameDayAs: <#T##Date#>)
+        return hour == currentHour
+    }
+    
     
     @objc fileprivate func addNewTask(sender: UIButton) {
         let vc = ProjectsListViewController()
@@ -147,14 +154,13 @@ class DayTasksViewController: UIViewController {
         vc.isAddMyDay = self.isAddMyDay
         dayTaskDelegate?.isShowButton(vc: self, show: true)
         vc.coreDataStack = coreDataStack
-        //        letsInsert()
         present(vc, animated: true)
-        //        array.add(delegate?) closure?
-        //        deleteAll()
     }
     
     func deleteAll() {
-        let fetchRequest = DailyItems.fetchRequest()
+        guard let fetchRequest = fetchRequest else {
+            return
+        }
         let item = try? coreDataStack.managedContext.fetch(fetchRequest)
         guard let item = item else { return }
         for i in item {
@@ -173,10 +179,7 @@ extension DayTasksViewController: HDayPickerUICollectionViewDelegate {
         if let sort = sortDescriptor {
             fetchRequest.sortDescriptors = [sort]
         }
-        
         fetchAndReload()
-        
-        print("DATE HERE")
     }
 }
 extension DayTasksViewController {
@@ -187,12 +190,10 @@ extension DayTasksViewController {
             emptyLabel.isHidden = false
         } else {
             emptyLabel.isHidden = true
-            print("NOT EMPTY")
         }
     }
     
     func fetchAndReload() {
-        guard let fetchRequest = fetchRequest else { return }
         try? fetchedResultsController.performFetch()
         checkIsItemsEmpty()
         tableView.reloadData()
@@ -259,6 +260,8 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    
+    //MARK: Move to cell????
     func configure(cell: UITableViewCell, for indexPath: IndexPath) {
         guard let cell = cell as? DayTaskViewCell else { return }
         let items = fetchedResultsController.object(at: indexPath)
@@ -267,9 +270,13 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
         dateFormatter.timeStyle = .short
         dateFormatter.dateFormat = "HH:mm"
         cell.timeLabel.text = dateFormatter.string(from: items.inTime ?? Date())
-//        var d = dateFormatter.string(from: items.inTime ?? Date())
-        //        cell.backgroundColor = .red
         cell.taskLabel.text = items.task?.title
+        
+        //MARK: TODO заполнение???
+        //Notification asking isThisDone? Statistics???
+        if isCurrentHour(date: items.inTime ?? Date()) {
+            cell.roundedView.backgroundColor = .init(white: 0.5, alpha: 0.9)
+        }
     }
     
     func letsInsert() {
@@ -278,8 +285,6 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let items = fetchedResultsController.object(at: indexPath)
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DayTaskViewCell
         configure(cell: cell, for: indexPath)
         if indexPath.item == 0 {
@@ -303,31 +308,9 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 
-extension DayTasksViewController {
-    func inspectAction() -> UIAction {
-        return UIAction(title: NSLocalizedString("InspectTitle", comment: ""),
-                        image: UIImage(systemName: "arrow.up.square")) { action in
-            
-        }
-    }
-    
-    func duplicateAction() -> UIAction {
-        return UIAction(title: NSLocalizedString("DuplicateTitle", comment: ""),
-                        image: UIImage(systemName: "plus.square.on.square")) { action in
-            
-        }
-    }
-    func deleteAction() -> UIAction {
-        return UIAction(title: NSLocalizedString("DeleteTitle", comment: ""),
-                        image: UIImage(systemName: "trash"),
-                        attributes: .destructive) { action in
-            //           self.performDelete()
-        }
-    }
-}
+
 //MARK: UIContextMenuInteractionDelegate
 extension DayTasksViewController: UIContextMenuInteractionDelegate {
-    
     
     func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
         let configuration = UIContextMenuConfiguration(identifier: NSString(utf8String: "Menu"), previewProvider: nil) { (elements) -> UIMenu? in
@@ -378,13 +361,11 @@ extension DayTasksViewController: NSFetchedResultsControllerDelegate {
         }
     }
     
-    
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
     }
     
 }
-
 
 extension Date {
     static func - (lhs: Date, rhs: Date) -> TimeInterval {
@@ -393,6 +374,29 @@ extension Date {
 }
 extension TimeInterval {
     func asMinutes() -> Double { return self / (60.0) }
+}
+
+extension DayTasksViewController {
+    func inspectAction() -> UIAction {
+        return UIAction(title: NSLocalizedString("InspectTitle", comment: ""),
+                        image: UIImage(systemName: "arrow.up.square")) { action in
+            
+        }
+    }
+    
+    func duplicateAction() -> UIAction {
+        return UIAction(title: NSLocalizedString("DuplicateTitle", comment: ""),
+                        image: UIImage(systemName: "plus.square.on.square")) { action in
+            
+        }
+    }
+    func deleteAction() -> UIAction {
+        return UIAction(title: NSLocalizedString("DeleteTitle", comment: ""),
+                        image: UIImage(systemName: "trash"),
+                        attributes: .destructive) { action in
+            //           self.performDelete()
+        }
+    }
 }
 
 

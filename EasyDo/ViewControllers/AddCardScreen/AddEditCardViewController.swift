@@ -36,7 +36,7 @@ class AddEditCardViewController: UIViewController {
     }()
     
     var isAddMyDay: Bool?
-    var addButton = UIButton()
+//    var addButton = UIButton()
     let cellId = "CellID"
     let propertiesCell = "PropertiesCell"
     let attachmentsCell = "attachmentsCell"
@@ -47,40 +47,43 @@ class AddEditCardViewController: UIViewController {
     var tableView = UITableView()
     
     //MARK: Init views
-    fileprivate func initViews() {
-        view.addSubview(cardName)
-        view.addSubview(cardDescription)
-        cardName.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 16, bottom: 0, right: 0))
-        cardDescription.anchor(top: cardName.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 16, left: 16, bottom: 0, right: 16))
-        
-    }
+   
     
     //MARK: Init tableView
     fileprivate func initTableView() {
         view.addSubview(tableView)
-        tableView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
+        tableView.anchor(top: cardDescription.bottomAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         tableView.register(AddEditCardPropertiesViewCell.self, forCellReuseIdentifier: propertiesCell)
         tableView.register(AttachmentsCardViewCell.self, forCellReuseIdentifier: attachmentsCell)
+        tableView.isScrollEnabled = false
         
     }
     
-    
-    lazy var header: UIView = {
-        let header = UIView()
-        header.addSubview(cardName)
-        header.addSubview(cardDescription)
-//        header.backgroundColor = .yellow
-        cardName.anchor(top: header.topAnchor, leading: header.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 16, bottom: 0, right: 0))
-        cardDescription.anchor(top: cardName.bottomAnchor, leading: header.leadingAnchor, bottom: header.bottomAnchor, trailing: header.trailingAnchor, padding: .init(top: 16, left: 16, bottom: 20, right: 16))
-        return header
+    var addButton: UIButton = {
+       var b = UIButton()
+        b.setTitle("+", for: .normal)
+        b.setTitleColor(.blue, for: .normal)
+        b.titleLabel?.font = UIFont.systemFont(ofSize: 32, weight: .bold)
+        b.addTarget(self, action: #selector(addCardToDayTask), for: .touchUpInside)
+        return b
     }()
+    
+    func  initCardNameAndDescription() {
+        var stackView = UIStackView(arrangedSubviews: [cardName, addButton])
+        view.addSubview(cardName)
+        view.addSubview(cardDescription)
+        view.addSubview(addButton)
+        cardName.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 20, left: 16, bottom: 0, right: 0))
+        cardDescription.anchor(top: cardName.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 16, left: 16, bottom: 0, right: 16), size: .init(width: 0, height: 50))
+        
+        addButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 16, left: 0, bottom: 0, right: 8))
+    }
     
     let seeAllButton: UIButton = {
         let b = UIButton()
-//        b.backgroundColor = .brown
         b.setTitleColor(.black, for: .normal)
         b.setTitle("See all", for: .normal)
         b.addTarget(self, action: #selector(handleSeeAllAttachments), for: .touchUpInside)
@@ -92,13 +95,11 @@ class AddEditCardViewController: UIViewController {
     //MARK: TODO Bottom Sheet when we can add items? First image then can add 
     @objc private func handleSeeAllAttachments() {
         let vc = AttachmentsViewController(initialHeight: 300)
-//        bottomSheetTransitionDelegate = BottomSheetTransitioningDelegate(factory: self)
-//        vc.modalPresentationStyle = .custom
-//        vc.transitioningDelegate = bottomSheetTransitionDelegate
         present(vc, animated: true)
         print("SEE ALL")
     }
     
+
     lazy var attachmentsHeader: UIView = {
         let headerLabel = HeaderLabel()
         let properties = UIView()
@@ -122,21 +123,15 @@ class AddEditCardViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneCreatingEditing))
-//        initViews()
-        
+        initCardNameAndDescription()
         initTableView()
+        
 //                view.resignFirstResponder()
         //MARK: BUG can't tap on cell while this is active
 //                setupEndEditingGesture()
-        addButtonInit()
-        
-        
-   
-       
+//        addButtonInit()
     }
-    
-    
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         cardName.text = taskDetail?.title
@@ -168,26 +163,11 @@ class AddEditCardViewController: UIViewController {
         dismiss(animated: true)
         
     }
-    
-    fileprivate func addButtonInit() {
-        view.addSubview(addButton)
-        addButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 16, bottom: 0, right: 16),size: CGSize(width: 0, height: 60))
-        addButton.setTitle("+ Add Card", for: .normal)
-        addButton.layer.cornerRadius = 10
-        addButton.backgroundColor = .red
-        addButton.addTarget(self, action: #selector(addCardToDayTask), for: .touchUpInside)
-    }
-    
-    
     var date: Date?
     var time: Date?
     
     @objc fileprivate func addCardToDayTask(sender: UIButton) {
         let vc = PickTimeViewController(initialHeight: 300)
-        
-//        bottomSheetTransitionDelegate = BottomSheetTransitioningDelegate(factory: self)
-//        vc.modalPresentationStyle = .custom
-//        vc.transitioningDelegate = bottomSheetTransitionDelegate
         present(vc, animated: true)
        
         vc.changeDate = { [weak self] date in
@@ -198,7 +178,7 @@ class AddEditCardViewController: UIViewController {
             self?.time = time
             
         }
-        
+        //MARK: BUG WITH DATE, Add in previous day
         vc.dataIsSaved = { [weak self] in
             if let coreDataStack = self?.coreDataStack {
                 let dailyItem = DailyItems(context: coreDataStack.managedContext)
@@ -249,26 +229,23 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return 0
-        } else if section == 1 {
             return propertiesArray.count
         }
-        
         return 1
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 3
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerLabel = HeaderLabel()
         switch section {
-        case 0: return header
-        case 1: headerLabel.text = "Properties"
-        case 2: return attachmentsHeader
+//        case 0: return header
+        case 0: headerLabel.text = "Properties"
+        case 1: return attachmentsHeader
             
-        default:
+         default:
             headerLabel.text = "TO-DO"
         }
         return headerLabel
@@ -294,7 +271,7 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 1 {
+        if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: propertiesCell, for: indexPath) as! AddEditCardPropertiesViewCell
             let propepties = propertiesArray[indexPath.row]
             cell.label.text = propepties
@@ -343,21 +320,3 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
         return 80
     }
 }
-
-
-////MARK: BottomSheetPresentationControllerFactory
-//extension AddEditCardViewController: BottomSheetPresentationControllerFactory {
-//    func makeBottomSheetPresentationController(presentedViewController: UIViewController?, presentingViewController: UIViewController?) -> BottomSheetPresentationController {
-//        .init(presentedViewController: presentedViewController!, presenting: presentingViewController, dissmisalHandler: self)
-//    }
-//
-//
-//}
-//
-////MARK: BottomSheetModalDissmisalHandler
-//extension AddEditCardViewController: BottomSheetModalDissmisalHandler {
-//    func performDismissal(animated: Bool) {
-//        presentedViewController?.dismiss(animated: animated)
-//
-//    }
-//}

@@ -19,7 +19,7 @@ struct ViewControllerRepresentable: UIViewControllerRepresentable {
     
     
     func makeUIViewController(context: Context) -> some UIViewController {
-        return DayTasksViewController()
+        return AddEditCardViewController()
     }
     
 }
