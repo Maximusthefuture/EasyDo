@@ -18,21 +18,36 @@ class WeeklyPickerViewCell: UICollectionViewCell {
         return label
     }()
     
+    let roundedView: UIView = {
+        let view = UIView()
+        view.backgroundColor = #colorLiteral(red: 0.9722431302, green: 0.972392261, blue: 1, alpha: 1)
+        view.layer.cornerRadius = 20
+        view.clipsToBounds = true
+        return view
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        contentView.addSubview(roundedView)
         contentView.addSubview(dayLabel)
 //        backgroundColor = .blue
-        dayLabel.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 16, bottom: 0, right: 16))
+        dayLabel.anchor(top: roundedView.topAnchor, leading: roundedView.leadingAnchor, bottom: roundedView.bottomAnchor, trailing: roundedView.trailingAnchor, padding: .init(top: 0, left: 8, bottom: 0, right: 0))
+        roundedView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor)
+//        backgroundColor = .red
+        roundedView.isHidden = true
     }
     
     override var isSelected: Bool {
         didSet {
             if isSelected {
-                dayLabel.textColor = .green
+                dayLabel.textColor = #colorLiteral(red: 0.5596068501, green: 0.5770205855, blue: 1, alpha: 1)
                 dayLabel.font = UIFont.boldSystemFont(ofSize: 15)
+                roundedView.isHidden = false
             } else {
                 dayLabel.textColor = .black
                 dayLabel.font = UIFont.boldSystemFont(ofSize: 13)
+                roundedView.isHidden = true
             }
         }
     }

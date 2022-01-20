@@ -9,8 +9,7 @@ import UIKit
 import CoreData
 import SwiftUI
 
-
-private let reuseIdentifier = "Cell"
+//MARK: Add in daily items, Repeat: Bool??
 
 //delegate doesn't work in AddDetailVC
 protocol IsNeedToAddDayTaskDelegate: AnyObject {
@@ -18,6 +17,7 @@ protocol IsNeedToAddDayTaskDelegate: AnyObject {
 }
 
 class DayTasksViewController: UIViewController {
+    private let reuseIdentifier = "Cell"
     
     var addButton = UIButton()
     lazy var isAddMyDay: Bool = false
@@ -33,7 +33,7 @@ class DayTasksViewController: UIViewController {
         var date = calendar.date(from: components)
         let sort = NSSortDescriptor(key: #keyPath(DailyItems.inTime.timeIntervalSince1970), ascending: true)
         fetchRequest?.sortDescriptors = [sort]
-//        fetchRequest?.predicate = NSPredicate(format: "%K == %@", #keyPath(DailyItems.inDate), Date().getStartOfDate() as NSDate)
+        fetchRequest?.predicate = NSPredicate(format: "%K == %@", #keyPath(DailyItems.inDate), Date().getStartOfDate() as NSDate)
         let fetchedResultsController = NSFetchedResultsController(
             fetchRequest: fetchRequest!,
             managedObjectContext: coreDataStack.managedContext,
@@ -55,7 +55,12 @@ class DayTasksViewController: UIViewController {
         tableViewInit()
         navigationController?.navigationBar.isHidden = true
         view.backgroundColor = .white
-        
+        var emptyLabel = UILabel()
+        emptyLabel.text = "NOTHING HERE"
+        view.addSubview(emptyLabel)
+        emptyLabel.centerInSuperview()
+        emptyLabel.isHidden = true
+       
         do {
             try fetchedResultsController.performFetch()
             
@@ -64,6 +69,13 @@ class DayTasksViewController: UIViewController {
         }
         
         fetchedResultsController.delegate = self
+        
+        if fetchedResultsController.fetchedObjects!.isEmpty {
+            tableView.isHidden = true
+            emptyLabel.isHidden = false
+        } else {
+            tableView.isHidden = false
+        }
         addButtonInit()
     }
     
@@ -83,6 +95,8 @@ class DayTasksViewController: UIViewController {
         weeklyPickerCollectionView.view.anchor(top: myDayLabel.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0),size: .init(width: 0, height: 80))
     }
     
+    
+    
     fileprivate func myDayLabelInit() {
         view.addSubview(myDayLabel)
         myDayLabel.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 40, left: 16, bottom: 0, right: 0))
@@ -93,6 +107,11 @@ class DayTasksViewController: UIViewController {
         myDayLabel.showsMenuAsPrimaryAction = true
         self.myDayLabel.addInteraction(interaction)
         
+        contextMenuLabel()
+        
+    }
+    
+    fileprivate func contextMenuLabel() {
         //MARK: TODO
         let menu = UIMenu(title: "", options: .destructive, children: [
             UIAction(title: "Projects")  { _ in
@@ -100,15 +119,16 @@ class DayTasksViewController: UIViewController {
                 vc.coreDataStack = self.coreDataStack
                 self.present(vc, animated: true)
             },
-            UIAction(title: "????") { _ in
+            UIAction(title: "????") { [weak self] _ in
+                self?.fetchRequest?.predicate = nil
+                self?.fetchAndReload()
             }
         ])
         let duplicateAction = self.duplicateAction()
-//        let deleteAction = self.deleteAction()
+        //        let deleteAction = self.deleteAction()
         //Submenu
         let mainMenu = UIMenu(title: "", children: [duplicateAction, menu])
         myDayLabel.menu = mainMenu
-        
     }
     
     

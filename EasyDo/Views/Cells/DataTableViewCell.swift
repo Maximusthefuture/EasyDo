@@ -42,6 +42,7 @@ class DataTableViewCell: UITableViewCell {
     
     let roundedView: UIView = {
         var view = UIView()
+        view.backgroundColor = .white
         return view.roundedView()
     }()
     

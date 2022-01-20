@@ -25,9 +25,11 @@ class HDayPickerUICollectionView: BaseListController {
         fetchCurrentWeek()
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
+            
         }
         collectionView.register(WeeklyPickerViewCell.self, forCellWithReuseIdentifier: dayPickerCellId)
-        collectionView.backgroundColor = .red
+        collectionView.backgroundColor = .white
+        collectionView.showsHorizontalScrollIndicator = false
     }
     
     func setPredicateByDate(date: Date) -> NSPredicate{
@@ -41,6 +43,8 @@ class HDayPickerUICollectionView: BaseListController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
+    
+    
 
     var currentWeek: [Date] = []
     
@@ -78,18 +82,50 @@ class HDayPickerUICollectionView: BaseListController {
         }
         return cell
     }
+    
+    
+    func setSelectedItemFromScrollView(_ scrollView: UIScrollView) {
+        if collectionView == scrollView {
+            let center = CGPoint(x: scrollView.center.x + scrollView.contentOffset.x, y: scrollView.center.y + scrollView.contentOffset.y)
+            let index = collectionView.indexPathForItem(at: center)
+            if index != nil {
+                collectionView.scrollToItem(at: index!, at: .centeredHorizontally, animated: true)
+                self.collectionView.selectItem(at: index, animated: false, scrollPosition: [])
+                self.collectionView(self.collectionView, didSelectItemAt: index!)
+            }
+        }
+    }
+    //MARK: TODO
+    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if collectionView == scrollView  {
+            setSelectedItemFromScrollView(scrollView)
+        }
+    }
+    
+    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if collectionView == scrollView && !decelerate {
+            setSelectedItemFromScrollView(scrollView)
+        }
+    }
+    
+    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! WeeklyPickerViewCell
         
-        let selectedDate = currentWeek[indexPath.item].onlyDate
+        let selectedDate = currentWeek[indexPath.item].getStartOfDate()
         selectedPredicate = setPredicateByDate(date: selectedDate)
         print(selectedDate)
         delegate?.filterTasksByDate(didSelectPredicate: selectedPredicate, sortDescriptor: selectedSortDescriptor)
     }
+    
+  
+    
 }
 
 extension HDayPickerUICollectionView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 10
     }
+    
+    
 }

@@ -180,6 +180,7 @@ class AddEditCardViewController: UIViewController {
     
     
     var date: Date?
+    var time: Date?
     
     @objc fileprivate func addCardToDayTask(sender: UIButton) {
         let vc = PickTimeViewController(initialHeight: 300)
@@ -191,16 +192,21 @@ class AddEditCardViewController: UIViewController {
        
         vc.changeDate = { [weak self] date in
             self?.date = date
+//
+        }
+        vc.changeTime = { [weak self] time in
+            self?.time = time
+            
         }
         
         vc.dataIsSaved = { [weak self] in
             if let coreDataStack = self?.coreDataStack {
                 let dailyItem = DailyItems(context: coreDataStack.managedContext)
                 dailyItem.task = self?.taskDetail
-                guard let date = self?.date else {
+                guard let date = self?.date, let time = self?.time else {
                     return
                 }
-                dailyItem.inTime = date
+                dailyItem.inTime = time
                 dailyItem.inDate = date.onlyDate
                 
                 self?.taskDetail?.mainTag = "In Progress"

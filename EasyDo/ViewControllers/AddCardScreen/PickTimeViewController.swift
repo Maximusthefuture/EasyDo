@@ -18,7 +18,8 @@ class PickTimeViewController: ResizableViewController {
     
     var isTimeChanged: Bool?
     
-    var changeDate: ((Date) -> ())?
+    var changeDate: ((Date?) -> ())?
+    var changeTime: ((Date?) -> Void)?
     var dataIsSaved: (() -> ())?
     
     let saveButton: UIButton = {
@@ -66,7 +67,14 @@ class PickTimeViewController: ResizableViewController {
     
     @objc func handleDatePickerChange(sender: UIDatePicker) {
         print("DATE IS ", sender.date)
-        changeDate?(sender.date)
+        
+        if sender == datePicker {
+            changeDate?(sender.date)
+            
+        } else {
+            changeTime?(sender.date)
+            isTimeChanged = true
+        }
         isTimeChanged = true
     }
     
