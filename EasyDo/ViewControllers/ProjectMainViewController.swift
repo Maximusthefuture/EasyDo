@@ -31,11 +31,31 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
         collectionView.backgroundColor = #colorLiteral(red: 0.9682769179, green: 0.9684478641, blue: 1, alpha: 1)
         
         navigationItem.title = currentProject?.title
-        if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .horizontal
-        }
+//        if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
+//            layout.scrollDirection = .horizontal
+//        }
+        
+        collectionView.collectionViewLayout = createLayout()
+        
+        
         
 //       initCoreDataDummyData()
+    }
+    
+    
+    func createLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewCompositionalLayout {
+            (sectionIndex: Int, layoutEnviroment: NSCollectionLayoutEnvironment) ->
+            NSCollectionLayoutSection? in
+            
+            let item1 = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9), heightDimension: .fractionalHeight(0.7)))
+            let group1 = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9), heightDimension: .absolute(self.collectionView.bounds.height)), subitems: [item1])
+            let section = NSCollectionLayoutSection(group: group1)
+            section.orthogonalScrollingBehavior = .groupPaging
+            return section
+        }
+        return layout
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

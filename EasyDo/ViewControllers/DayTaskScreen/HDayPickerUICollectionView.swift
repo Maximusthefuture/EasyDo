@@ -23,10 +23,12 @@ class HDayPickerUICollectionView: BaseListController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchCurrentWeek()
-        if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .horizontal
-            
-        }
+//        if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
+//            layout.scrollDirection = .horizontal
+//
+//        }
+        
+        collectionView.collectionViewLayout = createLayout()
         collectionView.register(WeeklyPickerViewCell.self, forCellWithReuseIdentifier: dayPickerCellId)
         collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
@@ -45,6 +47,20 @@ class HDayPickerUICollectionView: BaseListController {
     }
     
     
+    func createLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewCompositionalLayout {
+            (sectionIndex: Int, layoutEnviroment: NSCollectionLayoutEnvironment) ->
+            NSCollectionLayoutSection? in
+            
+            let item1 = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.2), heightDimension: .fractionalHeight(0.4)))
+            let group1 = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.7), heightDimension: .absolute(100)), subitems: [item1])
+            let section = NSCollectionLayoutSection(group: group1)
+            section.orthogonalScrollingBehavior = .groupPaging
+            return section
+        }
+        return layout
+    }
+    
 
     var currentWeek: [Date] = []
     
@@ -56,7 +72,7 @@ class HDayPickerUICollectionView: BaseListController {
         
         guard let firstWeekDay = week?.start else { return }
         
-        (1...14).forEach { day in
+        (1...30).forEach { day in
             if let weekday = calendar.date(byAdding: .day, value: day, to: firstWeekDay) {
                 currentWeek.append(weekday)
             }
