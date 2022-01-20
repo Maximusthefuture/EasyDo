@@ -109,25 +109,26 @@ class HDayPickerUICollectionView: BaseListController {
                 self.collectionView.selectItem(at: index, animated: false, scrollPosition: [])
                 self.collectionView(self.collectionView, didSelectItemAt: index!)
             }
-        }
-    }
-    //MARK: TODO
-    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if collectionView == scrollView  {
-            setSelectedItemFromScrollView(scrollView)
+           
         }
     }
     
-    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if collectionView == scrollView && !decelerate {
+    //MARK: DON't WORK WITH UICollectionViewCompositionalLayout
+    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        if collectionView == scrollView  {
             setSelectedItemFromScrollView(scrollView)
-        }
+//        }
+    }
+    
+    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+//        if collectionView == scrollView && !decelerate {
+            setSelectedItemFromScrollView(scrollView)
+//        }
     }
     
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! WeeklyPickerViewCell
-        
         let selectedDate = currentWeek[indexPath.item].getStartOfDate()
         selectedPredicate = setPredicateByDate(date: selectedDate)
         print(selectedDate)

@@ -44,6 +44,7 @@ class DayTasksViewController: UIViewController {
     }()
     
     var tableView = UITableView()
+    var emptyLabel = UILabel()
     
     //MARK: viewDidLoad
     override func viewDidLoad() {
@@ -55,7 +56,7 @@ class DayTasksViewController: UIViewController {
         tableViewInit()
         navigationController?.navigationBar.isHidden = true
         view.backgroundColor = .white
-        var emptyLabel = UILabel()
+        
         emptyLabel.text = "NOTHING HERE"
         view.addSubview(emptyLabel)
         emptyLabel.centerInSuperview()
@@ -69,14 +70,12 @@ class DayTasksViewController: UIViewController {
         }
         
         fetchedResultsController.delegate = self
-        
-        if fetchedResultsController.fetchedObjects!.isEmpty {
-            tableView.isHidden = true
-            emptyLabel.isHidden = false
-        } else {
-            tableView.isHidden = false
-        }
         addButtonInit()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("VIEW WILL APPEAR")
     }
     
     fileprivate func tableViewInit() {
@@ -181,9 +180,21 @@ extension DayTasksViewController: HDayPickerUICollectionViewDelegate {
     }
 }
 extension DayTasksViewController {
+    
+    fileprivate func checkIsItemsEmpty() {
+        guard let isFetchedControllerNotEmpty = fetchedResultsController.fetchedObjects?.isEmpty else { return }
+        if  isFetchedControllerNotEmpty {
+            emptyLabel.isHidden = false
+        } else {
+            emptyLabel.isHidden = true
+            print("NOT EMPTY")
+        }
+    }
+    
     func fetchAndReload() {
         guard let fetchRequest = fetchRequest else { return }
         try? fetchedResultsController.performFetch()
+        checkIsItemsEmpty()
         tableView.reloadData()
     }
 }
@@ -241,8 +252,7 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCell.EditingStyle.delete {
-            let fetchRequest = DailyItems.fetchRequest()
-            let item = try? coreDataStack.managedContext.fetch(fetchRequest)
+            let item = try? coreDataStack.managedContext.fetch(fetchRequest!)
             item?[indexPath.row].task?.mainTag = "Done"
             coreDataStack.managedContext.delete(item![indexPath.row])
             coreDataStack.saveContext()
