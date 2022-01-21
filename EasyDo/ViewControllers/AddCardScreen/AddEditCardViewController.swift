@@ -45,9 +45,7 @@ class AddEditCardViewController: UIViewController {
     var dayVC: DayTasksViewController?
     var taskDetail: Task?
     var tableView = UITableView()
-    
-    //MARK: Init views
-   
+
     
     //MARK: Init tableView
     fileprivate func initTableView() {
@@ -114,12 +112,9 @@ class AddEditCardViewController: UIViewController {
    
     
     let propertiesArray = ["Pomodoro count", "Label", "Due Date"]
-    //MARK: TODO
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        definesPresentationContext = true
-
         view.backgroundColor = .white
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneCreatingEditing))
@@ -128,7 +123,7 @@ class AddEditCardViewController: UIViewController {
         
 //                view.resignFirstResponder()
         //MARK: BUG can't tap on cell while this is active
-//                setupEndEditingGesture()
+                setupEndEditingGesture()
 //        addButtonInit()
     }
 
@@ -149,6 +144,7 @@ class AddEditCardViewController: UIViewController {
     
     @objc func handleEndEditingGesture(tapGesture: UITapGestureRecognizer) {
         self.view.endEditing(true)
+        tapGesture.cancelsTouchesInView = false
         
     }
     
@@ -187,7 +183,7 @@ class AddEditCardViewController: UIViewController {
                     return
                 }
                 dailyItem.inTime = time
-                dailyItem.inDate = date.onlyDate
+                 dailyItem.inDate = date.onlyDate
                 
                 self?.taskDetail?.mainTag = "In Progress"
                 coreDataStack.saveContext()
@@ -320,3 +316,5 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
         return 80
     }
 }
+
+//extension
