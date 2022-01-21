@@ -27,7 +27,6 @@ class HDayPickerUICollectionView: BaseListController {
 //            layout.scrollDirection = .horizontal
 //
 //        }
-        
         collectionView.collectionViewLayout = createLayout()
         collectionView.register(WeeklyPickerViewCell.self, forCellWithReuseIdentifier: dayPickerCellId)
         collectionView.backgroundColor = .white
@@ -69,8 +68,7 @@ class HDayPickerUICollectionView: BaseListController {
         let today = Date()
         var calendar = Calendar.current
         let week = calendar.dateInterval(of: .weekOfMonth, for: today)
-        calendar.timeZone = .current
-        
+        calendar.timeZone = .autoupdatingCurrent
         guard let firstWeekDay = week?.start else { return }
         
         (1...30).forEach { day in
@@ -130,7 +128,7 @@ class HDayPickerUICollectionView: BaseListController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! WeeklyPickerViewCell
-        let selectedDate = currentWeek[indexPath.item].getStartOfDate()
+        let selectedDate = currentWeek[indexPath.item]
         selectedPredicate = setPredicateByDate(date: selectedDate)
         print(selectedDate)
         delegate?.filterTasksByDate(didSelectPredicate: selectedPredicate, sortDescriptor: selectedSortDescriptor)
@@ -143,7 +141,5 @@ class HDayPickerUICollectionView: BaseListController {
 extension HDayPickerUICollectionView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 10
-    }
-    
-    
+    }  
 }
