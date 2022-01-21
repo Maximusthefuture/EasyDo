@@ -89,6 +89,7 @@ class DayTasksViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
+        
     }
     
     fileprivate func initWeeklyDayPickerCollection() {
@@ -147,7 +148,8 @@ class DayTasksViewController: UIViewController {
         return hour == currentHour
     }
     
-    
+    //MARK: Change this to addEditVC
+    //then add project selection when card create
     @objc fileprivate func addNewTask(sender: UIButton) {
         let vc = ProjectsListViewController()
         self.isAddMyDay = true
@@ -274,9 +276,9 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
         
         //MARK: TODO заполнение???
         //Notification asking isThisDone? Statistics???
-        if isCurrentHour(date: items.inTime ?? Date()) {
-            cell.roundedView.backgroundColor = .init(white: 0.5, alpha: 0.9)
-        }
+//        if isCurrentHour(date: items.inTime ?? Date()) {
+//            cell.roundedView.backgroundColor = .init(white: 0.5, alpha: 0.9)
+//        }
     }
     
     func letsInsert() {

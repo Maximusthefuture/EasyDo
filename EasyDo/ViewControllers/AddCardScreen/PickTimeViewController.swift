@@ -95,8 +95,6 @@ class PickTimeViewController: ResizableViewController {
     }
     
     @objc func handleDatePickerChange(sender: UIDatePicker) {
-        
-        print("DATE IS ", sender.date)
         sender.timeZone = .autoupdatingCurrent
         changeDate?(sender.date)
         

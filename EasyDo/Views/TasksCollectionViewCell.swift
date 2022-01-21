@@ -59,7 +59,7 @@ class TasksCollectionViewCell: UICollectionViewCell {
 //        tagF.backgroundColor = .red
    
     
-    let stackView: UIStackView = {
+    var stackView: UIStackView = {
         let stackView =  UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -139,7 +139,8 @@ class TasksCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-//        tagView = TagUIView(frame: .zero)
+        stackView = UIStackView()
+        title.text = nil
     }
     
 //    @objc func handlePan(_ gesture: UIPanGestureRecognizer) {

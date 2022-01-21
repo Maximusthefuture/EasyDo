@@ -89,6 +89,7 @@ extension Date {
                 dateComponents.hour = 0
                 dateComponents.minute = 0
                 dateComponents.second = 0
+                dateComponents.timeZone = .autoupdatingCurrent
 //                dateComponents.timeZone = NSTimeZone.system
                 return calender.date(from: dateComponents) ?? self
             }
