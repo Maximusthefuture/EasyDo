@@ -62,10 +62,6 @@ class PickTimeViewController: ResizableViewController {
         return dp
     }()
     
-    
-   
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -76,6 +72,10 @@ class PickTimeViewController: ResizableViewController {
         saveButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 16, bottom: 0, right: 16),size: CGSize(width: 0, height: 60))
         dateLabel.text = "Date"
         timeLabel.text = "Time"
+        stackViewInit()
+    }
+    
+    fileprivate func stackViewInit() {
         let horizontalDateStackView = UIStackView(arrangedSubviews: [dateLabel, datePicker])
         horizontalDateStackView.spacing = 20
         let horizontalTimeStackView = UIStackView(arrangedSubviews: [timeLabel, timePicker])
@@ -83,11 +83,7 @@ class PickTimeViewController: ResizableViewController {
         let verticalStackView = VerticalStackView(arrangedSubviews: [horizontalDateStackView, horizontalTimeStackView], spacing: 30)
         view.addSubview(verticalStackView)
         verticalStackView.centerInSuperview(padding: .init(top: 0, left: 0, bottom: 30, right: 0))
-        
-        
-    
     }
-    
     
     @objc func handleTimePickerChange(sender: UIDatePicker) {
         sender.timeZone = .autoupdatingCurrent
@@ -104,6 +100,4 @@ class PickTimeViewController: ResizableViewController {
         print("SAVED")
         dataIsSaved?()
     }
-    
-    
 }
