@@ -158,6 +158,11 @@ class AddEditCardViewController: UIViewController {
     }
     
     
+    let errorLabel: UIAlertController = {
+        let alert = UIAlertController(title: "Error", message: "Message", preferredStyle: .alert)
+        return alert
+    }()
+    
     @objc fileprivate func doneCreatingEditing(sender: UIBarButtonItem) {
         print("Done editing save")
         do {
@@ -166,11 +171,16 @@ class AddEditCardViewController: UIViewController {
             dismiss(animated: true)
         } catch {
             print("ERROR", error.localizedDescription)
+            errorLabel.message = error.localizedDescription
+            self.present(errorLabel, animated: true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                self.errorLabel.dismiss(animated: true)
+            }
         }
-        
-        
-        
     }
+    
+ 
+    
     var date: Date?
     var time: Date?
     
