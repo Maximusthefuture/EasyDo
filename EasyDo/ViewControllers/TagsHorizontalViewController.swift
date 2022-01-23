@@ -44,9 +44,13 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "apps", for: indexPath) as! TasksCollectionViewCell
         let task = tasksList?[indexPath.row]
         cell.title.text = task?.title
+        
+        if let task = task {
+            cell.initTask(task: task)
+        }
 //        cell.tagView.label.text = task?.tags?[0]
 //        cell.task = task
-        cell.initTask(initialTask: task)
+       
 //        cell.initStackView(task: task ?? Task())
         return cell
 }

@@ -12,7 +12,6 @@ class TasksCollectionViewCell: UICollectionViewCell {
     var iconView: UIImageView = {
         let image = UIImageView()
         let label = UIImage(systemName: "paperplane.fill")
-        
         image.image = label
         image.heightAnchor.constraint(equalToConstant: 20).isActive = true
         image.widthAnchor.constraint(equalToConstant: 20).isActive = true
@@ -27,88 +26,97 @@ class TasksCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-//    //One more collectionview?
-//    var tagView: TagUIView = {
-//        var view = TagUIView()
-//        view.backgroundColor = #colorLiteral(red: 0.8789672256, green: 0.9762962461, blue: 0.9438448548, alpha: 1)
-//        view.label.textColor = #colorLiteral(red: 0.3214970827, green: 0.8934875727, blue: 0.7464131117, alpha: 1)
-//        return view
-//    }()
-    
- 
-    
+    //    //One more collectionview?
+    //    var tagView: TagUIView = {
+    //        var view = TagUIView()
+    //        view.backgroundColor = #colorLiteral(red: 0.8789672256, green: 0.9762962461, blue: 0.9438448548, alpha: 1)
+    //        view.label.textColor = #colorLiteral(red: 0.3214970827, green: 0.8934875727, blue: 0.7464131117, alpha: 1)
+    //        return view
+    //    }()
     
     let roundedView: UIView = {
         var view = UIView()
         view.layer.cornerRadius = 16
         view.backgroundColor = .white
-//        view.layer.shadowColor = UIColor.gray.cgColor
-//        view.layer.shadowOpacity = 10
-//        view.layer.shadowOffset = .zero
-//        view.layer.shadowRadius = 10
-//        view.layer.masksToBounds = true
         return view
     }()
+  
+    var arrayOfTagView = [TagUIView]()
     
-    func config(label: String) {
-        title.text = label
-    }
-   
-    
-     let tagF = TagUIView(frame: CGRect(origin: CGPoint.zero, size: .init(width: 50, height: 20)))
-//        tagF.backgroundColor = .red
-   
-    
-    var stackView: UIStackView = {
-        let stackView =  UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.spacing = 10
-        return stackView
+    var tagView: TagUIView = {
+        let tag = TagUIView()
+        return tag
+    }()
+    var tagView2: TagUIView = {
+        let tag = TagUIView()
+        return tag
     }()
     
-    func addOneMoreTag(view: UIView) {
-        
-        stackView.addArrangedSubview(view)
-    }
     
-   
     
-    func initStackView(task: Task) {
-        
-    }
+//    var task: Task?
     
-    var task: Task?
-    
-    func initTask(initialTask: Task?) {
-        task = initialTask
+    func initTask(task: Task?) {
         guard let count = task?.tags else { return }
-        for title in count {
-            if stackView.subviews.count == (task?.tags?.count)! {
-                break
+        if count.count == 0 {
+            stackView?.removeFromSuperview()
+            
+        } else {
+            let pairs = zip(task?.tags?.first ?? "", task!.tags!.dropFirst())
+            print("PAIRS: \(pairs)")
+            task?.tags?.compactMap { tags in
+//                if stackView.subviews.count >= 2 {
+//                    return
+//                }
+                
+                    
+                
+                
+                tagView.label.text = tags
+                tagView.backgroundColor = UIColor().randomColor()
+                tagView2.label.text = tags
+                tagView2.backgroundColor = UIColor().randomColor()
+//                stackView.addArrangedSubview(tagView)
+                
             }
-            let tagView =  TagUIView()
-            tagView.label.text = title
-            tagView.backgroundColor = UIColor().randomColor()
-            stackView.addArrangedSubview(tagView)
+//            tagView.label.text = task?.tags.map { $0.first } ?? ""
+//            tagView.backgroundColor = UIColor().randomColor()
+            
         }
+//        if count.count != 0 {
+//            for title in count {
+//                let tagView = TagUIView()
+//                if stackView.subviews.count == (task?.tags?.count)! {
+//                    break
+//                }
+//
+//                    tagView.label.text = title
+//                    tagView.backgroundColor = UIColor().randomColor()
+//
+//                    stackView.addArrangedSubview(tagView)
+//
+//
+//            }
+//        } else {
+//            stackView.removeFromSuperview()
+//        }
+//        print("Init task TaskCollectionView task: \(task?.title) taskTags: \(task?.tags)")
     }
+    
+    var stackView: UIStackView?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.layer.cornerRadius = 16
-       
-       
-//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
-//        addGestureRecognizer(panGesture)
+       stackView = UIStackView(arrangedSubviews: [self.tagView, tagView2])
         contentView.addSubview(roundedView)
         contentView.addSubview(title)
-//        contentView.addSubview(tagView)
+        //        contentView.addSubview(tagView)
         contentView.addSubview(iconView)
-//        stackView.addArrangedSubview(tagView)
-        contentView.addSubview(stackView)
+        //        stackView.addArrangedSubview(tagView)
+        roundedView.addSubview(stackView!)
         
-       
+        
         roundedView.translatesAutoresizingMaskIntoConstraints = false
         roundedView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         roundedView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20).isActive = true
@@ -116,18 +124,14 @@ class TasksCollectionViewCell: UICollectionViewCell {
         roundedView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         roundedView.clipsToBounds = true
         
+        stackView?.axis = .horizontal
+        stackView?.distribution = .fillEqually
+        stackView?.spacing = 10
+        stackView?.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 16, bottom: 40, right: 16))
         
-//        tagF.backgroundColor = .yellow
-//        tagF.label.text = "FFFF"
-//        stackView.addArrangedSubview(tagF)
-//        stackView.addArrangedSubview(tagView)
-//        stackView.addArrangedSubview(tagF)
-       
-        stackView.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 16, bottom: 40, right: 16))
+        //        stackView.addArrangedSubview(tagView)
         
-//        stackView.addArrangedSubview(tagView)
-       
-//        roundedView.layer.masksToBounds = true
+        //        roundedView.layer.masksToBounds = true
         iconView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: title.leadingAnchor, padding: .init(top: 20, left: 16, bottom: 0, right: 0))
         title.anchor(top: topAnchor, leading: iconView.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 16, left: 16, bottom: 0, right: 0))
         //collection view?
@@ -139,24 +143,8 @@ class TasksCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        stackView = UIStackView()
         title.text = nil
     }
-    
-//    @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
-//        let translation = gesture.translation(in: nil)
-//        let degree: CGFloat = translation.x / 20
-//        let angle = degree * .pi / 180
-//        let rotationTransformation = CGAffineTransform(rotationAngle: angle)
-//        self.transform = rotationTransformation.translatedBy(x: translation.x, y: translation.y)
-//        print("x", translation.x)
-//        if translation.x > 120 {
-////            delegateDelete?.delete(cell: self)
-//        }
-//
-//    }
-    
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -164,11 +152,6 @@ class TasksCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-       
-        
-       
-        
-       
     }
     
 }

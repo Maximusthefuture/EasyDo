@@ -47,12 +47,14 @@ class AddEditCardPropertiesViewCell: UITableViewCell {
         return dp
     }()
     //lazy?
-    let stackView = UIStackView()
+    lazy var stackView = UIStackView()
     
     var task: Task?
     
     func initTask(initialTask: Task?) {
         task = initialTask
+        stackView.isAccessibilityElement = false
+        stackView.accessibilityIdentifier = "StackView"
         guard let count = task?.tags else { return }
         for title in count {
             if stackView.subviews.count == (task?.tags?.count)! {
@@ -61,9 +63,11 @@ class AddEditCardPropertiesViewCell: UITableViewCell {
             let tagView = TagUIView()
             tagView.label.text = title
             tagView.backgroundColor = UIColor().randomColor()
+            
             stackView.addArrangedSubview(tagView)
         }
         datePicker.date = task?.dueDate ?? Date()
+        
     }
   
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -72,11 +76,12 @@ class AddEditCardPropertiesViewCell: UITableViewCell {
         addSubview(icon)
         roundedView.addSubview(datePicker)
         contentView.addSubview(label)
-        roundedView.addSubview(stackView)
+       
+        contentView.addSubview(stackView)
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.spacing = 10
-       
+        roundedView.isAccessibilityElement = false
        
         
         icon.anchor(top: roundedView.topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 30, left: 40, bottom: 0, right: 16), size: .init(width: 30, height: 30))
@@ -92,6 +97,9 @@ class AddEditCardPropertiesViewCell: UITableViewCell {
         roundedView.backgroundColor = #colorLiteral(red: 0.9722431302, green: 0.972392261, blue: 1, alpha: 1)
         roundedView.clipsToBounds = true
         stackView.isHidden = true
+        
+        roundedView.isAccessibilityElement = true
+        isAccessibilityElement = true
     }
     
     required init?(coder: NSCoder) {

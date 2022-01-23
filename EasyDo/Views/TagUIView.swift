@@ -15,9 +15,12 @@ class TagUIView: UIView {
        
 //        layer.masksToBounds = true
         clipsToBounds = true
-        
+        isAccessibilityElement = false
         addSubview(label)
         label.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 8, left: 16, bottom: 8, right: 16))
+        label.isAccessibilityElement = true
+        label.accessibilityIdentifier = "LabelInTagView"
+        accessibilityIdentifier = "TagView"
 //        label.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 8, left: 16, bottom: 8, right: 16))
 //        translatesAutoresizingMaskIntoConstraints = false
 //        heightAnchor.constraint(equalToConstant: label.frame.height).isActive = true

@@ -19,7 +19,15 @@ protocol IsNeedToAddDayTaskDelegate: AnyObject {
 class DayTasksViewController: UIViewController {
     private let reuseIdentifier = "Cell"
     
-    var addButton = UIButton()
+    let addButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("+ Add Card", for: .normal)
+        button.layer.cornerRadius = 10
+        button.backgroundColor = .blue
+        button.addTarget(self, action: #selector(addNewTask), for: .touchUpInside)
+        return button
+    }()
+    
     lazy var isAddMyDay: Bool = false
     weak var dayTaskDelegate: IsNeedToAddDayTaskDelegate?
     let coreDataStack = CoreDataStack(modelName: "EasyDo")
@@ -28,6 +36,7 @@ class DayTasksViewController: UIViewController {
     var emptyLabel = UILabel()
     var weeklyPickerCollectionView = HDayPickerUICollectionView()
     var fetchRequest: NSFetchRequest<DailyItems>?
+    
     lazy var fetchedResultsController:
     NSFetchedResultsController<DailyItems> = {
         let calendar = Calendar.current
@@ -35,7 +44,7 @@ class DayTasksViewController: UIViewController {
         var date = calendar.date(from: components)
         let sort = NSSortDescriptor(key: #keyPath(DailyItems.inTime.timeIntervalSince1970), ascending: true)
         fetchRequest?.sortDescriptors = [sort]
-        fetchRequest?.predicate = NSPredicate(format: "%K == %@", #keyPath(DailyItems.inDate), Date().getStartOfDate() as NSDate)
+        fetchRequest?.predicate = NSPredicate(format: "%K == %@", #keyPath(DailyItems.inDate), Date().onlyDate as NSDate)
         let fetchedResultsController = NSFetchedResultsController(
             fetchRequest: fetchRequest!,
             managedObjectContext: coreDataStack.managedContext,
@@ -133,10 +142,7 @@ class DayTasksViewController: UIViewController {
     fileprivate func addButtonInit() {
         view.addSubview(addButton)
         addButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 16, bottom: 0, right: 16),size: CGSize(width: 0, height: 60))
-        addButton.setTitle("+ Add Card", for: .normal)
-        addButton.layer.cornerRadius = 10
-        addButton.backgroundColor = .blue
-        addButton.addTarget(self, action: #selector(addNewTask), for: .touchUpInside)
+        
     }
     
     //MARK: Move to VM
@@ -147,6 +153,8 @@ class DayTasksViewController: UIViewController {
 //        calendar.isDate(<#T##date1: Date##Date#>, inSameDayAs: <#T##Date#>)
         return hour == currentHour
     }
+    
+   
     
     //MARK: Change this to addEditVC
     //then add project selection when card create

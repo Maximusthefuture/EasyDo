@@ -160,7 +160,7 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
 extension ProjectMainViewController: ChangeTagDelegate {
     func mainTagChanged() {
         print("delegate here!!!")
-        collectionView.reloadData()
+//        collectionView.reloadData()
     }
     
     

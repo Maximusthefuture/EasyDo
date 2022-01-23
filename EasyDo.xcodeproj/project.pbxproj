@@ -29,6 +29,8 @@
 		383A8ABD27888321003EE8F7 /* AttachmentsCardViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383A8ABC27888321003EE8F7 /* AttachmentsCardViewCell.swift */; };
 		383A8ABF27888381003EE8F7 /* HorizontalAttachmentsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383A8ABE27888381003EE8F7 /* HorizontalAttachmentsController.swift */; };
 		383A8AC127888408003EE8F7 /* AttachmentsHorizontallViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383A8AC027888408003EE8F7 /* AttachmentsHorizontallViewCell.swift */; };
+		384F0775279AF1EF00C950B7 /* EasyDoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384F0774279AF1EF00C950B7 /* EasyDoUITests.swift */; };
+		384F0777279AF1EF00C950B7 /* EasyDoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384F0776279AF1EF00C950B7 /* EasyDoUITestsLaunchTests.swift */; };
 		385644552770E8750030B0C8 /* Extensions+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385644542770E8750030B0C8 /* Extensions+UIView.swift */; };
 		385644582770E9D70030B0C8 /* TagUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385644572770E9D70030B0C8 /* TagUIView.swift */; };
 		3868B92F276E376200F2B765 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868B92E276E376200F2B765 /* Model.swift */; };
@@ -41,6 +43,7 @@
 		386F83F4275AAD45004DC280 /* EasyDo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 386F83F2275AAD45004DC280 /* EasyDo.xcdatamodeld */; };
 		386F83F6275AAD47004DC280 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 386F83F5275AAD47004DC280 /* Assets.xcassets */; };
 		386F83F9275AAD47004DC280 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 386F83F7275AAD47004DC280 /* LaunchScreen.storyboard */; };
+		3876EE1B279D4F85001A9955 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3876EE1A279D4F85001A9955 /* Errors.swift */; };
 		387F2EF92790761000FBCB70 /* CardAddTagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F2EF82790761000FBCB70 /* CardAddTagsViewController.swift */; };
 		388AF31C278D6A3100C44021 /* CreateProjectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388AF31B278D6A3100C44021 /* CreateProjectVC.swift */; };
 		389DABD2278DC00E00A600BF /* BottomSheetModalDissmisalHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389DABD1278DC00E00A600BF /* BottomSheetModalDissmisalHandler.swift */; };
@@ -62,6 +65,16 @@
 		38FF9F132784892F00EB9805 /* DayTaskViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FF9F122784892F00EB9805 /* DayTaskViewCell.swift */; };
 		38FF9F1527848C8B00EB9805 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FF9F1427848C8B00EB9805 /* Extensions.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		384F0778279AF1EF00C950B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 386F83DE275AAD45004DC280 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 386F83E5275AAD45004DC280;
+			remoteInfo = EasyDo;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		380759232785A65600A1AEE6 /* EasyDo v7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EasyDo v7.xcdatamodel"; sourceTree = "<group>"; };
@@ -96,6 +109,9 @@
 		383A8ABC27888321003EE8F7 /* AttachmentsCardViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentsCardViewCell.swift; sourceTree = "<group>"; };
 		383A8ABE27888381003EE8F7 /* HorizontalAttachmentsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalAttachmentsController.swift; sourceTree = "<group>"; };
 		383A8AC027888408003EE8F7 /* AttachmentsHorizontallViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentsHorizontallViewCell.swift; sourceTree = "<group>"; };
+		384F0772279AF1EF00C950B7 /* EasyDoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EasyDoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		384F0774279AF1EF00C950B7 /* EasyDoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyDoUITests.swift; sourceTree = "<group>"; };
+		384F0776279AF1EF00C950B7 /* EasyDoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyDoUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		385644542770E8750030B0C8 /* Extensions+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+UIView.swift"; sourceTree = "<group>"; };
 		385644572770E9D70030B0C8 /* TagUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagUIView.swift; sourceTree = "<group>"; };
 		3868B92E276E376200F2B765 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -110,6 +126,7 @@
 		386F83F5275AAD47004DC280 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		386F83F8275AAD47004DC280 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		386F83FA275AAD47004DC280 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3876EE1A279D4F85001A9955 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		387F2EF82790761000FBCB70 /* CardAddTagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAddTagsViewController.swift; sourceTree = "<group>"; };
 		388AF31B278D6A3100C44021 /* CreateProjectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectVC.swift; sourceTree = "<group>"; };
 		389DABD1278DC00E00A600BF /* BottomSheetModalDissmisalHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetModalDissmisalHandler.swift; sourceTree = "<group>"; };
@@ -133,6 +150,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		384F076F279AF1EF00C950B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		386F83E3275AAD45004DC280 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -160,6 +184,7 @@
 				38FF9F1427848C8B00EB9805 /* Extensions.swift */,
 				383A8ABA2788810D003EE8F7 /* RoundedView.swift */,
 				380B4C9227998F4100E81A4F /* VerticalStackView.swift */,
+				3876EE1A279D4F85001A9955 /* Errors.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -169,6 +194,15 @@
 			children = (
 			);
 			path = CoreDataClass;
+			sourceTree = "<group>";
+		};
+		384F0773279AF1EF00C950B7 /* EasyDoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				384F0774279AF1EF00C950B7 /* EasyDoUITests.swift */,
+				384F0776279AF1EF00C950B7 /* EasyDoUITestsLaunchTests.swift */,
+			);
+			path = EasyDoUITests;
 			sourceTree = "<group>";
 		};
 		385644562770E9C10030B0C8 /* Views */ = {
@@ -184,6 +218,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		3867E898279C43E9000961A2 /* ProjectTasksScreen */ = {
+			isa = PBXGroup;
+			children = (
+				380ADEDE2779F95000B97EB9 /* ProjectMainViewController.swift */,
+			);
+			path = ProjectTasksScreen;
+			sourceTree = "<group>";
+		};
 		386F83DD275AAD45004DC280 = {
 			isa = PBXGroup;
 			children = (
@@ -195,6 +237,7 @@
 				381CAACA278207F900E8AB00 /* Task+CoreDataProperties.swift */,
 				381CAAB42781EDBA00E8AB00 /* CoreDataClass */,
 				386F83E8275AAD45004DC280 /* EasyDo */,
+				384F0773279AF1EF00C950B7 /* EasyDoUITests */,
 				386F83E7275AAD45004DC280 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -203,6 +246,7 @@
 			isa = PBXGroup;
 			children = (
 				386F83E6275AAD45004DC280 /* EasyDo.app */,
+				384F0772279AF1EF00C950B7 /* EasyDoUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -294,12 +338,12 @@
 		38EEFFA72773B806002FA3DB /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				3867E898279C43E9000961A2 /* ProjectTasksScreen */,
 				38E69BEC2795BB5200E942BA /* DayTaskScreen */,
 				38756E102793027A0079FD11 /* AddCardScreen */,
 				386F83ED275AAD45004DC280 /* ProjectsListViewController.swift */,
-				380ADEDE2779F95000B97EB9 /* ProjectMainViewController.swift */,
-				38B20B752779FADC002AD934 /* BaseListController.swift */,
 				38B20B7B2779FF3A002AD934 /* TagsHorizontalViewController.swift */,
+				38B20B752779FADC002AD934 /* BaseListController.swift */,
 				383A8ABE27888381003EE8F7 /* HorizontalAttachmentsController.swift */,
 				388AF31B278D6A3100C44021 /* CreateProjectVC.swift */,
 				381E8E2A278ED8B70021FDC6 /* ResizableViewController.swift */,
@@ -320,6 +364,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		384F0771279AF1EF00C950B7 /* EasyDoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 384F077C279AF1EF00C950B7 /* Build configuration list for PBXNativeTarget "EasyDoUITests" */;
+			buildPhases = (
+				384F076E279AF1EF00C950B7 /* Sources */,
+				384F076F279AF1EF00C950B7 /* Frameworks */,
+				384F0770279AF1EF00C950B7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				384F0779279AF1EF00C950B7 /* PBXTargetDependency */,
+			);
+			name = EasyDoUITests;
+			productName = EasyDoUITests;
+			productReference = 384F0772279AF1EF00C950B7 /* EasyDoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		386F83E5275AAD45004DC280 /* EasyDo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 386F83FD275AAD47004DC280 /* Build configuration list for PBXNativeTarget "EasyDo" */;
@@ -343,9 +405,13 @@
 		386F83DE275AAD45004DC280 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1250;
+				LastSwiftUpdateCheck = 1310;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
+					384F0771279AF1EF00C950B7 = {
+						CreatedOnToolsVersion = 13.1;
+						TestTargetID = 386F83E5275AAD45004DC280;
+					};
 					386F83E5275AAD45004DC280 = {
 						CreatedOnToolsVersion = 12.5.1;
 					};
@@ -365,11 +431,19 @@
 			projectRoot = "";
 			targets = (
 				386F83E5275AAD45004DC280 /* EasyDo */,
+				384F0771279AF1EF00C950B7 /* EasyDoUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		384F0770279AF1EF00C950B7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		386F83E4275AAD45004DC280 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -382,6 +456,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		384F076E279AF1EF00C950B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				384F0775279AF1EF00C950B7 /* EasyDoUITests.swift in Sources */,
+				384F0777279AF1EF00C950B7 /* EasyDoUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		386F83E2275AAD45004DC280 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -410,6 +493,7 @@
 				38E992892760F97C00E2D1E6 /* DataTableViewCell.swift in Sources */,
 				38FF9F11278488F100EB9805 /* DayTasksViewController.swift in Sources */,
 				381CAACE278207F900E8AB00 /* Task+CoreDataProperties.swift in Sources */,
+				3876EE1B279D4F85001A9955 /* Errors.swift in Sources */,
 				383A8ABF27888381003EE8F7 /* HorizontalAttachmentsController.swift in Sources */,
 				381CAACC278207F900E8AB00 /* Project+CoreDataProperties.swift in Sources */,
 				38FF9F132784892F00EB9805 /* DayTaskViewCell.swift in Sources */,
@@ -443,6 +527,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		384F0779279AF1EF00C950B7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 386F83E5275AAD45004DC280 /* EasyDo */;
+			targetProxy = 384F0778279AF1EF00C950B7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		386F83F7275AAD47004DC280 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -455,6 +547,54 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		384F077A279AF1EF00C950B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = WSCHZVTX6D;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maximshevtsov.EasyDoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = EasyDo;
+			};
+			name = Debug;
+		};
+		384F077B279AF1EF00C950B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = WSCHZVTX6D;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maximshevtsov.EasyDoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = EasyDo;
+			};
+			name = Release;
+		};
 		386F83FB275AAD47004DC280 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -616,6 +756,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		384F077C279AF1EF00C950B7 /* Build configuration list for PBXNativeTarget "EasyDoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				384F077A279AF1EF00C950B7 /* Debug */,
+				384F077B279AF1EF00C950B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		386F83E1275AAD45004DC280 /* Build configuration list for PBXProject "EasyDo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
