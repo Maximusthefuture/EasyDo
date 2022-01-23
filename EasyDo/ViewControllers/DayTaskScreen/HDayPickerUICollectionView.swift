@@ -83,21 +83,26 @@ class HDayPickerUICollectionView: BaseListController {
         formatter.dateFormat = format
         return formatter.string(from: date)
     }
+    
+    func isCurrentDate(date: Date) -> Bool {
+        let calendar = Calendar.current
+        let day = calendar.component(.day, from: date)
+        let currentDay = calendar.component(.day, from: Date())
+        return day == currentDay
+    }
  
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: dayPickerCellId, for: indexPath) as! WeeklyPickerViewCell
         let date = currentWeek[indexPath.item]
-        //AttributedText?
-        let attributedString = NSMutableAttributedString(string: " \(extractDate(date: currentWeek[indexPath.item], format: "dd"))", attributes: [.font: UIFont.systemFont(ofSize: 13, weight: .bold)])
-        attributedString.append(NSMutableAttributedString(string: "\n\(extractDate(date: currentWeek[indexPath.item], format: "EEE"))", attributes: [.font: UIFont.systemFont(ofSize: 14, weight: .bold)]))
-        cell.dayLabel.attributedText = attributedString
-        
-        if date.getStartOfDate()  == Date().getStartOfDate() {
-            cell.isSelected = true
+        cell.configure(date: date)
+        if cell.isCurrentDate(date: date) {
+            collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .bottom)
+            
         }
+                
         return cell
     }
-    
+   
     
     func setSelectedItemFromScrollView(_ scrollView: UIScrollView) {
         if collectionView == scrollView {
