@@ -8,10 +8,6 @@
 import UIKit
 
 
-
-
-
-
 class AddEditCardViewController: UIViewController {
     
 
@@ -19,6 +15,7 @@ class AddEditCardViewController: UIViewController {
         let tf = UITextField()
         tf.placeholder = "Enter card title"
         tf.font = UIFont.systemFont(ofSize: 30, weight: .bold)
+        tf.addTarget(self, action: #selector(handleTextChange), for: .editingChanged)
         return tf
     }()
     
@@ -29,12 +26,14 @@ class AddEditCardViewController: UIViewController {
         tf.textContainer.lineBreakMode = .byTruncatingTail
         tf.text = "Some description here tap to change"
         tf.isEditable = true
+        
         //        tf.layer.masksToBounds = true
         //        tf.layer.backgroundColor = UIColor.blue.cgColor
         
         return tf
     }()
     
+    var addEditCardViewModel: AddEditCardViewModelProtocol?
     var isAddMyDay: Bool?
 //    var addButton = UIButton()
     let cellId = "CellID"
@@ -49,6 +48,7 @@ class AddEditCardViewController: UIViewController {
     
     //MARK: Init tableView
     fileprivate func initTableView() {
+        
         view.addSubview(tableView)
         tableView.anchor(top: cardDescription.bottomAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
         tableView.dataSource = self
@@ -58,6 +58,10 @@ class AddEditCardViewController: UIViewController {
         tableView.register(AttachmentsCardViewCell.self, forCellReuseIdentifier: attachmentsCell)
         tableView.isScrollEnabled = false
         
+    }
+    
+    @objc func handleTextChange(textField: UITextField) {
+        addEditCardViewModel?.cardName = textField.text
     }
     
     var addButton: UIButton = {
@@ -94,7 +98,6 @@ class AddEditCardViewController: UIViewController {
     @objc private func handleSeeAllAttachments() {
         let vc = AttachmentsViewController(initialHeight: 300)
         present(vc, animated: true)
-        print("SEE ALL")
     }
     
 
@@ -120,16 +123,17 @@ class AddEditCardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //MARK: IF CurrentProject nil???
+        if let coreDataStack = coreDataStack {
+            addEditCardViewModel = AddEditCardViewModel(coreDataStack: coreDataStack, currentProject: currentProject)
+        }
+       
         view.backgroundColor = .white
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneCreatingEditing))
         initCardNameAndDescription()
         initTableView()
-        
-//                view.resignFirstResponder()
-        //MARK: BUG can't tap on cell while this is active
-                setupEndEditingGesture()
-//        addButtonInit()
+        setupEndEditingGesture()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -179,8 +183,6 @@ class AddEditCardViewController: UIViewController {
         }
     }
     
- 
-    
     var date: Date?
     var time: Date?
     
@@ -196,7 +198,7 @@ class AddEditCardViewController: UIViewController {
             self?.time = time
             
         }
-        //MARK: BUG WITH DATE, Add in previous day
+        
         vc.dataIsSaved = { [weak self] in
             if let coreDataStack = self?.coreDataStack {
                 let dailyItem = DailyItems(context: coreDataStack.managedContext)
@@ -220,34 +222,12 @@ class AddEditCardViewController: UIViewController {
     var tagsArray = [String]()
     
     func createNewTask() {
-//        do {
-//            try validateCardName(cardName: cardName.text ?? "")
-//
-        if let coreDataStack = coreDataStack {
-            let task = Task(context: coreDataStack.managedContext)
-            task.tags = tagsArray
-            task.mainTag = "No tag"
-            task.title = cardName.text
-            task.taskDescription = cardDescription.text
-            //MARK: If mydate nil, add date + 2 days?
-            task.dueDate = myDate ?? Date()
-            if let project = currentProject,
-               let tasks = project.tasks?.mutableCopy() as? NSMutableOrderedSet {
-                tasks.add(task)
-                project.tasks = tasks
-            }
-//            coreDataStack.saveContext()
-        }
-//        } catch {
-////            errorLabel.text = error.localizedDescription
-//            print(error.localizedDescription)
-//        }
+        addEditCardViewModel?.createNewTask()
     }
     
     @objc func datePickerChange(datePicker: UIDatePicker) {
-        myDate = datePicker.date
+        addEditCardViewModel?.dueDate = datePicker.date
     }
- 
 }
 
 extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource {
@@ -266,7 +246,6 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerLabel = HeaderLabel()
         switch section {
-//        case 0: return header
         case 0: headerLabel.text = "Properties"
         case 1: return attachmentsHeader
             
@@ -286,15 +265,14 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
             vc.taskDetail = taskDetail
             vc.coreData = coreDataStack
             vc.refreshDelegate = self
-//            vc.refreshTags = { [weak self] tag in
-//                self?.tableView.reloadData()
-//                self?.tagsArray.append(tag)
-//
-//            }
-            print("CLICK?????")
             present(vc, animated: true)
         }
         
+    }
+    enum Properties: Int {
+        case pomodoro = 0
+        case label
+        case dueDate
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -306,7 +284,18 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
             tableView.separatorStyle = .none
             cell.accessoryType = .disclosureIndicator
             cell.initTask(initialTask: taskDetail)
+            var enumProp = Properties.pomodoro
 //            cell.delegate = self
+//            switch enumProp {
+                
+//            case .pomodoro:
+//                cell.datePicker.isHidden = true
+//            case .label:
+//                cell.stackView.isHidden = false
+//            case .dueDate:
+//                cell.datePicker.isHidden = false
+//                cell.datePicker.addTarget(self, action: #selector(datePickerChange), for: .editingDidEnd)
+//            }
             if indexPath.row == 0 {
                 cell.datePicker.isHidden = true
             }
@@ -316,11 +305,11 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
             if indexPath.row == 2 {
                 cell.datePicker.isHidden = false
                 cell.datePicker.addTarget(self, action: #selector(datePickerChange), for: .editingDidEnd)
-                
-//                var date = Date(timeIntervalSinceReferenceDate: TimeInterval(1000))
-//                cell.initTask(initialTask: taskDetail)
-//                cell.datePicker.date = date
-            }
+}
+////                var date = Date(timeIntervalSinceReferenceDate: TimeInterval(1000))
+////                cell.initTask(initialTask: taskDetail)
+////                cell.datePicker.date = date
+//            }
             return cell
             
         } else if indexPath.section == 2 {
@@ -355,7 +344,7 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
 extension AddEditCardViewController: RefreshTagsProtocol {
     func refreshTags(tag: String) {
         let indexPath = IndexPath(item: 1, section: 0)
-        self.tagsArray.append(tag)
+        addEditCardViewModel?.tagsArray.append(tag)
         self.tableView.reloadRows(at: [indexPath], with: .none)
     }
 }

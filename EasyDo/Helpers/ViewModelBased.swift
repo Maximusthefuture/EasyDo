@@ -9,5 +9,5 @@ import Foundation
 
 
 protocol ViewModelBased: AnyObject {
-    associatedtype ViewModel
+    init()
 }

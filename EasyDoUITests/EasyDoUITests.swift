@@ -76,18 +76,7 @@ class EasyDoUITests: XCTestCase {
         XCTAssertTrue(backButton.waitForExistence(timeout: 10))
         backButton.tap()
         XCTAssertTrue(label.waitForExistence(timeout: 10))
-////        label.tap()
-//        XCTAssertEqual(label.staticTexts.element.label, "Tag1")
-//        XCUIApplication().tables/*@START_MENU_TOKEN@*/.cells.containing(.staticText, identifier:"13:10").element/*[[".cells.containing(.staticText, identifier:\"UIMenu\").element",".cells.containing(.staticText, identifier:\"13:10\").element"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-//        XCTAssert(label.children(matching: .other)["Tag1"].waitForExistence(timeout: 1.0))
-    
-//        XCTAssertEqual(app.otherElements.staticTexts["Tag1"], "Tag1")
-        
-        //TAGVIEW
-//        app.label.descendants(matching: .other)["Tag1"].tap()
-        
-//        tablesQuery.staticTexts["Tag1"].tap()
-      
+
         XCTAssert(tablesQuery.staticTexts["Tag1"].waitForExistence(timeout: 2.0))
         XCTAssert(tablesQuery.staticTexts["Tag2"].waitForExistence(timeout: 2.0))
 //        XCTAssertEqual(tablesQuery.staticTexts, "Tag2")
@@ -95,6 +84,10 @@ class EasyDoUITests: XCTestCase {
     }
     
     func testCreateProject() {
+        
+    }
+    
+    func testCardCompleteCreation() {
         
     }
 

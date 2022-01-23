@@ -44,6 +44,8 @@
 		386F83F6275AAD47004DC280 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 386F83F5275AAD47004DC280 /* Assets.xcassets */; };
 		386F83F9275AAD47004DC280 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 386F83F7275AAD47004DC280 /* LaunchScreen.storyboard */; };
 		3876EE1B279D4F85001A9955 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3876EE1A279D4F85001A9955 /* Errors.swift */; };
+		3876EE1D279D649F001A9955 /* ViewModelBased.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3876EE1C279D649F001A9955 /* ViewModelBased.swift */; };
+		3876EE20279D64FA001A9955 /* AddEditCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3876EE1F279D64FA001A9955 /* AddEditCardViewModel.swift */; };
 		387F2EF92790761000FBCB70 /* CardAddTagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F2EF82790761000FBCB70 /* CardAddTagsViewController.swift */; };
 		388AF31C278D6A3100C44021 /* CreateProjectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388AF31B278D6A3100C44021 /* CreateProjectVC.swift */; };
 		389DABD2278DC00E00A600BF /* BottomSheetModalDissmisalHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389DABD1278DC00E00A600BF /* BottomSheetModalDissmisalHandler.swift */; };
@@ -127,6 +129,8 @@
 		386F83F8275AAD47004DC280 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		386F83FA275AAD47004DC280 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3876EE1A279D4F85001A9955 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		3876EE1C279D649F001A9955 /* ViewModelBased.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelBased.swift; sourceTree = "<group>"; };
+		3876EE1F279D64FA001A9955 /* AddEditCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditCardViewModel.swift; sourceTree = "<group>"; };
 		387F2EF82790761000FBCB70 /* CardAddTagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAddTagsViewController.swift; sourceTree = "<group>"; };
 		388AF31B278D6A3100C44021 /* CreateProjectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectVC.swift; sourceTree = "<group>"; };
 		389DABD1278DC00E00A600BF /* BottomSheetModalDissmisalHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetModalDissmisalHandler.swift; sourceTree = "<group>"; };
@@ -185,6 +189,7 @@
 				383A8ABA2788810D003EE8F7 /* RoundedView.swift */,
 				380B4C9227998F4100E81A4F /* VerticalStackView.swift */,
 				3876EE1A279D4F85001A9955 /* Errors.swift */,
+				3876EE1C279D649F001A9955 /* ViewModelBased.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -257,6 +262,7 @@
 				389DABD0278DBFF400A600BF /* BottomSheetHelpers */,
 				381CAAA82781EA6F00E8AB00 /* Helpers */,
 				38EF6DF8277DE9DA00261125 /* Model */,
+				3876EE1E279D64E0001A9955 /* ViewModels */,
 				38EEFFA72773B806002FA3DB /* ViewControllers */,
 				38EEFFA62773B7FE002FA3DB /* ViewModels */,
 				385644562770E9C10030B0C8 /* Views */,
@@ -278,6 +284,15 @@
 				387F2EF82790761000FBCB70 /* CardAddTagsViewController.swift */,
 			);
 			path = AddCardScreen;
+			sourceTree = "<group>";
+		};
+		3876EE1E279D64E0001A9955 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				3876EE1F279D64FA001A9955 /* AddEditCardViewModel.swift */,
+			);
+			name = ViewModels;
+			path = Model/ViewModels;
 			sourceTree = "<group>";
 		};
 		388AF31A278D69DE00C44021 /* Cells */ = {
@@ -469,6 +484,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3876EE20279D64FA001A9955 /* AddEditCardViewModel.swift in Sources */,
 				3868B935276E383C00F2B765 /* TableViewController+Drop.swift in Sources */,
 				38EF6DFC277DF1C700261125 /* TaskViewModel.swift in Sources */,
 				3868B92F276E376200F2B765 /* Model.swift in Sources */,
@@ -479,6 +495,7 @@
 				385644552770E8750030B0C8 /* Extensions+UIView.swift in Sources */,
 				38B20B762779FADC002AD934 /* BaseListController.swift in Sources */,
 				38FF9F1527848C8B00EB9805 /* Extensions.swift in Sources */,
+				3876EE1D279D649F001A9955 /* ViewModelBased.swift in Sources */,
 				38B20B7A2779FD1E002AD934 /* ProjectsViewCell.swift in Sources */,
 				386F83EE275AAD45004DC280 /* ProjectsListViewController.swift in Sources */,
 				381CAACB278207F900E8AB00 /* Project+CoreDataClass.swift in Sources */,
