@@ -14,7 +14,9 @@ public protocol BottomSheetPresentationControllerFactory {
         presentingViewController: UIViewController?) -> BottomSheetPresentationController
 }
 
-class BottomSheetTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
+typealias TransitionDelegate = NSObject & UIViewControllerTransitioningDelegate
+
+class BottomSheetTransitioningDelegate: TransitionDelegate {
     
     private let factory: BottomSheetPresentationControllerFactory
     

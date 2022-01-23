@@ -43,6 +43,7 @@ public final class BottomSheetPresentationController: UIPresentationController {
     
     public override func presentationTransitionDidEnd(_ completed: Bool) {
         if completed {
+            setupGesturesForPresentedView()
             state = .presented
         } else {
             state = .dismised
@@ -51,6 +52,14 @@ public final class BottomSheetPresentationController: UIPresentationController {
     
     public override func dismissalTransitionWillBegin() {
         state = .dismissing
+        
+    }
+    
+    private func  setupGesturesForPresentedView() {
+        setupPanGesture(for: presentedView)
+    }
+    
+    private func setupPanGesture(for view: UIView?) {
         
     }
     
