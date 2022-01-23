@@ -11,10 +11,12 @@ import Foundation
 
 protocol AddEditCardViewModelProtocol: ViewModelBased {
     func createNewTask()
+    func addCardToDayTask(time: Date?, date: Date?)
     var cardName: String? { get set }
     var cardDescription: String? { get set }
     var dueDate: Date? { get set }
     var tagsArray: [String] { get set }
+    var taskDetail: Task? { get set }
 }
 
 class AddEditCardViewModel: AddEditCardViewModelProtocol {
@@ -30,6 +32,7 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
     var tagsArray = [String]()
     var dueDate: Date?
     var currentProject: Project?
+    var taskDetail: Task?
     
     init(coreDataStack: CoreDataStack, currentProject: Project?) {
         self.coreDataStack = coreDataStack
@@ -55,45 +58,21 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
         }
     }
     
+    func addCardToDayTask(time: Date?, date: Date?) {
+        updateTask(time: time, date: date)
+    }
     
-    
-    
-//    func addCardToDayTask() {
-////        let vc = PickTimeViewController(initialHeight: 300)
-////        present(vc, animated: true)
-//
-////        vc.changeDate = { [weak self] date in
-////            self?.date = date
-//////                  viewModel.date = date
-////        }
-////        vc.changeTime = { [weak self] time in
-////            self?.time = time
-////        viewModel.time = time
-////
-////        }
-//
-//        vc.dataIsSaved = { [weak self] in
-//
-////            self?.presentingViewController?.dismiss(animated: true)
-//        }
-//    }
-//
-//    func updateTask() {
-//        if let coreDataStack = self.coreDataStack {
-//            let dailyItem = DailyItems(context: coreDataStack.managedContext)
-//            dailyItem.task = self.taskDetail
-//            guard let date = self.date, let time = self?.time else {
-//                return
-//            }
-//            dailyItem.inTime = time
-//             dailyItem.inDate = date.onlyDate
-//
-//            self.taskDetail?.mainTag = "In Progress"
-//            coreDataStack.saveContext()
-//        } else {
-//            print("NULL NULL NULL")
-//        }
-//    }
-    
-    
+    func updateTask(time: Date?, date: Date?) {
+        if let coreDataStack = self.coreDataStack {
+            let dailyItem = DailyItems(context: coreDataStack.managedContext)
+            dailyItem.task = self.taskDetail
+            dailyItem.inTime = time
+            dailyItem.inDate = date?.onlyDate
+            self.taskDetail?.mainTag = "In Progress"
+            coreDataStack.saveContext()
+        } else {
+            //            error handling?
+            print("NULL NULL NULL")
+        }
+    } 
 }

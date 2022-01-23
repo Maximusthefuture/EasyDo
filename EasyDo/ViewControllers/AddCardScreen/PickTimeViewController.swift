@@ -29,10 +29,9 @@ class PickTimeViewController: ResizableViewController {
     }()
     
     var isTimeChanged: Bool?
-    
-    var changeDate: ((Date?) -> ())?
-    var changeTime: ((Date?) -> Void)?
-    var dataIsSaved: (() -> ())?
+    var date: Date?
+    var time: Date?
+    var dataSavedWithDate: ((Date?, Date?) -> Void)?
     
     let saveButton: UIButton = {
        let b = UIButton()
@@ -87,17 +86,15 @@ class PickTimeViewController: ResizableViewController {
     
     @objc func handleTimePickerChange(sender: UIDatePicker) {
         sender.timeZone = .autoupdatingCurrent
-        changeTime?(sender.date)
+        time = sender.date
     }
     
     @objc func handleDatePickerChange(sender: UIDatePicker) {
         sender.timeZone = .autoupdatingCurrent
-        changeDate?(sender.date)
-        
+        date = sender.date
     }
     
     @objc func handleSaveButton(sender: UIButton) {
-        print("SAVED")
-        dataIsSaved?()
+        dataSavedWithDate?(time, date)
     }
 }
