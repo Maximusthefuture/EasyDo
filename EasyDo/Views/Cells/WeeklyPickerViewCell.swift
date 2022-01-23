@@ -12,6 +12,20 @@ import UIKit
 class WeeklyPickerViewCell: UICollectionViewCell {
     
     
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                dayLabel.textColor = #colorLiteral(red: 0.5596068501, green: 0.5770205855, blue: 1, alpha: 1)
+                dayLabel.font = UIFont.boldSystemFont(ofSize: 15)
+                roundedView.isHidden = false
+            } else {
+                dayLabel.textColor = .black
+                dayLabel.font = UIFont.boldSystemFont(ofSize: 14)
+                roundedView.isHidden = true
+            }
+        }
+    }
+    
     let dayLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2
@@ -22,9 +36,34 @@ class WeeklyPickerViewCell: UICollectionViewCell {
         let view = UIView()
         view.backgroundColor = #colorLiteral(red: 0.9722431302, green: 0.972392261, blue: 1, alpha: 1)
         view.layer.cornerRadius = 20
-        view.clipsToBounds = true
+//        view.clipsToBounds = true
+        view.layer.masksToBounds = true
         return view
     }()
+    
+    
+    func configure(date: Date) {
+        let attributedString = NSMutableAttributedString(string: " \(extractDate(date: date, format: "dd"))", attributes: [.font: UIFont.systemFont(ofSize: 13, weight: .bold)])
+        attributedString.append(NSMutableAttributedString(string: "\n\(extractDate(date: date, format: "EEE"))", attributes: [.font: UIFont.systemFont(ofSize: 14, weight: .bold)]))
+        dayLabel.attributedText = attributedString
+        
+        if isCurrentDate(date: date) {
+//            isSelected = true
+            dayLabel.textColor = .blue
+            print("DATE IS: \(date)")
+
+        }
+        
+    }
+    
+   
+    func isCurrentDate(date: Date) -> Bool {
+        let calendar = Calendar.current
+        let day = calendar.component(.day, from: date)
+        let currentDay = calendar.component(.day, from: Date())
+        return day == currentDay
+    }
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,24 +75,26 @@ class WeeklyPickerViewCell: UICollectionViewCell {
         roundedView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor)
 //        backgroundColor = .red
         roundedView.isHidden = true
+        
+       
+       
     }
     
-    override var isSelected: Bool {
-        didSet {
-            if isSelected {
-                dayLabel.textColor = #colorLiteral(red: 0.5596068501, green: 0.5770205855, blue: 1, alpha: 1)
-                dayLabel.font = UIFont.boldSystemFont(ofSize: 15)
-                roundedView.isHidden = false
-            } else {
-                dayLabel.textColor = .black
-                dayLabel.font = UIFont.boldSystemFont(ofSize: 13)
-                roundedView.isHidden = true
-            }
-        }
+    
+    func extractDate(date: Date, format: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        return formatter.string(from: date)
     }
+  
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+       
     }
     
     
