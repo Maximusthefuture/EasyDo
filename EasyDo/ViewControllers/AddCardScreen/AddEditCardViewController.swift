@@ -62,7 +62,7 @@ class AddEditCardViewController: UIViewController {
     
     var addButton: UIButton = {
        var b = UIButton()
-        b.setTitle("+", for: .normal)
+        b.setTitle("++", for: .normal)
         b.setTitleColor(.blue, for: .normal)
         b.titleLabel?.font = UIFont.systemFont(ofSize: 32, weight: .bold)
         b.addTarget(self, action: #selector(addCardToDayTask), for: .touchUpInside)
@@ -110,6 +110,11 @@ class AddEditCardViewController: UIViewController {
         
     }()
    
+    //MARK: Viewmodel?
+    func validateCardName(cardName: String) throws {
+        guard cardName.count < 18  else { throw Errors.CardNameValidationError.tooLong }
+        guard cardName.count > 3  else { throw Errors.CardNameValidationError.tooShort }
+    }
     
     let propertiesArray = ["Pomodoro count", "Label", "Due Date"]
     
@@ -155,8 +160,15 @@ class AddEditCardViewController: UIViewController {
     
     @objc fileprivate func doneCreatingEditing(sender: UIBarButtonItem) {
         print("Done editing save")
-        createNewTask()
-        dismiss(animated: true)
+        do {
+            try validateCardName(cardName: cardName.text ?? "")
+            createNewTask()
+            dismiss(animated: true)
+        } catch {
+            print("ERROR", error.localizedDescription)
+        }
+        
+        
         
     }
     var date: Date?
@@ -198,6 +210,9 @@ class AddEditCardViewController: UIViewController {
     var tagsArray = [String]()
     
     func createNewTask() {
+//        do {
+//            try validateCardName(cardName: cardName.text ?? "")
+//
         if let coreDataStack = coreDataStack {
             let task = Task(context: coreDataStack.managedContext)
             task.tags = tagsArray
@@ -211,8 +226,12 @@ class AddEditCardViewController: UIViewController {
                 tasks.add(task)
                 project.tasks = tasks
             }
-            coreDataStack.saveContext()
+//            coreDataStack.saveContext()
         }
+//        } catch {
+////            errorLabel.text = error.localizedDescription
+//            print(error.localizedDescription)
+//        }
     }
     
     @objc func datePickerChange(datePicker: UIDatePicker) {
@@ -256,10 +275,12 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
             let vc = CardAddTagsViewController(initialHeight: 200)
             vc.taskDetail = taskDetail
             vc.coreData = coreDataStack
-            vc.refreshTags = { tag in
-                self.tagsArray.append(tag)
-                self.tableView.reloadData()
-            }
+            vc.refreshDelegate = self
+//            vc.refreshTags = { [weak self] tag in
+//                self?.tableView.reloadData()
+//                self?.tagsArray.append(tag)
+//
+//            }
             print("CLICK?????")
             present(vc, animated: true)
         }
@@ -276,6 +297,9 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
             cell.accessoryType = .disclosureIndicator
             cell.initTask(initialTask: taskDetail)
 //            cell.delegate = self
+            if indexPath.row == 0 {
+                cell.datePicker.isHidden = true
+            }
             if indexPath.row == 1 {
                 cell.stackView.isHidden = false
             }
@@ -288,6 +312,7 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
 //                cell.datePicker.date = date
             }
             return cell
+            
         } else if indexPath.section == 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: attachmentsCell, for: indexPath) as! AttachmentsCardViewCell
             cell.selectionStyle = .none
@@ -314,6 +339,14 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
             return 150
         }
         return 80
+    }
+}
+
+extension AddEditCardViewController: RefreshTagsProtocol {
+    func refreshTags(tag: String) {
+        let indexPath = IndexPath(item: 1, section: 0)
+        self.tagsArray.append(tag)
+        self.tableView.reloadRows(at: [indexPath], with: .none)
     }
 }
 
