@@ -52,61 +52,22 @@ class TasksCollectionViewCell: UICollectionViewCell {
         return tag
     }()
     
-    
-    
-//    var task: Task?
-    
-    
     func createTagView() -> TagUIView {
-        var tagView = TagUIView()
+        let tagView = TagUIView()
         return tagView
     }
+    
     func initTask(task: Task?) {
-        guard let count = task?.tags else { return }
-        if count.count == 0 {
-            stackView?.removeFromSuperview()
-            
-        } else {
-            let pairs = zip(task?.tags?.first ?? "", task!.tags!.dropFirst())
-            print("PAIRS: \(pairs)")
-            task?.tags?.compactMap { tags in
-                guard  let stackViewCount  = stackView?.subviews.count  else { return }
-                if stackViewCount >= 2 {
-                    return
-                }
-                
-                    
-                
-                let tagView = createTagView()
-                tagView.label.text = tags
-                tagView.backgroundColor = UIColor().randomColor()
-//                tagView2.label.text = tags
-//                tagView2.backgroundColor = UIColor().randomColor()
-                stackView?.addArrangedSubview(tagView)
-                
+        task?.tags?.compactMap { tags in
+            guard let stackViewCount  = stackView?.subviews.count  else { return }
+            if stackViewCount >= 2 {
+                return
             }
-//            tagView.label.text = task?.tags.map { $0.first } ?? ""
-//            tagView.backgroundColor = UIColor().randomColor()
-            
+            let tagView = createTagView()
+            tagView.label.text = tags
+            tagView.backgroundColor = UIColor().randomColor()
+            stackView?.addArrangedSubview(tagView)
         }
-//        if count.count != 0 {
-//            for title in count {
-//                let tagView = TagUIView()
-//                if stackView.subviews.count == (task?.tags?.count)! {
-//                    break
-//                }
-//
-//                    tagView.label.text = title
-//                    tagView.backgroundColor = UIColor().randomColor()
-//
-//                    stackView.addArrangedSubview(tagView)
-//
-//
-//            }
-//        } else {
-//            stackView.removeFromSuperview()
-//        }
-//        print("Init task TaskCollectionView task: \(task?.title) taskTags: \(task?.tags)")
     }
     
     var stackView: UIStackView?
@@ -120,9 +81,7 @@ class TasksCollectionViewCell: UICollectionViewCell {
         //        contentView.addSubview(tagView)
         contentView.addSubview(iconView)
         //        stackView.addArrangedSubview(tagView)
-        roundedView.addSubview(stackView!)
-        
-        
+        contentView.addSubview(stackView!)
         roundedView.translatesAutoresizingMaskIntoConstraints = false
         roundedView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         roundedView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20).isActive = true
@@ -134,28 +93,20 @@ class TasksCollectionViewCell: UICollectionViewCell {
         stackView?.distribution = .fillEqually
         stackView?.spacing = 10
         stackView?.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 16, bottom: 40, right: 16))
-        
-        //        stackView.addArrangedSubview(tagView)
-        
-        //        roundedView.layer.masksToBounds = true
         iconView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: title.leadingAnchor, padding: .init(top: 20, left: 16, bottom: 0, right: 0))
         title.anchor(top: topAnchor, leading: iconView.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 16, left: 16, bottom: 0, right: 0))
-        //collection view?
-        //MARK: TODO????
-        
-        
         backgroundColor = #colorLiteral(red: 0.9682769179, green: 0.9684478641, blue: 1, alpha: 1)
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         title.text = nil
-        tagView.label.text = nil
-        tagView.backgroundColor = nil
-//        stackView?.arrangedSubviews.forEach({ view in
-//            stackView?.removeArrangedSubview(view)
-//        })
-        
+        stackView?.subviews.map({ view in
+            let tag = (view as! TagUIView)
+            tag.label.text = nil
+            tag.backgroundColor = nil
+            tag.removeFromSuperview()
+        })
     }
     
     required init?(coder: NSCoder) {
