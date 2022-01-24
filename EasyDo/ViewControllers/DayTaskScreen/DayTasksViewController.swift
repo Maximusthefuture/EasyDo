@@ -59,7 +59,6 @@ class DayTasksViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        weeklyPickerCollectionView.dayTaskViewModel = dayTaskViewModel
         fetchRequest = DailyItems.fetchRequest()
         weeklyPickerCollectionView.delegate = self
         myDayLabelInit()
@@ -67,7 +66,7 @@ class DayTasksViewController: UIViewController {
         tableViewInit()
         navigationController?.navigationBar.isHidden = true
         emptyLabelInit()
-        dayTaskViewModel = DayTasksViewModel()
+        dayTaskViewModel = DayTasksViewModel(coreDataStack: coreDataStack)
         weeklyPickerCollectionView.dayTaskViewModel = dayTaskViewModel
         
         do {

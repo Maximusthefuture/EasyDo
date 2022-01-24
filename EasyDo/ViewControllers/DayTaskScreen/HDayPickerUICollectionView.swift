@@ -20,18 +20,18 @@ class HDayPickerUICollectionView: BaseListController {
     var selectedSortDescriptor: NSSortDescriptor?
     var selectedPredicate: NSPredicate?
     var dayTaskViewModel: DayTasksViewModel?
+    var currentWeek: [Date]?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchCurrentWeek()
 //        if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
 //            layout.scrollDirection = .horizontal
-//
-//        }
         collectionView.collectionViewLayout = createLayout()
         collectionView.register(WeeklyPickerViewCell.self, forCellWithReuseIdentifier: dayPickerCellId)
         collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
+       
     }
     
     func setPredicateByDate(date: Date) -> NSPredicate{
@@ -39,7 +39,7 @@ class HDayPickerUICollectionView: BaseListController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return currentWeek.count
+        return dayTaskViewModel?.currentWeek.count ?? 0
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -60,47 +60,18 @@ class HDayPickerUICollectionView: BaseListController {
         }
         return layout
     }
-    
 
-    var currentWeek: [Date] = []
-    
-    //MARK: MOVE TO VIEWMODEL
-    func fetchCurrentWeek() {
-        let today = Date()
-        var calendar = Calendar.current
-        let week = calendar.dateInterval(of: .weekOfMonth, for: today)
-        calendar.timeZone = .autoupdatingCurrent
-        guard let firstWeekDay = week?.start else { return }
-        
-        (0...30).forEach { day in
-            if let weekday = calendar.date(byAdding: .day, value: day, to: firstWeekDay) {
-                currentWeek.append(weekday)
-            }
-        }
-    }
-    
-    func extractDate(date: Date, format: String) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = format
-        return formatter.string(from: date)
-    }
-    
-    func isCurrentDate(date: Date) -> Bool {
-        let calendar = Calendar.current
-        let day = calendar.component(.day, from: date)
-        let currentDay = calendar.component(.day, from: Date())
-        return day == currentDay
-    }
- 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: dayPickerCellId, for: indexPath) as! WeeklyPickerViewCell
-        let date = currentWeek[indexPath.item]
+        
+        let date = dayTaskViewModel?.currentWeek[indexPath.item]
+        guard let date = date else { return cell }
         cell.configure(date: date)
-        if cell.isCurrentDate(date: date) {
-            collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .bottom)
-            
+        if let dayTaskViewModel = dayTaskViewModel {
+            if dayTaskViewModel.isCurrentDate(date: date) {
+                collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .bottom)
+            }
         }
-                
         return cell
     }
    
@@ -134,7 +105,9 @@ class HDayPickerUICollectionView: BaseListController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! WeeklyPickerViewCell
-        let selectedDate = currentWeek[indexPath.item]
+        
+        let selectedDate = dayTaskViewModel?.currentWeek[indexPath.item]
+        guard let selectedDate = selectedDate else { return }
         selectedPredicate = setPredicateByDate(date: selectedDate)
         print(selectedDate)
         delegate?.filterTasksByDate(didSelectPredicate: selectedPredicate, sortDescriptor: selectedSortDescriptor)

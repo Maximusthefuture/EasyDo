@@ -21,6 +21,16 @@ class DayTasksViewModel: ViewModelBased {
         fetchCurrentWeek()
     }
     
+    
+    
+    func isCurrentDate(date: Date) -> Bool {
+        let calendar = Calendar.current
+        let day = calendar.component(.day, from: date)
+        let currentDay = calendar.component(.day, from: Date())
+        return day == currentDay
+    }
+ 
+    
     var currentWeek: [Date] = []
     
     //MARK: MOVE TO VIEWMODEL
