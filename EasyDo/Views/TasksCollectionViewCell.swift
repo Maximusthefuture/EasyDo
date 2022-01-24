@@ -56,6 +56,11 @@ class TasksCollectionViewCell: UICollectionViewCell {
     
 //    var task: Task?
     
+    
+    func createTagView() -> TagUIView {
+        var tagView = TagUIView()
+        return tagView
+    }
     func initTask(task: Task?) {
         guard let count = task?.tags else { return }
         if count.count == 0 {
@@ -65,18 +70,19 @@ class TasksCollectionViewCell: UICollectionViewCell {
             let pairs = zip(task?.tags?.first ?? "", task!.tags!.dropFirst())
             print("PAIRS: \(pairs)")
             task?.tags?.compactMap { tags in
-//                if stackView.subviews.count >= 2 {
-//                    return
-//                }
+                guard  let stackViewCount  = stackView?.subviews.count  else { return }
+                if stackViewCount >= 2 {
+                    return
+                }
                 
                     
                 
-                
+                let tagView = createTagView()
                 tagView.label.text = tags
                 tagView.backgroundColor = UIColor().randomColor()
-                tagView2.label.text = tags
-                tagView2.backgroundColor = UIColor().randomColor()
-//                stackView.addArrangedSubview(tagView)
+//                tagView2.label.text = tags
+//                tagView2.backgroundColor = UIColor().randomColor()
+                stackView?.addArrangedSubview(tagView)
                 
             }
 //            tagView.label.text = task?.tags.map { $0.first } ?? ""
@@ -108,7 +114,7 @@ class TasksCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.layer.cornerRadius = 16
-       stackView = UIStackView(arrangedSubviews: [self.tagView, tagView2])
+       stackView = UIStackView()
         contentView.addSubview(roundedView)
         contentView.addSubview(title)
         //        contentView.addSubview(tagView)
@@ -144,6 +150,12 @@ class TasksCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         title.text = nil
+        tagView.label.text = nil
+        tagView.backgroundColor = nil
+//        stackView?.arrangedSubviews.forEach({ view in
+//            stackView?.removeArrangedSubview(view)
+//        })
+        
     }
     
     required init?(coder: NSCoder) {

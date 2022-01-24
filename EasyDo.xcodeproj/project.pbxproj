@@ -56,6 +56,7 @@
 		38B20B7A2779FD1E002AD934 /* ProjectsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B20B792779FD1E002AD934 /* ProjectsViewCell.swift */; };
 		38B20B7C2779FF3A002AD934 /* TagsHorizontalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B20B7B2779FF3A002AD934 /* TagsHorizontalViewController.swift */; };
 		38B20B7E2779FFAA002AD934 /* TasksCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B20B7D2779FFAA002AD934 /* TasksCollectionViewCell.swift */; };
+		38C06741279E939A00CF2216 /* DayTasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C06740279E939A00CF2216 /* DayTasksViewModel.swift */; };
 		38DC14A8278D711400E42E76 /* BottomSheetTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC14A7278D711400E42E76 /* BottomSheetTransitioningDelegate.swift */; };
 		38E69BEE2795BB7F00E942BA /* HDayPickerUICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E69BED2795BB7F00E942BA /* HDayPickerUICollectionView.swift */; };
 		38E69BF02795BC4300E942BA /* WeeklyPickerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E69BEF2795BC4300E942BA /* WeeklyPickerViewCell.swift */; };
@@ -141,6 +142,7 @@
 		38B20B792779FD1E002AD934 /* ProjectsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsViewCell.swift; sourceTree = "<group>"; };
 		38B20B7B2779FF3A002AD934 /* TagsHorizontalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsHorizontalViewController.swift; sourceTree = "<group>"; };
 		38B20B7D2779FFAA002AD934 /* TasksCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksCollectionViewCell.swift; sourceTree = "<group>"; };
+		38C06740279E939A00CF2216 /* DayTasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTasksViewModel.swift; sourceTree = "<group>"; };
 		38DC14A7278D711400E42E76 /* BottomSheetTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetTransitioningDelegate.swift; sourceTree = "<group>"; };
 		38E69BED2795BB7F00E942BA /* HDayPickerUICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HDayPickerUICollectionView.swift; sourceTree = "<group>"; };
 		38E69BEF2795BC4300E942BA /* WeeklyPickerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyPickerViewCell.swift; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 			isa = PBXGroup;
 			children = (
 				3876EE1F279D64FA001A9955 /* AddEditCardViewModel.swift */,
+				38C06740279E939A00CF2216 /* DayTasksViewModel.swift */,
 			);
 			name = ViewModels;
 			path = Model/ViewModels;
@@ -518,6 +521,7 @@
 				387F2EF92790761000FBCB70 /* CardAddTagsViewController.swift in Sources */,
 				380ADEDC2779F62A00B97EB9 /* Task.swift in Sources */,
 				38F4175327830BDF00B7EDAB /* AddEditCardViewController.swift in Sources */,
+				38C06741279E939A00CF2216 /* DayTasksViewModel.swift in Sources */,
 				383A8AC127888408003EE8F7 /* AttachmentsHorizontallViewCell.swift in Sources */,
 				381E8E26278ED0850021FDC6 /* HeaderLabel.swift in Sources */,
 				389DABD2278DC00E00A600BF /* BottomSheetModalDissmisalHandler.swift in Sources */,

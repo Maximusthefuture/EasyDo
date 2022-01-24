@@ -25,9 +25,10 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
         
     }
     
-    var cardName: String? { didSet { } }
+    var cardName: String? { didSet {
+        // validation?
+    } }
     var cardDescription: String? { didSet { } }
-    
     var coreDataStack: CoreDataStack?
     var tagsArray = [String]()
     var dueDate: Date?
@@ -37,8 +38,8 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
     init(coreDataStack: CoreDataStack, currentProject: Project?) {
         self.coreDataStack = coreDataStack
         self.currentProject = currentProject
-        
     }
+ 
     
     func createNewTask() {
         if let coreDataStack = coreDataStack {
@@ -62,7 +63,7 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
         updateTask(time: time, date: date)
     }
     
-    func updateTask(time: Date?, date: Date?) {
+    fileprivate func updateTask(time: Date?, date: Date?) {
         if let coreDataStack = self.coreDataStack {
             let dailyItem = DailyItems(context: coreDataStack.managedContext)
             dailyItem.task = self.taskDetail
@@ -74,5 +75,5 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
             //            error handling?
             print("NULL NULL NULL")
         }
-    } 
+    }
 }

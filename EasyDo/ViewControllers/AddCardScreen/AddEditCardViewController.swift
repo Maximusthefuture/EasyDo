@@ -10,7 +10,18 @@ import UIKit
 
 class AddEditCardViewController: UIViewController {
     
-
+    private var viewModel: ViewModelBased?
+    
+    init(viewModel: ViewModelBased) {
+        super.init(nibName: nil, bundle: nil)
+        self.viewModel = viewModel
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     let cardName: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Enter card title"
@@ -46,6 +57,22 @@ class AddEditCardViewController: UIViewController {
     var tableView = UITableView()
 
     
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        //MARK: IF CurrentProject nil???
+        if let coreDataStack = coreDataStack {
+            addEditCardViewModel = AddEditCardViewModel(coreDataStack: coreDataStack, currentProject: currentProject)
+        }
+        
+        view.backgroundColor = .white
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneCreatingEditing))
+        initCardNameAndDescription()
+        initTableView()
+        setupEndEditingGesture()
+    }
+    
     //MARK: Init tableView
     fileprivate func initTableView() {
         
@@ -74,13 +101,12 @@ class AddEditCardViewController: UIViewController {
     }()
     
     func  initCardNameAndDescription() {
-        var stackView = UIStackView(arrangedSubviews: [cardName, addButton])
+//        let stackView = UIStackView(arrangedSubviews: [cardName, addButton])
         view.addSubview(cardName)
         view.addSubview(cardDescription)
         view.addSubview(addButton)
         cardName.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 20, left: 16, bottom: 0, right: 0))
         cardDescription.anchor(top: cardName.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 16, left: 16, bottom: 0, right: 16), size: .init(width: 0, height: 50))
-        
         addButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 16, left: 0, bottom: 0, right: 8))
     }
     
@@ -121,20 +147,7 @@ class AddEditCardViewController: UIViewController {
     
     let propertiesArray = ["Pomodoro count", "Label", "Due Date"]
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        //MARK: IF CurrentProject nil???
-        if let coreDataStack = coreDataStack {
-            addEditCardViewModel = AddEditCardViewModel(coreDataStack: coreDataStack, currentProject: currentProject)
-        }
-       
-        view.backgroundColor = .white
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneCreatingEditing))
-        initCardNameAndDescription()
-        initTableView()
-        setupEndEditingGesture()
-    }
+   
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -154,13 +167,11 @@ class AddEditCardViewController: UIViewController {
     @objc func handleEndEditingGesture(tapGesture: UITapGestureRecognizer) {
         self.view.endEditing(true)
         tapGesture.cancelsTouchesInView = false
-        
     }
     
     @objc func close() {
         dismiss(animated: true)
     }
-    
     
     let errorLabel: UIAlertController = {
         let alert = UIAlertController(title: "Error", message: "Message", preferredStyle: .alert)
@@ -171,10 +182,9 @@ class AddEditCardViewController: UIViewController {
         print("Done editing save")
         do {
             try validateCardName(cardName: cardName.text ?? "")
-            createNewTask()
+            addEditCardViewModel?.createNewTask()
             dismiss(animated: true)
         } catch {
-            print("ERROR", error.localizedDescription)
             errorLabel.message = error.localizedDescription
             self.present(errorLabel, animated: true)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
@@ -183,7 +193,6 @@ class AddEditCardViewController: UIViewController {
         }
     }
 
-    
     @objc fileprivate func addCardToDayTask(sender: UIButton) {
         let vc = PickTimeViewController(initialHeight: 300)
         present(vc, animated: true)
@@ -198,12 +207,9 @@ class AddEditCardViewController: UIViewController {
     var myDate: Date?
     var tagsArray = [String]()
     
-    func createNewTask() {
-        addEditCardViewModel?.createNewTask()
-    }
-    
     @objc func datePickerChange(datePicker: UIDatePicker) {
         addEditCardViewModel?.dueDate = datePicker.date
+        
     }
 }
 
@@ -246,6 +252,7 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
         }
         
     }
+    
     enum Properties: Int {
         case pomodoro = 0
         case label
@@ -283,10 +290,6 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
                 cell.datePicker.isHidden = false
                 cell.datePicker.addTarget(self, action: #selector(datePickerChange), for: .editingDidEnd)
 }
-////                var date = Date(timeIntervalSinceReferenceDate: TimeInterval(1000))
-////                cell.initTask(initialTask: taskDetail)
-////                cell.datePicker.date = date
-//            }
             return cell
             
         } else if indexPath.section == 2 {
@@ -326,4 +329,3 @@ extension AddEditCardViewController: RefreshTagsProtocol {
     }
 }
 
-//extension

@@ -19,6 +19,7 @@ class HDayPickerUICollectionView: BaseListController {
     weak var delegate: HDayPickerUICollectionViewDelegate?
     var selectedSortDescriptor: NSSortDescriptor?
     var selectedPredicate: NSPredicate?
+    var dayTaskViewModel: DayTasksViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,7 +72,7 @@ class HDayPickerUICollectionView: BaseListController {
         calendar.timeZone = .autoupdatingCurrent
         guard let firstWeekDay = week?.start else { return }
         
-        (1...30).forEach { day in
+        (0...30).forEach { day in
             if let weekday = calendar.date(byAdding: .day, value: day, to: firstWeekDay) {
                 currentWeek.append(weekday)
             }

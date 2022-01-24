@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
         var controller = ProjectMainViewController()
         var viewController = ProjectsListViewController()
-        var addVC = AddEditCardViewController()
+        var addVC = AddEditCardViewController(viewModel: AddEditCardViewModel())
         var timeVC = DayTasksViewController()
         window?.rootViewController = UINavigationController(rootViewController: timeVC)
     }

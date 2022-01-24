@@ -95,6 +95,12 @@ class PickTimeViewController: ResizableViewController {
     }
     
     @objc func handleSaveButton(sender: UIButton) {
-        dataSavedWithDate?(time, date)
+        if let time = time, let date = date {
+            dataSavedWithDate?(time, date)
+        } else {
+            time = Date()
+            date = Date()
+        }
+        
     }
 }

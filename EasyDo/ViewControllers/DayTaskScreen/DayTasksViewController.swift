@@ -36,6 +36,7 @@ class DayTasksViewController: UIViewController {
     var emptyLabel = UILabel()
     var weeklyPickerCollectionView = HDayPickerUICollectionView()
     var fetchRequest: NSFetchRequest<DailyItems>?
+    var dayTaskViewModel: DayTasksViewModel?
     
     lazy var fetchedResultsController:
     NSFetchedResultsController<DailyItems> = {
@@ -58,6 +59,7 @@ class DayTasksViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        weeklyPickerCollectionView.dayTaskViewModel = dayTaskViewModel
         fetchRequest = DailyItems.fetchRequest()
         weeklyPickerCollectionView.delegate = self
         myDayLabelInit()
@@ -65,6 +67,8 @@ class DayTasksViewController: UIViewController {
         tableViewInit()
         navigationController?.navigationBar.isHidden = true
         emptyLabelInit()
+        dayTaskViewModel = DayTasksViewModel()
+        weeklyPickerCollectionView.dayTaskViewModel = dayTaskViewModel
         
         do {
             try fetchedResultsController.performFetch()
@@ -308,7 +312,7 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let item = fetchedResultsController.object(at: indexPath).task else { return }
-        let vc = AddEditCardViewController()
+        let vc = AddEditCardViewController(viewModel: AddEditCardViewModel())
         vc.coreDataStack = coreDataStack
         vc.taskDetail = item
         let items = fetchedResultsController.object(at: indexPath)
