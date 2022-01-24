@@ -29,7 +29,10 @@ class DayTasksViewModel: ViewModelBased {
         let currentDay = calendar.component(.day, from: Date())
         return day == currentDay
     }
- 
+    
+    func setPredicateByDate(date: Date) -> NSPredicate{
+        return NSPredicate(format: "%K == %@", #keyPath(DailyItems.inDate), date as NSDate)
+    }
     
     var currentWeek: [Date] = []
     

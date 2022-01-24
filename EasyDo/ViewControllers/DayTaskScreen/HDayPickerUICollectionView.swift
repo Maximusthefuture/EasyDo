@@ -33,10 +33,7 @@ class HDayPickerUICollectionView: BaseListController {
         collectionView.showsHorizontalScrollIndicator = false
        
     }
-    
-    func setPredicateByDate(date: Date) -> NSPredicate{
-        return NSPredicate(format: "%K == %@", #keyPath(DailyItems.inDate), date as NSDate)
-    }
+  
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dayTaskViewModel?.currentWeek.count ?? 0
@@ -108,7 +105,7 @@ class HDayPickerUICollectionView: BaseListController {
         
         let selectedDate = dayTaskViewModel?.currentWeek[indexPath.item]
         guard let selectedDate = selectedDate else { return }
-        selectedPredicate = setPredicateByDate(date: selectedDate)
+        selectedPredicate = dayTaskViewModel?.setPredicateByDate(date: selectedDate)
         print(selectedDate)
         delegate?.filterTasksByDate(didSelectPredicate: selectedPredicate, sortDescriptor: selectedSortDescriptor)
     }
