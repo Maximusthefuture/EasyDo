@@ -96,7 +96,7 @@ class DayTasksViewController: UIViewController {
         view.addSubview(tableView)
         tableView.anchor(top: weeklyPickerCollectionView.view.bottomAnchor, leading: view.leadingAnchor, bottom:  view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 16, left: 0, bottom: 0, right: 0))
         tableView.register(DayTaskViewCell.self, forCellReuseIdentifier: reuseIdentifier)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+//        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.backgroundColor = .white
         tableView.delegate = self
         tableView.dataSource = self

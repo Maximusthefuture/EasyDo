@@ -7,30 +7,25 @@
 
 import UIKit
 
+
+//MARK: LABEL TEXT IN CENTER
 class TagUIView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         layer.cornerRadius = 6
-       
-//        layer.masksToBounds = true
         clipsToBounds = true
         isAccessibilityElement = false
         addSubview(label)
-        label.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 8, left: 16, bottom: 8, right: 16))
+        label.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 8, left: 8, bottom: 8, right: 8))
         label.isAccessibilityElement = true
         label.accessibilityIdentifier = "LabelInTagView"
         accessibilityIdentifier = "TagView"
-//        label.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 8, left: 16, bottom: 8, right: 16))
-//        translatesAutoresizingMaskIntoConstraints = false
-//        heightAnchor.constraint(equalToConstant: label.frame.height).isActive = true
-//        widthAnchor.constraint(equalToConstant: label.frame.width).isActive = true
-        
-  
     }
     
     var label: UILabel = {
         var label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 13, weight: .bold)
         return label
     }()
     
@@ -43,14 +38,12 @@ class TagUIView: UIView {
         let clipPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: label.frame.width, height: 40), cornerRadius: 6).cgPath
         let ctx = UIGraphicsGetCurrentContext()!
         ctx.addPath(clipPath)
-//        ctx.setFillColor(UIColor.red.cgColor)
         ctx.closePath()
-//        ctx.fillPath()
     }
-    
+ 
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+        label.textAlignment = .center
     }
     
 }

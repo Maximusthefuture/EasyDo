@@ -27,6 +27,13 @@ class DayTaskViewCell: UITableViewCell {
         return  view.roundedView()
     }()
     
+    let checkBox: UIView = {
+        let view = UIView(frame: CGRect(origin:.zero, size: .init(width: 50, height: 50)))
+        view.clipsToBounds = true
+        view.backgroundColor = .black
+        return view
+    }()
+    
     /*
      A UIView (Or your custom UIImageView which will create your yellow line. It needs to be vertically centered, leading and trailing to superview equal to 0 and the height lets say 5pt
      */
@@ -60,11 +67,14 @@ class DayTaskViewCell: UITableViewCell {
         addSubview(timeLabel)
         addSubview(roundedView)
         roundedView.addSubview(taskLabel)
+        roundedView.addSubview(checkBox)
         path = UIBezierPath()
         timeLabel.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor , trailing: trailingAnchor)
         roundedView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 10, left: 60, bottom: 10, right: 30))
         taskLabel.anchor(top: roundedView.topAnchor, leading: roundedView.leadingAnchor, bottom: roundedView.bottomAnchor, trailing: roundedView.trailingAnchor, padding: .init(top: 0, left: 16, bottom: 0, right: 0))
+//        checkBox.anchor(top: roundedView.topAnchor, leading: nil, bottom: nil, trailing: roundedView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 16), size: .init(width: 30, height: 30))
         roundedView.backgroundColor = #colorLiteral(red: 0.9722431302, green: 0.972392261, blue: 1, alpha: 1)
+        checkBox.centerInRight(leading: roundedView.leadingAnchor, size: .init(width: 30, height: 30),padding: .init(top: 0, left: 0, bottom: 0, right: 16))
         path?.move(to: CGPoint(x: self.frame.minX + 20, y: roundedView.bounds.origin.y + 30))
         path?.addLine(to: CGPoint(x: self.frame.minX + 20, y: roundedView.bounds.origin.y - 30))
         shapeLayer2.path = path?.cgPath

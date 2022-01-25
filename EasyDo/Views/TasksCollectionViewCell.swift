@@ -26,32 +26,13 @@ class TasksCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    //    //One more collectionview?
-    //    var tagView: TagUIView = {
-    //        var view = TagUIView()
-    //        view.backgroundColor = #colorLiteral(red: 0.8789672256, green: 0.9762962461, blue: 0.9438448548, alpha: 1)
-    //        view.label.textColor = #colorLiteral(red: 0.3214970827, green: 0.8934875727, blue: 0.7464131117, alpha: 1)
-    //        return view
-    //    }()
-    
     let roundedView: UIView = {
         var view = UIView()
         view.layer.cornerRadius = 16
         view.backgroundColor = .white
         return view
     }()
-  
-    var arrayOfTagView = [TagUIView]()
-    
-    var tagView: TagUIView = {
-        let tag = TagUIView()
-        return tag
-    }()
-    var tagView2: TagUIView = {
-        let tag = TagUIView()
-        return tag
-    }()
-    
+ 
     func createTagView() -> TagUIView {
         let tagView = TagUIView()
         return tagView
@@ -92,7 +73,7 @@ class TasksCollectionViewCell: UICollectionViewCell {
         stackView?.axis = .horizontal
         stackView?.distribution = .fillEqually
         stackView?.spacing = 10
-        stackView?.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 16, bottom: 40, right: 16))
+        stackView?.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 0, left: 16, bottom: 40, right: 16), size: .init(width: roundedView.frame.width / 2, height: 40))
         iconView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: title.leadingAnchor, padding: .init(top: 20, left: 16, bottom: 0, right: 0))
         title.anchor(top: topAnchor, leading: iconView.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 16, left: 16, bottom: 0, right: 0))
         backgroundColor = #colorLiteral(red: 0.9682769179, green: 0.9684478641, blue: 1, alpha: 1)
