@@ -33,7 +33,15 @@ class DayTasksViewController: UIViewController {
     let coreDataStack = CoreDataStack(modelName: "EasyDo")
     var myDayLabel = UIButton()
     var tableView = UITableView()
-    var emptyLabel = UILabel()
+    let emptyLabel: UIButton = {
+        let button = UIButton()
+        button.setTitle("NOTHING HERE Add item +", for: .normal)
+        button.backgroundColor = .blue
+        button.layer.cornerRadius = 10
+        button.setTitleColor(.black, for: .normal)
+//        button.addTarget(self, action: #selector(<#T##@objc method#>), for: .touchUpInside)
+        return button
+    }()
     var weeklyPickerCollectionView = HDayPickerUICollectionView()
     var fetchRequest: NSFetchRequest<DailyItems>?
     var dayTaskViewModel: DayTasksViewModel?
@@ -87,7 +95,7 @@ class DayTasksViewController: UIViewController {
     }
     
     fileprivate func emptyLabelInit() {
-        emptyLabel.text = "NOTHING HERE Add item + "
+//        emptyLabel.text = " "
         view.addSubview(emptyLabel)
         emptyLabel.centerInSuperview()
         emptyLabel.isHidden = true

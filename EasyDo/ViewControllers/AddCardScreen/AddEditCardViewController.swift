@@ -9,8 +9,9 @@ import UIKit
 
 
 class AddEditCardViewController: UIViewController {
-    
+    //MARK: ?????
     private var viewModel: ViewModelBased?
+    var enumProp: Properties?
     
     init(viewModel: ViewModelBased) {
         super.init(nibName: nil, bundle: nil)
@@ -29,7 +30,7 @@ class AddEditCardViewController: UIViewController {
         tf.addTarget(self, action: #selector(handleTextChange), for: .editingChanged)
         return tf
     }()
-    
+    //MARK: SET frame?
     let cardDescription: UITextView = {
         let tf = UITextView()
         tf.font = UIFont.systemFont(ofSize: 13)
@@ -46,7 +47,7 @@ class AddEditCardViewController: UIViewController {
     
     var addEditCardViewModel: AddEditCardViewModelProtocol?
     var isAddMyDay: Bool?
-//    var addButton = UIButton()
+    //    var addButton = UIButton()
     let cellId = "CellID"
     let propertiesCell = "PropertiesCell"
     let attachmentsCell = "attachmentsCell"
@@ -55,7 +56,7 @@ class AddEditCardViewController: UIViewController {
     var dayVC: DayTasksViewController?
     var taskDetail: Task?
     var tableView = UITableView()
-
+    
     
     
     override func viewDidLoad() {
@@ -92,7 +93,7 @@ class AddEditCardViewController: UIViewController {
     }
     
     var addButton: UIButton = {
-       var b = UIButton()
+        var b = UIButton()
         b.setTitle("++", for: .normal)
         b.setTitleColor(.blue, for: .normal)
         b.titleLabel?.font = UIFont.systemFont(ofSize: 32, weight: .bold)
@@ -101,7 +102,7 @@ class AddEditCardViewController: UIViewController {
     }()
     
     func  initCardNameAndDescription() {
-//        let stackView = UIStackView(arrangedSubviews: [cardName, addButton])
+        //        let stackView = UIStackView(arrangedSubviews: [cardName, addButton])
         view.addSubview(cardName)
         view.addSubview(cardDescription)
         view.addSubview(addButton)
@@ -118,15 +119,13 @@ class AddEditCardViewController: UIViewController {
         return b
     }()
     
-    private var bottomSheetTransitionDelegate: UIViewControllerTransitioningDelegate?
-    
-    //MARK: TODO Bottom Sheet when we can add items? First image then can add 
+    //MARK: TODO Bottom Sheet when we can add items? First image then can add
     @objc private func handleSeeAllAttachments() {
         let vc = AttachmentsViewController(initialHeight: 300)
         present(vc, animated: true)
     }
     
-
+    
     lazy var attachmentsHeader: UIView = {
         let headerLabel = HeaderLabel()
         let properties = UIView()
@@ -138,7 +137,7 @@ class AddEditCardViewController: UIViewController {
         return properties
         
     }()
-   
+    
     //MARK: Viewmodel?
     func validateCardName(cardName: String) throws {
         guard cardName.count < 18  else { throw Errors.CardNameValidationError.tooLong }
@@ -147,8 +146,8 @@ class AddEditCardViewController: UIViewController {
     
     let propertiesArray = ["Pomodoro count", "Label", "Due Date"]
     
-   
-
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         cardName.text = taskDetail?.title
@@ -156,7 +155,7 @@ class AddEditCardViewController: UIViewController {
         addButton.isHidden = true
         guard let isAddMyDay = isAddMyDay else { return }
         if isAddMyDay {
-           addButton.isHidden = false
+            addButton.isHidden = false
         }
     }
     
@@ -192,7 +191,7 @@ class AddEditCardViewController: UIViewController {
             }
         }
     }
-
+    
     @objc fileprivate func addCardToDayTask(sender: UIButton) {
         let vc = PickTimeViewController(initialHeight: 300)
         present(vc, animated: true)
@@ -232,13 +231,13 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
         case 0: headerLabel.text = "Properties"
         case 1: return attachmentsHeader
             
-         default:
+        default:
             headerLabel.text = "TO-DO"
         }
         return headerLabel
     }
     
-   
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("IndexPath: ", indexPath.row)
@@ -259,6 +258,25 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
         case dueDate
     }
     
+    //Если я захочу что-то добавить? Мне придется менять это?
+    func configPropertiesCells(cell: AddEditCardPropertiesViewCell, properties: Properties, indexPathRow: Int) {
+        let index = properties.rawValue == indexPathRow
+        if index {
+            switch properties.rawValue {
+            case 0:
+                cell.datePicker.isHidden = true
+            case 1:
+                cell.stackView.isHidden = false
+            case 2:
+                cell.datePicker.isHidden = false
+                cell.datePicker.addTarget(self, action: #selector(datePickerChange), for: .editingDidEnd)
+                
+            default:
+                print("default")
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: propertiesCell, for: indexPath) as! AddEditCardPropertiesViewCell
@@ -268,28 +286,17 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
             tableView.separatorStyle = .none
             cell.accessoryType = .disclosureIndicator
             cell.initTask(initialTask: taskDetail)
-            var enumProp = Properties.pomodoro
-//            cell.delegate = self
-//            switch enumProp {
-                
-//            case .pomodoro:
-//                cell.datePicker.isHidden = true
-//            case .label:
-//                cell.stackView.isHidden = false
-//            case .dueDate:
-//                cell.datePicker.isHidden = false
-//                cell.datePicker.addTarget(self, action: #selector(datePickerChange), for: .editingDidEnd)
-//            }
-            if indexPath.row == 0 {
-                cell.datePicker.isHidden = true
+            //cell.delegate = self
+            switch indexPath.row {
+            case 0: enumProp = .pomodoro
+            case 1: enumProp = .label
+            case 2: enumProp = .dueDate
+            default:
+                print("default =)")
             }
-            if indexPath.row == 1 {
-                cell.stackView.isHidden = false
+            if let enumProp = enumProp {
+                configPropertiesCells(cell: cell, properties: enumProp, indexPathRow: indexPath.row)
             }
-            if indexPath.row == 2 {
-                cell.datePicker.isHidden = false
-                cell.datePicker.addTarget(self, action: #selector(datePickerChange), for: .editingDidEnd)
-}
             return cell
             
         } else if indexPath.section == 2 {
@@ -307,7 +314,7 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return 100
-        
+            
         } else {
             return 40
         }

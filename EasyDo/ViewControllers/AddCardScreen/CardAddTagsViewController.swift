@@ -146,6 +146,7 @@ class CardAddTagsViewController: ResizableViewController {
         }
         
         
+        
         stackView.removeArrangedSubview(gesture.view!)
         gesture.view?.removeFromSuperview()
         
