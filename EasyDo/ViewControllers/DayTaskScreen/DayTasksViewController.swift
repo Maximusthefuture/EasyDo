@@ -37,6 +37,7 @@ class DayTasksViewController: UIViewController {
     var weeklyPickerCollectionView = HDayPickerUICollectionView()
     var fetchRequest: NSFetchRequest<DailyItems>?
     var dayTaskViewModel: DayTasksViewModel?
+    lazy var selectionGenerator = UISelectionFeedbackGenerator()
     
     lazy var fetchedResultsController:
     NSFetchedResultsController<DailyItems> = {
@@ -157,6 +158,14 @@ class DayTasksViewController: UIViewController {
         return hour == currentHour
     }
     
+    
+    @objc func handleCheckBoxSelection(sender: UIView) {
+        //MARK: Read docs
+        selectionGenerator.prepare()
+        selectionGenerator.selectionChanged()
+        print(sender.description)
+       
+    }
    
     
     //MARK: Change this to addEditVC
@@ -181,6 +190,8 @@ class DayTasksViewController: UIViewController {
         }
         coreDataStack.saveContext()
     }
+    
+   
 }
 
 
@@ -211,6 +222,8 @@ extension DayTasksViewController {
         checkIsItemsEmpty()
         tableView.reloadData()
     }
+    
+    
 }
 
 extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
@@ -278,6 +291,7 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
     func configure(cell: UITableViewCell, for indexPath: IndexPath) {
         guard let cell = cell as? DayTaskViewCell else { return }
         let items = fetchedResultsController.object(at: indexPath)
+        //MARK: MOve to cell or VM?
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .none
         dateFormatter.timeStyle = .short
@@ -300,6 +314,7 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DayTaskViewCell
         configure(cell: cell, for: indexPath)
+        cell.checkBox.addGestureRecognizer(UIGestureRecognizer(target: self, action: #selector(handleCheckBoxSelection)))
         if indexPath.item == 0 {
             cell.shapeLayer.removeFromSuperlayer()
             

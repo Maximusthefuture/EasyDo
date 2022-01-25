@@ -33,6 +33,12 @@ class CardAddTagsViewController: ResizableViewController {
         return stv
     }()
     
+    let editLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Edit"
+        return label
+    }()
+    
     let addTagsButton: UIButton = {
        let button = UIButton()
 //        button.setImage(UIImage(systemName: "add"), for: .normal)
@@ -44,6 +50,7 @@ class CardAddTagsViewController: ResizableViewController {
         return button
     }()
     
+    //MARK: FOR UITEST ONLY
     let backButton = UIButton()
     
     let padding: CGFloat = 16
@@ -55,10 +62,11 @@ class CardAddTagsViewController: ResizableViewController {
         view.addSubview(addTagsButton)
         view.addSubview(stackView)
         view.addSubview(backButton)
+        view.addSubview(editLabel)
         initTask()
         tagsNameTextField.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: padding, left: padding, bottom: padding, right: padding))
         addTagsButton.anchor(top: tagsNameTextField.bottomAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 16, left: 0, bottom: 0, right: 0))
-        stackView.anchor(top: tagsNameTextField.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: addTagsButton.trailingAnchor, padding: .init(top: 16, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 40))
+        stackView.anchor(top: tagsNameTextField.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 16, left: 30, bottom: 0, right: 30), size: .init(width: view.frame.width / 2, height: 40))
         setupNotificationObserver()
         //MARK: TODO when want to rename tag show textField
         if isStackViewFull(stackView: stackView) {
@@ -69,6 +77,7 @@ class CardAddTagsViewController: ResizableViewController {
             addTagsButton.isHidden = false
             tagsNameTextField.isHidden = false
         }
+        editLabel.anchor(top: tagsNameTextField.bottomAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 20))
        
         
         backButton.centerInBottom()
@@ -131,6 +140,12 @@ class CardAddTagsViewController: ResizableViewController {
     
     @objc func handleTapTag(gesture: UITapGestureRecognizer) {
         print("CLICKED", gesture.description)
+        
+        stackView.subviews.map {
+            print($0.backgroundColor)
+        }
+        
+        
         stackView.removeArrangedSubview(gesture.view!)
         gesture.view?.removeFromSuperview()
         

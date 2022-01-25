@@ -8,7 +8,6 @@
 import UIKit
 
 
-//MARK: LABEL TEXT IN CENTER
 class TagUIView: UIView {
 
     override init(frame: CGRect) {
