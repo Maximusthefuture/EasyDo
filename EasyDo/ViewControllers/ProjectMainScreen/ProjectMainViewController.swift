@@ -22,38 +22,70 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
     var currentProject: Project?
     var coreDataStack: CoreDataStack?
     var isAddMyDay: Bool?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(goBack))
-       
+//        collectionView.dragDelegate = self
+//        collectionView.dropDelegate = self
+//        collectionView.dragInteractionEnabled = true
         addButtonInit()
         collectionView.backgroundColor = #colorLiteral(red: 0.9682769179, green: 0.9684478641, blue: 1, alpha: 1)
-        
         navigationItem.title = currentProject?.title
 //        if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
 //            layout.scrollDirection = .horizontal
 //        }
-        
         collectionView.collectionViewLayout = createLayout()
+        collectionView.isScrollEnabled = false
     }
     
+    var changeTagClosure: ((Int) -> Void)?
+    
+    func f() -> (Int) -> Void {
+        return changeTagClosure!
+    }
     
     func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout {
             (sectionIndex: Int, layoutEnviroment: NSCollectionLayoutEnvironment) ->
             NSCollectionLayoutSection? in
             
-            let item1 = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9), heightDimension: .fractionalHeight(0.7)))
+            let item1 = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9), heightDimension: .fractionalHeight(0.8)))
             let group1 = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9), heightDimension: .absolute(self.collectionView.bounds.height)), subitems: [item1])
             let section = NSCollectionLayoutSection(group: group1)
+            
+            //Decorationviews?
+            section.contentInsets = .init(top: 0, leading: 16, bottom: 0, trailing: 16)
             section.orthogonalScrollingBehavior = .groupPaging
+            section.visibleItemsInvalidationHandler = {  (visibleItems, offset, env) in
+//                print("scrollView offset", offset)
+                //MARK: Notification observer?
+                var index: Int?
+                if offset.x < 300 {
+                    self.currentTag = 0
+                    index = 0
+                    self.changeTagClosure?(index!)
+                } else if offset.x > 300 && offset.x < 500 {
+                    self.currentTag = 1
+                    index = 1
+                    self.changeTagClosure?(index!)
+                } else {
+                    self.currentTag = 2
+                    index = 2
+                    self.changeTagClosure?(index!)
+                }
+                
+                
+            }
             return section
         }
         return layout
         
     }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -61,39 +93,11 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
         collectionView.reloadData()
         collectionView.register(ProjectsViewCell.self, forCellWithReuseIdentifier: "AppsViewCell")
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-//        [self.parentViewController presentViewController:viewController animated:YES completion:nil];
-      
-       
-    }
 
-    
     @objc func goBack(sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
     
-//    func initCoreDataDummyData() {
-//        if let coreDataStack = coreDataStack {
-//            let task = Task(context: coreDataStack.managedContext)
-//            task.tags = ["No tag"]
-//            task.mainTag = "Done"
-//            task.title = "HEllo title"
-//            task.taskDescription = "MY NEW TASK"
-//            if let project = currentProject,
-//               let tasks = project.tasks?.mutableCopy() as? NSMutableOrderedSet {
-//                tasks.add(task)
-//                project.tasks = tasks
-//            }
-//            coreDataStack.saveContext()
-//            collectionView.reloadData()
-//            changeDelegate = self
-//        }
-//
-//
-//    }
-
     func deleteAll() {
         coreDataStack?.managedContext.delete(currentProject!)
         coreDataStack?.saveContext()
@@ -108,6 +112,17 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
         addButton.backgroundColor = .blue
         addButton.addTarget(self, action: #selector(addNewCardButton), for: .touchUpInside)
     }
+    
+    func dragItems(at indexPath: IndexPath, collectionView: UICollectionView) -> [UIDragItem] {
+        let cell = collectionView.cellForItem(at: indexPath) as! ProjectsViewCell
+        let item = collectionView == collectionView ? currentProject?.tasks?[indexPath.row] : cell.horizontalController.tasksList?[indexPath.row]
+//        let item = currentProject?.tasks?[indexPath.row] as! Task
+        let dragItem = UIDragItem(itemProvider: NSItemProvider(object: item as! NSString))
+        dragItem.localObject = item
+        return [dragItem]
+    }
+    
+    
     
     
     
@@ -125,19 +140,27 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
         return currentProject?.tags?.count ?? 0
     }
     
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    var currentTag: Int?
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AppsViewCell", for: indexPath) as! ProjectsViewCell
-        let filter = currentProject?.tasks?.filter{ ($0 as! Task).mainTag == currentProject?.tags?[indexPath.row]}
-        print("filter?.count: \(filter?.count)")
+        
+        let filter = currentProject?.tasks?.filter{
+            ($0 as! Task).mainTag == currentProject?.tags?[indexPath.row] }
         
         cell.tagView.label.text = currentProject?.tags?[indexPath.item]
-        cell.horizontalController.project = currentProject
+        cell.horizontalController.currentProject = currentProject
         cell.horizontalController.isAddMyDay = self.isAddMyDay
         cell.horizontalController.tasksList = filter as? [Task]
+        cell.horizontalController.changeTagClosure = changeTagClosure
         cell.horizontalController.coreDataStack = coreDataStack
+        cell.horizontalController.currentTag = currentTag
         cell.horizontalController.collectionView.reloadData()
-        cell.horizontalController.changeDelegate = changeDelegate
+        
         cell.horizontalController.didSelectHandler = { [weak self] task in
             let vc = AddEditCardViewController(viewModel: AddEditCardViewModel())
             vc.isAddMyDay = self?.isAddMyDay
@@ -145,10 +168,15 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
             vc.coreDataStack = self?.coreDataStack
             self?.navigationController?.present(vc, animated: true)
         }
+//        currentTag = "\(currentProject?.tags?[indexPath.item])"
+        
+//        print("CURRENT TAG: \(currentTag)")
+        
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+       
         return .init(width: view.frame.width - 48, height: view.safeAreaLayoutGuide.layoutFrame.height)
     }
     
@@ -162,7 +190,6 @@ extension ProjectMainViewController: ChangeTagDelegate {
         print("delegate here!!!")
 //        collectionView.reloadData()
     }
-    
-    
 }
+
 

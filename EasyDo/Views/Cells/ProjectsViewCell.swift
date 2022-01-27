@@ -38,6 +38,7 @@ class ProjectsViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         tagView = TagUIView(frame: .zero)
+        tagView.label.text = nil
         
     }
 }

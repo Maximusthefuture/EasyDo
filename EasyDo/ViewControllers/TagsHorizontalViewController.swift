@@ -6,18 +6,20 @@
 //
 
 import UIKit
+protocol TagChangeDelegate: AnyObject {
+    func changeTag(tag: String)
+}
 
 class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlowLayout {
 
     var tasksList: [Task]?
-    //Project????
-    weak var changeDelegate: ChangeTagDelegate?
-    var project: Project?
+    var currentProject: Project?
     var coreDataStack: CoreDataStack?
     var controller = ProjectMainViewController()
     var isAddMyDay: Bool?
-    
-//    var coreDataStack = CoreDataStack(modelName: "EasyDo")
+    var currentTag: Int?
+    var changeTagClosure: ((Int) -> Void)?
+    weak var tagChangeDelegate: TagChangeDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +27,9 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
         collectionView.backgroundColor = #colorLiteral(red: 0.9682769179, green: 0.9684478641, blue: 1, alpha: 1)
         collectionView.showsVerticalScrollIndicator = false
         collectionView.dragDelegate = self
-        print("IS PRESENTED: \(self.isBeingPresented)")
+        collectionView.dropDelegate = self
+        collectionView.dragInteractionEnabled = true
+        tagChangeDelegate = self
         
     }
 
@@ -44,14 +48,9 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "apps", for: indexPath) as! TasksCollectionViewCell
         let task = tasksList?[indexPath.row]
         cell.title.text = task?.title
-        
         if let task = task {
             cell.initTask(task: task)
         }
-//        cell.tagView.label.text = task?.tags?[0]
-//        cell.task = task
-       
-//        cell.initStackView(task: task ?? Task())
         return cell
 }
     
@@ -59,22 +58,36 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let tasks = tasksList?[indexPath.item] else { return }
-        print("ON CLICK")
         didSelectHandler?(tasks)
     }
     
     func dragItems(at indexPath: IndexPath) -> [UIDragItem] {
-        if let cell = collectionView.cellForItem(at: indexPath) as? TasksCollectionViewCell {
-            let dragItem = UIDragItem(itemProvider: NSItemProvider(object: cell.title.text as! NSString))
-            dragItem.localObject = indexPath
-            return [dragItem]
-        } else {
-            return []
+        let item = tasksList?[indexPath.row]
+        let dragItem = UIDragItem(itemProvider: NSItemProvider(object: item?.title as! NSString))
+        dragItem.localObject = item
+        return [dragItem]
+    }
+    
+    func changeTag(indexPath: Int) {
+        
+//        completion(1)
+        let task = self.currentProject?.tasks?[indexPath] as! Task
+        let tag = self.currentProject?.tags?[1]
+        task.mainTag = "In Progress"
+        self.coreDataStack?.saveContext()
+        changeTagClosure = { value in
+            print(value)
         }
+        
+        
     }
    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return tasksList?.count ?? 0
+    }
+    
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
     }
     
     let topBottomPadding: CGFloat = 12
@@ -92,6 +105,7 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return lineSpacing
     }
+
 }
 
 extension TagsHorizontalController: UICollectionViewDragDelegate {
@@ -102,3 +116,10 @@ extension TagsHorizontalController: UICollectionViewDragDelegate {
     }
 
 }
+
+extension TagsHorizontalController: TagChangeDelegate {
+    func changeTag(tag: String) {
+        print("myTag", tag)
+    }
+}
+

@@ -29,3 +29,15 @@ extension Task {
 extension Task : Identifiable {
 
 }
+
+extension Task: NSItemProviderWriting {
+    public static var writableTypeIdentifiersForItemProvider: [String] {
+        return []
+    }
+    
+    public func loadData(withTypeIdentifier typeIdentifier: String, forItemProviderCompletionHandler completionHandler: @escaping (Data?, Error?) -> Void) -> Progress? {
+        return Progress()
+    }
+    
+    
+}

@@ -90,6 +90,26 @@ class EasyDoUITests: XCTestCase {
     func testCardCompleteCreation() {
         
     }
+    
+    func testDragAndDrop() {
+        
+        
+        app.buttons["+ Add Card"].tap()
+        let tablesQuery = app.tables
+        tablesQuery.children(matching: .cell).element(boundBy: 0).children(matching: .other).element(boundBy: 0).tap()
+
+        let from = app.collectionViews/*@START_MENU_TOKEN@*/.cells/*[[".scrollViews.cells",".cells"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.collectionViews.cells.otherElements.containing(.staticText, identifier:"Qweqwe").children(matching: .other).element(boundBy: 0)
+        let to = app.collectionViews/*@START_MENU_TOKEN@*/.cells/*[[".scrollViews.cells",".cells"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.collectionViews.cells.otherElements.containing(.staticText, identifier:"Some task").children(matching: .other).element(boundBy: 0)
+        
+        from.press(forDuration: 2, thenDragTo: to)
+        
+//        app.windows.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .collectionView).element.children(matching: .scrollView).element.swipeLeft()
+    
+        XCTAssert(from.waitForExistence(timeout: 10))
+        
+            
+        
+    }
 
   func testGameStyleSwitch() {
       
