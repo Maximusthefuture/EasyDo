@@ -19,6 +19,7 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
     var isAddMyDay: Bool?
     var currentTag: Int?
     var changeTagClosure: ((Int) -> Void)?
+    var tagsArray: [String]?
     weak var tagChangeDelegate: TagChangeDelegate?
     
     override func viewDidLoad() {
@@ -30,7 +31,8 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
         collectionView.dropDelegate = self
         collectionView.dragInteractionEnabled = true
         tagChangeDelegate = self
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(tagChangeNotificationReceived), name: Notification.Name("Tag"), object: nil)
+       
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -69,17 +71,15 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
     }
     
     func changeTag(indexPath: Int) {
-        
-//        completion(1)
-        let task = self.currentProject?.tasks?[indexPath] as! Task
-        let tag = self.currentProject?.tags?[1]
-        task.mainTag = "In Progress"
+        tasksList?[indexPath].mainTag = tagsArray?[currentIndexTag!]
         self.coreDataStack?.saveContext()
-        changeTagClosure = { value in
-            print(value)
-        }
-        
-        
+    }
+    
+    var currentIndexTag: Int?
+    
+    @objc func tagChangeNotificationReceived(_ notification: NSNotification) {
+        currentIndexTag = notification.object as? Int
+        print(currentIndexTag)
     }
    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

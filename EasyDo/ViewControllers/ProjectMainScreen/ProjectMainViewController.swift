@@ -60,23 +60,19 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
             section.contentInsets = .init(top: 0, leading: 16, bottom: 0, trailing: 16)
             section.orthogonalScrollingBehavior = .groupPaging
             section.visibleItemsInvalidationHandler = {  (visibleItems, offset, env) in
-//                print("scrollView offset", offset)
-                //MARK: Notification observer?
+
                 var index: Int?
-                if offset.x < 300 {
-                    self.currentTag = 0
+                switch offset.x {
+                case 0...300:
                     index = 0
-                    self.changeTagClosure?(index!)
-                } else if offset.x > 300 && offset.x < 500 {
-                    self.currentTag = 1
+                case 300...500:
                     index = 1
-                    self.changeTagClosure?(index!)
-                } else {
-                    self.currentTag = 2
+                default:
                     index = 2
-                    self.changeTagClosure?(index!)
                 }
                 
+                //Using notificationCenter to observe Project tags change
+                NotificationCenter.default.post(name: Notification.Name("Tag"), object: index)
                 
             }
             return section
@@ -84,9 +80,7 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
         return layout
         
     }
-    
-    
-    
+ 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("VIEW WILL APPEAR")
@@ -121,11 +115,7 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
         dragItem.localObject = item
         return [dragItem]
     }
-    
-    
-    
-    
-    
+
     @objc private func addNewCardButton(button: UIButton) {
         let vc = AddEditCardViewController(viewModel: AddEditCardViewModel())
         let navController = UINavigationController(rootViewController: vc)
@@ -158,7 +148,7 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
         cell.horizontalController.tasksList = filter as? [Task]
         cell.horizontalController.changeTagClosure = changeTagClosure
         cell.horizontalController.coreDataStack = coreDataStack
-        cell.horizontalController.currentTag = currentTag
+        cell.horizontalController.tagsArray = currentProject?.tags
         cell.horizontalController.collectionView.reloadData()
         
         cell.horizontalController.didSelectHandler = { [weak self] task in
@@ -168,10 +158,6 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
             vc.coreDataStack = self?.coreDataStack
             self?.navigationController?.present(vc, animated: true)
         }
-//        currentTag = "\(currentProject?.tags?[indexPath.item])"
-        
-//        print("CURRENT TAG: \(currentTag)")
-        
         return cell
     }
 
@@ -182,13 +168,6 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
-    }
-}
-
-extension ProjectMainViewController: ChangeTagDelegate {
-    func mainTagChanged() {
-        print("delegate here!!!")
-//        collectionView.reloadData()
     }
 }
 

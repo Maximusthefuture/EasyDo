@@ -44,20 +44,20 @@ extension TagsHorizontalController: UICollectionViewDropDelegate {
 
 extension TagsHorizontalController {
     private func copyItems(coordinator: UICollectionViewDropCoordinator, destinationIndexPath: IndexPath, collectionView: UICollectionView) {
+        
         collectionView.performBatchUpdates({
             var indexPaths = [IndexPath]()
             for (index, item) in coordinator.items.enumerated() {
-
-                let indexPath = IndexPath(row: destinationIndexPath.row, section: destinationIndexPath.section)
+                //MARK: Now I'm copying item and change tag, need to delete prev item ASAP and then copy or something
+                let indexPath = IndexPath(row: destinationIndexPath.row + index, section: destinationIndexPath.section)
                 if collectionView === collectionView {
-                    //append and delete?
-//                    self.currentProject?.tasks.append = item.dragItem.localObject as! Task
-                    self.tasksList?.insert(item.dragItem.localObject as! Task, at: indexPath.item)
-                    currentProject?.tasks?.compactMap({ task in
-                        print(task)
-                    })
-//                    print("tasks", currentProject?.tasks as! [Task])
-                    changeTag(indexPath: index)
+                    //MARK: ERROR Thread 1: Fatal error: Negative Array index is out of range
+                    if tasksList!.count <= 0 {
+                        tasksList?.append(item.dragItem.localObject as! Task)
+                    } else {
+                        self.tasksList?.insert(item.dragItem.localObject as! Task, at: indexPath.item)
+                    }
+                    changeTag(indexPath: indexPath.item)
                     
                 }
                 indexPaths.append(indexPath)
@@ -75,6 +75,7 @@ extension TagsHorizontalController {
             collectionView.performBatchUpdates ({
                 //УДалить из базы данных? чтобы потом добавить?
 //                var tasks =  self.tasksList
+                print("SOURCE", sourceIndexPath.item)
                 tasksList?.remove(at: sourceIndexPath.item)
                 tasksList?.insert(item.dragItem.localObject as! Task, at: destinationIndexPath.item)
 
