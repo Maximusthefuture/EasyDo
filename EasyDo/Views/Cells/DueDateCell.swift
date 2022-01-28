@@ -16,6 +16,22 @@ class DueDateCell: UITableViewCell {
         return view.roundedView()
     }()
     
+    var deadLineCheckbox:CircularCheckBox = {
+       let checkbox = CircularCheckBox()
+        return checkbox
+    }()
+    
+    @objc func handleCheckboxTap(checkBox: CircularCheckBox) {
+       print("TOGGLE")
+        deadLineCheckbox.toggle()
+        if deadLineCheckbox.isChecked {
+            roundedView.isHidden = true
+        } else {
+            roundedView.isHidden = false
+        }
+       
+    }
+    
     private let noDeadLineLabel: UILabel = {
         let label = UILabel()
         label.text = "No deadline"
@@ -32,13 +48,18 @@ class DueDateCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        let stackView = UIStackView(arrangedSubviews: [deadLineCheckbox, noDeadLineLabel])
         contentView.addSubview(roundedView)
+        contentView.addSubview(stackView)
+        stackView.axis = .horizontal
+        stackView.spacing = 1
         roundedView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 8, left: 16, bottom: 8, right: 0), size: .init(width: (frame.width / 2) + 40, height: 0))
         roundedView.addSubview(timeLabel)
-        contentView.addSubview(noDeadLineLabel)
-        noDeadLineLabel.centerInRight(leading: leadingAnchor,padding: .init(top: 0, left: 0, bottom: 0, right: 16))
+        stackView.anchor(top: topAnchor, leading: nil, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 8, left: 0, bottom: 9, right: 16), size: .init(width: 120, height: 30))
         timeLabel.centerInSuperview()
+        deadLineCheckbox.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleCheckboxTap)))
         roundedView.backgroundColor = #colorLiteral(red: 0.9722431302, green: 0.972392261, blue: 1, alpha: 1)
+        selectionStyle = .none
     }
     
     required init?(coder: NSCoder) {

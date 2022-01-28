@@ -285,11 +285,17 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
         }
     }
     
+    @objc func handleTapCheckbox() {
+//        print("BOX IS TAPPED")
+        
+    }
+  
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             if indexPath.row == 2 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "Due date", for: indexPath) as! DueDateCell
                 cell.timeLabel.text = "2020-19-12, 20:00"
+//                cell.deadLineCheckbox.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapCheckbox)))
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: propertiesCell, for: indexPath) as! AddEditCardPropertiesViewCell

@@ -67,6 +67,7 @@
 		38E69BF02795BC4300E942BA /* WeeklyPickerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E69BEF2795BC4300E942BA /* WeeklyPickerViewCell.swift */; };
 		38E992892760F97C00E2D1E6 /* DataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E992882760F97C00E2D1E6 /* DataTableViewCell.swift */; };
 		38EF6DFC277DF1C700261125 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38EF6DFB277DF1C700261125 /* TaskViewModel.swift */; };
+		38F36D4C27A4231D002DD1C7 /* CircularCheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F36D4B27A4231D002DD1C7 /* CircularCheckbox.swift */; };
 		38F4175327830BDF00B7EDAB /* AddEditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F4175227830BDF00B7EDAB /* AddEditCardViewController.swift */; };
 		38F6A4CD277A124A004CB65D /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F6A4CC277A124A004CB65D /* ProjectViewModel.swift */; };
 		38FF9F11278488F100EB9805 /* DayTasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FF9F10278488F100EB9805 /* DayTasksViewController.swift */; };
@@ -158,6 +159,7 @@
 		38E69BEF2795BC4300E942BA /* WeeklyPickerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyPickerViewCell.swift; sourceTree = "<group>"; };
 		38E992882760F97C00E2D1E6 /* DataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableViewCell.swift; sourceTree = "<group>"; };
 		38EF6DFB277DF1C700261125 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
+		38F36D4B27A4231D002DD1C7 /* CircularCheckbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularCheckbox.swift; sourceTree = "<group>"; };
 		38F4175227830BDF00B7EDAB /* AddEditCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditCardViewController.swift; sourceTree = "<group>"; };
 		38F6A4CC277A124A004CB65D /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
 		38FF9F10278488F100EB9805 /* DayTasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTasksViewController.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 				382C8C1C2787077200BE2B8A /* MenuLabel.swift */,
 				389DABD8278DC2FB00A600BF /* CustomTextField.swift */,
 				381E8E25278ED0850021FDC6 /* HeaderLabel.swift */,
+				38F36D4B27A4231D002DD1C7 /* CircularCheckbox.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -561,6 +564,7 @@
 				380ADEDA2779F5B300B97EB9 /* Project.swift in Sources */,
 				38B20B7E2779FFAA002AD934 /* TasksCollectionViewCell.swift in Sources */,
 				380B4C9327998F4100E81A4F /* VerticalStackView.swift in Sources */,
+				38F36D4C27A4231D002DD1C7 /* CircularCheckbox.swift in Sources */,
 				382C8C1D2787077200BE2B8A /* MenuLabel.swift in Sources */,
 				3832ABF12798600800FFFE85 /* DailyItems+CoreDataProperties.swift in Sources */,
 			);
