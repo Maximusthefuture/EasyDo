@@ -14,6 +14,9 @@ protocol RefreshTagsProtocol: AnyObject {
 
 class CardAddTagsViewController: ResizableViewController {
     weak var refreshDelegate: RefreshTagsProtocol?
+    
+    lazy var viewModel = CardAddTagsViewModel()
+    
     let tagsNameTextField: CustomTextField = {
        let tf = CustomTextField(padding: 24)
         tf.placeholder = "Enter tag name"
@@ -54,20 +57,71 @@ class CardAddTagsViewController: ResizableViewController {
     let backButton = UIButton()
     
     let padding: CGFloat = 16
+   var recentlyUsedTagsCollectionView = UICollectionView(
+        frame: .zero,
+        collectionViewLayout:  UICollectionViewFlowLayout())
+    
+    
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.9722431302, green: 0.972392261, blue: 1, alpha: 1)
+        
         view.addSubview(tagsNameTextField)
         view.addSubview(addTagsButton)
         view.addSubview(stackView)
         view.addSubview(backButton)
         view.addSubview(editLabel)
+        initRecentlyUsedTagsCollectionView()
         initTask()
         tagsNameTextField.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: padding, left: padding, bottom: padding, right: padding))
         addTagsButton.anchor(top: tagsNameTextField.bottomAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 16, left: 0, bottom: 0, right: 0))
         stackView.anchor(top: tagsNameTextField.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 16, left: 30, bottom: 0, right: 30), size: .init(width: view.frame.width / 2, height: 40))
         setupNotificationObserver()
+        checkIsTackViewEmpty()
+        editLabel.anchor(top: tagsNameTextField.bottomAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 20))
+       
+        
+//        backButtonInit()
+       
+    }
+    
+    @objc func goBack() {
+        dismiss(animated: true)
+    }
+    
+    fileprivate func initRecentlyUsedTagsCollectionView() {
+       
+        //        recentlyUsedTagsCollectionView?.collectionViewLayout = UICollectionViewFlowLayout()
+        view.addSubview(recentlyUsedTagsCollectionView)
+        if let layout = recentlyUsedTagsCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .horizontal
+        }
+        
+        
+        
+       
+        recentlyUsedTagsCollectionView.anchor(top: stackView.bottomAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
+        recentlyUsedTagsCollectionView.register(RecentlyTagsCell.self, forCellWithReuseIdentifier: "tags")
+        recentlyUsedTagsCollectionView.delegate = self
+        recentlyUsedTagsCollectionView.dataSource = self
+        
+        recentlyUsedTagsCollectionView.backgroundColor = .red
+        
+       
+        
+    }
+    
+    fileprivate func backButtonInit() {
+        backButton.centerInBottom()
+        backButton.setTitle("Back", for: .normal)
+        backButton.setTitleColor(.black, for: .normal)
+        backButton.backgroundColor = .blue
+        backButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+    }
+    
+    fileprivate func checkIsTackViewEmpty() {
         //MARK: TODO when want to rename tag show textField
         if isStackViewFull(stackView: stackView) {
             addTagsButton.isHidden = true
@@ -77,19 +131,6 @@ class CardAddTagsViewController: ResizableViewController {
             addTagsButton.isHidden = false
             tagsNameTextField.isHidden = false
         }
-        editLabel.anchor(top: tagsNameTextField.bottomAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 20))
-       
-        
-        backButton.centerInBottom()
-        backButton.setTitle("Back", for: .normal)
-        backButton.setTitleColor(.black, for: .normal)
-        backButton.backgroundColor = .blue
-        backButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
-       
-    }
-    
-    @objc func goBack() {
-        dismiss(animated: true)
     }
     
     @objc func handleTextChange(_ tf: UITextField) {
@@ -111,8 +152,7 @@ class CardAddTagsViewController: ResizableViewController {
             
             tagView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapTag)))
             stackView.addArrangedSubview(tagView)
-           
-            
+  
         }
     }
     
@@ -145,8 +185,6 @@ class CardAddTagsViewController: ResizableViewController {
             print($0.backgroundColor)
         }
         
-        
-        
         stackView.removeArrangedSubview(gesture.view!)
         gesture.view?.removeFromSuperview()
         
@@ -154,10 +192,12 @@ class CardAddTagsViewController: ResizableViewController {
         //show textfield when stackvewisubviews count < 2
     }
     var tagsArray = [String]()
+    
     @objc func handleAddTagsButton(sender: UIButton) {
         var tagView = TagUIView()
         tagView.backgroundColor = UIColor().randomColor()
         tagView.label.text = tagsNameTextField.text
+       
         
         if isStackViewFull(stackView: stackView) {
             sender.isHidden = true
@@ -176,9 +216,35 @@ class CardAddTagsViewController: ResizableViewController {
             stackView.addArrangedSubview(tagView)
             coreData?.saveContext()
             refreshDelegate?.refreshTags(tag: tagsNameTextField.text ?? "")
-//            refreshTags?(tagView.label.text ?? "")
-            
+            viewModel.addRecentlyUsedTag(tag: tagsNameTextField.text)
             tagsNameTextField.text = nil
         }
+    }
+}
+
+extension CardAddTagsViewController: UICollectionViewDelegate {
+    
+}
+
+extension CardAddTagsViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        viewModel.recentlyUsedTags?.count ?? 0
+    }
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tags", for: indexPath) as! RecentlyTagsCell
+        cell.label.text = viewModel.recentlyUsedTags?[indexPath.row]
+        
+        return cell
+    }
+    
+    
+}
+extension CardAddTagsViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 50, height: 50)
     }
 }

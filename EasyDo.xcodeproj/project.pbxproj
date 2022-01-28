@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3806314127A3E03600AC4CC3 /* AttachmentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3806314027A3E03600AC4CC3 /* AttachmentsViewModel.swift */; };
+		3806314327A3E14D00AC4CC3 /* CardAddTagsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3806314227A3E14D00AC4CC3 /* CardAddTagsViewModel.swift */; };
+		3806314527A3E62100AC4CC3 /* RecentlyTagsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3806314427A3E62100AC4CC3 /* RecentlyTagsCell.swift */; };
 		3808A1922796F1C700460A16 /* ViewControllerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3808A1912796F1C700460A16 /* ViewControllerRepresentable.swift */; };
 		380ADEDA2779F5B300B97EB9 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380ADED92779F5B300B97EB9 /* Project.swift */; };
 		380ADEDC2779F62A00B97EB9 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380ADEDB2779F62A00B97EB9 /* Task.swift */; };
@@ -81,6 +84,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3806314027A3E03600AC4CC3 /* AttachmentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentsViewModel.swift; sourceTree = "<group>"; };
+		3806314227A3E14D00AC4CC3 /* CardAddTagsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAddTagsViewModel.swift; sourceTree = "<group>"; };
+		3806314427A3E62100AC4CC3 /* RecentlyTagsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyTagsCell.swift; sourceTree = "<group>"; };
 		380759232785A65600A1AEE6 /* EasyDo v7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EasyDo v7.xcdatamodel"; sourceTree = "<group>"; };
 		380759282785A6F600A1AEE6 /* EasyDo v8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EasyDo v8.xcdatamodel"; sourceTree = "<group>"; };
 		380759352785A81700A1AEE6 /* EasyDo v9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EasyDo v9.xcdatamodel"; sourceTree = "<group>"; };
@@ -287,6 +293,8 @@
 			children = (
 				3876EE1F279D64FA001A9955 /* AddEditCardViewModel.swift */,
 				38C06740279E939A00CF2216 /* DayTasksViewModel.swift */,
+				3806314027A3E03600AC4CC3 /* AttachmentsViewModel.swift */,
+				3806314227A3E14D00AC4CC3 /* CardAddTagsViewModel.swift */,
 			);
 			name = ViewModels;
 			path = Model/ViewModels;
@@ -302,6 +310,7 @@
 				383A8ABC27888321003EE8F7 /* AttachmentsCardViewCell.swift */,
 				383A8AC027888408003EE8F7 /* AttachmentsHorizontallViewCell.swift */,
 				38E69BEF2795BC4300E942BA /* WeeklyPickerViewCell.swift */,
+				3806314427A3E62100AC4CC3 /* RecentlyTagsCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -492,6 +501,7 @@
 			files = (
 				3876EE20279D64FA001A9955 /* AddEditCardViewModel.swift in Sources */,
 				3868B935276E383C00F2B765 /* TableViewController+Drop.swift in Sources */,
+				3806314527A3E62100AC4CC3 /* RecentlyTagsCell.swift in Sources */,
 				38EF6DFC277DF1C700261125 /* TaskViewModel.swift in Sources */,
 				3868B92F276E376200F2B765 /* Model.swift in Sources */,
 				381E8E2D278F0B4A0021FDC6 /* PickTimeViewController.swift in Sources */,
@@ -510,11 +520,13 @@
 				388AF31C278D6A3100C44021 /* CreateProjectVC.swift in Sources */,
 				38B20B7C2779FF3A002AD934 /* TagsHorizontalViewController.swift in Sources */,
 				389DABD5278DC05B00A600BF /* BottomSheetPresentationController.swift in Sources */,
+				3806314327A3E14D00AC4CC3 /* CardAddTagsViewModel.swift in Sources */,
 				381E8E29278ED7040021FDC6 /* AttachmentsViewController.swift in Sources */,
 				383A8AB927888099003EE8F7 /* AddEditCardPropertiesViewCell.swift in Sources */,
 				389DABD9278DC2FB00A600BF /* CustomTextField.swift in Sources */,
 				38E992892760F97C00E2D1E6 /* DataTableViewCell.swift in Sources */,
 				38FF9F11278488F100EB9805 /* DayTasksViewController.swift in Sources */,
+				3806314127A3E03600AC4CC3 /* AttachmentsViewModel.swift in Sources */,
 				381CAACE278207F900E8AB00 /* Task+CoreDataProperties.swift in Sources */,
 				3876EE1B279D4F85001A9955 /* Errors.swift in Sources */,
 				383A8ABF27888381003EE8F7 /* HorizontalAttachmentsController.swift in Sources */,

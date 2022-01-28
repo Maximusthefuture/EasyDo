@@ -9,7 +9,6 @@ import UIKit
 
 class ProjectsViewCell: UICollectionViewCell {
     
-    
     var tagView: TagUIView = {
         var view = TagUIView()
         view.backgroundColor = #colorLiteral(red: 0.8898780942, green: 0.8974478841, blue: 0.9981856942, alpha: 1)
@@ -17,13 +16,10 @@ class ProjectsViewCell: UICollectionViewCell {
         return view
     }()
     
-  
-    
     let horizontalController = TagsHorizontalController()
    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         
         contentView.addSubview(tagView)
         tagView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 20, left: 18, bottom: 0, right: 0))

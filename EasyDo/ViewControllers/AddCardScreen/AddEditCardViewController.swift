@@ -10,6 +10,9 @@ import UIKit
 
 class AddEditCardViewController: UIViewController {
     //MARK: ?????
+    
+    lazy var addEditViewModel = AddEditCardViewModel()
+    
     private var viewModel: ViewModelBased?
     var enumProp: Properties?
     
@@ -84,7 +87,9 @@ class AddEditCardViewController: UIViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         tableView.register(AddEditCardPropertiesViewCell.self, forCellReuseIdentifier: propertiesCell)
         tableView.register(AttachmentsCardViewCell.self, forCellReuseIdentifier: attachmentsCell)
-        tableView.isScrollEnabled = false
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Due date")
+        
+//        tableView.isScrollEnabled = false
         
     }
     
@@ -94,6 +99,7 @@ class AddEditCardViewController: UIViewController {
     
     var addButton: UIButton = {
         var b = UIButton()
+        //MARK: CHANGE ICON +
         b.setTitle("++", for: .normal)
         b.setTitleColor(.blue, for: .normal)
         b.titleLabel?.font = UIFont.systemFont(ofSize: 32, weight: .bold)
@@ -122,6 +128,7 @@ class AddEditCardViewController: UIViewController {
     //MARK: TODO Bottom Sheet when we can add items? First image then can add
     @objc private func handleSeeAllAttachments() {
         let vc = AttachmentsViewController(initialHeight: 300)
+       
         present(vc, animated: true)
     }
     
@@ -194,6 +201,7 @@ class AddEditCardViewController: UIViewController {
     
     @objc fileprivate func addCardToDayTask(sender: UIButton) {
         let vc = PickTimeViewController(initialHeight: 300)
+        
         present(vc, animated: true)
         vc.dataSavedWithDate = { [weak self] time, date in
             self?.addEditCardViewModel?.taskDetail = self?.taskDetail
@@ -279,27 +287,35 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: propertiesCell, for: indexPath) as! AddEditCardPropertiesViewCell
-            let propepties = propertiesArray[indexPath.row]
-            cell.label.text = propepties
-            cell.selectionStyle = .none
-            tableView.separatorStyle = .none
-            cell.accessoryType = .disclosureIndicator
-            cell.initTask(initialTask: taskDetail)
-            //cell.delegate = self
-            switch indexPath.row {
-            case 0: enumProp = .pomodoro
-            case 1: enumProp = .label
-            case 2: enumProp = .dueDate
-            default:
-                print("default =)")
+            if indexPath.row == 2 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "Due date", for: indexPath)
+                cell.backgroundColor = .blue
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: propertiesCell, for: indexPath) as! AddEditCardPropertiesViewCell
+                let propepties = propertiesArray[indexPath.row]
+                cell.label.text = propepties
+                cell.selectionStyle = .none
+                tableView.separatorStyle = .none
+                cell.accessoryType = .disclosureIndicator
+                cell.initTask(initialTask: taskDetail)
+                //cell.delegate = self
+                switch indexPath.row {
+                case 0: enumProp = .pomodoro
+                case 1: enumProp = .label
+                    //            case 2: enumProp = .dueDate
+                default:
+                    print("default =)")
+                }
+                if let enumProp = enumProp {
+                    configPropertiesCells(cell: cell, properties: enumProp, indexPathRow: indexPath.row)
+                }
+                
+                return cell
             }
-            if let enumProp = enumProp {
-                configPropertiesCells(cell: cell, properties: enumProp, indexPathRow: indexPath.row)
-            }
-            return cell
             
-        } else if indexPath.section == 2 {
+            
+        } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: attachmentsCell, for: indexPath) as! AttachmentsCardViewCell
             cell.selectionStyle = .none
             return cell

@@ -14,7 +14,7 @@ class AttachmentsViewController: ResizableViewController {
     
 //    private var currentHeight: CGFloat
     
-  
+    var viewModel: AttachmentsViewModelProtocol?
     
     let button: UIButton = {
        let b = UIButton()
@@ -26,6 +26,7 @@ class AttachmentsViewController: ResizableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel = AttachmentsViewModel()
         view.backgroundColor = .blue
         view.addSubview(button)
         button.centerInSuperview(size: .init(width: 100, height: 100))   

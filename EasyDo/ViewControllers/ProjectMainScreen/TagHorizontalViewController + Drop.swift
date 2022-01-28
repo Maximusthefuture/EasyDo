@@ -16,7 +16,6 @@ extension TagsHorizontalController: UICollectionViewDropDelegate {
         return session.canLoadObjects(ofClass: NSString.self)
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
         if collectionView.hasActiveDrag {
             return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
@@ -70,6 +69,7 @@ extension TagsHorizontalController {
 
 extension TagsHorizontalController {
     func reorderItems(coordinator: UICollectionViewDropCoordinator, destinationIndexPath: IndexPath, collectionView: UICollectionView) {
+        //MARK: REORDER ITEMS AND SAVE???
         if let item = coordinator.items.first,
            let sourceIndexPath = item.sourceIndexPath {
             collectionView.performBatchUpdates ({

@@ -17,17 +17,23 @@ protocol AddEditCardViewModelProtocol: ViewModelBased {
     var dueDate: Date? { get set }
     var tagsArray: [String] { get set }
     var taskDetail: Task? { get set }
+    var recentlyUsedTags: [String]? { get set }
 }
 
 class AddEditCardViewModel: AddEditCardViewModelProtocol {
+    //Change this to db after?
+    var recentlyUsedTags: [String]?
     
     required init() {
         
     }
     
-    var cardName: String? { didSet {
+    var cardName: String? {
+        didSet {
         // validation?
-    } }
+            
+         }
+        }
     var cardDescription: String? { didSet { } }
     var coreDataStack: CoreDataStack?
     var tagsArray = [String]()
@@ -38,6 +44,10 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
     init(coreDataStack: CoreDataStack, currentProject: Project?) {
         self.coreDataStack = coreDataStack
         self.currentProject = currentProject
+    }
+    
+    func addRecenltyUsedTags(tag: String) {
+        recentlyUsedTags?.append(tag)
     }
  
     
