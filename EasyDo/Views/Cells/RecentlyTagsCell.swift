@@ -10,15 +10,18 @@ import UIKit
 
 class RecentlyTagsCell: UICollectionViewCell {
     
-    let label: UILabel = {
-       let label = UILabel()
-        return label
-    }()
+    let tagsUIView = TagUIView()
+//
+//    let label: UILabel = {
+//       let label = UILabel()
+//        return label
+//    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(label)
-        label.centerInSuperview()
+        addSubview(tagsUIView)
+        tagsUIView.centerInSuperview()
+        tagsUIView.backgroundColor = UIColor().randomColor()
     }
     
     required init?(coder: NSCoder) {

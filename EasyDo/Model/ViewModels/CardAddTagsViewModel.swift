@@ -16,7 +16,7 @@ protocol CardAddTagsViewModelProtocol: AnyObject {
 class CardAddTagsViewModel: AttachmentsViewModelProtocol {
     var tagName: String?
     
-    var recentlyUsedTags: [String]? = ["Some", "Of", "Tags", "Is", "Here?"]
+    var recentlyUsedTags: [String]? = ["Some", "Of", "Tags", "Is", "Here?", "LOng tag is here", "Here toooooooo"]
     
     func addRecentlyUsedTag(tag: String?) {
         recentlyUsedTags?.append(tag ?? "")

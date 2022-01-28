@@ -106,8 +106,9 @@ class CardAddTagsViewController: ResizableViewController {
         recentlyUsedTagsCollectionView.register(RecentlyTagsCell.self, forCellWithReuseIdentifier: "tags")
         recentlyUsedTagsCollectionView.delegate = self
         recentlyUsedTagsCollectionView.dataSource = self
+        recentlyUsedTagsCollectionView.backgroundColor = #colorLiteral(red: 0.9722431302, green: 0.972392261, blue: 1, alpha: 1)
         
-        recentlyUsedTagsCollectionView.backgroundColor = .red
+//        recentlyUsedTagsCollectionView.backgroundColor = .red
         
        
         
@@ -209,8 +210,8 @@ class CardAddTagsViewController: ResizableViewController {
                 self.tagsNameTextField.transform = CGAffineTransform(scaleX: 3, y: 2)
                 self.tagsNameTextField.transform = .identity
             }
-        } else {
             
+        } else {
             taskDetail?.tags?.append(tagsNameTextField.text ?? "")
             tagsArray.append(tagsNameTextField.text ?? "")
             stackView.addArrangedSubview(tagView)
@@ -223,7 +224,9 @@ class CardAddTagsViewController: ResizableViewController {
 }
 
 extension CardAddTagsViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("selected")
+    }
 }
 
 extension CardAddTagsViewController: UICollectionViewDataSource {
@@ -236,7 +239,7 @@ extension CardAddTagsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tags", for: indexPath) as! RecentlyTagsCell
-        cell.label.text = viewModel.recentlyUsedTags?[indexPath.row]
+        cell.tagsUIView.label.text = viewModel.recentlyUsedTags?[indexPath.row]
         
         return cell
     }
@@ -245,6 +248,6 @@ extension CardAddTagsViewController: UICollectionViewDataSource {
 }
 extension CardAddTagsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 50, height: 50)
+        return CGSize(width: 100, height: 50)
     }
 }
