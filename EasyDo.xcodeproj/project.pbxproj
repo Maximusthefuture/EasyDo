@@ -10,6 +10,7 @@
 		3806314127A3E03600AC4CC3 /* AttachmentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3806314027A3E03600AC4CC3 /* AttachmentsViewModel.swift */; };
 		3806314327A3E14D00AC4CC3 /* CardAddTagsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3806314227A3E14D00AC4CC3 /* CardAddTagsViewModel.swift */; };
 		3806314527A3E62100AC4CC3 /* RecentlyTagsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3806314427A3E62100AC4CC3 /* RecentlyTagsCell.swift */; };
+		3806314827A3F04000AC4CC3 /* DueDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3806314727A3F04000AC4CC3 /* DueDateCell.swift */; };
 		3808A1922796F1C700460A16 /* ViewControllerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3808A1912796F1C700460A16 /* ViewControllerRepresentable.swift */; };
 		380ADEDA2779F5B300B97EB9 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380ADED92779F5B300B97EB9 /* Project.swift */; };
 		380ADEDC2779F62A00B97EB9 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380ADEDB2779F62A00B97EB9 /* Task.swift */; };
@@ -87,6 +88,7 @@
 		3806314027A3E03600AC4CC3 /* AttachmentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentsViewModel.swift; sourceTree = "<group>"; };
 		3806314227A3E14D00AC4CC3 /* CardAddTagsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAddTagsViewModel.swift; sourceTree = "<group>"; };
 		3806314427A3E62100AC4CC3 /* RecentlyTagsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyTagsCell.swift; sourceTree = "<group>"; };
+		3806314727A3F04000AC4CC3 /* DueDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DueDateCell.swift; sourceTree = "<group>"; };
 		380759232785A65600A1AEE6 /* EasyDo v7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EasyDo v7.xcdatamodel"; sourceTree = "<group>"; };
 		380759282785A6F600A1AEE6 /* EasyDo v8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EasyDo v8.xcdatamodel"; sourceTree = "<group>"; };
 		380759352785A81700A1AEE6 /* EasyDo v9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EasyDo v9.xcdatamodel"; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 				383A8AC027888408003EE8F7 /* AttachmentsHorizontallViewCell.swift */,
 				38E69BEF2795BC4300E942BA /* WeeklyPickerViewCell.swift */,
 				3806314427A3E62100AC4CC3 /* RecentlyTagsCell.swift */,
+				3806314727A3F04000AC4CC3 /* DueDateCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -550,6 +553,7 @@
 				38E69BEE2795BB7F00E942BA /* HDayPickerUICollectionView.swift in Sources */,
 				383A8ABB2788810D003EE8F7 /* RoundedView.swift in Sources */,
 				38F6A4CD277A124A004CB65D /* ProjectViewModel.swift in Sources */,
+				3806314827A3F04000AC4CC3 /* DueDateCell.swift in Sources */,
 				38DC14A8278D711400E42E76 /* BottomSheetTransitioningDelegate.swift in Sources */,
 				389DABD7278DC0A200A600BF /* BottomSheetPresentationController+PullBar.swift in Sources */,
 				380ADEDF2779F95000B97EB9 /* ProjectMainViewController.swift in Sources */,

@@ -17,11 +17,14 @@ class WeeklyPickerViewCell: UICollectionViewCell {
             if isSelected {
                 dayLabel.textColor = #colorLiteral(red: 0.5596068501, green: 0.5770205855, blue: 1, alpha: 1)
                 dayLabel.font = UIFont.boldSystemFont(ofSize: 15)
-                roundedView.isHidden = false
+                dayLabel.textColor = .black
+//                roundedView.isHidden = false
+                roundedView.backgroundColor = .blue
             } else {
                 dayLabel.textColor = .black
                 dayLabel.font = UIFont.boldSystemFont(ofSize: 14)
-                roundedView.isHidden = true
+//                roundedView.isHidden = true
+                roundedView.backgroundColor = #colorLiteral(red: 0.9722431302, green: 0.972392261, blue: 1, alpha: 1)
             }
         }
     }
@@ -49,7 +52,8 @@ class WeeklyPickerViewCell: UICollectionViewCell {
         
         if isCurrentDate(date: date) {
 //            isSelected = true
-            dayLabel.textColor = .blue
+//            dayLabel.textColor = .blue
+            dayLabel.text = "Today"
             print("DATE IS: \(date)")
 
         }
@@ -74,7 +78,7 @@ class WeeklyPickerViewCell: UICollectionViewCell {
         dayLabel.anchor(top: roundedView.topAnchor, leading: roundedView.leadingAnchor, bottom: roundedView.bottomAnchor, trailing: roundedView.trailingAnchor, padding: .init(top: 0, left: 8, bottom: 0, right: 0))
         roundedView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor)
 //        backgroundColor = .red
-        roundedView.isHidden = true
+//        roundedView.isHidden = true
         
        
        
