@@ -8,12 +8,12 @@
 import Foundation
 import UIKit
 
-protocol RefreshTagsProtocol: AnyObject {
+protocol RefreshTagsDelegate: AnyObject {
     func refreshTags(tag: String)
 }
 
 class CardAddTagsViewController: ResizableViewController {
-    weak var refreshDelegate: RefreshTagsProtocol?
+    weak var refreshDelegate: RefreshTagsDelegate?
     
     lazy var viewModel = CardAddTagsViewModel()
     

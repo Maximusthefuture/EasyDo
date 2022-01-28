@@ -216,7 +216,6 @@ class AddEditCardViewController: UIViewController {
     
     @objc func datePickerChange(datePicker: UIDatePicker) {
         addEditCardViewModel?.dueDate = datePicker.date
-        
     }
 }
 
@@ -257,6 +256,7 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
             vc.refreshDelegate = self
             present(vc, animated: true)
         }
+       
         
     }
     
@@ -277,25 +277,21 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
                 cell.stackView.isHidden = false
             case 2:
                 cell.datePicker.isHidden = false
-                cell.datePicker.addTarget(self, action: #selector(datePickerChange), for: .editingDidEnd)
+               
                 
             default:
                 print("default")
             }
         }
     }
-    
-    @objc func handleTapCheckbox() {
-//        print("BOX IS TAPPED")
-        
-    }
-  
+   
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             if indexPath.row == 2 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "Due date", for: indexPath) as! DueDateCell
                 cell.timeLabel.text = "2020-19-12, 20:00"
-//                cell.deadLineCheckbox.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapCheckbox)))
+                cell.datePicker.addTarget(self, action: #selector(datePickerChange), for: .editingDidEnd)
+                cell.initDueDateTask(task: taskDetail)
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: propertiesCell, for: indexPath) as! AddEditCardPropertiesViewCell
@@ -350,7 +346,7 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
     }
 }
 
-extension AddEditCardViewController: RefreshTagsProtocol {
+extension AddEditCardViewController: RefreshTagsDelegate {
     func refreshTags(tag: String) {
         let indexPath = IndexPath(item: 1, section: 0)
         addEditCardViewModel?.tagsArray.append(tag)
