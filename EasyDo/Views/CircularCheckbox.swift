@@ -21,6 +21,8 @@ class CircularCheckBox: UIView {
 //        layer.borderColor = UIColor.secondaryLabel.cgColor
 //        layer.cornerRadius = frame.size.width / 2.0
 //        backgroundColor = .blue
+        isAccessibilityElement = true
+        accessibilityIdentifier = "CircularCheckbox"
     }
     
     required init?(coder: NSCoder) {

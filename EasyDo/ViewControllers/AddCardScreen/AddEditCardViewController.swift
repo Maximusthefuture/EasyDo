@@ -301,6 +301,9 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
                     cell.datePicker.isHidden = true
                     cell.deadLineCheckbox.toggle()
                     cell.deadLineCheckbox.isUserInteractionEnabled = false
+                } else {
+                    cell.datePicker.isHidden = false
+                    cell.deadLineCheckbox.isChecked = false
                 }
                 return cell
             } else {

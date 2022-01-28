@@ -79,8 +79,6 @@ class EasyDoUITests: XCTestCase {
 
         XCTAssert(tablesQuery.staticTexts["Tag1"].waitForExistence(timeout: 2.0))
         XCTAssert(tablesQuery.staticTexts["Tag2"].waitForExistence(timeout: 2.0))
-//        XCTAssertEqual(tablesQuery.staticTexts, "Tag2")
-        //
     }
     
     func testCreateProject() {
@@ -89,6 +87,20 @@ class EasyDoUITests: XCTestCase {
     
     func testCardCompleteCreation() {
         
+    }
+    
+    
+    func testNoDeadLineToggle() {
+        app.buttons["+ Add Card"].tap()
+        let tablesQuery = app.tables
+        tablesQuery.children(matching: .cell).element(boundBy: 3).children(matching: .other).element(boundBy: 0).tap()
+        let createCardButton =  app.buttons["+ Create card"]
+        XCTAssertTrue(createCardButton.waitForExistence(timeout: 10))
+        createCardButton.tap()
+        var circlularCheckbox = app.tables/*@START_MENU_TOKEN@*/.otherElements["CircularCheckbox"]/*[[".cells.otherElements[\"CircularCheckbox\"]",".otherElements[\"CircularCheckbox\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+        circlularCheckbox.tap()
+        let datePicker = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element
+        XCTAssert(!datePicker.isHittable)
     }
     
     func testDragAndDrop() {
@@ -106,37 +118,9 @@ class EasyDoUITests: XCTestCase {
 //        app.windows.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .collectionView).element.children(matching: .scrollView).element.swipeLeft()
     
         XCTAssert(from.waitForExistence(timeout: 10))
-        
-            
-        
+    
     }
 
-  func testGameStyleSwitch() {
-      
-      // given
-      //    let slideButton = app.segmentedControls.buttons["Slide"]
-      //    let typeButton = app.segmentedControls.buttons["Type"]
-      //    let slideLabel = app.staticTexts["Get as close as you can to: "]
-      //    let typeLabel = app.staticTexts["Guess where the slider is: "]
-      //
-      //    // then
-      //    if slideButton.isSelected {
-      //      XCTAssertTrue(slideLabel.exists)
-      //      XCTAssertFalse(typeLabel.exists)
-      //
-      //      typeButton.tap()
-      //      XCTAssertTrue(typeLabel.exists)
-      //      XCTAssertFalse(slideLabel.exists)
-      //    } else if typeButton.isSelected {
-      //      XCTAssertTrue(typeLabel.exists)
-      //      XCTAssertFalse(slideLabel.exists)
-      //
-      //      slideButton.tap()
-      //      XCTAssertTrue(slideLabel.exists)
-      //      XCTAssertFalse(typeLabel.exists)
-      //    }
-      
-  }
     
     
     
