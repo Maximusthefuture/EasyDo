@@ -293,6 +293,9 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
                 cell.timeLabel.text = "2020-19-12, 20:00"
                 cell.datePicker.addTarget(self, action: #selector(datePickerChange), for: .editingDidEnd)
                 cell.initDueDateTask(task: taskDetail)
+                if isAddMyDay ?? false {
+                    cell.deadLineCheckbox.isUserInteractionEnabled = false
+                }
                 let date = Date(timeIntervalSince1970: 0)
                 if taskDetail?.dueDate == date {
                     cell.datePicker.isHidden = true
