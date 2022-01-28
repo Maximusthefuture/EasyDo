@@ -30,8 +30,11 @@ class DueDateCell: UITableViewCell {
     @objc func handleCheckboxTap() {
         deadLineCheckbox.toggle()
         if deadLineCheckbox.isChecked {
+           
             datePicker.isHidden = true
+            datePicker.date = Date(timeIntervalSince1970: 0)
         } else {
+           
             datePicker.isHidden = false
         }
     }

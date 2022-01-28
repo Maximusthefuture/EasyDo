@@ -59,7 +59,7 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
             task.title = cardName
             task.taskDescription = cardDescription
             //MARK: If mydate nil, add date + 2 days?
-            task.dueDate = dueDate ?? Date()
+            task.dueDate = dueDate ?? Date(timeIntervalSince1970: 0)
             if let project = currentProject,
                let tasks = project.tasks?.mutableCopy() as? NSMutableOrderedSet {
                 tasks.add(task)
