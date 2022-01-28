@@ -17,10 +17,6 @@ class CircularCheckBox: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-//        layer.borderWidth = 0.5
-//        layer.borderColor = UIColor.secondaryLabel.cgColor
-//        layer.cornerRadius = frame.size.width / 2.0
-//        backgroundColor = .blue
         isAccessibilityElement = true
         accessibilityIdentifier = "CircularCheckbox"
     }
