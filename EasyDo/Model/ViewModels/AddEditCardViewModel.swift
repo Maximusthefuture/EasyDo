@@ -20,6 +20,8 @@ protocol AddEditCardViewModelProtocol: ViewModelBased {
     var recentlyUsedTags: [String]? { get set }
 }
 
+//Заполненые поля даты сразу?
+//Заполнение полей сразу здесь
 class AddEditCardViewModel: AddEditCardViewModelProtocol {
     //Change this to db after?
     var recentlyUsedTags: [String]?

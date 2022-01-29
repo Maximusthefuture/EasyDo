@@ -271,7 +271,6 @@
 				38EF6DF8277DE9DA00261125 /* Model */,
 				3876EE1E279D64E0001A9955 /* ViewModels */,
 				38EEFFA72773B806002FA3DB /* ViewControllers */,
-				38EEFFA62773B7FE002FA3DB /* ViewModels */,
 				385644562770E9C10030B0C8 /* Views */,
 				38EEFFA52773B7D6002FA3DB /* Support files */,
 				3868B92E276E376200F2B765 /* Model.swift */,
@@ -296,6 +295,8 @@
 		3876EE1E279D64E0001A9955 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				38F6A4CC277A124A004CB65D /* ProjectViewModel.swift */,
+				38EF6DFB277DF1C700261125 /* TaskViewModel.swift */,
 				3876EE1F279D64FA001A9955 /* AddEditCardViewModel.swift */,
 				38C06740279E939A00CF2216 /* DayTasksViewModel.swift */,
 				3806314027A3E03600AC4CC3 /* AttachmentsViewModel.swift */,
@@ -360,15 +361,6 @@
 				386F83F2275AAD45004DC280 /* EasyDo.xcdatamodeld */,
 			);
 			path = "Support files";
-			sourceTree = "<group>";
-		};
-		38EEFFA62773B7FE002FA3DB /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				38F6A4CC277A124A004CB65D /* ProjectViewModel.swift */,
-				38EF6DFB277DF1C700261125 /* TaskViewModel.swift */,
-			);
-			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		38EEFFA72773B806002FA3DB /* ViewControllers */ = {

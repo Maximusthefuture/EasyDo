@@ -30,7 +30,7 @@ class DayTasksViewController: UIViewController {
     
     lazy var isAddMyDay: Bool = false
     weak var dayTaskDelegate: IsNeedToAddDayTaskDelegate?
-    let coreDataStack = CoreDataStack(modelName: "EasyDo")
+    var coreDataStack:CoreDataStack?
     var myDayLabel = UIButton()
     var tableView = UITableView()
     let emptyLabel: UIButton = {
@@ -55,8 +55,11 @@ class DayTasksViewController: UIViewController {
         let sort = NSSortDescriptor(key: #keyPath(DailyItems.inTime.timeIntervalSince1970), ascending: true)
         fetchRequest?.sortDescriptors = [sort]
         fetchRequest?.predicate = NSPredicate(format: "%K == %@", #keyPath(DailyItems.inDate), Date().onlyDate as NSDate)
+        guard let fetchRequest = fetchRequest,
+              let coreDataStack = coreDataStack else { return NSFetchedResultsController() }
+
         let fetchedResultsController = NSFetchedResultsController(
-            fetchRequest: fetchRequest!,
+            fetchRequest: fetchRequest,
             managedObjectContext: coreDataStack.managedContext,
             sectionNameKeyPath: nil,
             cacheName: nil)
@@ -75,7 +78,10 @@ class DayTasksViewController: UIViewController {
         tableViewInit()
         navigationController?.navigationBar.isHidden = true
         emptyLabelInit()
-        dayTaskViewModel = DayTasksViewModel(coreDataStack: coreDataStack)
+        if let coreDataStack = coreDataStack {
+            dayTaskViewModel = DayTasksViewModel(coreDataStack: coreDataStack)
+        }
+        
         weeklyPickerCollectionView.dayTaskViewModel = dayTaskViewModel
         
         do {
@@ -191,12 +197,12 @@ class DayTasksViewController: UIViewController {
         guard let fetchRequest = fetchRequest else {
             return
         }
-        let item = try? coreDataStack.managedContext.fetch(fetchRequest)
+        let item = try? coreDataStack?.managedContext.fetch(fetchRequest)
         guard let item = item else { return }
         for i in item {
-            coreDataStack.managedContext.delete(i)
+            coreDataStack?.managedContext.delete(i)
         }
-        coreDataStack.saveContext()
+        coreDataStack?.saveContext()
     }
     
    
@@ -287,10 +293,11 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCell.EditingStyle.delete {
-            let item = try? coreDataStack.managedContext.fetch(fetchRequest!)
+            guard let fetchRequest = fetchRequest  else { return }
+            let item = try? coreDataStack?.managedContext.fetch(fetchRequest)
             item?[indexPath.row].task?.mainTag = "Done"
-            coreDataStack.managedContext.delete(item![indexPath.row])
-            coreDataStack.saveContext()
+            coreDataStack?.managedContext.delete(item![indexPath.row])
+            coreDataStack?.saveContext()
         }
     }
     
