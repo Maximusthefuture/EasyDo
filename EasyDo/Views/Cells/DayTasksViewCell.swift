@@ -77,6 +77,10 @@ class DayTasksViewCell: UITableViewCell {
         gradientLayer.locations = [0.0, 1.0]
         gradientLayer.frame = roundedView.bounds
         roundedView.layer.addSublayer(gradientLayer)
+        
+        if tagView.isHidden {
+            taskLabel.centerYAnchor.constraint(equalTo: roundedView.centerYAnchor).isActive = true
+        }
     }
     
     
