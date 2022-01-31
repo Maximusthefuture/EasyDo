@@ -117,7 +117,8 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
     }
 
     @objc private func addNewCardButton(button: UIButton) {
-        let vc = AddEditCardViewController(viewModel: AddEditCardViewModel())
+        var task = Task(context: coreDataStack!.managedContext)
+        let vc = AddEditTaskViewController(viewModel: AddEditCardViewModel(), task: task)
         let navController = UINavigationController(rootViewController: vc)
         vc.coreDataStack = coreDataStack
         vc.currentProject = currentProject
@@ -152,7 +153,7 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
         cell.horizontalController.collectionView.reloadData()
         
         cell.horizontalController.didSelectHandler = { [weak self] task in
-            let vc = AddEditCardViewController(viewModel: AddEditCardViewModel())
+            let vc = AddEditTaskViewController(viewModel: AddEditCardViewModel(), task: task)
             vc.isAddMyDay = self?.isAddMyDay
             vc.taskDetail = task
             vc.coreDataStack = self?.coreDataStack

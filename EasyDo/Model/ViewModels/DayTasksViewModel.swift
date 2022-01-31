@@ -7,9 +7,14 @@
 
 import Foundation
 
+protocol DayTaskViewModelProtocol: AnyObject {
+    func isCurrentDate(date: Date) -> Bool
+    func setPredicateByDate(date: Date) -> NSPredicate
+    var currentWeek: [Date] { get set }
+    
+}
 
-
-class DayTasksViewModel: ViewModelBased {
+class DayTasksViewModel: ViewModelBased, DayTaskViewModelProtocol{
     
     var coreDataStack: CoreDataStack?
     required init() {
@@ -38,7 +43,7 @@ class DayTasksViewModel: ViewModelBased {
     
     //MARK: MOVE TO VIEWMODEL
     //Add to coredata????
-    func fetchCurrentWeek() {
+    private func fetchCurrentWeek() {
         let today = Date()
         var calendar = Calendar.current
         let week = calendar.dateInterval(of: .weekOfMonth, for: today)

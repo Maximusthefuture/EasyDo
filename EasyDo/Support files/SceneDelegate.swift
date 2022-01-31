@@ -12,21 +12,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     private let coreDataStack = CoreDataStack(modelName: "EasyDo")
+    let container = DependencyContainer()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let winScene = (scene as? UIWindowScene) else { return }
+        let dayTasksViewContoller = container.makeDayTasksViewContoller()
         window = UIWindow(windowScene: winScene)
         window?.makeKeyAndVisible()
-        var controller = ProjectMainViewController()
-        var viewController = ProjectsListViewController()
-        var addVC = AddEditCardViewController(viewModel: AddEditCardViewModel())
-        var timeVC = DayTasksViewController()
-        window?.rootViewController = UINavigationController(rootViewController: timeVC)
+//        var controller = ProjectMainViewController()
+//        var viewController = ProjectsListViewController()
+//        var addVC = AddEditTaskViewController(viewModel: AddEditCardViewModel())
+//        var timeVC = DayTasksViewController()
+        dayTasksViewContoller.coreDataStack = coreDataStack
+        
+        window?.rootViewController = UINavigationController(rootViewController: dayTasksViewContoller)
+        
        
-        timeVC.coreDataStack = coreDataStack
+//        timeVC.coreDataStack = coreDataStack
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

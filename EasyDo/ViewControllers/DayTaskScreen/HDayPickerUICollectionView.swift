@@ -19,7 +19,7 @@ class HDayPickerUICollectionView: BaseListController {
     weak var delegate: HDayPickerUICollectionViewDelegate?
     var selectedSortDescriptor: NSSortDescriptor?
     var selectedPredicate: NSPredicate?
-    var dayTaskViewModel: DayTasksViewModel?
+    var dayTaskViewModel: DayTaskViewModelProtocol?
     var currentWeek: [Date]?
     
     

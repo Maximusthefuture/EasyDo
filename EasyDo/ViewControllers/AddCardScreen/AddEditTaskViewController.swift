@@ -8,7 +8,7 @@
 import UIKit
 
 
-class AddEditCardViewController: UIViewController {
+class AddEditTaskViewController: UIViewController {
     //MARK: ?????
     
     lazy var addEditViewModel = AddEditCardViewModel()
@@ -16,9 +16,13 @@ class AddEditCardViewController: UIViewController {
     private var viewModel: ViewModelBased?
     var enumProp: Properties?
     
-    init(viewModel: ViewModelBased) {
-        super.init(nibName: nil, bundle: nil)
+    
+    //MARK: ??????
+    init(viewModel: ViewModelBased, task: Task) {
         self.viewModel = viewModel
+        self.taskDetail = task
+        super.init(nibName: nil, bundle: nil)
+        
         
     }
     
@@ -37,11 +41,12 @@ class AddEditCardViewController: UIViewController {
     let cardDescription: UITextView = {
         let tf = UITextView()
         tf.font = UIFont.systemFont(ofSize: 13)
-        tf.textContainer.maximumNumberOfLines = 3
+        tf.textContainer.maximumNumberOfLines = 4
         tf.textContainer.lineBreakMode = .byTruncatingTail
         tf.text = "Some description here tap to change"
         tf.isEditable = true
-        
+        tf.layer.cornerRadius = 10
+        tf.backgroundColor = .init(white: 0.5, alpha: 0.1)
         //        tf.layer.masksToBounds = true
         //        tf.layer.backgroundColor = UIColor.blue.cgColor
         
@@ -112,7 +117,7 @@ class AddEditCardViewController: UIViewController {
         view.addSubview(cardDescription)
         view.addSubview(addButton)
         cardName.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 20, left: 16, bottom: 0, right: 0))
-        cardDescription.anchor(top: cardName.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 16, left: 16, bottom: 0, right: 16), size: .init(width: 0, height: 50))
+        cardDescription.anchor(top: cardName.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 16, left: 16, bottom: 0, right: 16), size: .init(width: 0, height: 70))
         addButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 16, left: 0, bottom: 0, right: 8))
     }
     
@@ -221,7 +226,7 @@ class AddEditCardViewController: UIViewController {
     }
 }
 
-extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource {
+extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
@@ -360,7 +365,7 @@ extension AddEditCardViewController: UITableViewDelegate, UITableViewDataSource 
     }
 }
 
-extension AddEditCardViewController: RefreshTagsDelegate {
+extension AddEditTaskViewController: RefreshTagsDelegate {
     func refreshTags(tag: String) {
         let indexPath = IndexPath(item: 1, section: 0)
         addEditCardViewModel?.tagsArray.append(tag)

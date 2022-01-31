@@ -18,6 +18,18 @@ protocol IsNeedToAddDayTaskDelegate: AnyObject {
 
 class DayTasksViewController: UIViewController {
     private let reuseIdentifier = "Cell"
+    //MARK: ?????
+    let container = DependencyContainer()
+    
+    
+    init(viewModel: DayTaskViewModelProtocol) {
+        self.dayTaskViewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     let addButton: UIButton = {
         let button = UIButton()
@@ -44,7 +56,7 @@ class DayTasksViewController: UIViewController {
     }()
     var weeklyPickerCollectionView = HDayPickerUICollectionView()
     var fetchRequest: NSFetchRequest<DailyItems>?
-    var dayTaskViewModel: DayTasksViewModel?
+    var dayTaskViewModel: DayTaskViewModelProtocol?
     lazy var selectionGenerator = UISelectionFeedbackGenerator()
     
     lazy var fetchedResultsController:
@@ -78,10 +90,6 @@ class DayTasksViewController: UIViewController {
         tableViewInit()
         navigationController?.navigationBar.isHidden = true
         emptyLabelInit()
-        if let coreDataStack = coreDataStack {
-            dayTaskViewModel = DayTasksViewModel(coreDataStack: coreDataStack)
-        }
-        
         weeklyPickerCollectionView.dayTaskViewModel = dayTaskViewModel
         
         do {
@@ -305,7 +313,6 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-    
     //MARK: Move to cell????
     func configure(cell: UITableViewCell, for indexPath: IndexPath) {
         guard let cell = cell as? DayTaskViewCell else { return }
@@ -345,11 +352,7 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let item = fetchedResultsController.object(at: indexPath).task else { return }
-        let vc = AddEditCardViewController(viewModel: AddEditCardViewModel())
-        vc.coreDataStack = coreDataStack
-        vc.taskDetail = item
-        let items = fetchedResultsController.object(at: indexPath)
-        print(items.inTime)
+        let vc = container.addEditTaskViewController(task: item)
         present(vc, animated: true)
     }
 }
