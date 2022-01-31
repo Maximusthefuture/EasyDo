@@ -92,7 +92,7 @@ class ProjectsListViewController: UIViewController {
         addButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
         addButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
         addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        addButton.setTitle("+ Add Card", for: .normal)
+        addButton.setTitle("Create new project", for: .normal)
         addButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
         addButton.layer.cornerRadius = 10
         addButton.backgroundColor = .blue
@@ -104,14 +104,7 @@ class ProjectsListViewController: UIViewController {
     @objc func addProject(sender: UIButton) {
         let vc = CreateProjectVC(initialHeight: 300)
         vc.coreDataStack = coreDataStack
-//        bottomSheetTransitionDelegate = BottomSheetTransitioningDelegate(factory: self)
-//        vc.modalPresentationStyle = .custom
-//        vc.transitioningDelegate = bottomSheetTransitionDelegate
         present(vc, animated: true)
-        
-//        deleteAll()
-        
-        
     }
     
     func deleteAll() {

@@ -10,16 +10,18 @@ import Foundation
 protocol CardAddTagsViewModelProtocol: AnyObject {
     var tagName: String? { get set }
     var recentlyUsedTags: [String]? { get set }
-    func addRecentlyUsedTag(tag: String?) // Color?
+    func addRecentlyUsedTag(tag: String?)
+    var recentlyUsedTagsBinding: ((String) -> Void)? { get set }// Color?
 }
 
 class CardAddTagsViewModel: AttachmentsViewModelProtocol {
     var tagName: String?
-    
+    var recentlyUsedTagsBinding: ((String) -> Void)?
     var recentlyUsedTags: [String]? = ["Some", "Of", "Tags", "Is", "Here?", "LOng tag is here", "Here toooooooo"]
     
     func addRecentlyUsedTag(tag: String?) {
         recentlyUsedTags?.append(tag ?? "")
+        recentlyUsedTagsBinding?(tag ?? "")
     }
     
     

@@ -98,10 +98,6 @@ class CardAddTagsViewController: ResizableViewController {
         if let layout = recentlyUsedTagsCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
         }
-        
-        
-        
-       
         recentlyUsedTagsCollectionView.anchor(top: stackView.bottomAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
         recentlyUsedTagsCollectionView.register(RecentlyTagsCell.self, forCellWithReuseIdentifier: "tags")
         recentlyUsedTagsCollectionView.delegate = self
@@ -122,6 +118,7 @@ class CardAddTagsViewController: ResizableViewController {
         backButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
     }
     
+    //View model?
     fileprivate func checkIsTackViewEmpty() {
         //MARK: TODO when want to rename tag show textField
         if isStackViewFull(stackView: stackView) {
@@ -165,7 +162,7 @@ class CardAddTagsViewController: ResizableViewController {
     @objc func handleKeyboardShow(notification: Notification) {
         guard let value = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         let keyBoardFrame = value.cgRectValue
-        let bottomSpace = view.frame.height - backButton.frame.origin.y - backButton.frame.height - 40
+        let bottomSpace = view.frame.height - recentlyUsedTagsCollectionView.frame.origin.y - recentlyUsedTagsCollectionView.frame.height - 20
         let difference =  keyBoardFrame.height - bottomSpace
         self.view.transform = CGAffineTransform(translationX: 0, y: -difference - 8)
         print("OBSERVERL: \(keyBoardFrame)")

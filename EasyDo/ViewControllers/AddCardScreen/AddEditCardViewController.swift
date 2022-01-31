@@ -100,7 +100,7 @@ class AddEditCardViewController: UIViewController {
     var addButton: UIButton = {
         var b = UIButton()
         //MARK: CHANGE ICON +
-        b.setTitle("++", for: .normal)
+        b.setTitle("+", for: .normal)
         b.setTitleColor(.blue, for: .normal)
         b.titleLabel?.font = UIFont.systemFont(ofSize: 32, weight: .bold)
         b.addTarget(self, action: #selector(addCardToDayTask), for: .touchUpInside)
@@ -108,7 +108,6 @@ class AddEditCardViewController: UIViewController {
     }()
     
     func  initCardNameAndDescription() {
-        //        let stackView = UIStackView(arrangedSubviews: [cardName, addButton])
         view.addSubview(cardName)
         view.addSubview(cardDescription)
         view.addSubview(addButton)
@@ -188,6 +187,8 @@ class AddEditCardViewController: UIViewController {
         print("Done editing save")
         do {
             try validateCardName(cardName: cardName.text ?? "")
+            //MARK: TODO
+            addEditCardViewModel?.cardDescription = cardDescription.text
             addEditCardViewModel?.createNewTask()
             dismiss(animated: true)
         } catch {

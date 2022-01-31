@@ -39,7 +39,7 @@ class DayTasksViewController: UIViewController {
         button.backgroundColor = .blue
         button.layer.cornerRadius = 10
         button.setTitleColor(.black, for: .normal)
-//        button.addTarget(self, action: #selector(<#T##@objc method#>), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleEmptyLabelTap), for: .touchUpInside)
         return button
     }()
     var weeklyPickerCollectionView = HDayPickerUICollectionView()
@@ -105,6 +105,10 @@ class DayTasksViewController: UIViewController {
         view.addSubview(emptyLabel)
         emptyLabel.centerInSuperview()
         emptyLabel.isHidden = true
+    }
+    //MARK: TODO
+    @objc func handleEmptyLabelTap() {
+        print("handle here")
     }
     
     fileprivate func tableViewInit() {

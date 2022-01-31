@@ -17,6 +17,9 @@ class CreateProjectVC: ResizableViewController {
     let addProjectButton: UIButton = {
        let button = UIButton()
         button.layer.cornerRadius = 10
+        button.setTitle("Add project", for: .normal)
+        button.backgroundColor = .red
+        button.addTarget(self, action: #selector(handleAddProject), for: .touchUpInside)
         return button
     }()
     
@@ -74,10 +77,9 @@ class CreateProjectVC: ResizableViewController {
         view.addSubview(stackView)
 //        scrollView.addSubview(stackView)
         addProjectButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor,padding: .init(top: 0, left: padding, bottom: 0, right: padding), size: .init(width: 0, height: 60))
-        addProjectButton.setTitle("Add project", for: .normal)
+       
         projectNameTextField.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: padding, left: padding, bottom: padding, right: padding))
-        addProjectButton.backgroundColor = .red
-        addProjectButton.addTarget(self, action: #selector(handleAddProject), for: .touchUpInside)
+        
         addTagsButton.anchor(top: projectNameTextField.bottomAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 16, left: 0, bottom: 0, right: 0))
         stackView.anchor(top: projectNameTextField.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: addTagsButton.trailingAnchor, padding: .init(top: 16, left: 0, bottom: 0, right: 30))
 //        stackView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor, padding: .init(top: 16, left: 0, bottom: 0, right: 30))
