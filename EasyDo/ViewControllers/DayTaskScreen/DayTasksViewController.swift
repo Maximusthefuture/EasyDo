@@ -122,12 +122,14 @@ class DayTasksViewController: UIViewController {
     fileprivate func tableViewInit() {
         view.addSubview(tableView)
         tableView.anchor(top: weeklyPickerCollectionView.view.bottomAnchor, leading: view.leadingAnchor, bottom:  view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 16, left: 0, bottom: 0, right: 0))
-        tableView.register(DayTaskViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.register(DayTasksViewCell.self, forCellReuseIdentifier: reuseIdentifier)
 //        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.backgroundColor = .white
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 500
         
     }
     
@@ -289,7 +291,7 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
     //    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return UITableView.automaticDimension
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -315,15 +317,16 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
     
     //MARK: Move to cell????
     func configure(cell: UITableViewCell, for indexPath: IndexPath) {
-        guard let cell = cell as? DayTaskViewCell else { return }
+        guard let cell = cell as? DayTasksViewCell else { return }
         let items = fetchedResultsController.object(at: indexPath)
         //MARK: MOve to cell or VM?
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .none
         dateFormatter.timeStyle = .short
         dateFormatter.dateFormat = "HH:mm"
-        cell.timeLabel.text = dateFormatter.string(from: items.inTime ?? Date())
         cell.taskLabel.text = items.task?.title
+        cell.taskDescription.text = items.task?.taskDescription
+        cell.tagView.label.text = dateFormatter.string(from: items.inTime ?? Date())
         
         //MARK: TODO заполнение???
         //Notification asking isThisDone? Statistics???
@@ -338,15 +341,8 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DayTaskViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DayTasksViewCell
         configure(cell: cell, for: indexPath)
-        cell.checkBox.addGestureRecognizer(UIGestureRecognizer(target: self, action: #selector(handleCheckBoxSelection)))
-        if indexPath.item == 0 {
-            cell.shapeLayer.removeFromSuperlayer()
-            
-        } else if indexPath.item == (tableView.numberOfSections - 1) {
-            
-        }
         return cell
     }
     

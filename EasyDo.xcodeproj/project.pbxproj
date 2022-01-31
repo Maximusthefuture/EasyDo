@@ -19,6 +19,7 @@
 		380ADEDC2779F62A00B97EB9 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380ADEDB2779F62A00B97EB9 /* Task.swift */; };
 		380ADEDF2779F95000B97EB9 /* ProjectMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380ADEDE2779F95000B97EB9 /* ProjectMainViewController.swift */; };
 		380B4C9327998F4100E81A4F /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380B4C9227998F4100E81A4F /* VerticalStackView.swift */; };
+		3812D68227A82B750065F190 /* DayTasksViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3812D68127A82B750065F190 /* DayTasksViewCell.swift */; };
 		381CAAAB2781EA8000E8AB00 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CAAAA2781EA8000E8AB00 /* CoreDataStack.swift */; };
 		381CAACB278207F900E8AB00 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CAAC7278207F900E8AB00 /* Project+CoreDataClass.swift */; };
 		381CAACC278207F900E8AB00 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CAAC8278207F900E8AB00 /* Project+CoreDataProperties.swift */; };
@@ -105,6 +106,7 @@
 		380ADEDB2779F62A00B97EB9 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		380ADEDE2779F95000B97EB9 /* ProjectMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectMainViewController.swift; sourceTree = "<group>"; };
 		380B4C9227998F4100E81A4F /* VerticalStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
+		3812D68127A82B750065F190 /* DayTasksViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTasksViewCell.swift; sourceTree = "<group>"; };
 		381CAAAA2781EA8000E8AB00 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		381CAAB52781F48D00E8AB00 /* EasyDo v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EasyDo v2.xcdatamodel"; sourceTree = "<group>"; };
 		381CAABE278206F500E8AB00 /* EasyDo v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EasyDo v3.xcdatamodel"; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 				38E69BEF2795BC4300E942BA /* WeeklyPickerViewCell.swift */,
 				3806314427A3E62100AC4CC3 /* RecentlyTagsCell.swift */,
 				3806314727A3F04000AC4CC3 /* DueDateCell.swift */,
+				3812D68127A82B750065F190 /* DayTasksViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -520,6 +523,7 @@
 				3806314527A3E62100AC4CC3 /* RecentlyTagsCell.swift in Sources */,
 				38EF6DFC277DF1C700261125 /* TaskViewModel.swift in Sources */,
 				3868B92F276E376200F2B765 /* Model.swift in Sources */,
+				3812D68227A82B750065F190 /* DayTasksViewCell.swift in Sources */,
 				381E8E2D278F0B4A0021FDC6 /* PickTimeViewController.swift in Sources */,
 				3868B933276E383700F2B765 /* TableViewController+Drag.swift in Sources */,
 				386F83F4275AAD45004DC280 /* EasyDo.xcdatamodeld in Sources */,
