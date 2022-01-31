@@ -18,11 +18,15 @@ protocol AddEditCardViewModelProtocol: ViewModelBased {
     var tagsArray: [String] { get set }
     var taskDetail: Task? { get set }
     var recentlyUsedTags: [String]? { get set }
+    var bindableIsFormValidObserver: Bindable<Bool> { get set }
 }
 
 //Заполненые поля даты сразу?
 //Заполнение полей сразу здесь
 class AddEditCardViewModel: AddEditCardViewModelProtocol {
+    
+    var bindableIsFormValidObserver: Bindable<Bool> = Bindable(false)
+    
     //Change this to db after?
     var recentlyUsedTags: [String]?
     
@@ -30,13 +34,9 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
         
     }
     
-    var cardName: String? {
-        didSet {
-        // validation?
-            
-         }
-        }
-    var cardDescription: String? { didSet { } }
+    var cardName: String? { didSet { checkFormValidation() } }
+    
+    var cardDescription: String? { didSet { checkFormValidation() } }
     var coreDataStack: CoreDataStack?
     var tagsArray = [String]()
     var dueDate: Date?
@@ -51,7 +51,13 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
     func addRecenltyUsedTags(tag: String) {
         recentlyUsedTags?.append(tag)
     }
- 
+    
+    fileprivate func checkFormValidation() {
+        let isFormValid = cardName?.isEmpty == false && cardName!.count < 18 &&
+            cardDescription?.isEmpty == false && cardDescription!.count < 40
+        bindableIsFormValidObserver.value = isFormValid
+    }
+    
     
     func createNewTask() {
         if let coreDataStack = coreDataStack {

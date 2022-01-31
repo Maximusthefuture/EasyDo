@@ -31,7 +31,6 @@ class HDayPickerUICollectionView: BaseListController {
         collectionView.register(WeeklyPickerViewCell.self, forCellWithReuseIdentifier: dayPickerCellId)
         collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
-       
     }
   
     
@@ -57,9 +56,17 @@ class HDayPickerUICollectionView: BaseListController {
         }
         return layout
     }
+    
+//    func configurePickerCell(cell: WeeklyPickerViewCell, indexPath: IndexPath) {
+//        dayTaskViewModel?.currentWeekBindble.bind({ date in
+//            let dateHere = date?[indexPath.item]
+//            cell.configure(date: dateHere ?? Date())
+//        })
+//    }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: dayPickerCellId, for: indexPath) as! WeeklyPickerViewCell
+//        configurePickerCell(cell: cell, indexPath: indexPath)
         
         let date = dayTaskViewModel?.currentWeek[indexPath.item]
         guard let date = date else { return cell }

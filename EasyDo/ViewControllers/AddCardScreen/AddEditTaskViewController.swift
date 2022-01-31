@@ -47,6 +47,7 @@ class AddEditTaskViewController: UIViewController {
         tf.isEditable = true
         tf.layer.cornerRadius = 10
         tf.backgroundColor = .init(white: 0.5, alpha: 0.1)
+        
         //        tf.layer.masksToBounds = true
         //        tf.layer.backgroundColor = UIColor.blue.cgColor
         
@@ -64,6 +65,10 @@ class AddEditTaskViewController: UIViewController {
     var dayVC: DayTasksViewController?
     var taskDetail: Task?
     var tableView = UITableView()
+    var doneButton: UIBarButtonItem  = {
+       var button =  UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneCreatingEditing))
+        return button
+    }()
     
     
     
@@ -73,10 +78,11 @@ class AddEditTaskViewController: UIViewController {
         if let coreDataStack = coreDataStack {
             addEditCardViewModel = AddEditCardViewModel(coreDataStack: coreDataStack, currentProject: currentProject)
         }
-        
+        setupAddEditViewModelObserver()
+        cardDescription.delegate = self
         view.backgroundColor = .white
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneCreatingEditing))
+        navigationItem.rightBarButtonItem = doneButton
         initCardNameAndDescription()
         initTableView()
         setupEndEditingGesture()
@@ -158,6 +164,16 @@ class AddEditTaskViewController: UIViewController {
     let propertiesArray = ["Pomodoro count", "Label", "Due Date"]
     
     
+    func setupAddEditViewModelObserver() {
+        addEditCardViewModel?.bindableIsFormValidObserver.bind({ isFormValid in
+            guard let isFormValid = isFormValid else {
+                return
+            }
+            self.doneButton.isEnabled = isFormValid
+            
+        })
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -191,7 +207,7 @@ class AddEditTaskViewController: UIViewController {
     @objc fileprivate func doneCreatingEditing(sender: UIBarButtonItem) {
         print("Done editing save")
         do {
-            try validateCardName(cardName: cardName.text ?? "")
+            
             //MARK: TODO
             addEditCardViewModel?.cardDescription = cardDescription.text
             addEditCardViewModel?.createNewTask()
@@ -370,6 +386,13 @@ extension AddEditTaskViewController: RefreshTagsDelegate {
         let indexPath = IndexPath(item: 1, section: 0)
         addEditCardViewModel?.tagsArray.append(tag)
         self.tableView.reloadRows(at: [indexPath], with: .none)
+    }
+}
+
+extension AddEditTaskViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        self.addEditCardViewModel?.cardDescription = textView.text
+        
     }
 }
 

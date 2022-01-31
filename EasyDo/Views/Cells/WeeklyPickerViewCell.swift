@@ -45,7 +45,11 @@ class WeeklyPickerViewCell: UICollectionViewCell {
     }()
     
     
-    func configure(date: Date) {
+    func configure(date: Date?) {
+        guard let date = date else {
+            return
+        }
+
         let attributedString = NSMutableAttributedString(string: " \(extractDate(date: date, format: "dd"))", attributes: [.font: UIFont.systemFont(ofSize: 13, weight: .bold)])
         attributedString.append(NSMutableAttributedString(string: "\n\(extractDate(date: date, format: "EEE"))", attributes: [.font: UIFont.systemFont(ofSize: 14, weight: .bold)]))
         dayLabel.attributedText = attributedString

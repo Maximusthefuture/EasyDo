@@ -10,24 +10,22 @@ import Foundation
 protocol DayTaskViewModelProtocol: AnyObject {
     func isCurrentDate(date: Date) -> Bool
     func setPredicateByDate(date: Date) -> NSPredicate
-    var currentWeek: [Date] { get set }
-    
+    var currentWeek: [Date] { get set }   
 }
 
-class DayTasksViewModel: ViewModelBased, DayTaskViewModelProtocol{
+class DayTasksViewModel: ViewModelBased, DayTaskViewModelProtocol {
     
     var coreDataStack: CoreDataStack?
+    
     required init() {
-        
     }
     
     init(coreDataStack: CoreDataStack) {
         self.coreDataStack = coreDataStack
         fetchCurrentWeek()
+       
     }
-    
-    
-    
+ 
     func isCurrentDate(date: Date) -> Bool {
         let calendar = Calendar.current
         let day = calendar.component(.day, from: date)
@@ -52,7 +50,9 @@ class DayTasksViewModel: ViewModelBased, DayTaskViewModelProtocol{
         
         (0...30).forEach { day in
             if let weekday = calendar.date(byAdding: .day, value: day, to: firstWeekDay) {
+               
                 currentWeek.append(weekday)
+              
             }
         }
     }
