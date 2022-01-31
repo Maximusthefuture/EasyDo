@@ -7,6 +7,11 @@
 
 import UIKit
 
+enum AddEditTaskState {
+    case new
+    case edit
+}
+
 
 class AddEditTaskViewController: UIViewController {
     //MARK: ?????
@@ -65,7 +70,7 @@ class AddEditTaskViewController: UIViewController {
     var dayVC: DayTasksViewController?
     var taskDetail: Task?
     var tableView = UITableView()
-    var doneButton: UIBarButtonItem  = {
+    var saveButton: UIBarButtonItem  = {
        var button =  UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneCreatingEditing))
         return button
     }()
@@ -82,7 +87,7 @@ class AddEditTaskViewController: UIViewController {
         cardDescription.delegate = self
         view.backgroundColor = .white
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
-        navigationItem.rightBarButtonItem = doneButton
+        navigationItem.rightBarButtonItem = saveButton
         initCardNameAndDescription()
         initTableView()
         setupEndEditingGesture()
@@ -155,21 +160,14 @@ class AddEditTaskViewController: UIViewController {
         
     }()
     
-    //MARK: Viewmodel?
-    func validateCardName(cardName: String) throws {
-        guard cardName.count < 18  else { throw Errors.CardNameValidationError.tooLong }
-        guard cardName.count > 3  else { throw Errors.CardNameValidationError.tooShort }
-    }
-    
     let propertiesArray = ["Pomodoro count", "Label", "Due Date"]
-    
     
     func setupAddEditViewModelObserver() {
         addEditCardViewModel?.bindableIsFormValidObserver.bind({ isFormValid in
             guard let isFormValid = isFormValid else {
                 return
             }
-            self.doneButton.isEnabled = isFormValid
+            self.saveButton.isEnabled = isFormValid
             
         })
     }

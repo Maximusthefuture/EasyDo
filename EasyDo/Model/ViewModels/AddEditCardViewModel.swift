@@ -35,8 +35,8 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
     }
     
     var cardName: String? { didSet { checkFormValidation() } }
-    
     var cardDescription: String? { didSet { checkFormValidation() } }
+    
     var coreDataStack: CoreDataStack?
     var tagsArray = [String]()
     var dueDate: Date?
