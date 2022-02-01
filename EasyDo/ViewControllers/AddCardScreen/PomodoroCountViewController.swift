@@ -9,17 +9,29 @@ import Foundation
 import UIKit
 
 class PomodoroCountViewController: ResizableViewController {
-    var viewModel = PomodoroCountViewModel()
+    
+    var viewModel:PomodoroCountViewModel?
+    
     var pomodoroImage = UIImage(named: "pomodoro")
+    
     let padding: CGFloat = 16
     let pomodoroView: UIImageView = {
         let imageView = UIImageView()
         imageView.isUserInteractionEnabled = true
         return imageView
     }()
-    var count = 0
-    var pomodoroRefreshed: ((Int) -> Void)?
+    
     var pomodoroStackView: UIStackView?
+    
+    
+      init(initialHeight: CGFloat, viewModel: PomodoroCountViewModel) {
+        super.init(initialHeight: initialHeight)
+        self.viewModel = viewModel
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,8 +56,6 @@ class PomodoroCountViewController: ResizableViewController {
     
     @objc func handleTapPomodoro(_ gesture: UITapGestureRecognizer) {
         ((gesture.view) as? UIImageView)?.tintColor = .red
-        count += 1
-        viewModel.pomodoroCount.value = count
-        pomodoroRefreshed?(count)
+        viewModel?.setPomodoroCount()
     }
 }

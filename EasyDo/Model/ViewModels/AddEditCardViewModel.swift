@@ -19,6 +19,7 @@ protocol AddEditCardViewModelProtocol: ViewModelBased {
     var taskDetail: Task? { get set }
     var recentlyUsedTags: [String]? { get set }
     var bindableIsFormValidObserver: Bindable<Bool> { get set }
+    var pomodoroCount: Int? { get set }
 }
 
 //Заполненые поля даты сразу?
@@ -36,6 +37,7 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
     
     var cardName: String? { didSet { checkFormValidation() } }
     var cardDescription: String? { didSet { checkFormValidation() } }
+    var pomodoroCount: Int?
     
     var coreDataStack: CoreDataStack?
     var tagsArray = [String]()
@@ -70,6 +72,7 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
             task.mainTag = "No tag"
             task.title = cardName
             task.taskDescription = cardDescription
+            task.pomodoroCount = Int16(pomodoroCount ?? 0)
             //MARK: If mydate nil, add date + 2 days?
             task.dueDate = dueDate ?? Date(timeIntervalSince1970: 0)
             if let project = currentProject,

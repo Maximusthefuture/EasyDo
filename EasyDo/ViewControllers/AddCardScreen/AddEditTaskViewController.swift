@@ -17,6 +17,7 @@ class AddEditTaskViewController: UIViewController {
     //MARK: ?????
     
     lazy var addEditViewModel = AddEditCardViewModel()
+    var vmFactory = AddEditViewModelFactory()
     
     private var viewModel: ViewModelBased?
     var enumProp: Properties?
@@ -71,7 +72,7 @@ class AddEditTaskViewController: UIViewController {
     var taskDetail: Task?
     var tableView = UITableView()
     var saveButton: UIBarButtonItem  = {
-       var button =  UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneCreatingEditing))
+        var button =  UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneCreatingEditing))
         return button
     }()
     
@@ -91,6 +92,7 @@ class AddEditTaskViewController: UIViewController {
         initCardNameAndDescription()
         initTableView()
         setupEndEditingGesture()
+        setViewModelObservables()
     }
     
     //MARK: Init tableView
@@ -104,9 +106,15 @@ class AddEditTaskViewController: UIViewController {
         tableView.register(AddEditCardPropertiesViewCell.self, forCellReuseIdentifier: propertiesCell)
         tableView.register(AttachmentsCardViewCell.self, forCellReuseIdentifier: attachmentsCell)
         tableView.register(DueDateCell.self, forCellReuseIdentifier: "Due date")
+        //        tableView.isScrollEnabled = false
         
-//        tableView.isScrollEnabled = false
-        
+    }
+    
+    fileprivate func setViewModelObservables() {
+        vmFactory.pomodoroViewModel.pomodoroCount.bind { value in
+            self.addEditViewModel.pomodoroCount = value
+            self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
+        }
     }
     
     @objc func handleTextChange(textField: UITextField) {
@@ -143,7 +151,7 @@ class AddEditTaskViewController: UIViewController {
     //MARK: TODO Bottom Sheet when we can add items? First image then can add
     @objc private func handleSeeAllAttachments() {
         let vc = AttachmentsViewController(initialHeight: 300)
-       
+        
         present(vc, animated: true)
     }
     
@@ -238,7 +246,7 @@ class AddEditTaskViewController: UIViewController {
         print("Datepicker: \(datePicker.date)")
         addEditCardViewModel?.dueDate = datePicker.date
     }
-    var value = 0
+  
 }
 
 extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource {
@@ -259,14 +267,11 @@ extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource 
         switch section {
         case 0: headerLabel.text = "Properties"
         case 1: return attachmentsHeader
-            
         default:
             headerLabel.text = "TO-DO"
         }
         return headerLabel
     }
-    
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("IndexPath: ", indexPath.row)
@@ -278,16 +283,10 @@ extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource 
             vc.refreshDelegate = self
             present(vc, animated: true)
         } else if indexPath.row == 0 {
-            let vc = PomodoroCountViewController(initialHeight: 50)
-            vc.pomodoroRefreshed = { value in
-                self.value = value
-                self.tableView.reloadRows(at: [indexPath], with: .none)
-            }
+            let vc = PomodoroCountViewController(initialHeight: 50, viewModel: vmFactory.pomodoroViewModel)
             present(vc, animated: true)
-          
+            
         }
-       
-        
     }
     
     enum Properties: Int {
@@ -307,17 +306,17 @@ extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource 
                 
             case 1:
                 cell.stackView.isHidden = false
-               
+                
             case 2:
                 cell.datePicker.isHidden = false
-               
+                
                 
             default:
                 print("default")
             }
         }
     }
-   
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             if indexPath.row == 2 {
@@ -346,7 +345,7 @@ extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource 
                 tableView.separatorStyle = .none
                 cell.accessoryType = .disclosureIndicator
                 cell.initTask(initialTask: taskDetail)
-                cell.pomodoroCount.text = "\(value)"
+                cell.pomodoroCount.text = "\(addEditViewModel.pomodoroCount ?? 0)"
                 //cell.delegate = self
                 switch indexPath.row {
                 case 0: enumProp = .pomodoro
@@ -358,7 +357,6 @@ extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource 
                 if let enumProp = enumProp {
                     configPropertiesCells(cell: cell, properties: enumProp, indexPathRow: indexPath.row)
                 }
-                
                 return cell
             }
             
@@ -378,7 +376,6 @@ extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return 100
-            
         } else {
             return 40
         }

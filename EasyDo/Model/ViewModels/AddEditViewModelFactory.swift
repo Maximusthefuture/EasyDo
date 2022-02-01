@@ -9,7 +9,7 @@ import Foundation
 
 
 class AddEditViewModelFactory {
-    var pomodoroViewModel: PomodoroCountViewModel?
-    var attachmentViewModel: AttachmentsViewModel?
+  lazy var pomodoroViewModel = PomodoroCountViewModel()
+    lazy var attachmentViewModel = AttachmentsViewModel()
     var cardAddTagsViewModel: CardAddTagsViewModel?
 }

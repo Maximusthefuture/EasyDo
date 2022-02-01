@@ -9,4 +9,10 @@ import Foundation
 
 struct PomodoroCountViewModel {
     var pomodoroCount = Bindable<Int>(0)
+    
+    
+    
+    func setPomodoroCount() {
+        pomodoroCount.value! += 1
+    }
 }
