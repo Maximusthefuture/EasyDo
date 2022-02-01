@@ -24,6 +24,11 @@ class AddEditCardPropertiesViewCell: UITableViewCell {
         return label
     }()
     
+    let pomodoroCount: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    
     let icon: UIImageView = {
         let image = UIImageView()
         let systemIcon = UIImage(systemName: "calendar")
@@ -67,10 +72,7 @@ class AddEditCardPropertiesViewCell: UITableViewCell {
         
     }
     
-    let stepper: UIStepper = {
-       let s = UIStepper()
-        return s
-    }()
+   
   
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -78,9 +80,8 @@ class AddEditCardPropertiesViewCell: UITableViewCell {
         addSubview(icon)
         roundedView.addSubview(datePicker)
         contentView.addSubview(label)
-        contentView.addSubview(stepper)
-       
         contentView.addSubview(stackView)
+        contentView.addSubview(pomodoroCount)
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.spacing = 10
@@ -90,7 +91,7 @@ class AddEditCardPropertiesViewCell: UITableViewCell {
         icon.anchor(top: roundedView.topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 30, left: 40, bottom: 0, right: 16), size: .init(width: 30, height: 30))
 //        icon.centerYAnchor.constraint(equalTo: roundedView.centerYAnchor).isActive = true
         label.anchor(top: topAnchor, leading: icon.trailingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 0, left: 16, bottom: 10, right: 16))
-        stepper.centerInRight(leading: nil, padding: .init(top: 0, left: 16, bottom: 0, right: 16))
+        pomodoroCount.centerInRight(leading: nil)
         stackView.centerInRight(leading: nil, padding: .init(top: 0, left: 16, bottom: 0, right: 16))
 //        stackView.backgroundColor = .gray
         roundedView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 16, bottom: 10, right: 16))
@@ -99,8 +100,9 @@ class AddEditCardPropertiesViewCell: UITableViewCell {
         
         roundedView.backgroundColor = #colorLiteral(red: 0.9722431302, green: 0.972392261, blue: 1, alpha: 1)
         roundedView.clipsToBounds = true
+        pomodoroCount.isHidden = true
         stackView.isHidden = true
-        stepper.isHidden = true
+       
         
         roundedView.isAccessibilityElement = true
         isAccessibilityElement = true

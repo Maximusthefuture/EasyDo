@@ -60,8 +60,8 @@ class DayTasksViewCell: UITableViewCell {
                 contentView.addSubview(tagView)
         roundedView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 10, left: 8, bottom: 0, right: 8))
         taskLabel.anchor(top: marginGuide.topAnchor, leading: marginGuide.leadingAnchor, bottom: nil, trailing: marginGuide.trailingAnchor, padding: .init(top: 8, left: 8, bottom: 0, right: 0))
-        taskDescription.anchor(top: taskLabel.bottomAnchor, leading: marginGuide.leadingAnchor, bottom: nil, trailing: marginGuide.trailingAnchor, padding: .init(top: 6, left: 8, bottom: 0, right: 0))
-        tagView.anchor(top: taskDescription.bottomAnchor, leading: marginGuide.leadingAnchor, bottom: marginGuide.bottomAnchor, trailing: nil, padding: .init(top: 8, left: 8, bottom: 0, right: 0))
+        taskDescription.anchor(top: taskLabel.bottomAnchor, leading: marginGuide.leadingAnchor, bottom: nil, trailing: marginGuide.trailingAnchor, padding: .init(top: 16, left: 8, bottom: 0, right: 0))
+        tagView.anchor(top: taskDescription.bottomAnchor, leading: marginGuide.leadingAnchor, bottom: marginGuide.bottomAnchor, trailing: nil, padding: .init(top: 16, left: 8, bottom: 0, right: 0))
         selectionStyle = .none
         
     }

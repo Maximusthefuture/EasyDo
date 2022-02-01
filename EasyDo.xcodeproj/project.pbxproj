@@ -33,6 +33,8 @@
 		3832ABF02798600800FFFE85 /* DailyItems+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3832ABEE2798600800FFFE85 /* DailyItems+CoreDataClass.swift */; };
 		3832ABF12798600800FFFE85 /* DailyItems+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3832ABEF2798600800FFFE85 /* DailyItems+CoreDataProperties.swift */; };
 		383A3F7127A943D300F153B8 /* PomodoroCountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383A3F7027A943D300F153B8 /* PomodoroCountViewController.swift */; };
+		383A3F7327A95EE400F153B8 /* PomodoroCountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383A3F7227A95EE400F153B8 /* PomodoroCountViewModel.swift */; };
+		383A3F7527A95F9900F153B8 /* AddEditViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383A3F7427A95F9900F153B8 /* AddEditViewModelFactory.swift */; };
 		383A8AB927888099003EE8F7 /* AddEditCardPropertiesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383A8AB827888099003EE8F7 /* AddEditCardPropertiesViewCell.swift */; };
 		383A8ABB2788810D003EE8F7 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383A8ABA2788810D003EE8F7 /* RoundedView.swift */; };
 		383A8ABD27888321003EE8F7 /* AttachmentsCardViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383A8ABC27888321003EE8F7 /* AttachmentsCardViewCell.swift */; };
@@ -127,6 +129,8 @@
 		3832ABEE2798600800FFFE85 /* DailyItems+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DailyItems+CoreDataClass.swift"; path = "CoreDataClass/DailyItems+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3832ABEF2798600800FFFE85 /* DailyItems+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DailyItems+CoreDataProperties.swift"; path = "CoreDataClass/DailyItems+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		383A3F7027A943D300F153B8 /* PomodoroCountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroCountViewController.swift; sourceTree = "<group>"; };
+		383A3F7227A95EE400F153B8 /* PomodoroCountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroCountViewModel.swift; sourceTree = "<group>"; };
+		383A3F7427A95F9900F153B8 /* AddEditViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditViewModelFactory.swift; sourceTree = "<group>"; };
 		383A8AB827888099003EE8F7 /* AddEditCardPropertiesViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditCardPropertiesViewCell.swift; sourceTree = "<group>"; };
 		383A8ABA2788810D003EE8F7 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		383A8ABC27888321003EE8F7 /* AttachmentsCardViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentsCardViewCell.swift; sourceTree = "<group>"; };
@@ -323,6 +327,8 @@
 				38C06740279E939A00CF2216 /* DayTasksViewModel.swift */,
 				3806314027A3E03600AC4CC3 /* AttachmentsViewModel.swift */,
 				3806314227A3E14D00AC4CC3 /* CardAddTagsViewModel.swift */,
+				383A3F7227A95EE400F153B8 /* PomodoroCountViewModel.swift */,
+				383A3F7427A95F9900F153B8 /* AddEditViewModelFactory.swift */,
 			);
 			name = ViewModels;
 			path = Model/ViewModels;
@@ -527,6 +533,7 @@
 				38EF6DFC277DF1C700261125 /* TaskViewModel.swift in Sources */,
 				3868B92F276E376200F2B765 /* Model.swift in Sources */,
 				3812D68227A82B750065F190 /* DayTasksViewCell.swift in Sources */,
+				383A3F7327A95EE400F153B8 /* PomodoroCountViewModel.swift in Sources */,
 				381E8E2D278F0B4A0021FDC6 /* PickTimeViewController.swift in Sources */,
 				3868B933276E383700F2B765 /* TableViewController+Drag.swift in Sources */,
 				386F83F4275AAD45004DC280 /* EasyDo.xcdatamodeld in Sources */,
@@ -549,6 +556,7 @@
 				381E8E29278ED7040021FDC6 /* AttachmentsViewController.swift in Sources */,
 				383A8AB927888099003EE8F7 /* AddEditCardPropertiesViewCell.swift in Sources */,
 				389DABD9278DC2FB00A600BF /* CustomTextField.swift in Sources */,
+				383A3F7527A95F9900F153B8 /* AddEditViewModelFactory.swift in Sources */,
 				38E992892760F97C00E2D1E6 /* DataTableViewCell.swift in Sources */,
 				38FF9F11278488F100EB9805 /* DayTasksViewController.swift in Sources */,
 				3806314127A3E03600AC4CC3 /* AttachmentsViewModel.swift in Sources */,

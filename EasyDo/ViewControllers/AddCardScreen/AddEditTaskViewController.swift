@@ -238,6 +238,7 @@ class AddEditTaskViewController: UIViewController {
         print("Datepicker: \(datePicker.date)")
         addEditCardViewModel?.dueDate = datePicker.date
     }
+    var value = 0
 }
 
 extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource {
@@ -277,8 +278,12 @@ extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource 
             vc.refreshDelegate = self
             present(vc, animated: true)
         } else if indexPath.row == 0 {
-//            let vc = PomodoroCountViewController(initialHeight: 200)
-//            present(vc, animated: true)
+            let vc = PomodoroCountViewController(initialHeight: 50)
+            vc.pomodoroRefreshed = { value in
+                self.value = value
+                self.tableView.reloadRows(at: [indexPath], with: .none)
+            }
+            present(vc, animated: true)
           
         }
        
@@ -298,7 +303,8 @@ extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource 
             switch properties.rawValue {
             case 0:
                 cell.datePicker.isHidden = true
-                cell.stepper.isHidden = false
+                cell.pomodoroCount.isHidden = false
+                
             case 1:
                 cell.stackView.isHidden = false
                
@@ -340,6 +346,7 @@ extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource 
                 tableView.separatorStyle = .none
                 cell.accessoryType = .disclosureIndicator
                 cell.initTask(initialTask: taskDetail)
+                cell.pomodoroCount.text = "\(value)"
                 //cell.delegate = self
                 switch indexPath.row {
                 case 0: enumProp = .pomodoro
