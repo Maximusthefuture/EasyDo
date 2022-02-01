@@ -36,10 +36,7 @@ class AddEditCardPropertiesViewCell: UITableViewCell {
         let view = UIView()
         return view
     }()
-    
-   
-    
-    
+
     //?????
     let datePicker: UIDatePicker = {
         let dp = UIDatePicker()
@@ -69,6 +66,11 @@ class AddEditCardPropertiesViewCell: UITableViewCell {
         datePicker.date = task?.dueDate ?? Date()
         
     }
+    
+    let stepper: UIStepper = {
+       let s = UIStepper()
+        return s
+    }()
   
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -76,6 +78,7 @@ class AddEditCardPropertiesViewCell: UITableViewCell {
         addSubview(icon)
         roundedView.addSubview(datePicker)
         contentView.addSubview(label)
+        contentView.addSubview(stepper)
        
         contentView.addSubview(stackView)
         stackView.axis = .horizontal
@@ -87,7 +90,7 @@ class AddEditCardPropertiesViewCell: UITableViewCell {
         icon.anchor(top: roundedView.topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 30, left: 40, bottom: 0, right: 16), size: .init(width: 30, height: 30))
 //        icon.centerYAnchor.constraint(equalTo: roundedView.centerYAnchor).isActive = true
         label.anchor(top: topAnchor, leading: icon.trailingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 0, left: 16, bottom: 10, right: 16))
-        
+        stepper.centerInRight(leading: nil, padding: .init(top: 0, left: 16, bottom: 0, right: 16))
         stackView.centerInRight(leading: nil, padding: .init(top: 0, left: 16, bottom: 0, right: 16))
 //        stackView.backgroundColor = .gray
         roundedView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 16, bottom: 10, right: 16))
@@ -97,6 +100,7 @@ class AddEditCardPropertiesViewCell: UITableViewCell {
         roundedView.backgroundColor = #colorLiteral(red: 0.9722431302, green: 0.972392261, blue: 1, alpha: 1)
         roundedView.clipsToBounds = true
         stackView.isHidden = true
+        stepper.isHidden = true
         
         roundedView.isAccessibilityElement = true
         isAccessibilityElement = true

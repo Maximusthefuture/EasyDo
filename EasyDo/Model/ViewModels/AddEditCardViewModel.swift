@@ -10,7 +10,7 @@ import Foundation
 
 
 protocol AddEditCardViewModelProtocol: ViewModelBased {
-    func createNewTask()
+    func createNewTask() throws
     func addCardToDayTask(time: Date?, date: Date?)
     var cardName: String? { get set }
     var cardDescription: String? { get set }
@@ -56,10 +56,14 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
         let isFormValid = cardName?.isEmpty == false && cardName!.count < 18 &&
             cardDescription?.isEmpty == false && cardDescription!.count < 40
         bindableIsFormValidObserver.value = isFormValid
+//        if cardName!.count < 18 || cardDescription!.count < 40  {
+////            bindableError.value = Errors.CardNameValidationError.tooLong
+//            print("TOOO LONG")
+//        }
     }
     
     
-    func createNewTask() {
+    func createNewTask() throws {
         if let coreDataStack = coreDataStack {
             let task = Task(context: coreDataStack.managedContext)
             task.tags = tagsArray

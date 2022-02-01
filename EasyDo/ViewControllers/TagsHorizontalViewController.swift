@@ -71,8 +71,14 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
     }
     
     func changeTag(indexPath: Int) {
-        tasksList?[indexPath].mainTag = tagsArray?[currentIndexTag!]
+        if indexPath == -1 {
+            tasksList?[0].mainTag = tagsArray?[currentIndexTag!]
+        } else {
+            tasksList?[indexPath].mainTag = tagsArray?[currentIndexTag!]
+        }
+        
         self.coreDataStack?.saveContext()
+        collectionView.reloadData()
     }
     
     var currentIndexTag: Int?

@@ -160,7 +160,7 @@ class AddEditTaskViewController: UIViewController {
         
     }()
     
-    let propertiesArray = ["Pomodoro count", "Label", "Due Date"]
+    let propertiesArray = ["Pomodoro", "Label", "Due Date"]
     
     func setupAddEditViewModelObserver() {
         addEditCardViewModel?.bindableIsFormValidObserver.bind({ isFormValid in
@@ -208,7 +208,7 @@ class AddEditTaskViewController: UIViewController {
             
             //MARK: TODO
             addEditCardViewModel?.cardDescription = cardDescription.text
-            addEditCardViewModel?.createNewTask()
+            try addEditCardViewModel?.createNewTask()
             dismiss(animated: true)
         } catch {
             errorLabel.message = error.localizedDescription
@@ -276,6 +276,10 @@ extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource 
             vc.coreData = coreDataStack
             vc.refreshDelegate = self
             present(vc, animated: true)
+        } else if indexPath.row == 0 {
+//            let vc = PomodoroCountViewController(initialHeight: 200)
+//            present(vc, animated: true)
+          
         }
        
         
@@ -294,8 +298,10 @@ extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource 
             switch properties.rawValue {
             case 0:
                 cell.datePicker.isHidden = true
+                cell.stepper.isHidden = false
             case 1:
                 cell.stackView.isHidden = false
+               
             case 2:
                 cell.datePicker.isHidden = false
                

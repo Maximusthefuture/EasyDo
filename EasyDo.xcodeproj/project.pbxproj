@@ -32,6 +32,7 @@
 		382C8C1D2787077200BE2B8A /* MenuLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382C8C1C2787077200BE2B8A /* MenuLabel.swift */; };
 		3832ABF02798600800FFFE85 /* DailyItems+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3832ABEE2798600800FFFE85 /* DailyItems+CoreDataClass.swift */; };
 		3832ABF12798600800FFFE85 /* DailyItems+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3832ABEF2798600800FFFE85 /* DailyItems+CoreDataProperties.swift */; };
+		383A3F7127A943D300F153B8 /* PomodoroCountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383A3F7027A943D300F153B8 /* PomodoroCountViewController.swift */; };
 		383A8AB927888099003EE8F7 /* AddEditCardPropertiesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383A8AB827888099003EE8F7 /* AddEditCardPropertiesViewCell.swift */; };
 		383A8ABB2788810D003EE8F7 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383A8ABA2788810D003EE8F7 /* RoundedView.swift */; };
 		383A8ABD27888321003EE8F7 /* AttachmentsCardViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383A8ABC27888321003EE8F7 /* AttachmentsCardViewCell.swift */; };
@@ -125,6 +126,7 @@
 		3832ABED27985FDF00FFFE85 /* EasyDo v11.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EasyDo v11.xcdatamodel"; sourceTree = "<group>"; };
 		3832ABEE2798600800FFFE85 /* DailyItems+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DailyItems+CoreDataClass.swift"; path = "CoreDataClass/DailyItems+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3832ABEF2798600800FFFE85 /* DailyItems+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DailyItems+CoreDataProperties.swift"; path = "CoreDataClass/DailyItems+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		383A3F7027A943D300F153B8 /* PomodoroCountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroCountViewController.swift; sourceTree = "<group>"; };
 		383A8AB827888099003EE8F7 /* AddEditCardPropertiesViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditCardPropertiesViewCell.swift; sourceTree = "<group>"; };
 		383A8ABA2788810D003EE8F7 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		383A8ABC27888321003EE8F7 /* AttachmentsCardViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentsCardViewCell.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 				381E8E28278ED7040021FDC6 /* AttachmentsViewController.swift */,
 				381E8E2C278F0B4A0021FDC6 /* PickTimeViewController.swift */,
 				387F2EF82790761000FBCB70 /* CardAddTagsViewController.swift */,
+				383A3F7027A943D300F153B8 /* PomodoroCountViewController.swift */,
 			);
 			path = AddCardScreen;
 			sourceTree = "<group>";
@@ -529,6 +532,7 @@
 				386F83F4275AAD45004DC280 /* EasyDo.xcdatamodeld in Sources */,
 				3832ABF02798600800FFFE85 /* DailyItems+CoreDataClass.swift in Sources */,
 				385644552770E8750030B0C8 /* Extensions+UIView.swift in Sources */,
+				383A3F7127A943D300F153B8 /* PomodoroCountViewController.swift in Sources */,
 				38B20B762779FADC002AD934 /* BaseListController.swift in Sources */,
 				38FF9F1527848C8B00EB9805 /* Extensions.swift in Sources */,
 				3876EE1D279D649F001A9955 /* ViewModelBased.swift in Sources */,

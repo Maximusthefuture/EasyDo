@@ -87,6 +87,7 @@ class PickTimeViewController: ResizableViewController {
     @objc func handleTimePickerChange(sender: UIDatePicker) {
         sender.timeZone = .autoupdatingCurrent
         time = sender.date
+//        viewModel.timeBinding.value = sender.date
     }
     
     @objc func handleDatePickerChange(sender: UIDatePicker) {

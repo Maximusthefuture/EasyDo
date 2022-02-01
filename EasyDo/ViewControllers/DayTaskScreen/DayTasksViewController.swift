@@ -325,15 +325,19 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
         dateFormatter.timeStyle = .short
         dateFormatter.dateFormat = "HH:mm"
         cell.taskLabel.text = items.task?.title
+        cell.taskDescription.text = items.task?.taskDescription
+        cell.tagView.label.text = dateFormatter.string(from: items.inTime ?? Date())
         if indexPath.row != 1 && indexPath.row != 0 {
             cell.tagView.isHidden = true
             cell.taskDescription.isHidden = true
+            cell.taskDescription.text = ""
+            cell.tagView.label.text = ""
         } else {
-          
-            cell.taskDescription.text = items.task?.taskDescription
-            cell.tagView.label.text = dateFormatter.string(from: items.inTime ?? Date())
-            
+            cell.tagView.isHidden = false
+            cell.taskDescription.isHidden = false
         }
+        
+        
       
         
         //MARK: TODO заполнение???

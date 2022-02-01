@@ -17,11 +17,15 @@ extension TagsHorizontalController: UICollectionViewDropDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+//        let isSelf = (session.localDragSession?.localContext as? UICollectionView) == collectionView
         if collectionView.hasActiveDrag {
             return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
         }
         return UICollectionViewDropProposal(operation: .copy, intent: .insertAtDestinationIndexPath)
+        
     }
+    
+    
     
     func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
         let destinationIndexPath: IndexPath
@@ -38,6 +42,34 @@ extension TagsHorizontalController: UICollectionViewDropDelegate {
         if coordinator.proposal.operation == .copy {
             self.copyItems(coordinator: coordinator, destinationIndexPath: destinationIndexPath, collectionView: collectionView)
         }
+        
+//        if let collection = coordinator.session.localDragSession?.localContext as? UICollectionView,
+//           let tasks = (collection.dataSource as? TagsHorizontalController)?.tasksList,
+//           let items = coordinator.session.localDragSession?.items {
+//            //            print(tasks.description)
+//            print(items.debugDescription)
+//            var indexPaths = [IndexPath]()
+//            var indexes = [Int]()
+//
+//            for item in items {
+//                if let indexPath = item.localObject as? IndexPath {
+//                    let index = indexPath.item
+//                    indexes += [index]
+//                    indexPaths += [indexPath]
+//                }
+//            }
+//
+//            collection.performBatchUpdates({
+//                collection.deleteItems(at: indexPaths)
+//                (collection.dataSource as? TagsHorizontalController)?.tasksList =
+//                tasks.enumerated()
+//                    .filter({  !indexes.contains($0.offset)
+//
+//                    }).map { $0.element}
+//            })
+
+//        }
+        
     }
 }
 
@@ -61,9 +93,10 @@ extension TagsHorizontalController {
                 }
                 indexPaths.append(indexPath)
             }
+            
             collectionView.insertItems(at: indexPaths)
-            collectionView.reloadData()
         })
+        
     }
 }
 
