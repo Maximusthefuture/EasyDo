@@ -73,6 +73,11 @@ class AddEditTaskViewController: UIViewController {
     var tableView = UITableView()
     var saveButton: UIBarButtonItem  = {
         var button =  UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneCreatingEditing))
+        if button.isEnabled {
+            button.tintColor = .blue
+        } else {
+            button.tintColor = .red
+        }
         return button
     }()
     
@@ -81,18 +86,21 @@ class AddEditTaskViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //MARK: IF CurrentProject nil???
+      
         if let coreDataStack = coreDataStack {
             addEditCardViewModel = AddEditCardViewModel(coreDataStack: coreDataStack, currentProject: currentProject)
         }
+        
+        setupEndEditingGesture()
         setupAddEditViewModelObserver()
         cardDescription.delegate = self
         view.backgroundColor = .white
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
         navigationItem.rightBarButtonItem = saveButton
+        
         initCardNameAndDescription()
         initTableView()
-        setupEndEditingGesture()
-        setViewModelObservables()
+       
     }
     
     //MARK: Init tableView
@@ -110,13 +118,6 @@ class AddEditTaskViewController: UIViewController {
         
     }
     
-    fileprivate func setViewModelObservables() {
-        vmFactory.pomodoroViewModel.pomodoroCount.bind { value in
-            self.addEditViewModel.pomodoroCount = value
-            self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
-        }
-    }
-    
     @objc func handleTextChange(textField: UITextField) {
         addEditCardViewModel?.cardName = textField.text
     }
@@ -131,7 +132,7 @@ class AddEditTaskViewController: UIViewController {
         return b
     }()
     
-    func  initCardNameAndDescription() {
+    func initCardNameAndDescription() {
         view.addSubview(cardName)
         view.addSubview(cardDescription)
         view.addSubview(addButton)
@@ -171,16 +172,15 @@ class AddEditTaskViewController: UIViewController {
     let propertiesArray = ["Pomodoro", "Label", "Due Date"]
     
     func setupAddEditViewModelObserver() {
-        addEditCardViewModel?.bindableIsFormValidObserver.bind({ isFormValid in
+        addEditCardViewModel?.bindableIsFormValidObserver.bind({ [weak self] isFormValid in
             guard let isFormValid = isFormValid else {
                 return
             }
-            self.saveButton.isEnabled = isFormValid
-            
+            self?.saveButton.isEnabled = isFormValid
         })
     }
     
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         cardName.text = taskDetail?.title
@@ -216,7 +216,9 @@ class AddEditTaskViewController: UIViewController {
             
             //MARK: TODO
             addEditCardViewModel?.cardDescription = cardDescription.text
+            addEditCardViewModel?.pomodoroCount = vmFactory.pomodoroViewModel.pomodoroCount.value
             try addEditCardViewModel?.createNewTask()
+            print(sender.isEnabled)
             dismiss(animated: true)
         } catch {
             errorLabel.message = error.localizedDescription
@@ -273,19 +275,26 @@ extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource 
         return headerLabel
     }
     
+    fileprivate func presentToCardAddTagsVM() {
+        //MARK: TODO add textField with color picker max 2 tags.
+        let vc = CardAddTagsViewController(initialHeight: 200)
+        vc.taskDetail = taskDetail
+        vc.coreData = coreDataStack
+        vc.refreshDelegate = self
+        present(vc, animated: true)
+    }
+    
+    fileprivate func presentToPomodoroCountVM() {
+        let vc = PomodoroCountViewController(initialHeight: 50, viewModel: vmFactory.pomodoroViewModel)
+        present(vc, animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("IndexPath: ", indexPath.row)
         if indexPath.row == 1 {
-            //MARK: TODO add textField with color picker max 2 tags.
-            let vc = CardAddTagsViewController(initialHeight: 200)
-            vc.taskDetail = taskDetail
-            vc.coreData = coreDataStack
-            vc.refreshDelegate = self
-            present(vc, animated: true)
+            presentToCardAddTagsVM()
         } else if indexPath.row == 0 {
-            let vc = PomodoroCountViewController(initialHeight: 50, viewModel: vmFactory.pomodoroViewModel)
-            present(vc, animated: true)
-            
+            presentToPomodoroCountVM()
         }
     }
     
@@ -345,12 +354,11 @@ extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource 
                 tableView.separatorStyle = .none
                 cell.accessoryType = .disclosureIndicator
                 cell.initTask(initialTask: taskDetail)
-                cell.pomodoroCount.text = "\(addEditViewModel.pomodoroCount ?? 0)"
+                cell.pomodoroCount.text = "\(Int(taskDetail?.pomodoroCount ?? 0))"
                 //cell.delegate = self
                 switch indexPath.row {
                 case 0: enumProp = .pomodoro
                 case 1: enumProp = .label
-                    //            case 2: enumProp = .dueDate
                 default:
                     print("default =)")
                 }
