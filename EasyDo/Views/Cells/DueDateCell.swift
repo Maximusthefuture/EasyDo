@@ -39,14 +39,24 @@ class DueDateCell: UITableViewCell {
         }
     }
     
-    func initDueDateTask(task: Task?) {
-        if let date = task?.dueDate {
-            datePicker.date = date
+    func initDueDateTask(task: Task?, isHaveDueDate: Bool) {
+        if !isHaveDueDate {
+            if let date = task?.dueDate {
+                datePicker.date = date
+            } else {
+                datePicker.isHidden = true
+                deadLineCheckbox.isChecked = true
+            }
+            datePicker.isHidden = false
+            deadLineCheckbox.isChecked = false
+            deadLineCheckbox.isHidden = true
+            noDeadLineLabel.isHidden = true
         } else {
             datePicker.isHidden = true
-            
-            deadLineCheckbox.isChecked = true
+            deadLineCheckbox.toggle()
+            deadLineCheckbox.isUserInteractionEnabled = false
         }
+       
       
     }
     

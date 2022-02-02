@@ -329,33 +329,21 @@ extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             if indexPath.row == 2 {
+                let date = Date(timeIntervalSince1970: 0)
                 let cell = tableView.dequeueReusableCell(withIdentifier: "Due date", for: indexPath) as! DueDateCell
-                cell.timeLabel.text = "2020-19-12, 20:00"
                 cell.datePicker.addTarget(self, action: #selector(datePickerChange), for: .editingDidEnd)
-                cell.initDueDateTask(task: taskDetail)
+                cell.initDueDateTask(task: taskDetail, isHaveDueDate: taskDetail?.dueDate == date)
                 if isAddMyDay ?? false {
                     cell.deadLineCheckbox.isUserInteractionEnabled = false
-                }
-                let date = Date(timeIntervalSince1970: 0)
-                if taskDetail?.dueDate == date {
-                    cell.datePicker.isHidden = true
-                    cell.deadLineCheckbox.toggle()
-                    cell.deadLineCheckbox.isUserInteractionEnabled = false
-                } else {
-                    cell.datePicker.isHidden = false
-                    cell.deadLineCheckbox.isChecked = false
                 }
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: propertiesCell, for: indexPath) as! AddEditCardPropertiesViewCell
                 let propepties = propertiesArray[indexPath.row]
                 cell.label.text = propepties
-                cell.selectionStyle = .none
                 tableView.separatorStyle = .none
-                cell.accessoryType = .disclosureIndicator
                 cell.initTask(initialTask: taskDetail)
-                cell.pomodoroCount.text = "\(Int(taskDetail?.pomodoroCount ?? 0))"
-                //cell.delegate = self
+                
                 switch indexPath.row {
                 case 0: enumProp = .pomodoro
                 case 1: enumProp = .label
@@ -367,8 +355,6 @@ extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource 
                 }
                 return cell
             }
-            
-            
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: attachmentsCell, for: indexPath) as! AttachmentsCardViewCell
             cell.selectionStyle = .none

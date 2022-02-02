@@ -68,6 +68,7 @@ class AddEditCardPropertiesViewCell: UITableViewCell {
             
             stackView.addArrangedSubview(tagView)
         }
+        pomodoroCount.text = "\(Int(task?.pomodoroCount ?? 0))"
         datePicker.date = task?.dueDate ?? Date()
         
     }
@@ -103,7 +104,8 @@ class AddEditCardPropertiesViewCell: UITableViewCell {
         pomodoroCount.isHidden = true
         stackView.isHidden = true
        
-        
+        selectionStyle = .none
+        accessoryType = .disclosureIndicator
         roundedView.isAccessibilityElement = true
         isAccessibilityElement = true
     }
