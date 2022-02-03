@@ -129,7 +129,7 @@ class AddEditTaskViewController: UIViewController {
         tableView.register(AddEditCardPropertiesViewCell.self, forCellReuseIdentifier: propertiesCell)
 //        tableView.register(AddEditCardPropertiesViewCell.self, forCellReuseIdentifier: String.init(describing: AddEditCardPropertiesViewCell.self))
         tableView.register(AttachmentsCardViewCell.self, forCellReuseIdentifier: attachmentsCell)
-        tableView.register(DueDateCell.self, forCellReuseIdentifier: "Due date")
+        tableView.register(DueDateCell.self, forCellReuseIdentifier: String.init(describing: DueDateCell.self))
         //        tableView.isScrollEnabled = false
         
     }
@@ -185,7 +185,7 @@ class AddEditTaskViewController: UIViewController {
         
     }()
     
-    let propertiesArray = ["Pomodoro", "Label"]
+    let propertiesArray = ["Pomodoro", "Label", "Due date"]
     
     func setupAddEditViewModelObserver() {
         addEditCardViewModel?.bindableIsFormValidObserver.bind({ [weak self] isFormValid in
@@ -346,7 +346,7 @@ extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource 
         if indexPath.section == 0 {
             if indexPath.row == 2 {
                 let date = Date(timeIntervalSince1970: 0)
-                let cell = tableView.dequeueReusableCell(withIdentifier: "Due date", for: indexPath) as! DueDateCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: String.init(describing: DueDateCell.self), for: indexPath) as! DueDateCell
                 cell.datePicker.addTarget(self, action: #selector(datePickerChange), for: .editingDidEnd)
                 cell.initDueDateTask(task: taskDetail, isHaveDueDate: taskDetail?.dueDate == date)
                 if isAddMyDay ?? false {
@@ -363,6 +363,7 @@ extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource 
                 switch indexPath.row {
                 case 0: enumProp = .pomodoro
                 case 1: enumProp = .label
+                case 2: enumProp = .dueDate
                 default:
                     print("default =)")
                 }

@@ -78,6 +78,7 @@ final class AddEditTableManager: NSObject, AddEditTableManagerProtocol {
         configuratorSection.append(output)
         table?.reloadData()
     }
+    
     func displayTodo() {
         let output: [CellConfigurator] =  [createTodoConfigurator()]
         configuratorSection.append(output)
@@ -118,7 +119,7 @@ extension AddEditTableManager: UITableViewDelegate, UITableViewDataSource {
             if indexPath.row == 0 {
                 self.didPomodoroTapped?("pomodoro")
             } else {
-                self.didPomodoroTapped?("label")
+                self.didTagTapped?("tag")
             }
             
         case .dueDate: break
