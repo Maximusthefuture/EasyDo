@@ -214,7 +214,7 @@ class CardAddTagsViewController: ResizableViewController {
             stackView.addArrangedSubview(tagView)
             coreData?.saveContext()
             UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn) {
-                tagView.frame = CGRect(origin: .init(x: 20, y: 20), size: .zero)
+                tagView.frame = CGRect(origin: .init(x:self.tagsNameTextField.frame.minX, y: self.tagsNameTextField.frame.midY), size: .zero)
             } completion: { Bool in
                 tagView.transform = .identity
             }
