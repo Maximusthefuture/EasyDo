@@ -102,7 +102,11 @@ class AddEditTaskViewController: UIViewController {
 
         initCardNameAndDescription()
         initTableView()
+//        tableManager.attachTable(tableView)
+//        tableManager.displayProperties(properties: propertiesArray)
         
+
+       
     }
     
     //MARK: Init tableView
@@ -114,6 +118,7 @@ class AddEditTaskViewController: UIViewController {
         tableView.delegate = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         tableView.register(AddEditCardPropertiesViewCell.self, forCellReuseIdentifier: propertiesCell)
+//        tableView.register(AddEditCardPropertiesViewCell.self, forCellReuseIdentifier: String.init(describing: AddEditCardPropertiesViewCell.self))
         tableView.register(AttachmentsCardViewCell.self, forCellReuseIdentifier: attachmentsCell)
         tableView.register(DueDateCell.self, forCellReuseIdentifier: "Due date")
         //        tableView.isScrollEnabled = false

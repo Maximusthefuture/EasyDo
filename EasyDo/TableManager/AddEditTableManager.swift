@@ -15,6 +15,18 @@ import UIKit
 
 final class AddEditTableManager: NSObject, AddEditTableManagerProtocol {
     
+    lazy var attachmentsHeader: UIView = {
+        let headerLabel = HeaderLabel()
+        let properties = UIView()
+//        properties.addSubview(seeAllButton)
+        properties.addSubview(headerLabel)
+        headerLabel.anchor(top: properties.topAnchor, leading: properties.leadingAnchor, bottom: properties.bottomAnchor, trailing: nil, size: .init(width: 200, height: 0))
+        headerLabel.text = "Attachments"
+//        seeAllButton.anchor(top: properties.topAnchor, leading: nil, bottom: properties.bottomAnchor, trailing: properties.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 16))
+        return properties
+        
+    }()
+    
     var didPomodoroTapped: ((String) -> Void)?
     var didTagTapped: ((String) -> Void)?
     var didDueDateTapped: ((String) -> Void)?
@@ -27,6 +39,8 @@ final class AddEditTableManager: NSObject, AddEditTableManagerProtocol {
     }
     
     private var configuratorDataSource: [CellConfigurator] = []
+    //for sections
+    private var configuratorSection: [[CellConfigurator]] = []
     
     private func createPropertiesConfigurator(_ model: String) -> CellConfigurator {
         let configurator = AddEditPropertiesConfigurator()
@@ -37,7 +51,7 @@ final class AddEditTableManager: NSObject, AddEditTableManagerProtocol {
     func displayProperties(properties: [String]) {
         
         let output: [CellConfigurator] = properties.compactMap { createPropertiesConfigurator($0) }
-        self.configuratorDataSource = output
+        self.configuratorSection[0] = output
         table?.reloadData()
     }
  
@@ -46,21 +60,21 @@ final class AddEditTableManager: NSObject, AddEditTableManagerProtocol {
 extension AddEditTableManager: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return configuratorSection.count
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        configuratorDataSource.count
+        return configuratorSection[0].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let configurator = configuratorDataSource[indexPath.row]
+        let configurator = configuratorSection[0][indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: configurator.reuseId, for: indexPath)
         configurator.setupCell(cell)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currentConfigurator = configuratorDataSource[indexPath.row]
+        let currentConfigurator = configuratorSection[0][indexPath.row]
         switch currentConfigurator.cellType {
             
         case .properties:
@@ -88,6 +102,19 @@ extension AddEditTableManager: UITableViewDelegate, UITableViewDataSource {
         }
         return 80
     }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerLabel = HeaderLabel()
+        switch section {
+        case 0: headerLabel.text = "Properties"
+        case 1: return attachmentsHeader
+        default:
+            headerLabel.text = "TO-DO"
+        }
+        return headerLabel
+    }
+    
+   
     
     
 }
