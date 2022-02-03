@@ -14,7 +14,7 @@ protocol CardAddTagsViewModelProtocol: AnyObject {
     var recentlyUsedTagsBinding: ((String) -> Void)? { get set }// Color?
 }
 
-class CardAddTagsViewModel: AttachmentsViewModelProtocol {
+class CardAddTagsViewModel: CardAddTagsViewModelProtocol {
     var tagName: String?
     var recentlyUsedTagsBinding: ((String) -> Void)?
     var recentlyUsedTags: [String]? = ["Some", "Of", "Tags", "Is", "Here?", "LOng tag is here", "Here toooooooo"]

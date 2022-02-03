@@ -44,6 +44,11 @@
 		384F0777279AF1EF00C950B7 /* EasyDoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384F0776279AF1EF00C950B7 /* EasyDoUITestsLaunchTests.swift */; };
 		385644552770E8750030B0C8 /* Extensions+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385644542770E8750030B0C8 /* Extensions+UIView.swift */; };
 		385644582770E9D70030B0C8 /* TagUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385644572770E9D70030B0C8 /* TagUIView.swift */; };
+		385EB09F27ABBF8000D05F6A /* AddEditCardCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385EB09E27ABBF7F00D05F6A /* AddEditCardCellType.swift */; };
+		385EB0A127ABBFF300D05F6A /* CellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385EB0A027ABBFF300D05F6A /* CellConfigurator.swift */; };
+		385EB0A327ABC06F00D05F6A /* AddEditPropertiesConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385EB0A227ABC06F00D05F6A /* AddEditPropertiesConfigurator.swift */; };
+		385EB0A527ABC1C200D05F6A /* AddEditTableManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385EB0A427ABC1C200D05F6A /* AddEditTableManagerProtocol.swift */; };
+		385EB0A727ABC2EB00D05F6A /* AddEditTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385EB0A627ABC2EB00D05F6A /* AddEditTableManager.swift */; };
 		3868B92F276E376200F2B765 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868B92E276E376200F2B765 /* Model.swift */; };
 		3868B931276E376C00F2B765 /* Model+Dragging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868B930276E376C00F2B765 /* Model+Dragging.swift */; };
 		3868B933276E383700F2B765 /* TableViewController+Drag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868B932276E383600F2B765 /* TableViewController+Drag.swift */; };
@@ -141,6 +146,11 @@
 		384F0776279AF1EF00C950B7 /* EasyDoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyDoUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		385644542770E8750030B0C8 /* Extensions+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+UIView.swift"; sourceTree = "<group>"; };
 		385644572770E9D70030B0C8 /* TagUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagUIView.swift; sourceTree = "<group>"; };
+		385EB09E27ABBF7F00D05F6A /* AddEditCardCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditCardCellType.swift; sourceTree = "<group>"; };
+		385EB0A027ABBFF300D05F6A /* CellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfigurator.swift; sourceTree = "<group>"; };
+		385EB0A227ABC06F00D05F6A /* AddEditPropertiesConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditPropertiesConfigurator.swift; sourceTree = "<group>"; };
+		385EB0A427ABC1C200D05F6A /* AddEditTableManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditTableManagerProtocol.swift; sourceTree = "<group>"; };
+		385EB0A627ABC2EB00D05F6A /* AddEditTableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditTableManager.swift; sourceTree = "<group>"; };
 		3868B92E276E376200F2B765 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		3868B930276E376C00F2B765 /* Model+Dragging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Model+Dragging.swift"; sourceTree = "<group>"; };
 		3868B932276E383600F2B765 /* TableViewController+Drag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TableViewController+Drag.swift"; sourceTree = "<group>"; };
@@ -263,6 +273,18 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		385EB09D27ABBEAE00D05F6A /* TableManager */ = {
+			isa = PBXGroup;
+			children = (
+				385EB09E27ABBF7F00D05F6A /* AddEditCardCellType.swift */,
+				385EB0A027ABBFF300D05F6A /* CellConfigurator.swift */,
+				385EB0A227ABC06F00D05F6A /* AddEditPropertiesConfigurator.swift */,
+				385EB0A427ABC1C200D05F6A /* AddEditTableManagerProtocol.swift */,
+				385EB0A627ABC2EB00D05F6A /* AddEditTableManager.swift */,
+			);
+			path = TableManager;
+			sourceTree = "<group>";
+		};
 		386F83DD275AAD45004DC280 = {
 			isa = PBXGroup;
 			children = (
@@ -291,6 +313,7 @@
 		386F83E8275AAD45004DC280 /* EasyDo */ = {
 			isa = PBXGroup;
 			children = (
+				385EB09D27ABBEAE00D05F6A /* TableManager */,
 				389DABD0278DBFF400A600BF /* BottomSheetHelpers */,
 				381CAAA82781EA6F00E8AB00 /* Helpers */,
 				38EF6DF8277DE9DA00261125 /* Model */,
@@ -526,18 +549,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				385EB0A127ABBFF300D05F6A /* CellConfigurator.swift in Sources */,
 				3804DE4627A80F9100926585 /* Bindable.swift in Sources */,
 				3876EE20279D64FA001A9955 /* AddEditCardViewModel.swift in Sources */,
 				3868B935276E383C00F2B765 /* TableViewController+Drop.swift in Sources */,
 				3806314527A3E62100AC4CC3 /* RecentlyTagsCell.swift in Sources */,
+				385EB0A327ABC06F00D05F6A /* AddEditPropertiesConfigurator.swift in Sources */,
 				38EF6DFC277DF1C700261125 /* TaskViewModel.swift in Sources */,
 				3868B92F276E376200F2B765 /* Model.swift in Sources */,
+				385EB0A727ABC2EB00D05F6A /* AddEditTableManager.swift in Sources */,
 				3812D68227A82B750065F190 /* DayTasksViewCell.swift in Sources */,
 				383A3F7327A95EE400F153B8 /* PomodoroCountViewModel.swift in Sources */,
 				381E8E2D278F0B4A0021FDC6 /* PickTimeViewController.swift in Sources */,
 				3868B933276E383700F2B765 /* TableViewController+Drag.swift in Sources */,
 				386F83F4275AAD45004DC280 /* EasyDo.xcdatamodeld in Sources */,
 				3832ABF02798600800FFFE85 /* DailyItems+CoreDataClass.swift in Sources */,
+				385EB0A527ABC1C200D05F6A /* AddEditTableManagerProtocol.swift in Sources */,
 				385644552770E8750030B0C8 /* Extensions+UIView.swift in Sources */,
 				383A3F7127A943D300F153B8 /* PomodoroCountViewController.swift in Sources */,
 				38B20B762779FADC002AD934 /* BaseListController.swift in Sources */,
@@ -591,6 +618,7 @@
 				380ADEDA2779F5B300B97EB9 /* Project.swift in Sources */,
 				3804DE4127A7DE2E00926585 /* ViewControllerFactory.swift in Sources */,
 				38B20B7E2779FFAA002AD934 /* TasksCollectionViewCell.swift in Sources */,
+				385EB09F27ABBF8000D05F6A /* AddEditCardCellType.swift in Sources */,
 				380B4C9327998F4100E81A4F /* VerticalStackView.swift in Sources */,
 				38F36D4C27A4231D002DD1C7 /* CircularCheckbox.swift in Sources */,
 				382C8C1D2787077200BE2B8A /* MenuLabel.swift in Sources */,

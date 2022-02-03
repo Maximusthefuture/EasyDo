@@ -23,6 +23,8 @@ class AddEditTaskViewController: UIViewController {
     var enumProp: Properties?
     
     
+    var tableManager: AddEditTableManager = AddEditTableManager()
+    
     //MARK: ??????
     init(viewModel: ViewModelBased, task: Task) {
         self.viewModel = viewModel
@@ -97,9 +99,10 @@ class AddEditTaskViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
         navigationItem.rightBarButtonItem = saveButton
-        
+
         initCardNameAndDescription()
         initTableView()
+
        
     }
     

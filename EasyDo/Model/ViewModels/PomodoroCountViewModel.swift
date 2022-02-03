@@ -7,7 +7,12 @@
 
 import Foundation
 
-struct PomodoroCountViewModel {
+protocol PomodoroCountViewModelProtocol {
+    var pomodoroCount: Bindable<Int> { get}
+    func setPomodoroCount()
+}
+
+struct PomodoroCountViewModel: PomodoroCountViewModelProtocol {
     var pomodoroCount = Bindable<Int>(0)
     
     

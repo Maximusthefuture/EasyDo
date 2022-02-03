@@ -7,9 +7,28 @@
 
 import Foundation
 
+protocol AddEditViewModelFactoryProtocol {
+    func makePomodoroViewModel() -> PomodoroCountViewModelProtocol
+    func makeAttachmentViewModel() -> AttachmentsViewModelProtocol
+    func makeCardAddTagsViewModel() -> CardAddTagsViewModelProtocol
+}
 
-class AddEditViewModelFactory {
-  lazy var pomodoroViewModel = PomodoroCountViewModel()
+
+class AddEditViewModelFactory: AddEditViewModelFactoryProtocol {
+   
+    lazy var pomodoroViewModel = PomodoroCountViewModel()
     lazy var attachmentViewModel = AttachmentsViewModel()
-    var cardAddTagsViewModel: CardAddTagsViewModel?
+    lazy var cardAddTagsViewModel = CardAddTagsViewModel()
+    
+    func makePomodoroViewModel() -> PomodoroCountViewModelProtocol {
+        return pomodoroViewModel
+    }
+    
+    func makeAttachmentViewModel() -> AttachmentsViewModelProtocol {
+        return attachmentViewModel
+    }
+    
+    func makeCardAddTagsViewModel() -> CardAddTagsViewModelProtocol {
+        return cardAddTagsViewModel
+    }
 }
