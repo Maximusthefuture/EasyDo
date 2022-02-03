@@ -102,8 +102,7 @@ class AddEditTaskViewController: UIViewController {
 
         initCardNameAndDescription()
         initTableView()
-
-       
+        
     }
     
     //MARK: Init tableView

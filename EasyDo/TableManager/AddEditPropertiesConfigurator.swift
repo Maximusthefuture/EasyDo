@@ -15,15 +15,15 @@ final class AddEditPropertiesConfigurator: CellConfigurator {
     
     var cellType: AddEditCardCellType { .properties }
     
-    var model: Task?
+    var model: String?
     var propeptiesLabel: String?
     
     func setupCell(_ cell: UIView) {
         
         guard let cell = cell as? AddEditCardPropertiesViewCell,
               let task = model else { return }
-        cell.label.text = propeptiesLabel
-        cell.initTask(initialTask: task)
+        cell.label.text = model
+//        cell.initTask(initialTask: task)
     }
     
     

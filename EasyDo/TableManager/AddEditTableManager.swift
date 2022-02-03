@@ -28,13 +28,13 @@ final class AddEditTableManager: NSObject, AddEditTableManagerProtocol {
     
     private var configuratorDataSource: [CellConfigurator] = []
     
-    private func createPropertiesConfigurator(_ model: Task) -> CellConfigurator {
+    private func createPropertiesConfigurator(_ model: String) -> CellConfigurator {
         let configurator = AddEditPropertiesConfigurator()
         configurator.model = model
         return configurator
     }
     
-    func displayProperties(properties: [Task]) {
+    func displayProperties(properties: [String]) {
         
         let output: [CellConfigurator] = properties.compactMap { createPropertiesConfigurator($0) }
         self.configuratorDataSource = output
@@ -46,7 +46,7 @@ final class AddEditTableManager: NSObject, AddEditTableManagerProtocol {
 extension AddEditTableManager: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         configuratorDataSource.count
@@ -72,6 +72,21 @@ extension AddEditTableManager: UITableViewDelegate, UITableViewDataSource {
         case .todo: break
             
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 100
+        } else {
+            return 40
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 2 {
+            return 150
+        }
+        return 80
     }
     
     
