@@ -28,3 +28,37 @@ final class AddEditPropertiesConfigurator: CellConfigurator {
     
     
 }
+
+final class AddEditAttachmentConfigurator: CellConfigurator {
+    var reuseId: String{ String(describing: AttachmentsCardViewCell.self) }
+    
+    var cellType: AddEditCardCellType { .attachments }
+    var model: String?
+    
+    func setupCell(_ cell: UIView) {
+        guard let cell = cell as? AddEditCardPropertiesViewCell,
+              let task = model else { return }
+        
+    }
+    
+    
+}
+
+final class AddEditTodoConfigurator: CellConfigurator {
+    let cellId = "CellID"
+    var reuseId: String { return cellId }
+    
+    var cellType: AddEditCardCellType { .todo }
+    var model: String?
+    
+    func setupCell(_ cell: UIView) {
+        guard let cell = cell as? UITableViewCell,
+              let task = model else { return }
+        cell.backgroundColor = .blue
+        print("cell", cell.isSelected)
+        
+    }
+    
+    
+}
+

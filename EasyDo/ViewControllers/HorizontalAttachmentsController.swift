@@ -44,6 +44,10 @@ class HorizontalAttachmentsController: BaseListController, UICollectionViewDeleg
         return .init(width: 160, height: 100)
     }
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("ITEM")
+    }
+    
     
     
     

@@ -18,6 +18,7 @@ class AttachmentsCardViewCell: UITableViewCell {
         contentView.addSubview(horizontalAttachments.view)
         horizontalAttachments.view.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor)
         horizontalAttachments.view.clipsToBounds = true
+       
     }
     
     required init?(coder: NSCoder) {

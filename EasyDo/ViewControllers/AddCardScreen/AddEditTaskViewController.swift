@@ -102,8 +102,17 @@ class AddEditTaskViewController: UIViewController {
 
         initCardNameAndDescription()
         initTableView()
+        
 //        tableManager.attachTable(tableView)
 //        tableManager.displayProperties(properties: propertiesArray)
+//        tableManager.displayAttachments(attachments: propertiesArray)
+//        tableManager.displayTodo()
+//        tableManager.didDueDateTapped = { f in
+//            print(f)
+//        }
+//        tableManager.didPomodoroTapped = { pomodoro in
+//            print(pomodoro)
+//        }
         
 
        
@@ -176,7 +185,7 @@ class AddEditTaskViewController: UIViewController {
         
     }()
     
-    let propertiesArray = ["Pomodoro", "Label", "Due Date"]
+    let propertiesArray = ["Pomodoro", "Label"]
     
     func setupAddEditViewModelObserver() {
         addEditCardViewModel?.bindableIsFormValidObserver.bind({ [weak self] isFormValid in

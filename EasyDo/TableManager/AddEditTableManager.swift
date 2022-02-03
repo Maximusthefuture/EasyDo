@@ -15,6 +15,11 @@ import UIKit
 
 final class AddEditTableManager: NSObject, AddEditTableManagerProtocol {
     
+    
+    let cellId = "CellID"
+    let propertiesCell = "PropertiesCell"
+    let attachmentsCell = "attachmentsCell"
+    
     lazy var attachmentsHeader: UIView = {
         let headerLabel = HeaderLabel()
         let properties = UIView()
@@ -36,6 +41,7 @@ final class AddEditTableManager: NSObject, AddEditTableManagerProtocol {
         self.table = tableView
         table?.dataSource = self
         table?.delegate = self
+        table?.separatorStyle = .none
     }
     
     private var configuratorDataSource: [CellConfigurator] = []
@@ -49,9 +55,32 @@ final class AddEditTableManager: NSObject, AddEditTableManagerProtocol {
     }
     
     func displayProperties(properties: [String]) {
-        
-        let output: [CellConfigurator] = properties.compactMap { createPropertiesConfigurator($0) }
-        self.configuratorSection[0] = output
+        let output: [CellConfigurator] =  properties.compactMap({ createPropertiesConfigurator($0)})
+        configuratorDataSource = output
+        configuratorSection.append(output)
+        table?.reloadData()
+    }
+    
+    private func createAttachmentsConfigurator(_ model: String) -> CellConfigurator {
+        let configurator = AddEditAttachmentConfigurator()
+        configurator.model = model
+        return configurator
+    }
+    
+    private func createTodoConfigurator() -> CellConfigurator {
+        let configurator = AddEditTodoConfigurator()
+        return configurator
+    }
+    
+    func displayAttachments(attachments: [String]) {
+        let output: [CellConfigurator] =  attachments.compactMap({ createAttachmentsConfigurator($0)})
+        configuratorDataSource = output
+        configuratorSection.append(output)
+        table?.reloadData()
+    }
+    func displayTodo() {
+        let output: [CellConfigurator] =  [createTodoConfigurator()]
+        configuratorSection.append(output)
         table?.reloadData()
     }
  
@@ -62,28 +91,42 @@ extension AddEditTableManager: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return configuratorSection.count
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return configuratorSection[0].count
+        if section == 0 {
+            return configuratorSection[0].count
+        }
+        return 1
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let configurator = configuratorSection[0][indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: configurator.reuseId, for: indexPath)
-        configurator.setupCell(cell)
-        return cell
+        
+            let configurator = configuratorSection[indexPath.section][indexPath.row]
+            let cell = tableView.dequeueReusableCell(withIdentifier: configurator.reuseId, for: indexPath)
+            configurator.setupCell(cell)
+            return cell
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currentConfigurator = configuratorSection[0][indexPath.row]
+        print("INDEXPATH", indexPath.section)
+        let currentConfigurator = configuratorSection[indexPath.section][indexPath.row]
         switch currentConfigurator.cellType {
             
         case .properties:
-            self.didPomodoroTapped?("pomodoro")
+            if indexPath.row == 0 {
+                self.didPomodoroTapped?("pomodoro")
+            } else {
+                self.didPomodoroTapped?("label")
+            }
+            
         case .dueDate: break
             
-        case .attachments: break
-            
-        case .todo: break
+        case .attachments: 
+            self.didDueDateTapped?("ATTACHMENTS")
+        case .todo:
+            self.didTagTapped?("TAG")
             
         }
     }
