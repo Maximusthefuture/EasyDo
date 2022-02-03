@@ -231,7 +231,7 @@ class AddEditTaskViewController: UIViewController {
     
     @objc fileprivate func addCardToDayTask(sender: UIButton) {
         let vc = PickTimeViewController(initialHeight: 300)
-        
+        vc.coreDataStack = coreDataStack
         present(vc, animated: true)
         vc.dataSavedWithDate = { [weak self] time, date in
             self?.addEditCardViewModel?.taskDetail = self?.taskDetail

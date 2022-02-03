@@ -13,7 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private let coreDataStack = CoreDataStack(modelName: "EasyDo")
     let container = DependencyContainer()
-    
+   
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -54,6 +54,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
+        print("VIEW SCENE GOING FOREGROUND")
+//        refreshDateshere?
+        
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
@@ -63,6 +66,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Save changes in the application's managed object context when the application transitions to the background.
 //        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+        print("VIEW SCENE GOING BACKGROUND")
     }
 
 

@@ -45,6 +45,7 @@ class DayTasksViewController: UIViewController {
     var coreDataStack:CoreDataStack?
     var myDayLabel = UIButton()
     var tableView = UITableView()
+    
     let emptyLabel: UIButton = {
         let button = UIButton()
         button.setTitle("NOTHING HERE Add item +", for: .normal)
@@ -105,7 +106,12 @@ class DayTasksViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("VIEW WILL APPEAR")
+        print("VIEW WILL APPEAR daytasks")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("VIEW DISAPERA daytasks")
     }
     
     fileprivate func emptyLabelInit() {
@@ -114,9 +120,11 @@ class DayTasksViewController: UIViewController {
         emptyLabel.centerInSuperview()
         emptyLabel.isHidden = true
     }
+    
     //MARK: TODO
     @objc func handleEmptyLabelTap() {
         print("handle here")
+        //push with animation????
     }
     
     fileprivate func tableViewInit() {
@@ -182,7 +190,6 @@ class DayTasksViewController: UIViewController {
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: date)
         let currentHour = calendar.component(.hour, from: Date())
-//        calendar.isDate(<#T##date1: Date##Date#>, inSameDayAs: <#T##Date#>)
         return hour == currentHour
     }
     
@@ -289,6 +296,14 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
     //            }
     //        }
     //    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        addButton.isHidden = true
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        addButton.isHidden = false
+    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension

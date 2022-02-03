@@ -32,6 +32,7 @@ class PickTimeViewController: ResizableViewController {
     var date: Date?
     var time: Date?
     var dataSavedWithDate: ((Date?, Date?) -> Void)?
+    var coreDataStack: CoreDataStack?
     
     let saveButton: UIButton = {
        let b = UIButton()
@@ -48,7 +49,7 @@ class PickTimeViewController: ResizableViewController {
         dp.locale = Locale.current
         dp.datePickerMode = .time
         dp.addTarget(self, action: #selector(handleTimePickerChange), for: .editingDidEnd)
-        
+       
         return dp
     }()
     
@@ -61,8 +62,13 @@ class PickTimeViewController: ResizableViewController {
         return dp
     }()
     
+    var dailyItems: [DailyItems] = []
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        var fetchRequest = DailyItems.fetchRequest()
+        dailyItems = try! coreDataStack!.managedContext.fetch(fetchRequest)
         view.backgroundColor = .white
         view.addSubview(whenLabel)
         view.addSubview(saveButton)
@@ -71,8 +77,16 @@ class PickTimeViewController: ResizableViewController {
         saveButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 16, bottom: 0, right: 16),size: CGSize(width: 0, height: 60))
         dateLabel.text = "Date"
         timeLabel.text = "Time"
+        checkPrevTime()
         stackViewInit()
     }
+    
+    fileprivate func checkPrevTime() {
+        //MARK: TODO move to VM?
+        let lastItem = dailyItems.filter { $0.inDate?.onlyDate == datePicker.date.onlyDate }.last
+        timePicker.date = lastItem?.inTime ?? Date()
+    }
+    
     
     fileprivate func stackViewInit() {
         let horizontalDateStackView = UIStackView(arrangedSubviews: [dateLabel, datePicker])
