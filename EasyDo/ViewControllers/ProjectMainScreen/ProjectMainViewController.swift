@@ -42,11 +42,7 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
     }
     
     var changeTagClosure: ((Int) -> Void)?
-    
-    func f() -> (Int) -> Void {
-        return changeTagClosure!
-    }
-    
+
     func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout {
             (sectionIndex: Int, layoutEnviroment: NSCollectionLayoutEnvironment) ->

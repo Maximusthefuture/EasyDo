@@ -125,7 +125,7 @@ class AddEditTaskViewController: UIViewController {
         tableView.anchor(top: cardDescription.bottomAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
+        tableView.register(TodoViewCell.self, forCellReuseIdentifier: String.init(describing: TodoViewCell.self))
         tableView.register(AddEditCardPropertiesViewCell.self, forCellReuseIdentifier: propertiesCell)
 //        tableView.register(AddEditCardPropertiesViewCell.self, forCellReuseIdentifier: String.init(describing: AddEditCardPropertiesViewCell.self))
         tableView.register(AttachmentsCardViewCell.self, forCellReuseIdentifier: attachmentsCell)
@@ -378,8 +378,8 @@ extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource 
             return cell
         }
         else  {
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
-            cell.backgroundColor = .blue
+            let cell = tableView.dequeueReusableCell(withIdentifier: String.init(describing: TodoViewCell.self), for: indexPath) as! TodoViewCell
+//            cell.backgroundColor = .blue
             return cell
         }
     }

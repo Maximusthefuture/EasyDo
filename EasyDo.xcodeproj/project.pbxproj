@@ -49,6 +49,9 @@
 		385EB0A327ABC06F00D05F6A /* AddEditPropertiesConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385EB0A227ABC06F00D05F6A /* AddEditPropertiesConfigurator.swift */; };
 		385EB0A527ABC1C200D05F6A /* AddEditTableManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385EB0A427ABC1C200D05F6A /* AddEditTableManagerProtocol.swift */; };
 		385EB0A727ABC2EB00D05F6A /* AddEditTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385EB0A627ABC2EB00D05F6A /* AddEditTableManager.swift */; };
+		385EB0A927ABFDC600D05F6A /* TodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385EB0A827ABFDC600D05F6A /* TodoViewController.swift */; };
+		385EB0AB27ABFE4D00D05F6A /* TodoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385EB0AA27ABFE4D00D05F6A /* TodoViewCell.swift */; };
+		385EB0AD27ABFEC500D05F6A /* TodoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385EB0AC27ABFEC500D05F6A /* TodoListCell.swift */; };
 		3868B92F276E376200F2B765 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868B92E276E376200F2B765 /* Model.swift */; };
 		3868B931276E376C00F2B765 /* Model+Dragging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868B930276E376C00F2B765 /* Model+Dragging.swift */; };
 		3868B933276E383700F2B765 /* TableViewController+Drag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868B932276E383600F2B765 /* TableViewController+Drag.swift */; };
@@ -151,6 +154,9 @@
 		385EB0A227ABC06F00D05F6A /* AddEditPropertiesConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditPropertiesConfigurator.swift; sourceTree = "<group>"; };
 		385EB0A427ABC1C200D05F6A /* AddEditTableManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditTableManagerProtocol.swift; sourceTree = "<group>"; };
 		385EB0A627ABC2EB00D05F6A /* AddEditTableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditTableManager.swift; sourceTree = "<group>"; };
+		385EB0A827ABFDC600D05F6A /* TodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewController.swift; sourceTree = "<group>"; };
+		385EB0AA27ABFE4D00D05F6A /* TodoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewCell.swift; sourceTree = "<group>"; };
+		385EB0AC27ABFEC500D05F6A /* TodoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListCell.swift; sourceTree = "<group>"; };
 		3868B92E276E376200F2B765 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		3868B930276E376C00F2B765 /* Model+Dragging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Model+Dragging.swift"; sourceTree = "<group>"; };
 		3868B932276E383600F2B765 /* TableViewController+Drag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TableViewController+Drag.swift"; sourceTree = "<group>"; };
@@ -337,6 +343,7 @@
 				381E8E2C278F0B4A0021FDC6 /* PickTimeViewController.swift */,
 				387F2EF82790761000FBCB70 /* CardAddTagsViewController.swift */,
 				383A3F7027A943D300F153B8 /* PomodoroCountViewController.swift */,
+				385EB0A827ABFDC600D05F6A /* TodoViewController.swift */,
 			);
 			path = AddCardScreen;
 			sourceTree = "<group>";
@@ -370,6 +377,8 @@
 				3806314427A3E62100AC4CC3 /* RecentlyTagsCell.swift */,
 				3806314727A3F04000AC4CC3 /* DueDateCell.swift */,
 				3812D68127A82B750065F190 /* DayTasksViewCell.swift */,
+				385EB0AA27ABFE4D00D05F6A /* TodoViewCell.swift */,
+				385EB0AC27ABFEC500D05F6A /* TodoListCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -553,6 +562,7 @@
 				3804DE4627A80F9100926585 /* Bindable.swift in Sources */,
 				3876EE20279D64FA001A9955 /* AddEditCardViewModel.swift in Sources */,
 				3868B935276E383C00F2B765 /* TableViewController+Drop.swift in Sources */,
+				385EB0AD27ABFEC500D05F6A /* TodoListCell.swift in Sources */,
 				3806314527A3E62100AC4CC3 /* RecentlyTagsCell.swift in Sources */,
 				385EB0A327ABC06F00D05F6A /* AddEditPropertiesConfigurator.swift in Sources */,
 				38EF6DFC277DF1C700261125 /* TaskViewModel.swift in Sources */,
@@ -574,6 +584,7 @@
 				386F83EE275AAD45004DC280 /* ProjectsListViewController.swift in Sources */,
 				381CAACB278207F900E8AB00 /* Project+CoreDataClass.swift in Sources */,
 				381CAACD278207F900E8AB00 /* Task+CoreDataClass.swift in Sources */,
+				385EB0A927ABFDC600D05F6A /* TodoViewController.swift in Sources */,
 				38E69BF02795BC4300E942BA /* WeeklyPickerViewCell.swift in Sources */,
 				388AF31C278D6A3100C44021 /* CreateProjectVC.swift in Sources */,
 				38B20B7C2779FF3A002AD934 /* TagsHorizontalViewController.swift in Sources */,
@@ -582,6 +593,7 @@
 				3804DE4327A7E0A100926585 /* DependencyContainer.swift in Sources */,
 				381E8E29278ED7040021FDC6 /* AttachmentsViewController.swift in Sources */,
 				383A8AB927888099003EE8F7 /* AddEditCardPropertiesViewCell.swift in Sources */,
+				385EB0AB27ABFE4D00D05F6A /* TodoViewCell.swift in Sources */,
 				389DABD9278DC2FB00A600BF /* CustomTextField.swift in Sources */,
 				383A3F7527A95F9900F153B8 /* AddEditViewModelFactory.swift in Sources */,
 				38E992892760F97C00E2D1E6 /* DataTableViewCell.swift in Sources */,
