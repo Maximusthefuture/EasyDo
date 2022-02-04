@@ -132,6 +132,7 @@ class DayTasksViewController: UIViewController {
         tableView.anchor(top: weeklyPickerCollectionView.view.bottomAnchor, leading: view.leadingAnchor, bottom:  view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 16, left: 0, bottom: 0, right: 0))
         tableView.register(DayTasksViewCell.self, forCellReuseIdentifier: reuseIdentifier)
 //        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.backgroundColor = .white
         tableView.delegate = self
         tableView.dataSource = self
@@ -334,6 +335,7 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
     func configure(cell: UITableViewCell, for indexPath: IndexPath) {
         guard let cell = cell as? DayTasksViewCell else { return }
         let items = fetchedResultsController.object(at: indexPath)
+       
         //MARK: MOve to cell or VM?
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .none
@@ -350,11 +352,9 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
         } else {
             cell.tagView.isHidden = false
             cell.taskDescription.isHidden = false
+           
         }
-        
-        
       
-        
         //MARK: TODO заполнение???
         //Notification asking isThisDone? Statistics???
 //        if isCurrentHour(date: items.inTime ?? Date()) {
@@ -368,9 +368,12 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DayTasksViewCell
-        configure(cell: cell, for: indexPath)
-        return cell
+
+            let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DayTasksViewCell
+            configure(cell: cell, for: indexPath)
+            return cell
+
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

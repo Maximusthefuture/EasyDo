@@ -63,6 +63,7 @@ class DayTasksViewCell: UITableViewCell {
         taskDescription.anchor(top: taskLabel.bottomAnchor, leading: marginGuide.leadingAnchor, bottom: nil, trailing: marginGuide.trailingAnchor, padding: .init(top: 16, left: 8, bottom: 0, right: 0))
         tagView.anchor(top: taskDescription.bottomAnchor, leading: marginGuide.leadingAnchor, bottom: marginGuide.bottomAnchor, trailing: nil, padding: .init(top: 16, left: 8, bottom: 0, right: 0))
         selectionStyle = .none
+       
         
     }
     
@@ -70,21 +71,32 @@ class DayTasksViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func centerText(isBool: Bool) {
+        if isBool {
+            print("ISBOOL")
+            taskLabel.centerYAnchor.constraint(equalTo: roundedView.centerYAnchor).isActive = true
+        } else {
+            
+        }
+    }
+    
+    let gradientLayer = CAGradientLayer()
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         //градиент с 2х тагов?))))
+        
+    }
+  
+    
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
         let colorTop =  UIColor(red: 255.0/255.0, green: 149.0/255.0, blue: 0.0/255.0, alpha: 1.0).cgColor
            let colorBottom = UIColor(red: 255.0/255.0, green: 50.0/255.0, blue: 100.0/255.0, alpha: 1.0).cgColor
-        let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [colorTop, colorBottom]
-        gradientLayer.locations = [0.5, 1.0]
+        gradientLayer.locations = [0.0, 1.0]
         gradientLayer.frame = roundedView.bounds
         roundedView.layer.addSublayer(gradientLayer)
-        
-        //MARK: TODO
-        if tagView.isHidden { // && indexPath == 1 || indexPath == 2
-            taskLabel.centerYAnchor.constraint(equalTo: roundedView.centerYAnchor).isActive = true
-        }
     }
     
     override func prepareForReuse() {
