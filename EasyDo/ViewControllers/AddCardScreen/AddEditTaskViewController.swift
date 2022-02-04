@@ -14,25 +14,28 @@ enum AddEditTaskState {
 
 
 class AddEditTaskViewController: UIViewController {
-    //MARK: ?????
+
     
-    lazy var addEditViewModel = AddEditCardViewModel()
     var vmFactory = AddEditViewModelFactory()
-    
-    private var viewModel: ViewModelBased?
     var enumProp: Properties?
-    
+    //Move to VM?
+    var state: AddEditTaskState?
     
     var tableManager: AddEditTableManager = AddEditTableManager()
     
     //MARK: ??????
-    init(viewModel: ViewModelBased, task: Task) {
-        self.viewModel = viewModel
-        self.taskDetail = task
+    init(viewModel: AddEditCardViewModelProtocol, task: Task?, state: AddEditTaskState) {
+        self.addEditCardViewModel = viewModel
+        self.state = state
+        if state == .edit {
+            self.taskDetail = task
+        } else {
+            self.taskDetail = nil
+        }
         super.init(nibName: nil, bundle: nil)
-        
-        
+     
     }
+ 
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -45,7 +48,7 @@ class AddEditTaskViewController: UIViewController {
         tf.addTarget(self, action: #selector(handleTextChange), for: .editingChanged)
         return tf
     }()
-    //MARK: SET frame?
+    
     let cardDescription: UITextView = {
         let tf = UITextView()
         tf.font = UIFont.systemFont(ofSize: 13)
@@ -55,22 +58,18 @@ class AddEditTaskViewController: UIViewController {
         tf.isEditable = true
         tf.layer.cornerRadius = 10
         tf.backgroundColor = .init(white: 0.5, alpha: 0.1)
-        
-        //        tf.layer.masksToBounds = true
-        //        tf.layer.backgroundColor = UIColor.blue.cgColor
-        
         return tf
     }()
     
     var addEditCardViewModel: AddEditCardViewModelProtocol?
     var isAddMyDay: Bool?
-    //    var addButton = UIButton()
     let cellId = "CellID"
     let propertiesCell = "PropertiesCell"
     let attachmentsCell = "attachmentsCell"
     var currentProject: Project?
     var coreDataStack: CoreDataStack?
     var dayVC: DayTasksViewController?
+    //Need to move to VM?
     var taskDetail: Task?
     var tableView = UITableView()
     var saveButton: UIBarButtonItem  = {
@@ -83,16 +82,25 @@ class AddEditTaskViewController: UIViewController {
         return button
     }()
     
+    var editButton: UIButton = {
+       let button = UIButton()
+        button.setTitle("Edit", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.addTarget(self, action: #selector(doneCreatingEditing), for: .touchUpInside)
+        return button
+    }()
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //MARK: IF CurrentProject nil???
-      
-        if let coreDataStack = coreDataStack {
-            addEditCardViewModel = AddEditCardViewModel(coreDataStack: coreDataStack, currentProject: currentProject)
-        }
-        
+        view.addSubview(editButton)
+//        if let coreDataStack = coreDataStack {
+//            addEditCardViewModel = AddEditCardViewModel(coreDataStack: coreDataStack, currentProject: currentProject)
+//        }
+        editButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 16, left: 0, bottom: 0, right: 8))
+        editButton.isHidden = true
         setupEndEditingGesture()
         setupAddEditViewModelObserver()
         cardDescription.delegate = self
@@ -200,7 +208,9 @@ class AddEditTaskViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         cardName.text = taskDetail?.title
+//        cardName.text = addEditCardViewModel?.taskDetail?.title
         cardDescription.text = taskDetail?.taskDescription
+//        cardDescription.text = addEditCardViewModel?.taskDetail?.taskDescription
         addButton.isHidden = true
         guard let isAddMyDay = isAddMyDay else { return }
         if isAddMyDay {
@@ -226,15 +236,12 @@ class AddEditTaskViewController: UIViewController {
         return alert
     }()
     
-    @objc fileprivate func doneCreatingEditing(sender: UIBarButtonItem) {
-        print("Done editing save")
+    func createNewTask() {
         do {
-            
             //MARK: TODO
             addEditCardViewModel?.cardDescription = cardDescription.text
             addEditCardViewModel?.pomodoroCount = vmFactory.pomodoroViewModel.pomodoroCount.value
             try addEditCardViewModel?.createNewTask()
-            print(sender.isEnabled)
             dismiss(animated: true)
         } catch {
             errorLabel.message = error.localizedDescription
@@ -243,6 +250,21 @@ class AddEditTaskViewController: UIViewController {
                 self.errorLabel.dismiss(animated: true)
             }
         }
+    }
+    func editTask() {
+        addEditCardViewModel?.cardDescription = cardDescription.text
+        addEditCardViewModel?.updateTask()
+    }
+    
+    @objc fileprivate func doneCreatingEditing(sender: UIBarButtonItem) {
+        print("Done editing save")
+        switch state {
+        case .edit: editTask()
+        case .new: createNewTask()
+        case .none:
+            print("Alert?")
+        }
+        
     }
     
     @objc fileprivate func addCardToDayTask(sender: UIButton) {
@@ -411,6 +433,11 @@ extension AddEditTaskViewController: RefreshTagsDelegate {
 extension AddEditTaskViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         self.addEditCardViewModel?.cardDescription = textView.text
+//        self.addButton.isHidden = false
+        print("textView", textView.text)
+        self.addButton.isHidden = true
+        self.editButton.isHidden = false
+        
         
     }
 }

@@ -372,18 +372,14 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
             let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DayTasksViewCell
             configure(cell: cell, for: indexPath)
             return cell
-
-        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let item = fetchedResultsController.object(at: indexPath).task else { return }
-        let vc = container.addEditTaskViewController(task: item)
+        let vc = container.addEditTaskViewController(task: item, state: .edit, currentProject: item.project)
         present(vc, animated: true)
     }
 }
-
-
 
 //MARK: UIContextMenuInteractionDelegate
 extension DayTasksViewController: UIContextMenuInteractionDelegate {
