@@ -67,7 +67,7 @@ class PickTimeViewController: ResizableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        var fetchRequest = DailyItems.fetchRequest()
+        let fetchRequest = DailyItems.fetchRequest()
         dailyItems = try! coreDataStack!.managedContext.fetch(fetchRequest)
         view.backgroundColor = .white
         view.addSubview(whenLabel)

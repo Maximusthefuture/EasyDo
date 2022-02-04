@@ -11,7 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-    private let coreDataStack = CoreDataStack(modelName: "EasyDo")
+  
     let container = DependencyContainer()
    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -26,8 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        var viewController = ProjectsListViewController()
 //        var addVC = AddEditTaskViewController(viewModel: AddEditCardViewModel())
 //        var timeVC = DayTasksViewController()
-        dayTasksViewContoller.coreDataStack = coreDataStack
-        
+//        coreDataStack.clearDatabase()
         window?.rootViewController = UINavigationController(rootViewController: dayTasksViewContoller)
         
        

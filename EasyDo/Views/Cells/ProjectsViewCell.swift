@@ -15,7 +15,7 @@ class ProjectsViewCell: UICollectionViewCell {
         view.label.textColor = #colorLiteral(red: 0.5596068501, green: 0.5770205855, blue: 1, alpha: 1)
         return view
     }()
-    
+  
     let horizontalController = TagsHorizontalController()
    
     override init(frame: CGRect) {

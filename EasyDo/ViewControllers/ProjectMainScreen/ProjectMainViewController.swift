@@ -8,35 +8,31 @@
 import UIKit
 import CoreData
 
-protocol ChangeTagDelegate: AnyObject {
-    func mainTagChanged()
-}
-
 private let reuseIdentifier = "Cell"
 
 class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlowLayout {
     
-    weak var changeDelegate: ChangeTagDelegate?
     var addButton = UIButton()
-    var viewModel: ProjectViewModel?
-    var currentProject: Project?
-    var coreDataStack: CoreDataStack?
+    var viewModel: ProjectMainViewModelProtocol?
     var isAddMyDay: Bool?
+    
+    init(viewModel: ProjectMainViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(goBack))
-//        collectionView.dragDelegate = self
-//        collectionView.dropDelegate = self
-//        collectionView.dragInteractionEnabled = true
         addButtonInit()
         collectionView.backgroundColor = #colorLiteral(red: 0.9682769179, green: 0.9684478641, blue: 1, alpha: 1)
-        navigationItem.title = currentProject?.title
-//        if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
-//            layout.scrollDirection = .horizontal
-//        }
+        navigationItem.title = viewModel?.currentProject?.title
         collectionView.collectionViewLayout = createLayout()
         collectionView.isScrollEnabled = false
     }
@@ -88,10 +84,10 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
         dismiss(animated: true)
     }
     
-    func deleteAll() {
-        coreDataStack?.managedContext.delete(currentProject!)
-        coreDataStack?.saveContext()
-    }
+//    func deleteAll() {
+//        coreDataStack?.managedContext.delete(currentProject!)
+//        coreDataStack?.saveContext()
+//    }
    
     
     fileprivate func addButtonInit() {
@@ -103,28 +99,27 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
         addButton.addTarget(self, action: #selector(addNewCardButton), for: .touchUpInside)
     }
     
-    func dragItems(at indexPath: IndexPath, collectionView: UICollectionView) -> [UIDragItem] {
-        let cell = collectionView.cellForItem(at: indexPath) as! ProjectsViewCell
-        let item = collectionView == collectionView ? currentProject?.tasks?[indexPath.row] : cell.horizontalController.tasksList?[indexPath.row]
-//        let item = currentProject?.tasks?[indexPath.row] as! Task
-        let dragItem = UIDragItem(itemProvider: NSItemProvider(object: item as! NSString))
-        dragItem.localObject = item
-        return [dragItem]
-    }
-
+//    func dragItems(at indexPath: IndexPath, collectionView: UICollectionView) -> [UIDragItem] {
+//        let cell = collectionView.cellForItem(at: indexPath) as! ProjectsViewCell
+//        let item = collectionView == collectionView ? currentProject?.tasks?[indexPath.row] : cell.horizontalController.tasksList?[indexPath.row]
+////        let item = currentProject?.tasks?[indexPath.row] as! Task
+//        let dragItem = UIDragItem(itemProvider: NSItemProvider(object: item as! NSString))
+//        dragItem.localObject = item
+//        return [dragItem]
+//    }
+    
+   
     @objc private func addNewCardButton(button: UIButton) {
-        var task = Task(context: coreDataStack!.managedContext)
-        let vc = AddEditTaskViewController(viewModel: AddEditCardViewModel(), task: task, state: .new)
+        let container = DependencyContainer()
+        let vc = container.addEditTaskViewController(task: nil, state: .new, currentProject: viewModel?.currentProject)
         let navController = UINavigationController(rootViewController: vc)
-        vc.coreDataStack = coreDataStack
-        vc.currentProject = currentProject
         navController.modalPresentationStyle = .fullScreen
         present(navController, animated: true)
         
     }
  
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return currentProject?.tags?.count ?? 0
+        return viewModel?.currentProject?.tags?.count ?? 0
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -132,28 +127,29 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
     }
     
     var currentTag: Int?
-    
+    let container = DependencyContainer()
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AppsViewCell", for: indexPath) as! ProjectsViewCell
         
-        let filter = currentProject?.tasks?.filter{
-            ($0 as! Task).mainTag == currentProject?.tags?[indexPath.row] }
+        let filter = viewModel?.currentProject?.tasks?.filter{
+            ($0 as! Task).mainTag == viewModel?.currentProject?.tags?[indexPath.row] }
         
-        cell.tagView.label.text = currentProject?.tags?[indexPath.item]
-        cell.horizontalController.currentProject = currentProject
+        cell.tagView.label.text = viewModel?.currentProject?.tags?[indexPath.item]
+//        cell.horizontalController.currentProject = viewModel?.currentProject
         cell.horizontalController.isAddMyDay = self.isAddMyDay
         cell.horizontalController.tasksList = filter as? [Task]
         cell.horizontalController.changeTagClosure = changeTagClosure
-        cell.horizontalController.coreDataStack = coreDataStack
-        cell.horizontalController.tagsArray = currentProject?.tags
+        cell.horizontalController.coreDataStack = viewModel?.coreDataStack
+        cell.horizontalController.tagsArray = viewModel?.currentProject?.tags
         cell.horizontalController.collectionView.reloadData()
         
         cell.horizontalController.didSelectHandler = { [weak self] task in
-            let vc = AddEditTaskViewController(viewModel: AddEditCardViewModel(), task: task, state: .edit)
-            vc.isAddMyDay = self?.isAddMyDay
-            vc.taskDetail = task
-            vc.coreDataStack = self?.coreDataStack
-            self?.navigationController?.present(vc, animated: true)
+            let vc = self?.container.addEditTaskViewController(task: task, state: .edit, currentProject: task.project)
+            vc?.isAddMyDay = self?.isAddMyDay
+            if let vc = vc {
+                self?.navigationController?.present(vc, animated: true)
+            }
+           
         }
         return cell
     }

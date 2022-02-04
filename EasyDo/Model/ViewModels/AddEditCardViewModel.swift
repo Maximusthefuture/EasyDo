@@ -21,6 +21,7 @@ protocol AddEditCardViewModelProtocol: ViewModelBased {
     var bindableIsFormValidObserver: Bindable<Bool> { get set }
     var pomodoroCount: Int? { get set }
     func updateTask()
+    var coreDataStack: CoreDataStack? { get }
 }
 
 //Заполненые поля даты сразу?
@@ -37,7 +38,7 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
     }
     
     var cardName: String? { didSet { checkFormValidation() } }
-    var cardDescription: String? { didSet { checkFormValidation() } }
+    var cardDescription: String? { didSet { checkFormValidation() }}
     var pomodoroCount: Int?
     
     var coreDataStack: CoreDataStack?
@@ -50,6 +51,7 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
         self.coreDataStack = coreDataStack
         self.currentProject = currentProject
         self.taskDetail = task
+        
     }
     
 //    convenience init(coreDataStack: CoreDataStack, task: Task?) {
@@ -71,13 +73,8 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
 //        }
     }
     
-    
-   
-    
-    
     func createNewTask() throws {
         if let coreDataStack = coreDataStack {
-            
             let task = Task(context: coreDataStack.managedContext)
             task.tags = tagsArray
             task.mainTag = "No tag"
@@ -100,17 +97,14 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
     }
     
     func updateTask() {
-//        print(task.title)
         taskDetail?.title = cardName
-        print("cardName", cardName)
         taskDetail?.taskDescription = cardDescription
-        print("cardDesc", cardDescription)
         coreDataStack?.saveContext()
         
     }
     
     fileprivate func updateTask(time: Date?, date: Date?) {
-        if let coreDataStack = self.coreDataStack {
+        if let coreDataStack = coreDataStack {
             let dailyItem = DailyItems(context: coreDataStack.managedContext)
             dailyItem.task = self.taskDetail
             dailyItem.inTime = time

@@ -15,28 +15,25 @@ enum AddEditTaskState {
 
 class AddEditTaskViewController: UIViewController {
 
-    
     var vmFactory = AddEditViewModelFactory()
     var enumProp: Properties?
     //Move to VM?
     var state: AddEditTaskState?
-    
     var tableManager: AddEditTableManager = AddEditTableManager()
     
     //MARK: ??????
-    init(viewModel: AddEditCardViewModelProtocol, task: Task?, state: AddEditTaskState) {
+    init(viewModel: AddEditCardViewModelProtocol, state: AddEditTaskState) {
         self.addEditCardViewModel = viewModel
         self.state = state
-        if state == .edit {
-            self.taskDetail = task
-        } else {
-            self.taskDetail = nil
-        }
+//        if state == .edit {
+//            self.taskDetail = task
+//        } else {
+//            self.taskDetail = nil
+//        }
         super.init(nibName: nil, bundle: nil)
      
     }
  
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -67,10 +64,9 @@ class AddEditTaskViewController: UIViewController {
     let propertiesCell = "PropertiesCell"
     let attachmentsCell = "attachmentsCell"
     var currentProject: Project?
-    var coreDataStack: CoreDataStack?
     var dayVC: DayTasksViewController?
     //Need to move to VM?
-    var taskDetail: Task?
+//    var taskDetail: Task?
     var tableView = UITableView()
     var saveButton: UIBarButtonItem  = {
         var button =  UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneCreatingEditing))
@@ -99,6 +95,7 @@ class AddEditTaskViewController: UIViewController {
 //        if let coreDataStack = coreDataStack {
 //            addEditCardViewModel = AddEditCardViewModel(coreDataStack: coreDataStack, currentProject: currentProject)
 //        }
+//        taskDetail = addEditCardViewModel?.taskDetail
         editButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 16, left: 0, bottom: 0, right: 8))
         editButton.isHidden = true
         setupEndEditingGesture()
@@ -207,10 +204,10 @@ class AddEditTaskViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        cardName.text = taskDetail?.title
-//        cardName.text = addEditCardViewModel?.taskDetail?.title
-        cardDescription.text = taskDetail?.taskDescription
-//        cardDescription.text = addEditCardViewModel?.taskDetail?.taskDescription
+//        cardName.text = taskDetail?.title
+        cardName.text = addEditCardViewModel?.taskDetail?.title
+//        cardDescription.text = taskDetail?.taskDescription
+        cardDescription.text = addEditCardViewModel?.taskDetail?.taskDescription
         addButton.isHidden = true
         guard let isAddMyDay = isAddMyDay else { return }
         if isAddMyDay {
@@ -269,10 +266,10 @@ class AddEditTaskViewController: UIViewController {
     
     @objc fileprivate func addCardToDayTask(sender: UIButton) {
         let vc = PickTimeViewController(initialHeight: 300)
-        vc.coreDataStack = coreDataStack
+        vc.coreDataStack = addEditCardViewModel?.coreDataStack
         present(vc, animated: true)
         vc.dataSavedWithDate = { [weak self] time, date in
-            self?.addEditCardViewModel?.taskDetail = self?.taskDetail
+            self?.addEditCardViewModel?.taskDetail = self?.addEditCardViewModel?.taskDetail
             self?.addEditCardViewModel?.addCardToDayTask(time: time, date: date)
             self?.presentingViewController?.dismiss(animated: true)
             
@@ -316,8 +313,8 @@ extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource 
     fileprivate func presentToCardAddTagsVM() {
         //MARK: TODO add textField with color picker max 2 tags.
         let vc = CardAddTagsViewController(initialHeight: 200)
-        vc.taskDetail = taskDetail
-        vc.coreData = coreDataStack
+        vc.taskDetail = addEditCardViewModel?.taskDetail
+//        vc.coreData = coreDataStack
         vc.refreshDelegate = self
         present(vc, animated: true)
     }
@@ -370,7 +367,7 @@ extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource 
                 let date = Date(timeIntervalSince1970: 0)
                 let cell = tableView.dequeueReusableCell(withIdentifier: String.init(describing: DueDateCell.self), for: indexPath) as! DueDateCell
                 cell.datePicker.addTarget(self, action: #selector(datePickerChange), for: .editingDidEnd)
-                cell.initDueDateTask(task: taskDetail, isHaveDueDate: taskDetail?.dueDate == date)
+                cell.initDueDateTask(task: addEditCardViewModel?.taskDetail, isHaveDueDate: addEditCardViewModel?.taskDetail?.dueDate == date)
                 if isAddMyDay ?? false {
                     cell.deadLineCheckbox.isUserInteractionEnabled = false
                 }
@@ -380,7 +377,7 @@ extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource 
                 let propepties = propertiesArray[indexPath.row]
                 cell.label.text = propepties
                 tableView.separatorStyle = .none
-                cell.initTask(initialTask: taskDetail)
+                cell.initTask(initialTask: addEditCardViewModel?.taskDetail)
                 
                 switch indexPath.row {
                 case 0: enumProp = .pomodoro

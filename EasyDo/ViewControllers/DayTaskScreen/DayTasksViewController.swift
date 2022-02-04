@@ -21,6 +21,8 @@ class DayTasksViewController: UIViewController {
     //MARK: ?????
     let container = DependencyContainer()
     
+    var dayTaskViewModel: DayTaskViewModelProtocol?
+    
     
     init(viewModel: DayTaskViewModelProtocol) {
         self.dayTaskViewModel = viewModel
@@ -36,13 +38,13 @@ class DayTasksViewController: UIViewController {
         button.setTitle("+ Add Card", for: .normal)
         button.layer.cornerRadius = 10
         button.backgroundColor = .blue
-        button.addTarget(self, action: #selector(addNewTask), for: .touchUpInside)
+        button.addTarget(self, action: #selector(goToProjectList), for: .touchUpInside)
         return button
     }()
     
     lazy var isAddMyDay: Bool = false
     weak var dayTaskDelegate: IsNeedToAddDayTaskDelegate?
-    var coreDataStack:CoreDataStack?
+//    var coreDataStack: CoreDataStack?
     var myDayLabel = UIButton()
     var tableView = UITableView()
     
@@ -57,7 +59,7 @@ class DayTasksViewController: UIViewController {
     }()
     var weeklyPickerCollectionView = HDayPickerUICollectionView()
     var fetchRequest: NSFetchRequest<DailyItems>?
-    var dayTaskViewModel: DayTaskViewModelProtocol?
+   
     lazy var selectionGenerator = UISelectionFeedbackGenerator()
     
     lazy var fetchedResultsController:
@@ -69,8 +71,8 @@ class DayTasksViewController: UIViewController {
         fetchRequest?.sortDescriptors = [sort]
         fetchRequest?.predicate = NSPredicate(format: "%K == %@", #keyPath(DailyItems.inDate), Date().onlyDate as NSDate)
         guard let fetchRequest = fetchRequest,
-              let coreDataStack = coreDataStack else { return NSFetchedResultsController() }
-
+              let coreDataStack = dayTaskViewModel?.coreDataStack else { return NSFetchedResultsController() }
+        
         let fetchedResultsController = NSFetchedResultsController(
             fetchRequest: fetchRequest,
             managedObjectContext: coreDataStack.managedContext,
@@ -164,7 +166,7 @@ class DayTasksViewController: UIViewController {
         let menu = UIMenu(title: "", options: .destructive, children: [
             UIAction(title: "Projects")  { _ in
                 let vc = ProjectsListViewController()
-                vc.coreDataStack = self.coreDataStack
+//                vc.coreDataStack = dayTaskViewModel?.coreDataStack
                 self.present(vc, animated: true)
             },
             UIAction(title: "????") { [weak self] _ in
@@ -206,12 +208,14 @@ class DayTasksViewController: UIViewController {
     
     //MARK: Change this to addEditVC
     //then add project selection when card create
-    @objc fileprivate func addNewTask(sender: UIButton) {
-        let vc = ProjectsListViewController()
+    @objc fileprivate func goToProjectList(sender: UIButton) {
+        let vc = container.makeProjectListViewController()
+//        let vc = ProjectsListViewController()
+        
         self.isAddMyDay = true
         vc.isAddMyDay = self.isAddMyDay
         dayTaskDelegate?.isShowButton(vc: self, show: true)
-        vc.coreDataStack = coreDataStack
+//        vc.coreDataStack = coreDataStack
         present(vc, animated: true)
     }
     
@@ -219,12 +223,12 @@ class DayTasksViewController: UIViewController {
         guard let fetchRequest = fetchRequest else {
             return
         }
-        let item = try? coreDataStack?.managedContext.fetch(fetchRequest)
+        let item = try? dayTaskViewModel?.coreDataStack?.managedContext.fetch(fetchRequest)
         guard let item = item else { return }
         for i in item {
-            coreDataStack?.managedContext.delete(i)
+            dayTaskViewModel?.coreDataStack?.managedContext.delete(i)
         }
-        coreDataStack?.saveContext()
+        dayTaskViewModel?.coreDataStack?.saveContext()
     }
     
    
@@ -324,10 +328,10 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCell.EditingStyle.delete {
             guard let fetchRequest = fetchRequest  else { return }
-            let item = try? coreDataStack?.managedContext.fetch(fetchRequest)
+            let item = try? dayTaskViewModel?.coreDataStack?.managedContext.fetch(fetchRequest)
             item?[indexPath.row].task?.mainTag = "Done"
-            coreDataStack?.managedContext.delete(item![indexPath.row])
-            coreDataStack?.saveContext()
+            dayTaskViewModel?.coreDataStack?.managedContext.delete(item![indexPath.row])
+            dayTaskViewModel?.coreDataStack?.saveContext()
         }
     }
     

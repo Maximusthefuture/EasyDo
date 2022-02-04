@@ -6,22 +6,27 @@
 //
 
 import UIKit
-protocol TagChangeDelegate: AnyObject {
-    func changeTag(tag: String)
-}
+
 
 class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlowLayout {
-
+    
     var tasksList: [Task]?
-    var currentProject: Project?
     var coreDataStack: CoreDataStack?
-    var controller = ProjectMainViewController()
+//    var controller = ProjectMainViewController()
     var isAddMyDay: Bool?
     var currentTag: Int?
     var changeTagClosure: ((Int) -> Void)?
     var tagsArray: [String]?
-    weak var tagChangeDelegate: TagChangeDelegate?
-    
+   
+//    init(coreDataStack: CoreDataStack) {
+//        self.coreDataStack = coreDataStack
+//        super.init()
+//    }
+//    
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+//    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.register(TasksCollectionViewCell.self, forCellWithReuseIdentifier: "apps")
@@ -30,7 +35,8 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
         collectionView.dragDelegate = self
         collectionView.dropDelegate = self
         collectionView.dragInteractionEnabled = true
-        tagChangeDelegate = self
+     
+        
         NotificationCenter.default.addObserver(self, selector: #selector(tagChangeNotificationReceived), name: Notification.Name("Tag"), object: nil)
        
     }
@@ -123,9 +129,5 @@ extension TagsHorizontalController: UICollectionViewDragDelegate {
 
 }
 
-extension TagsHorizontalController: TagChangeDelegate {
-    func changeTag(tag: String) {
-        print("myTag", tag)
-    }
-}
+
 

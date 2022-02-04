@@ -76,6 +76,8 @@
 		38B20B7A2779FD1E002AD934 /* ProjectsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B20B792779FD1E002AD934 /* ProjectsViewCell.swift */; };
 		38B20B7C2779FF3A002AD934 /* TagsHorizontalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B20B7B2779FF3A002AD934 /* TagsHorizontalViewController.swift */; };
 		38B20B7E2779FFAA002AD934 /* TasksCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B20B7D2779FFAA002AD934 /* TasksCollectionViewCell.swift */; };
+		38B51D7C27AD2D3D009DBAE5 /* ProjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B51D7B27AD2D3D009DBAE5 /* ProjectListViewModel.swift */; };
+		38B51D7E27AD4FDA009DBAE5 /* ProjectMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B51D7D27AD4FDA009DBAE5 /* ProjectMainViewModel.swift */; };
 		38C06741279E939A00CF2216 /* DayTasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C06740279E939A00CF2216 /* DayTasksViewModel.swift */; };
 		38DC14A8278D711400E42E76 /* BottomSheetTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC14A7278D711400E42E76 /* BottomSheetTransitioningDelegate.swift */; };
 		38E69BEE2795BB7F00E942BA /* HDayPickerUICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E69BED2795BB7F00E942BA /* HDayPickerUICollectionView.swift */; };
@@ -183,6 +185,8 @@
 		38B20B792779FD1E002AD934 /* ProjectsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsViewCell.swift; sourceTree = "<group>"; };
 		38B20B7B2779FF3A002AD934 /* TagsHorizontalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsHorizontalViewController.swift; sourceTree = "<group>"; };
 		38B20B7D2779FFAA002AD934 /* TasksCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksCollectionViewCell.swift; sourceTree = "<group>"; };
+		38B51D7B27AD2D3D009DBAE5 /* ProjectListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListViewModel.swift; sourceTree = "<group>"; };
+		38B51D7D27AD4FDA009DBAE5 /* ProjectMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectMainViewModel.swift; sourceTree = "<group>"; };
 		38C06740279E939A00CF2216 /* DayTasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTasksViewModel.swift; sourceTree = "<group>"; };
 		38DC14A7278D711400E42E76 /* BottomSheetTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetTransitioningDelegate.swift; sourceTree = "<group>"; };
 		38E69BED2795BB7F00E942BA /* HDayPickerUICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HDayPickerUICollectionView.swift; sourceTree = "<group>"; };
@@ -359,6 +363,8 @@
 				3806314227A3E14D00AC4CC3 /* CardAddTagsViewModel.swift */,
 				383A3F7227A95EE400F153B8 /* PomodoroCountViewModel.swift */,
 				383A3F7427A95F9900F153B8 /* AddEditViewModelFactory.swift */,
+				38B51D7B27AD2D3D009DBAE5 /* ProjectListViewModel.swift */,
+				38B51D7D27AD4FDA009DBAE5 /* ProjectMainViewModel.swift */,
 			);
 			name = ViewModels;
 			path = Model/ViewModels;
@@ -574,6 +580,7 @@
 				3868B933276E383700F2B765 /* TableViewController+Drag.swift in Sources */,
 				386F83F4275AAD45004DC280 /* EasyDo.xcdatamodeld in Sources */,
 				3832ABF02798600800FFFE85 /* DailyItems+CoreDataClass.swift in Sources */,
+				38B51D7C27AD2D3D009DBAE5 /* ProjectListViewModel.swift in Sources */,
 				385EB0A527ABC1C200D05F6A /* AddEditTableManagerProtocol.swift in Sources */,
 				385644552770E8750030B0C8 /* Extensions+UIView.swift in Sources */,
 				383A3F7127A943D300F153B8 /* PomodoroCountViewController.swift in Sources */,
@@ -581,6 +588,7 @@
 				38FF9F1527848C8B00EB9805 /* Extensions.swift in Sources */,
 				3876EE1D279D649F001A9955 /* ViewModelBased.swift in Sources */,
 				38B20B7A2779FD1E002AD934 /* ProjectsViewCell.swift in Sources */,
+				38B51D7E27AD4FDA009DBAE5 /* ProjectMainViewModel.swift in Sources */,
 				386F83EE275AAD45004DC280 /* ProjectsListViewController.swift in Sources */,
 				381CAACB278207F900E8AB00 /* Project+CoreDataClass.swift in Sources */,
 				381CAACD278207F900E8AB00 /* Task+CoreDataClass.swift in Sources */,

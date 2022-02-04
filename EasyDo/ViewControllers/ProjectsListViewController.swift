@@ -18,11 +18,24 @@ class ProjectsListViewController: UIViewController {
     var addButton = UIButton()
     var tagView = TagUIView()
     var isAddMyDay: Bool?
-    
+    var viewModel: ProjectListViewModelProtocol?
     var fetchRequest: NSFetchRequest<Project>?
     var projects: [Project] = []
-    var coreDataStack: CoreDataStack?
-   
+//    var coreDataStack: CoreDataStack?
+    
+    init(viewModel: ProjectListViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.9682769179, green: 0.9684478641, blue: 1, alpha: 1)
@@ -32,7 +45,8 @@ class ProjectsListViewController: UIViewController {
         tableViewInit()
         labelInit()
         fetchRequest = Project.fetchRequest()
-        fetchAndReload()
+//        fetchAndReload()
+        viewModel?.fetchAndReload()
 //        tagViewInit()
         addButtonInit()
 //        print("BOOLEAN IS: \(isAddMyDay)")
@@ -57,7 +71,7 @@ class ProjectsListViewController: UIViewController {
           return
         }
         do {
-            if let coreDataStack = coreDataStack {
+            if let coreDataStack = viewModel?.coreDataStack {
                 projects = try coreDataStack.managedContext.fetch(fetchRequest)
               tableView.reloadData()
             }
@@ -103,12 +117,12 @@ class ProjectsListViewController: UIViewController {
     
     @objc func addProject(sender: UIButton) {
         let vc = CreateProjectVC(initialHeight: 300)
-        vc.coreDataStack = coreDataStack
+        vc.coreDataStack = viewModel?.coreDataStack
         present(vc, animated: true)
     }
     
     func deleteAll() {
-        guard let coreDataStack = coreDataStack else {
+        guard let coreDataStack = viewModel?.coreDataStack else {
             return
         }
         let fetchRequest = Project.fetchRequest()
@@ -166,15 +180,17 @@ class ProjectsListViewController: UIViewController {
 
 extension ProjectsListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return projects.count
+        return viewModel?.projects.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! DataTableViewCell
-        
+        var project = viewModel?.projects[indexPath.row]
 //        cell.config(label: array[indexPath.row])
-        cell.title.text = projects[indexPath.row].title
-        cell.config(label: projects[indexPath.row].title ?? "zopa")
+//        cell.title.text = projects[indexPath.row].title
+//        cell.config(label: projects[indexPath.row].title ?? "zopa")
+        cell.title.text = project?.title
+                cell.config(label: project?.title ?? "zopa")
         cell.delegateDelete = self
         cell.selectionStyle = .none
 //        var myIndexPath = IndexPath(item: indexPath.row, section: 0)
@@ -193,16 +209,13 @@ extension ProjectsListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("DID SELECT")
+        let container = DependencyContainer()
+        let vc = container.makeProjectMainViewController(currentProject: viewModel?.projects[indexPath.row])
+        vc.isAddMyDay = self.isAddMyDay
         
-        let controller = ProjectMainViewController()
-        controller.currentProject = projects[indexPath.row]
-        controller.coreDataStack = coreDataStack
-        controller.isAddMyDay = self.isAddMyDay
-        
-        let navBar = UINavigationController(rootViewController: controller)
+        let navBar = UINavigationController(rootViewController: vc)
         navBar.modalPresentationStyle = .fullScreen
         present(navBar, animated: true)
-//        showDetailViewController(TagsHorizontalController(), sender: self)
     }
 }
 

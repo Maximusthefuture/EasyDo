@@ -20,6 +20,19 @@ class CoreDataStack {
         return self.storeContainer.viewContext
     }()
     
+    public func clearDatabase() {
+        guard let url = storeContainer.persistentStoreDescriptions.first?.url else { return }
+        
+        let persistentStoreCoordinator = storeContainer.persistentStoreCoordinator
+
+         do {
+             try persistentStoreCoordinator.destroyPersistentStore(at:url, ofType: NSSQLiteStoreType, options: nil)
+             try persistentStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
+         } catch {
+             print("Attempted to clear persistent store: " + error.localizedDescription)
+         }
+    }
+    
     private lazy var storeContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: self.modelName)
         container.loadPersistentStores { _, error in
@@ -40,4 +53,14 @@ class CoreDataStack {
         }
     }
     
+}
+
+public extension NSManagedObject {
+
+    convenience init(context: NSManagedObjectContext) {
+        let name = String(describing: type(of: self))
+        let entity = NSEntityDescription.entity(forEntityName: name, in: context)!
+        self.init(entity: entity, insertInto: context)
+    }
+
 }
