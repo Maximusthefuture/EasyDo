@@ -11,9 +11,6 @@ import Foundation
 class DependencyContainer {
     
     private lazy var coreDataStack = CoreDataStack(modelName: "EasyDo")
-    //MARK: HOW WE CAN DO IT
-    private lazy var addEditTaskViewModel = AddEditCardViewModel(coreDataStack: coreDataStack, currentProject: nil)
-    
 }
 
 extension DependencyContainer: ViewControllerFactory {
@@ -21,14 +18,14 @@ extension DependencyContainer: ViewControllerFactory {
         return DayTasksViewController(viewModel: makeDayTaskViewModel())
     }
     
-    func addEditTaskViewController(task: Task) -> AddEditTaskViewController {
-        return AddEditTaskViewController(viewModel: addEditTaskViewModel, task: task)
+    func addEditTaskViewController(task: Task, state: AddEditTaskState, currentProject: Project?) -> AddEditTaskViewController {
+        return AddEditTaskViewController(viewModel: makeAddEditViewModel(currentProject: currentProject, task: task), task: task, state: state)
     }
 }
 
 extension DependencyContainer: ViewModelFactory {
-    func makeAddEditViewModel(coreDataStack: CoreDataStack, currentProject: Project?) -> AddEditCardViewModelProtocol {
-        return AddEditCardViewModel(coreDataStack: coreDataStack, currentProject: currentProject)
+    func makeAddEditViewModel(currentProject: Project?, task: Task?) -> AddEditCardViewModelProtocol {
+        return AddEditCardViewModel(coreDataStack: coreDataStack, currentProject: currentProject, task: task)
     }
     
     func makeDayTaskViewModel() -> DayTaskViewModelProtocol {
