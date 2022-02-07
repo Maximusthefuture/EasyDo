@@ -15,7 +15,7 @@ protocol ViewControllerFactory {
 }
 
 protocol ViewModelFactory {
-    func makeAddEditViewModel(currentProject: Project?, task: Task?) -> AddEditCardViewModelProtocol
+    func makeAddEditViewModel(currentProject: Project?, task: Task?, state: AddEditTaskState) -> AddEditCardViewModelProtocol
     func makeDayTaskViewModel() -> DayTaskViewModelProtocol
     func makeProjectListViewModel() -> ProjectListViewModelProtocol
     func makeProjectMainViewModel(currentProject: Project?) -> ProjectMainViewModelProtocol

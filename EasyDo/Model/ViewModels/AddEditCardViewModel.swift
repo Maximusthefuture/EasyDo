@@ -10,7 +10,6 @@ import Foundation
 
 
 protocol AddEditCardViewModelProtocol: ViewModelBased {
-    func createNewTask() throws
     func addCardToDayTask(time: Date?, date: Date?)
     var cardName: String? { get set }
     var cardDescription: String? { get set }
@@ -20,8 +19,8 @@ protocol AddEditCardViewModelProtocol: ViewModelBased {
     var recentlyUsedTags: [String]? { get set }
     var bindableIsFormValidObserver: Bindable<Bool> { get set }
     var pomodoroCount: Int? { get set }
-    func updateTask()
     var coreDataStack: CoreDataStack? { get }
+    func updateCreateTask() throws
   
 }
 
@@ -48,18 +47,18 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
     var taskDetail: Task?
     var state: AddEditTaskState?
     
-    
-    
-    init(coreDataStack: CoreDataStack, currentProject: Project?, task: Task?) {
+    init(coreDataStack: CoreDataStack, currentProject: Project?, task: Task?, state: AddEditTaskState) {
         self.coreDataStack = coreDataStack
         self.currentProject = currentProject
         self.taskDetail = task
         self.cardName = task?.title
+        self.pomodoroCount = Int(task?.pomodoroCount ?? 0)
         self.cardDescription = task?.taskDescription
+        self.state = state
     }
     
     convenience init(coreDataStack: CoreDataStack, task: Task?, state: AddEditTaskState) {
-        self.init(coreDataStack: coreDataStack, currentProject: task?.project, task: task)
+        self.init(coreDataStack: coreDataStack, currentProject: task?.project, task: task, state: state)
         self.taskDetail = task
         self.state = state
     }
@@ -76,7 +75,6 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
 ////            bindableError.value = Errors.CardNameValidationError.tooLong
 //            print("TOOO LONG")
 //        }
-        
     }
     
     func updateCreateTask() throws {
@@ -91,7 +89,7 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
     }
     
 //    repository.saveTask(name: _, tag: _, taskDescription: _, pomodoroCount: _, )
-    func createNewTask() throws {
+    fileprivate func createNewTask() throws {
         if let coreDataStack = coreDataStack {
             let task = Task(context: coreDataStack.managedContext)
             task.tags = tagsArray
@@ -115,9 +113,11 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
     }
     
 //    repository.updateTask()
-    func updateTask() {
+   fileprivate func updateTask() {
         taskDetail?.title = cardName
         taskDetail?.taskDescription = cardDescription
+        taskDetail?.pomodoroCount = Int16(pomodoroCount ?? 0 )
+        taskDetail?.tags = tagsArray
         coreDataStack?.saveContext()
         
     }

@@ -28,7 +28,7 @@ extension DependencyContainer: ViewControllerFactory {
     }
     
     func addEditTaskViewController(task: Task?, state: AddEditTaskState, currentProject: Project?) -> AddEditTaskViewController {
-        return AddEditTaskViewController(viewModel: makeAddEditViewModel(currentProject: currentProject, task: task), state: state)
+        return AddEditTaskViewController(viewModel: makeAddEditViewModel(currentProject: currentProject, task: task, state: state))
     }
 }
 
@@ -41,8 +41,8 @@ extension DependencyContainer: ViewModelFactory {
         return ProjectListViewModel(coreDataStack: DependencyContainer.coreDataStack)
     }
     
-    func makeAddEditViewModel(currentProject: Project?, task: Task?) -> AddEditCardViewModelProtocol {
-        return AddEditCardViewModel(coreDataStack: DependencyContainer.coreDataStack, currentProject: currentProject, task: task)
+    func makeAddEditViewModel(currentProject: Project?, task: Task?, state: AddEditTaskState) -> AddEditCardViewModelProtocol {
+        return AddEditCardViewModel(coreDataStack: DependencyContainer.coreDataStack, currentProject: currentProject, task: task, state: state)
     }
     
     func makeDayTaskViewModel() -> DayTaskViewModelProtocol {

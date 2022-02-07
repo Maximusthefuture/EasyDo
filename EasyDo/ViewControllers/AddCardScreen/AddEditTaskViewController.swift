@@ -18,13 +18,11 @@ class AddEditTaskViewController: UIViewController {
     var vmFactory = AddEditViewModelFactory()
     var enumProp: Properties?
     //Move to VM?
-    var state: AddEditTaskState?
     var tableManager: AddEditTableManager = AddEditTableManager()
     
     
-    init(viewModel: AddEditCardViewModelProtocol, state: AddEditTaskState) {
+    init(viewModel: AddEditCardViewModelProtocol) {
         self.addEditCardViewModel = viewModel
-        self.state = state
         super.init(nibName: nil, bundle: nil)
      
     }
@@ -223,36 +221,10 @@ class AddEditTaskViewController: UIViewController {
         return alert
     }()
     
-    func createNewTask() {
-        do {
-            //MARK: TODO
-            addEditCardViewModel?.cardDescription = cardDescription.text
-            addEditCardViewModel?.pomodoroCount = vmFactory.pomodoroViewModel.pomodoroCount.value
-            try addEditCardViewModel?.createNewTask()
-            dismiss(animated: true)
-        } catch {
-            errorLabel.message = error.localizedDescription
-            self.present(errorLabel, animated: true)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                self.errorLabel.dismiss(animated: true)
-            }
-        }
-    }
-    func editTask() {
-        addEditCardViewModel?.cardDescription = cardDescription.text
-        addEditCardViewModel?.updateTask()
-        
-    }
-    
     @objc fileprivate func doneCreatingEditing(sender: UIBarButtonItem) {
         print("Done editing save")
-        switch state {
-        case .edit: editTask()
-        case .new: createNewTask()
-        case .none:
-            print("Alert?")
-        }
-        
+         try? addEditCardViewModel?.updateCreateTask()
+         dismiss(animated: true)
     }
     
     @objc fileprivate func addCardToDayTask(sender: UIButton) {
