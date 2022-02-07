@@ -38,6 +38,16 @@
                ReferencedContainer = "container:EasyDo.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "38086CCC27B149540025540E"
+               BuildableName = "EasyDoTests.xctest"
+               BlueprintName = "EasyDoTests"
+               ReferencedContainer = "container:EasyDo.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

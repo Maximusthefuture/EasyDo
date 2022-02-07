@@ -20,7 +20,6 @@ class AddEditTaskViewController: UIViewController {
     //Move to VM?
     var tableManager: AddEditTableManager = AddEditTableManager()
     
-    
     init(viewModel: AddEditCardViewModelProtocol) {
         self.addEditCardViewModel = viewModel
         super.init(nibName: nil, bundle: nil)

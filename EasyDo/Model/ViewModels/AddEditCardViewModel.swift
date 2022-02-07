@@ -33,9 +33,7 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
     //Change this to db after?
     var recentlyUsedTags: [String]?
     
-    required init() {
-        
-    }
+    required init() { }
     
     var cardName: String? { didSet { checkFormValidation() } }
     var cardDescription: String? { didSet { checkFormValidation() }}
