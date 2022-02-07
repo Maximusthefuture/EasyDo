@@ -42,6 +42,8 @@ class DayTasksViewController: UIViewController {
         return button
     }()
     
+    let viewWithCorners = ViewWithCorners()
+    
     lazy var isAddMyDay: Bool = false
     weak var dayTaskDelegate: IsNeedToAddDayTaskDelegate?
 //    var coreDataStack: CoreDataStack?
@@ -86,10 +88,12 @@ class DayTasksViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
         fetchRequest = DailyItems.fetchRequest()
         weeklyPickerCollectionView.delegate = self
         myDayLabelInit()
         initWeeklyDayPickerCollection()
+        weeeklyGoalViewTest()
         tableViewInit()
         navigationController?.navigationBar.isHidden = true
         emptyLabelInit()
@@ -104,6 +108,18 @@ class DayTasksViewController: UIViewController {
         
         fetchedResultsController.delegate = self
         addButtonInit()
+    }
+    
+    //MARK: TODO
+    fileprivate func weeeklyGoalViewTest() {
+        view.addSubview(viewWithCorners)
+        viewWithCorners.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: myDayLabel.bottomAnchor, trailing: view.trailingAnchor,padding: .init(top: 0, left: 30, bottom: 0, right: 16), size: .init(width: 200, height: 40))
+        viewWithCorners.label.text = "Weekly goal here??"
+        viewWithCorners.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapWeeklyGoal)))
+    }
+    
+    @objc func handleTapWeeklyGoal() {
+//        alert????
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -146,7 +162,7 @@ class DayTasksViewController: UIViewController {
     
     fileprivate func initWeeklyDayPickerCollection() {
         view.addSubview(weeklyPickerCollectionView.view)
-        weeklyPickerCollectionView.view.anchor(top: myDayLabel.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0),size: .init(width: 0, height: 80))
+        weeklyPickerCollectionView.view.anchor(top: myDayLabel.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0),size: .init(width: 0, height: 50))
     }
     
     fileprivate func myDayLabelInit() {

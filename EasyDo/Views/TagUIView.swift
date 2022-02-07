@@ -38,6 +38,7 @@ class TagUIView: UIView {
         let ctx = UIGraphicsGetCurrentContext()!
         ctx.addPath(clipPath)
         ctx.closePath()
+//        clipPath.fill()
     }
  
     override func layoutSubviews() {

@@ -22,6 +22,7 @@ protocol AddEditCardViewModelProtocol: ViewModelBased {
     var pomodoroCount: Int? { get set }
     func updateTask()
     var coreDataStack: CoreDataStack? { get }
+  
 }
 
 //Заполненые поля даты сразу?
@@ -29,7 +30,7 @@ protocol AddEditCardViewModelProtocol: ViewModelBased {
 class AddEditCardViewModel: AddEditCardViewModelProtocol {
     
     var bindableIsFormValidObserver: Bindable<Bool> = Bindable(false)
-    
+   
     //Change this to db after?
     var recentlyUsedTags: [String]?
     
@@ -40,39 +41,56 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
     var cardName: String? { didSet { checkFormValidation() } }
     var cardDescription: String? { didSet { checkFormValidation() }}
     var pomodoroCount: Int?
-    
     var coreDataStack: CoreDataStack?
     var tagsArray = [String]()
     var dueDate: Date?
     var currentProject: Project?
     var taskDetail: Task?
+    var state: AddEditTaskState?
+    
+    
     
     init(coreDataStack: CoreDataStack, currentProject: Project?, task: Task?) {
         self.coreDataStack = coreDataStack
         self.currentProject = currentProject
         self.taskDetail = task
-        
+        self.cardName = task?.title
+        self.cardDescription = task?.taskDescription
     }
     
-//    convenience init(coreDataStack: CoreDataStack, task: Task?) {
-//        self.init(coreDataStack: coreDataStack, currentProject: task?.project)
-//        self.taskDetail = task
-//    }
+    convenience init(coreDataStack: CoreDataStack, task: Task?, state: AddEditTaskState) {
+        self.init(coreDataStack: coreDataStack, currentProject: task?.project, task: task)
+        self.taskDetail = task
+        self.state = state
+    }
     
     func addRecenltyUsedTags(tag: String) {
         recentlyUsedTags?.append(tag)
     }
     
     fileprivate func checkFormValidation() {
-        let isFormValid = cardName?.isEmpty == false && cardName!.count < 18 &&
-            cardDescription?.isEmpty == false && cardDescription!.count < 40
+        let isFormValid = cardName?.isEmpty == false && cardName!.count <= 20 &&
+            cardDescription?.isEmpty == false && cardDescription!.count <= 45
         bindableIsFormValidObserver.value = isFormValid
 //        if cardName!.count < 18 || cardDescription!.count < 40  {
 ////            bindableError.value = Errors.CardNameValidationError.tooLong
 //            print("TOOO LONG")
 //        }
+        
     }
     
+    func updateCreateTask() throws {
+        switch state {
+        case .edit:
+            updateTask()
+        case .new:
+            try? createNewTask()
+        case .none:
+            throw Errors.CardNameValidationError.tooLong
+        }
+    }
+    
+//    repository.saveTask(name: _, tag: _, taskDescription: _, pomodoroCount: _, )
     func createNewTask() throws {
         if let coreDataStack = coreDataStack {
             let task = Task(context: coreDataStack.managedContext)
@@ -93,9 +111,10 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
     }
     
     func addCardToDayTask(time: Date?, date: Date?) {
-        updateTask(time: time, date: date)
+        saveToDayTask(time: time, date: date)
     }
     
+//    repository.updateTask()
     func updateTask() {
         taskDetail?.title = cardName
         taskDetail?.taskDescription = cardDescription
@@ -103,7 +122,7 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
         
     }
     
-    fileprivate func updateTask(time: Date?, date: Date?) {
+    fileprivate func saveToDayTask(time: Date?, date: Date?) {
         if let coreDataStack = coreDataStack {
             let dailyItem = DailyItems(context: coreDataStack.managedContext)
             dailyItem.task = self.taskDetail

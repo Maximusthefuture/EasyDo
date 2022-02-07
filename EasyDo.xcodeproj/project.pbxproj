@@ -87,6 +87,7 @@
 		38F36D4C27A4231D002DD1C7 /* CircularCheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F36D4B27A4231D002DD1C7 /* CircularCheckbox.swift */; };
 		38F4175327830BDF00B7EDAB /* AddEditTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F4175227830BDF00B7EDAB /* AddEditTaskViewController.swift */; };
 		38F6A4CD277A124A004CB65D /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F6A4CC277A124A004CB65D /* ProjectViewModel.swift */; };
+		38FA118927AFEDD800F8FB19 /* RoundedViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FA118827AFEDD800F8FB19 /* RoundedViewTest.swift */; };
 		38FF9F11278488F100EB9805 /* DayTasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FF9F10278488F100EB9805 /* DayTasksViewController.swift */; };
 		38FF9F132784892F00EB9805 /* DayTaskViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FF9F122784892F00EB9805 /* DayTaskViewCell.swift */; };
 		38FF9F1527848C8B00EB9805 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FF9F1427848C8B00EB9805 /* Extensions.swift */; };
@@ -196,6 +197,7 @@
 		38F36D4B27A4231D002DD1C7 /* CircularCheckbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularCheckbox.swift; sourceTree = "<group>"; };
 		38F4175227830BDF00B7EDAB /* AddEditTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditTaskViewController.swift; sourceTree = "<group>"; };
 		38F6A4CC277A124A004CB65D /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
+		38FA118827AFEDD800F8FB19 /* RoundedViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedViewTest.swift; sourceTree = "<group>"; };
 		38FF9F10278488F100EB9805 /* DayTasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTasksViewController.swift; sourceTree = "<group>"; };
 		38FF9F122784892F00EB9805 /* DayTaskViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTaskViewCell.swift; sourceTree = "<group>"; };
 		38FF9F1427848C8B00EB9805 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 				389DABD8278DC2FB00A600BF /* CustomTextField.swift */,
 				381E8E25278ED0850021FDC6 /* HeaderLabel.swift */,
 				38F36D4B27A4231D002DD1C7 /* CircularCheckbox.swift */,
+				38FA118827AFEDD800F8FB19 /* RoundedViewTest.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -572,6 +575,7 @@
 				3806314527A3E62100AC4CC3 /* RecentlyTagsCell.swift in Sources */,
 				385EB0A327ABC06F00D05F6A /* AddEditPropertiesConfigurator.swift in Sources */,
 				38EF6DFC277DF1C700261125 /* TaskViewModel.swift in Sources */,
+				38FA118927AFEDD800F8FB19 /* RoundedViewTest.swift in Sources */,
 				3868B92F276E376200F2B765 /* Model.swift in Sources */,
 				385EB0A727ABC2EB00D05F6A /* AddEditTableManager.swift in Sources */,
 				3812D68227A82B750065F190 /* DayTasksViewCell.swift in Sources */,

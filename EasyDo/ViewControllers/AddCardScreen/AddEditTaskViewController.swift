@@ -21,15 +21,10 @@ class AddEditTaskViewController: UIViewController {
     var state: AddEditTaskState?
     var tableManager: AddEditTableManager = AddEditTableManager()
     
-    //MARK: ??????
+    
     init(viewModel: AddEditCardViewModelProtocol, state: AddEditTaskState) {
         self.addEditCardViewModel = viewModel
         self.state = state
-//        if state == .edit {
-//            self.taskDetail = task
-//        } else {
-//            self.taskDetail = nil
-//        }
         super.init(nibName: nil, bundle: nil)
      
     }
@@ -68,13 +63,10 @@ class AddEditTaskViewController: UIViewController {
     //Need to move to VM?
 //    var taskDetail: Task?
     var tableView = UITableView()
-    var saveButton: UIBarButtonItem  = {
-        var button =  UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneCreatingEditing))
-        if button.isEnabled {
-            button.tintColor = .blue
-        } else {
-            button.tintColor = .red
-        }
+    
+    //cannot use withount lazy, Is it because the initialization happened before, and doesnt work
+    lazy var saveButton: UIBarButtonItem = {
+        var button = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneCreatingEditing))
         return button
     }()
     
@@ -92,10 +84,6 @@ class AddEditTaskViewController: UIViewController {
         super.viewDidLoad()
         //MARK: IF CurrentProject nil???
         view.addSubview(editButton)
-//        if let coreDataStack = coreDataStack {
-//            addEditCardViewModel = AddEditCardViewModel(coreDataStack: coreDataStack, currentProject: currentProject)
-//        }
-//        taskDetail = addEditCardViewModel?.taskDetail
         editButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 16, left: 0, bottom: 0, right: 8))
         editButton.isHidden = true
         setupEndEditingGesture()
@@ -104,9 +92,10 @@ class AddEditTaskViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
         navigationItem.rightBarButtonItem = saveButton
-
+//        cardName.delegate = self
         initCardNameAndDescription()
         initTableView()
+        
         
 //        tableManager.attachTable(tableView)
 //        tableManager.displayProperties(properties: propertiesArray)
@@ -193,6 +182,7 @@ class AddEditTaskViewController: UIViewController {
     let propertiesArray = ["Pomodoro", "Label", "Due date"]
     
     func setupAddEditViewModelObserver() {
+        saveButton.isEnabled = false
         addEditCardViewModel?.bindableIsFormValidObserver.bind({ [weak self] isFormValid in
             guard let isFormValid = isFormValid else {
                 return
@@ -201,27 +191,27 @@ class AddEditTaskViewController: UIViewController {
         })
     }
     
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        cardName.text = taskDetail?.title
-        cardName.text = addEditCardViewModel?.taskDetail?.title
-//        cardDescription.text = taskDetail?.taskDescription
-        cardDescription.text = addEditCardViewModel?.taskDetail?.taskDescription
+        cardName.text = addEditCardViewModel?.cardName
+        cardDescription.text = addEditCardViewModel?.cardDescription
         addButton.isHidden = true
         guard let isAddMyDay = isAddMyDay else { return }
         if isAddMyDay {
             addButton.isHidden = false
         }
     }
+   
     
     fileprivate func setupEndEditingGesture() {
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleEndEditingGesture)))
+        var tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleEndEditingGesture))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)  
     }
     
     @objc func handleEndEditingGesture(tapGesture: UITapGestureRecognizer) {
         self.view.endEditing(true)
-        tapGesture.cancelsTouchesInView = false
+    
     }
     
     @objc func close() {
@@ -251,6 +241,7 @@ class AddEditTaskViewController: UIViewController {
     func editTask() {
         addEditCardViewModel?.cardDescription = cardDescription.text
         addEditCardViewModel?.updateTask()
+        
     }
     
     @objc fileprivate func doneCreatingEditing(sender: UIBarButtonItem) {
@@ -314,7 +305,6 @@ extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource 
         //MARK: TODO add textField with color picker max 2 tags.
         let vc = CardAddTagsViewController(initialHeight: 200)
         vc.taskDetail = addEditCardViewModel?.taskDetail
-//        vc.coreData = coreDataStack
         vc.refreshDelegate = self
         present(vc, animated: true)
     }
@@ -428,14 +418,25 @@ extension AddEditTaskViewController: RefreshTagsDelegate {
 }
 
 extension AddEditTaskViewController: UITextViewDelegate {
+    
     func textViewDidChange(_ textView: UITextView) {
         self.addEditCardViewModel?.cardDescription = textView.text
 //        self.addButton.isHidden = false
-        print("textView", textView.text)
         self.addButton.isHidden = true
         self.editButton.isHidden = false
-        
-        
     }
+    
+//    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+////        tapGesture.cancelsTouchesInView = false
+//        self.view.endEditing(true)
+//        return true
+//    }
 }
+
+//extension AddEditTaskViewController: UITextFieldDelegate {
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        self.view.endEditing(true)
+//        return true
+//    }
+//}
 
