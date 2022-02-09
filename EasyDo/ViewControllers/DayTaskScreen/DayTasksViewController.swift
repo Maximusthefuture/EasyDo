@@ -399,6 +399,18 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
         let vc = container.addEditTaskViewController(task: item, state: .edit, currentProject: item.project)
         present(vc, animated: true)
     }
+    
+
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        print("here we are")
+        let action =  UIContextualAction(style: .destructive, title: "Tomorrow") { (action, swipeButtonView, completion) in
+            guard let fetchRequest = self.fetchRequest  else { return }
+            self.dayTaskViewModel?.moveToNextDay(indexPath: indexPath.row, fetchRequest: fetchRequest)
+            completion(true)
+        }
+        return UISwipeActionsConfiguration(actions: [action])
+    }
 }
 
 //MARK: UIContextMenuInteractionDelegate

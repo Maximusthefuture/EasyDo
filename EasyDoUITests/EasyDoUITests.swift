@@ -86,6 +86,26 @@ class EasyDoUITests: XCTestCase {
     }
     
     func testCardCompleteCreation() {
+       
+        
+    }
+    
+    func test_swipe_to_tommorow_daily_task() {
+//       app.tables.cells.children(matching: .other).element(boundBy: 1).children(matching: .other).element.swipeRight()
+        let tablesQuery = app.tables.cells
+        let cell = tablesQuery.children(matching: .other).element(boundBy: 1)
+        let rightOffset = CGVector(dx: 0.95, dy: 0.5)
+        let leftOffset = CGVector(dx: 0.05, dy: 0.5)
+        let cellFarLeftCoordinate = cell.coordinate(withNormalizedOffset: leftOffset)
+//        tablesQuery.children(matching: .other).element(boundBy: 1).swipeRight(velocity: .fast)
+//        tablesQuery.children(matching: .other).element(boundBy: 1).swipeRight(velocity: .fast)
+        let cellFarRightCoordinate = cell.coordinate(withNormalizedOffset: rightOffset)
+        cellFarLeftCoordinate.press(forDuration: 0.3, thenDragTo: cellFarRightCoordinate)
+//        tablesQuery.children(matching: .other).element(boundBy: 1).buttons["Delete"].tap()
+        XCTAssertEqual(cell.waitForExistence(timeout: 2), false)
+        
+                        
+                                
         
     }
     

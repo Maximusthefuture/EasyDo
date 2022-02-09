@@ -6,12 +6,14 @@
 //
 
 import Foundation
+import CoreData
 
 protocol DayTaskViewModelProtocol: AnyObject {
     func isCurrentDate(date: Date) -> Bool
     func setPredicateByDate(date: Date) -> NSPredicate
     var currentWeek: [Date] { get set }
     var coreDataStack: CoreDataStack? { get }
+    func moveToNextDay(indexPath: Int, fetchRequest: NSFetchRequest<DailyItems>)
 }
 
 class DayTasksViewModel: ViewModelBased, DayTaskViewModelProtocol {
@@ -32,6 +34,18 @@ class DayTasksViewModel: ViewModelBased, DayTaskViewModelProtocol {
         let day = calendar.component(.day, from: date)
         let currentDay = calendar.component(.day, from: Date())
         return day == currentDay
+    }
+    
+    
+    func moveToNextDay(indexPath: Int, fetchRequest: NSFetchRequest<DailyItems>) {
+        let calendar = Calendar.current
+        var futureComponents = DateComponents()
+        futureComponents.day = 1
+        let today = Date()
+        let nextDay = calendar.date(byAdding: futureComponents, to: today)
+        let item = try? coreDataStack?.managedContext.fetch(fetchRequest)
+        item?[indexPath].inDate = nextDay?.onlyDate
+        coreDataStack?.saveContext()
     }
     
     func setPredicateByDate(date: Date) -> NSPredicate{

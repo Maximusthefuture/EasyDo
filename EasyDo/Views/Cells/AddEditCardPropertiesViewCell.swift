@@ -53,6 +53,12 @@ class AddEditCardPropertiesViewCell: UITableViewCell {
     
     var task: Task?
     
+    
+    func configure(viewModel: AddEditCardViewModel) {
+        pomodoroCount.text = "\(viewModel.pomodoroCount)"
+        datePicker.date = viewModel.dueDate ?? Date()
+    }
+    
     func initTask(initialTask: Task?) {
         task = initialTask
         stackView.isAccessibilityElement = false
