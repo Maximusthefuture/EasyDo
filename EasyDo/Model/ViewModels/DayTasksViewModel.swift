@@ -39,14 +39,19 @@ class DayTasksViewModel: ViewModelBased, DayTaskViewModelProtocol {
     
     func moveToNextDay(indexPath: Int, fetchRequest: NSFetchRequest<DailyItems>) {
         let item = try? coreDataStack?.managedContext.fetch(fetchRequest)
+        let taskDate = item?[indexPath].inDate
+        let nextDay = getItemDate(itemDate: taskDate)
+        item?[indexPath].inDate = nextDay.onlyDate
+        coreDataStack?.saveContext()
+    }
+    
+    fileprivate func getItemDate(itemDate: Date?) -> Date {
         let calendar = Calendar.current
         var futureComponents = DateComponents()
         futureComponents.day = 1
-        let taskDate = item?[indexPath].inDate
-        guard let taskDate = taskDate else { return }
-        let nextDay = calendar.date(byAdding: futureComponents, to: taskDate)
-        item?[indexPath].inDate = nextDay?.onlyDate
-        coreDataStack?.saveContext()
+        guard let itemDate = itemDate else { return Date() }
+        let nextDay = calendar.date(byAdding: futureComponents, to: itemDate)
+        return nextDay ?? Date()
     }
     
     func setPredicateByDate(date: Date) -> NSPredicate{
