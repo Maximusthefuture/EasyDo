@@ -340,15 +340,19 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
         //or change section count?? use section intead of new cell???
         return fetchedResultsController.sections![section].numberOfObjects
     }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == UITableViewCell.EditingStyle.delete {
-            guard let fetchRequest = fetchRequest  else { return }
-            let item = try? dayTaskViewModel?.coreDataStack?.managedContext.fetch(fetchRequest)
-            item?[indexPath.row].task?.mainTag = "Done"
-            dayTaskViewModel?.coreDataStack?.managedContext.delete(item![indexPath.row])
-            dayTaskViewModel?.coreDataStack?.saveContext()
+
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction =  UIContextualAction(style: .destructive, title: nil) { [unowned self] (action, swipeButtonView, completion) in
+            guard let fetchRequest = self.fetchRequest  else { return }
+            self.dayTaskViewModel?.deleteItem(indexPath: indexPath.row, fetchRequest: fetchRequest)
+            completion(true)
         }
+        let largeFont = UIFont.systemFont(ofSize: 60)
+        let configuration = UIImage.SymbolConfiguration(font: largeFont)
+        let image = UIImage(systemName: "trash", withConfiguration: configuration)?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        deleteAction.image = image
+        deleteAction.backgroundColor = .white
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     
     //MARK: Move to cell????
@@ -388,7 +392,6 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
             let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DayTasksViewCell
             configure(cell: cell, for: indexPath)
             return cell
@@ -400,16 +403,19 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
         present(vc, animated: true)
     }
     
-
-    
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        print("here we are")
-        let action =  UIContextualAction(style: .destructive, title: "Tomorrow") { (action, swipeButtonView, completion) in
+        let moveToNextDayAction =  UIContextualAction(style: .destructive, title: nil) { (action, swipeButtonView, completion) in
             guard let fetchRequest = self.fetchRequest  else { return }
             self.dayTaskViewModel?.moveToNextDay(indexPath: indexPath.row, fetchRequest: fetchRequest)
             completion(true)
         }
-        return UISwipeActionsConfiguration(actions: [action])
+        let largeFont = UIFont.systemFont(ofSize: 60)
+        let configuration = UIImage.SymbolConfiguration(font: largeFont)
+        let image = UIImage(systemName: "arrow.right", withConfiguration: configuration)?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        moveToNextDayAction.image = image
+        
+        moveToNextDayAction.backgroundColor = .white
+        return UISwipeActionsConfiguration(actions: [moveToNextDayAction])
     }
 }
 

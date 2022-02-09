@@ -14,6 +14,7 @@ protocol DayTaskViewModelProtocol: AnyObject {
     var currentWeek: [Date] { get set }
     var coreDataStack: CoreDataStack? { get }
     func moveToNextDay(indexPath: Int, fetchRequest: NSFetchRequest<DailyItems>)
+    func deleteItem(indexPath: Int, fetchRequest: NSFetchRequest<DailyItems>)
 }
 
 class DayTasksViewModel: ViewModelBased, DayTaskViewModelProtocol {
@@ -45,6 +46,13 @@ class DayTasksViewModel: ViewModelBased, DayTaskViewModelProtocol {
         coreDataStack?.saveContext()
     }
     
+    func deleteItem(indexPath: Int, fetchRequest: NSFetchRequest<DailyItems>) {
+        let item = try? coreDataStack?.managedContext.fetch(fetchRequest)
+        item?[indexPath].task?.mainTag = "Done"
+        coreDataStack?.managedContext.delete(item![indexPath])
+        coreDataStack?.saveContext()
+    }
+    
     fileprivate func getItemDate(itemDate: Date?) -> Date {
         let calendar = Calendar.current
         var futureComponents = DateComponents()
@@ -54,7 +62,7 @@ class DayTasksViewModel: ViewModelBased, DayTaskViewModelProtocol {
         return nextDay ?? Date()
     }
     
-    func setPredicateByDate(date: Date) -> NSPredicate{
+    func setPredicateByDate(date: Date) -> NSPredicate {
         return NSPredicate(format: "%K == %@", #keyPath(DailyItems.inDate), date as NSDate)
     }
     
