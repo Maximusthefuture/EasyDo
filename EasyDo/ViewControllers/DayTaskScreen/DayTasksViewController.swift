@@ -83,15 +83,17 @@ class DayTasksViewController: UIViewController {
         return fetchedResultsController
     }()
     
-    
+    var stackView: UIStackView?
+    var array = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
     //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
         fetchRequest = DailyItems.fetchRequest()
         weeklyPickerCollectionView.delegate = self
         myDayLabelInit()
+        initStackViewDayWeek()
+        
         initWeeklyDayPickerCollection()
         weeeklyGoalViewTest()
         tableViewInit()
@@ -116,6 +118,20 @@ class DayTasksViewController: UIViewController {
         viewWithCorners.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: myDayLabel.bottomAnchor, trailing: view.trailingAnchor,padding: .init(top: 0, left: 30, bottom: 0, right: 16), size: .init(width: 200, height: 40))
         viewWithCorners.label.text = "Weekly goal here??"
         viewWithCorners.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapWeeklyGoal)))
+    }
+    
+    fileprivate func initStackViewDayWeek() {
+        stackView = UIStackView()
+        
+        for dayOfWeek in array {
+            let label = UILabel()
+            label.text = dayOfWeek
+            stackView?.addArrangedSubview(label)
+        }
+        view.addSubview(stackView!)
+        stackView?.axis = .horizontal
+        stackView?.distribution = .fillEqually
+        stackView?.anchor(top: myDayLabel.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 8, bottom: 0, right: 8))
     }
     
     @objc func handleTapWeeklyGoal() {
@@ -162,7 +178,7 @@ class DayTasksViewController: UIViewController {
     
     fileprivate func initWeeklyDayPickerCollection() {
         view.addSubview(weeklyPickerCollectionView.view)
-        weeklyPickerCollectionView.view.anchor(top: myDayLabel.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0),size: .init(width: 0, height: 50))
+        weeklyPickerCollectionView.view.anchor(top: stackView?.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0),size: .init(width: 0, height: 50))
     }
     
     fileprivate func myDayLabelInit() {
@@ -341,20 +357,6 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
         return fetchedResultsController.sections![section].numberOfObjects
     }
 
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction =  UIContextualAction(style: .destructive, title: nil) { [unowned self] (action, swipeButtonView, completion) in
-            guard let fetchRequest = self.fetchRequest  else { return }
-            self.dayTaskViewModel?.deleteItem(indexPath: indexPath.row, fetchRequest: fetchRequest)
-            completion(true)
-        }
-        let largeFont = UIFont.systemFont(ofSize: 60)
-        let configuration = UIImage.SymbolConfiguration(font: largeFont)
-        let image = UIImage(systemName: "trash", withConfiguration: configuration)?.withTintColor(.black, renderingMode: .alwaysOriginal)
-        deleteAction.image = image
-        deleteAction.backgroundColor = .white
-        return UISwipeActionsConfiguration(actions: [deleteAction])
-    }
-    
     //MARK: Move to cell????
     func configure(cell: UITableViewCell, for indexPath: IndexPath) {
         guard let cell = cell as? DayTasksViewCell else { return }
@@ -403,6 +405,22 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
         present(vc, animated: true)
     }
     
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction =  UIContextualAction(style: .destructive, title: nil) { [unowned self] (action, swipeButtonView, completion) in
+            guard let fetchRequest = self.fetchRequest  else { return }
+            self.dayTaskViewModel?.deleteItem(indexPath: indexPath.row, fetchRequest: fetchRequest)
+            completion(true)
+        }
+        let largeFont = UIFont.systemFont(ofSize: 60)
+        let configuration = UIImage.SymbolConfiguration(font: largeFont)
+        let image = UIImage(systemName: "trash", withConfiguration: configuration)?.withTintColor(.red, renderingMode: .alwaysOriginal)
+        deleteAction.image = image
+        deleteAction.backgroundColor = .white
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+    
+    
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let moveToNextDayAction =  UIContextualAction(style: .destructive, title: nil) { (action, swipeButtonView, completion) in
             guard let fetchRequest = self.fetchRequest  else { return }
@@ -411,7 +429,7 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
         }
         let largeFont = UIFont.systemFont(ofSize: 60)
         let configuration = UIImage.SymbolConfiguration(font: largeFont)
-        let image = UIImage(systemName: "arrow.right", withConfiguration: configuration)?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        let image = UIImage(systemName: "arrow.right", withConfiguration: configuration)?.withTintColor(.blue, renderingMode: .alwaysOriginal)
         moveToNextDayAction.image = image
         
         moveToNextDayAction.backgroundColor = .white
