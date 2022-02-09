@@ -38,12 +38,13 @@ class DayTasksViewModel: ViewModelBased, DayTaskViewModelProtocol {
     
     
     func moveToNextDay(indexPath: Int, fetchRequest: NSFetchRequest<DailyItems>) {
+        let item = try? coreDataStack?.managedContext.fetch(fetchRequest)
         let calendar = Calendar.current
         var futureComponents = DateComponents()
         futureComponents.day = 1
-        let today = Date()
-        let nextDay = calendar.date(byAdding: futureComponents, to: today)
-        let item = try? coreDataStack?.managedContext.fetch(fetchRequest)
+        let taskDate = item?[indexPath].inDate
+        guard let taskDate = taskDate else { return }
+        let nextDay = calendar.date(byAdding: futureComponents, to: taskDate)
         item?[indexPath].inDate = nextDay?.onlyDate
         coreDataStack?.saveContext()
     }
