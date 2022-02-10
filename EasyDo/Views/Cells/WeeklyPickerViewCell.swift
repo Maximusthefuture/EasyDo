@@ -23,6 +23,7 @@ class WeeklyPickerViewCell: UICollectionViewCell {
             } else {
                 dayLabel.textColor = .black
                 dayLabel.font = UIFont.boldSystemFont(ofSize: 14)
+                circular.fillColor = nil
 //                roundedView.isHidden = true
                 roundedView.backgroundColor = #colorLiteral(red: 0.9722431302, green: 0.972392261, blue: 1, alpha: 1)
             }
@@ -94,16 +95,19 @@ class WeeklyPickerViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.addSubview(circular)
-        circular.addSubview(dayLabel)
+        contentView.addSubview(roundedView)
+        roundedView.addSubview(dayLabel)
         contentView.addSubview(pomodoroIcon)
         pomodoroIcon.addSubview(pomodoroCount)
         pomodoroCount.text = "3"
         pomodoroCount.textColor = .black
 
-        dayLabel.anchor(top: circular.topAnchor, leading: circular.leadingAnchor, bottom: circular.bottomAnchor, trailing: circular.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0))
-        circular.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, size: .init(width: 0, height: 0))
-        pomodoroIcon.anchor(top: circular.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: -10, left: 0, bottom: 0, right: 0),size: .init(width: 0, height: 30))
+//        dayLabel.anchor(top: roundedView.topAnchor, leading: roundedView.leadingAnchor, bottom: roundedView.bottomAnchor, trailing: roundedView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0))
+       
+        roundedView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 0, left: 0, bottom: 8, right: 0),size: .init(width: 30, height: 30))
+       
+        dayLabel.fillSuperview()
+        pomodoroIcon.anchor(top: roundedView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0),size: .init(width: 0, height: 30))
         pomodoroCount.fillSuperview(padding: .init(top: 8, left: 0, bottom: 0, right: 0))
         if pomodoroCount.text == "0" {
             pomodoroIcon.isHidden = true

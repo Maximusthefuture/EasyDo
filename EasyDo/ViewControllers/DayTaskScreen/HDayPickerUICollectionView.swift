@@ -51,10 +51,10 @@ class HDayPickerUICollectionView: BaseListController {
             NSCollectionLayoutSection? in
             
             let item1 = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.2), heightDimension: .fractionalHeight(0.4)))
-            let group1 = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.7), heightDimension: .absolute(100)), subitem: item1, count: 6)
-           
+            let group1 = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(100)), subitem: item1, count: 7)
+            group1.contentInsets = .init(top: 0, leading: 8, bottom: 0, trailing: 8)
             let section = NSCollectionLayoutSection(group: group1)
-//            section.interGroupSpacing = 100
+            section.interGroupSpacing = 16               
             section.orthogonalScrollingBehavior = .groupPaging
             return section
         }
@@ -84,32 +84,32 @@ class HDayPickerUICollectionView: BaseListController {
     }
    
     
-    func setSelectedItemFromScrollView(_ scrollView: UIScrollView) {
-        if collectionView == scrollView {
-            let center = CGPoint(x: scrollView.center.x + scrollView.contentOffset.x, y: scrollView.center.y + scrollView.contentOffset.y)
-            let index = collectionView.indexPathForItem(at: center)
-            if index != nil {
-                collectionView.scrollToItem(at: index!, at: .centeredHorizontally, animated: true)
-                self.collectionView.selectItem(at: index, animated: false, scrollPosition: [])
-                self.collectionView(self.collectionView, didSelectItemAt: index!)
-            }
-           
-        }
-    }
-    
-    //MARK: DON't WORK WITH UICollectionViewCompositionalLayout
-    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        if collectionView == scrollView  {
-            setSelectedItemFromScrollView(scrollView)
+//    func setSelectedItemFromScrollView(_ scrollView: UIScrollView) {
+//        if collectionView == scrollView {
+//            let center = CGPoint(x: scrollView.center.x + scrollView.contentOffset.x, y: scrollView.center.y + scrollView.contentOffset.y)
+//            let index = collectionView.indexPathForItem(at: center)
+//            if index != nil {
+//                collectionView.scrollToItem(at: index!, at: .centeredHorizontally, animated: true)
+//                self.collectionView.selectItem(at: index, animated: false, scrollPosition: [])
+//                self.collectionView(self.collectionView, didSelectItemAt: index!)
+//            }
+//
 //        }
-    }
+//    }
     
-    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-//        if collectionView == scrollView && !decelerate {
-            setSelectedItemFromScrollView(scrollView)
-//        }
-    }
-    
+//    //MARK: DON't WORK WITH UICollectionViewCompositionalLayout
+//    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+////        if collectionView == scrollView  {
+//            setSelectedItemFromScrollView(scrollView)
+////        }
+//    }
+//    
+//    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+////        if collectionView == scrollView && !decelerate {
+//            setSelectedItemFromScrollView(scrollView)
+////        }
+//    }
+//    
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! WeeklyPickerViewCell
