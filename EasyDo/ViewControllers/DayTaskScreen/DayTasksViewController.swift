@@ -178,7 +178,7 @@ class DayTasksViewController: UIViewController {
     
     fileprivate func initWeeklyDayPickerCollection() {
         view.addSubview(weeklyPickerCollectionView.view)
-        weeklyPickerCollectionView.view.anchor(top: stackView?.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0),size: .init(width: 0, height: 50))
+        weeklyPickerCollectionView.view.anchor(top: stackView?.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0),size: .init(width: 0, height: 60))
     }
     
     fileprivate func myDayLabelInit() {

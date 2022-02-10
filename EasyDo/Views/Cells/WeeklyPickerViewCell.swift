@@ -105,6 +105,9 @@ class WeeklyPickerViewCell: UICollectionViewCell {
         circular.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, size: .init(width: 0, height: 0))
         pomodoroIcon.anchor(top: circular.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: -10, left: 0, bottom: 0, right: 0),size: .init(width: 0, height: 30))
         pomodoroCount.fillSuperview(padding: .init(top: 8, left: 0, bottom: 0, right: 0))
+        if pomodoroCount.text == "0" {
+            pomodoroIcon.isHidden = true
+        }
     }
     
     

@@ -31,6 +31,8 @@ class HDayPickerUICollectionView: BaseListController {
         collectionView.register(WeeklyPickerViewCell.self, forCellWithReuseIdentifier: dayPickerCellId)
         collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.isScrollEnabled = false
     }
   
     
@@ -126,5 +128,6 @@ class HDayPickerUICollectionView: BaseListController {
 extension HDayPickerUICollectionView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 10
-    }  
+    }
+    
 }
