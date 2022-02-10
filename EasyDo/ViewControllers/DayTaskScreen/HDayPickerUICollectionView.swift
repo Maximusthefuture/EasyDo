@@ -54,7 +54,7 @@ class HDayPickerUICollectionView: BaseListController {
             let group1 = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(100)), subitem: item1, count: 7)
             group1.contentInsets = .init(top: 0, leading: 8, bottom: 0, trailing: 8)
             let section = NSCollectionLayoutSection(group: group1)
-            section.interGroupSpacing = 16               
+            section.interGroupSpacing = 16
             section.orthogonalScrollingBehavior = .groupPaging
             return section
         }
