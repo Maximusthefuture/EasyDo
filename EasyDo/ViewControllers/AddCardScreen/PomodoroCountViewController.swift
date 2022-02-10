@@ -10,7 +10,7 @@ import UIKit
 
 class PomodoroCountViewController: ResizableViewController {
     
-    var viewModel:PomodoroCountViewModel?
+    var viewModel: PomodoroCountViewModel?
     
     var pomodoroImage = UIImage(named: "pomodoro")
     

@@ -53,6 +53,7 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
         self.pomodoroCount = Int(task?.pomodoroCount ?? 0)
         self.cardDescription = task?.taskDescription
         self.state = state
+        self.tagsArray = task?.tags ?? []
     }
     
     convenience init(coreDataStack: CoreDataStack, task: Task?, state: AddEditTaskState) {
