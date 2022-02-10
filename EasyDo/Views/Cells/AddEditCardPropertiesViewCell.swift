@@ -54,18 +54,12 @@ class AddEditCardPropertiesViewCell: UITableViewCell {
     var task: Task?
     
     
-    func configure(viewModel: AddEditCardViewModel) {
-        pomodoroCount.text = "\(viewModel.pomodoroCount)"
-        datePicker.date = viewModel.dueDate ?? Date()
-    }
-    
-    func initTask(initialTask: Task?) {
-        task = initialTask
+    func configure(viewModel: AddEditCardViewModelProtocol?) {
         stackView.isAccessibilityElement = false
         stackView.accessibilityIdentifier = "StackView"
-        guard let count = task?.tags else { return }
+        guard let count = viewModel?.tagsArray else { return }
         for title in count {
-            if stackView.subviews.count == (task?.tags?.count)! {
+            if stackView.subviews.count == (viewModel?.tagsArray.count)! {
                 break
             }
             let tagView = TagUIView()
@@ -74,12 +68,9 @@ class AddEditCardPropertiesViewCell: UITableViewCell {
             
             stackView.addArrangedSubview(tagView)
         }
-        pomodoroCount.text = "\(Int(task?.pomodoroCount ?? 0))"
-        datePicker.date = task?.dueDate ?? Date()
-        
+        pomodoroCount.text = "\(Int(viewModel?.pomodoroCount ?? 0))"
+        datePicker.date = viewModel?.dueDate ?? Date()
     }
-    
-   
   
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
