@@ -51,7 +51,7 @@ class WeeklyPickerViewCell: UICollectionViewCell {
         }
 
         let attributedString = NSMutableAttributedString(string: " \(extractDate(date: date, format: "dd"))", attributes: [.font: UIFont.systemFont(ofSize: 13, weight: .bold)])
-        attributedString.append(NSMutableAttributedString(string: "\n\(extractDate(date: date, format: "EEE"))", attributes: [.font: UIFont.systemFont(ofSize: 14, weight: .bold)]))
+//        attributedString.append(NSMutableAttributedString(string: "\n\(extractDate(date: date, format: "EEE"))", attributes: [.font: UIFont.systemFont(ofSize: 14, weight: .bold)]))
         dayLabel.attributedText = attributedString
         
         if isCurrentDate(date: date) {
@@ -63,6 +63,12 @@ class WeeklyPickerViewCell: UICollectionViewCell {
         }
         
     }
+ 
+    let circular: CircularCheckBox = {
+       let v = CircularCheckBox()
+        v.strokeColor = UIColor.blue.cgColor
+        return v
+    }()
     
    
     func isCurrentDate(date: Date) -> Bool {
@@ -72,20 +78,33 @@ class WeeklyPickerViewCell: UICollectionViewCell {
         return day == currentDay
     }
     
+    let pomodoroCount: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12, weight: .bold)
+        label.textColor = .blue
+        
+        return label
+    }()
+    let pomodoroIcon: UIImageView = {
+        let image = UIImage(named: "tomato")
+        let imageView = UIImageView(image: image)
+        return imageView
+    }()
+   
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        contentView.addSubview(roundedView)
-        contentView.addSubview(dayLabel)
-//        backgroundColor = .blue
-        dayLabel.anchor(top: roundedView.topAnchor, leading: roundedView.leadingAnchor, bottom: roundedView.bottomAnchor, trailing: roundedView.trailingAnchor, padding: .init(top: 0, left: 8, bottom: 0, right: 0))
-        roundedView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor)
-//        backgroundColor = .red
-//        roundedView.isHidden = true
-        
-       
-       
+        contentView.addSubview(circular)
+        circular.addSubview(dayLabel)
+        contentView.addSubview(pomodoroIcon)
+        pomodoroIcon.addSubview(pomodoroCount)
+        pomodoroCount.text = "3"
+        pomodoroCount.textColor = .black
+
+        dayLabel.anchor(top: circular.topAnchor, leading: circular.leadingAnchor, bottom: circular.bottomAnchor, trailing: circular.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0))
+        circular.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, size: .init(width: 0, height: 0))
+        pomodoroIcon.anchor(top: circular.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: -10, left: 0, bottom: 0, right: 0),size: .init(width: 0, height: 30))
+        pomodoroCount.fillSuperview(padding: .init(top: 8, left: 0, bottom: 0, right: 0))
     }
     
     
@@ -102,6 +121,8 @@ class WeeklyPickerViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        dayLabel.textAlignment = .center
+        pomodoroCount.textAlignment = .center
        
     }
     

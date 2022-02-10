@@ -13,6 +13,7 @@ class CircularCheckBox: UIView {
     var radius: CGFloat?
     var fillColor: CGColor?
     var isChecked = false
+    var strokeColor: CGColor?
     
     
     override init(frame: CGRect) {
@@ -43,7 +44,12 @@ class CircularCheckBox: UIView {
         shapeLayer.path = bezierPath.cgPath
         
         shapeLayer.fillColor = fillColor
-        shapeLayer.strokeColor = UIColor.black.cgColor
+        if let strokeColor = strokeColor {
+            shapeLayer.strokeColor = strokeColor
+        } else {
+            shapeLayer.strokeColor = UIColor.black.cgColor
+        }
+        
         shapeLayer.lineWidth = 1.0
         layer.addSublayer(shapeLayer)
     }
