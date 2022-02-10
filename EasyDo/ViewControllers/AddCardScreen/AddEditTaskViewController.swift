@@ -186,6 +186,11 @@ class AddEditTaskViewController: UIViewController {
             }
             self?.saveButton.isEnabled = isFormValid
         })
+        
+        vmFactory.pomodoroViewModel.pomodoroCount.bind { value in
+            self.addEditCardViewModel?.pomodoroCount = value
+        }
+   
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -221,7 +226,6 @@ class AddEditTaskViewController: UIViewController {
     }()
     
     @objc fileprivate func doneCreatingEditing(sender: UIBarButtonItem) {
-        print("Done editing save")
          try? addEditCardViewModel?.updateCreateTask()
          dismiss(animated: true)
     }
@@ -339,8 +343,9 @@ extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource 
                 let propepties = propertiesArray[indexPath.row]
                 cell.label.text = propepties
                 tableView.separatorStyle = .none
-                cell.initTask(initialTask: addEditCardViewModel?.taskDetail)
-                
+                if let viewModel = addEditCardViewModel {
+                    cell.configure(viewModel: addEditCardViewModel) }
+    
                 switch indexPath.row {
                 case 0: enumProp = .pomodoro
                 case 1: enumProp = .label
