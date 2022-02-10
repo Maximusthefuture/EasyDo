@@ -39,15 +39,15 @@ class AddEditViewModelTest: XCTestCase {
         viewModel.cardDescription = "Description"
         viewModel.pomodoroCount = 5
         try? viewModel.updateCreateTask()
-        var fetchRequest = Task.fetchRequest()
-        var task = try? coreDataStack.managedContext.fetch(fetchRequest)
+        let fetchRequest = Task.fetchRequest()
+        let task = try? coreDataStack.managedContext.fetch(fetchRequest)
         XCTAssertEqual(task?[0].title, "Card")
         XCTAssertEqual(task?[0].taskDescription, "Description")
         XCTAssertEqual(task?[0].pomodoroCount, 5)
     }
     
     func test_editing_task_in_vm() {
-                var task = NSEntityDescription.insertNewObject(forEntityName: "Task", into: coreDataStack.managedContext) as! Task
+        let task = NSEntityDescription.insertNewObject(forEntityName: "Task", into: coreDataStack.managedContext) as! Task
         viewModel = AddEditCardViewModel(coreDataStack: coreDataStack, task: task, state: .edit)
         viewModel.pomodoroCount = 5
         viewModel.cardName = "Card"

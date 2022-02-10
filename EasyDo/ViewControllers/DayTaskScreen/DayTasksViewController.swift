@@ -263,6 +263,8 @@ class DayTasksViewController: UIViewController {
         dayTaskViewModel?.coreDataStack?.saveContext()
     }
     
+    let image = UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)
+    
    
 }
 
@@ -294,6 +296,8 @@ extension DayTasksViewController {
         checkIsItemsEmpty()
         tableView.reloadData()
     }
+    
+   
     
     
 }
@@ -404,6 +408,7 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
         let vc = container.addEditTaskViewController(task: item, state: .edit, currentProject: item.project)
         present(vc, animated: true)
     }
+    
     
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -526,6 +531,8 @@ extension DayTasksViewController {
         }
     }
 }
+
+
 
 
 
