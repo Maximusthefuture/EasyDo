@@ -89,24 +89,10 @@ class AddEditTaskViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
         navigationItem.rightBarButtonItem = saveButton
-//        cardName.delegate = self
         initCardNameAndDescription()
         initTableView()
-        
-        
-//        tableManager.attachTable(tableView)
-//        tableManager.displayProperties(properties: propertiesArray)
-//        tableManager.displayAttachments(attachments: propertiesArray)
-//        tableManager.displayTodo()
-//        tableManager.didDueDateTapped = { f in
-//            print(f)
-//        }
-//        tableManager.didPomodoroTapped = { pomodoro in
-//            print(pomodoro)
-//        }
-        
-
-       
+//      tableManager.attachTable(tableView)
+  
     }
     
     //MARK: Init tableView
@@ -118,11 +104,8 @@ class AddEditTaskViewController: UIViewController {
         tableView.delegate = self
         tableView.register(TodoViewCell.self, forCellReuseIdentifier: String.init(describing: TodoViewCell.self))
         tableView.register(AddEditCardPropertiesViewCell.self, forCellReuseIdentifier: propertiesCell)
-//        tableView.register(AddEditCardPropertiesViewCell.self, forCellReuseIdentifier: String.init(describing: AddEditCardPropertiesViewCell.self))
         tableView.register(AttachmentsCardViewCell.self, forCellReuseIdentifier: attachmentsCell)
         tableView.register(DueDateCell.self, forCellReuseIdentifier: String.init(describing: DueDateCell.self))
-        //        tableView.isScrollEnabled = false
-        
     }
     
     @objc func handleTextChange(textField: UITextField) {
@@ -159,10 +142,8 @@ class AddEditTaskViewController: UIViewController {
     //MARK: TODO Bottom Sheet when we can add items? First image then can add
     @objc private func handleSeeAllAttachments() {
         let vc = AttachmentsViewController(initialHeight: 300)
-        
         present(vc, animated: true)
     }
-    
     
     lazy var attachmentsHeader: UIView = {
         let headerLabel = HeaderLabel()
@@ -190,7 +171,6 @@ class AddEditTaskViewController: UIViewController {
         vmFactory.pomodoroViewModel.pomodoroCount.bind { value in
             self.addEditCardViewModel?.pomodoroCount = value
         }
-   
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -204,9 +184,8 @@ class AddEditTaskViewController: UIViewController {
         }
     }
    
-    
     fileprivate func setupEndEditingGesture() {
-        var tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleEndEditingGesture))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleEndEditingGesture))
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)  
     }
@@ -238,7 +217,6 @@ class AddEditTaskViewController: UIViewController {
             self?.addEditCardViewModel?.taskDetail = self?.addEditCardViewModel?.taskDetail
             self?.addEditCardViewModel?.addCardToDayTask(time: time, date: date)
             self?.presentingViewController?.dismiss(animated: true)
-            
         }
     }
     
@@ -249,7 +227,6 @@ class AddEditTaskViewController: UIViewController {
         print("Datepicker: \(datePicker.date)")
         addEditCardViewModel?.dueDate = datePicker.date
     }
-  
 }
 
 extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource {
@@ -402,18 +379,4 @@ extension AddEditTaskViewController: UITextViewDelegate {
         self.addButton.isHidden = true
         self.editButton.isHidden = false
     }
-    
-//    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-////        tapGesture.cancelsTouchesInView = false
-//        self.view.endEditing(true)
-//        return true
-//    }
 }
-
-//extension AddEditTaskViewController: UITextFieldDelegate {
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        self.view.endEditing(true)
-//        return true
-//    }
-//}
-
