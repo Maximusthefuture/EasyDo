@@ -35,6 +35,8 @@
 		382C8C1D2787077200BE2B8A /* MenuLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382C8C1C2787077200BE2B8A /* MenuLabel.swift */; };
 		3832ABF02798600800FFFE85 /* DailyItems+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3832ABEE2798600800FFFE85 /* DailyItems+CoreDataClass.swift */; };
 		3832ABF12798600800FFFE85 /* DailyItems+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3832ABEF2798600800FFFE85 /* DailyItems+CoreDataProperties.swift */; };
+		3833589027C251CC00BCB646 /* Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3833588F27C251CC00BCB646 /* Padding.swift */; };
+		3833589227C27F7300BCB646 /* PickTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3833589127C27F7300BCB646 /* PickTimeViewModel.swift */; };
 		383A3F7127A943D300F153B8 /* PomodoroCountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383A3F7027A943D300F153B8 /* PomodoroCountViewController.swift */; };
 		383A3F7327A95EE400F153B8 /* PomodoroCountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383A3F7227A95EE400F153B8 /* PomodoroCountViewModel.swift */; };
 		383A3F7527A95F9900F153B8 /* AddEditViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383A3F7427A95F9900F153B8 /* AddEditViewModelFactory.swift */; };
@@ -154,6 +156,8 @@
 		3832ABED27985FDF00FFFE85 /* EasyDo v11.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EasyDo v11.xcdatamodel"; sourceTree = "<group>"; };
 		3832ABEE2798600800FFFE85 /* DailyItems+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DailyItems+CoreDataClass.swift"; path = "CoreDataClass/DailyItems+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3832ABEF2798600800FFFE85 /* DailyItems+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DailyItems+CoreDataProperties.swift"; path = "CoreDataClass/DailyItems+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3833588F27C251CC00BCB646 /* Padding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Padding.swift; sourceTree = "<group>"; };
+		3833589127C27F7300BCB646 /* PickTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickTimeViewModel.swift; sourceTree = "<group>"; };
 		383A3F7027A943D300F153B8 /* PomodoroCountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroCountViewController.swift; sourceTree = "<group>"; };
 		383A3F7227A95EE400F153B8 /* PomodoroCountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroCountViewModel.swift; sourceTree = "<group>"; };
 		383A3F7427A95F9900F153B8 /* AddEditViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditViewModelFactory.swift; sourceTree = "<group>"; };
@@ -284,6 +288,7 @@
 				3876EE1A279D4F85001A9955 /* Errors.swift */,
 				3876EE1C279D649F001A9955 /* ViewModelBased.swift */,
 				3804DE4527A80F9100926585 /* Bindable.swift */,
+				3833588F27C251CC00BCB646 /* Padding.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -404,6 +409,7 @@
 				383A3F7427A95F9900F153B8 /* AddEditViewModelFactory.swift */,
 				38B51D7B27AD2D3D009DBAE5 /* ProjectListViewModel.swift */,
 				38B51D7D27AD4FDA009DBAE5 /* ProjectMainViewModel.swift */,
+				3833589127C27F7300BCB646 /* PickTimeViewModel.swift */,
 			);
 			name = ViewModels;
 			path = Model/ViewModels;
@@ -683,6 +689,7 @@
 				3804DE4327A7E0A100926585 /* DependencyContainer.swift in Sources */,
 				381E8E29278ED7040021FDC6 /* AttachmentsViewController.swift in Sources */,
 				383A8AB927888099003EE8F7 /* AddEditCardPropertiesViewCell.swift in Sources */,
+				3833589027C251CC00BCB646 /* Padding.swift in Sources */,
 				385EB0AB27ABFE4D00D05F6A /* TodoViewCell.swift in Sources */,
 				389DABD9278DC2FB00A600BF /* CustomTextField.swift in Sources */,
 				383A3F7527A95F9900F153B8 /* AddEditViewModelFactory.swift in Sources */,
@@ -692,6 +699,7 @@
 				381CAACE278207F900E8AB00 /* Task+CoreDataProperties.swift in Sources */,
 				3876EE1B279D4F85001A9955 /* Errors.swift in Sources */,
 				383A8ABF27888381003EE8F7 /* HorizontalAttachmentsController.swift in Sources */,
+				3833589227C27F7300BCB646 /* PickTimeViewModel.swift in Sources */,
 				381CAACC278207F900E8AB00 /* Project+CoreDataProperties.swift in Sources */,
 				38FF9F132784892F00EB9805 /* DayTaskViewCell.swift in Sources */,
 				386F83EA275AAD45004DC280 /* AppDelegate.swift in Sources */,

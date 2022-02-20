@@ -125,3 +125,24 @@ class DayTasksViewModel: ViewModelBased, DayTaskViewModelProtocol {
 
    
 }
+
+
+extension Date {
+    func getTommorowDate() -> Self {
+        let calendar = Calendar.current
+        var futureComponents = DateComponents()
+        futureComponents.day = 1
+    
+        let nextDay = calendar.date(byAdding: futureComponents, to: self)
+        return nextDay ?? Date().getTommorowDate().onlyDate
+    }
+    
+    var tommorow: Date  {
+        let calendar = Calendar.current
+        var futureComponents = DateComponents()
+        futureComponents.day = 1
+    
+        let nextDay = calendar.date(byAdding: futureComponents, to: self)
+        return nextDay ?? Date().getTommorowDate().onlyDate
+    }
+}

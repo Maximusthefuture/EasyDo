@@ -10,6 +10,8 @@ import UIKit
 
 class PickTimeViewController: ResizableViewController {
     
+    var vm = PickTimeViewModel()
+    
     let whenLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
@@ -78,7 +80,8 @@ class PickTimeViewController: ResizableViewController {
         dateLabel.text = "Date"
         timeLabel.text = "Time"
         checkPrevTime()
-        stackViewInit()
+//        stackViewInit()
+        buttonStackViewInit()
     }
     
     fileprivate func checkPrevTime() {
@@ -87,8 +90,57 @@ class PickTimeViewController: ResizableViewController {
         timePicker.date = lastItem?.inTime ?? Date()
     }
     
-    fileprivate func buttonStackViewInit() {
+    let todayButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Today", for: .normal)
+        button.layer.cornerRadius = 10
+        button.backgroundColor = .lightGray
+        button.addTarget(self, action: #selector(handleDateChangeButton), for: .touchUpInside)
+        return button
+    }()
+    
+    let tommorowButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 10
+        button.backgroundColor = .lightGray
+        button.setTitle("Tommorow", for: .normal)
+        button.addTarget(self, action: #selector(handleDateChangeButton), for: .touchUpInside)
         
+        return button
+    }()
+    
+    let pickDateButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 10
+        button.backgroundColor = .lightGray
+        button.setTitle("Pick date", for: .normal)
+        return button
+    }()
+    
+    fileprivate func buttonStackViewInit() {
+        let horizontalStackView = UIStackView(arrangedSubviews: [todayButton, tommorowButton, datePicker])
+        horizontalStackView.distribution = .fillEqually
+        horizontalStackView.spacing = 10
+        horizontalStackView.axis = .horizontal
+        view.addSubview(horizontalStackView)
+        horizontalStackView.anchor(top: whenLabel.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: Padding.sixteen, left: Padding.sixteen, bottom: 0, right: Padding.sixteen))
+        timePicker.preferredDatePickerStyle = .wheels
+        view.addSubview(timePicker)
+        timePicker.anchor(top: horizontalStackView.bottomAnchor, leading: view.leadingAnchor, bottom: saveButton.topAnchor, trailing: view.trailingAnchor, padding: .init(top: Padding.eight, left: Padding.sixteen, bottom: Padding.eight, right: Padding.sixteen))
+    }
+    
+    
+    let today = Date()
+    
+    @objc func handleDateChangeButton(_ sender: UIButton) {
+        sender.isSelected = true
+        sender.backgroundColor = .blue
+        if sender == tommorowButton {
+            date = today.tommorow
+        }
+        if sender == todayButton {
+            date = Date()
+        }
     }
     
     fileprivate func stackViewInit() {
@@ -104,6 +156,8 @@ class PickTimeViewController: ResizableViewController {
     @objc func handleTimePickerChange(sender: UIDatePicker) {
         sender.timeZone = .autoupdatingCurrent
         time = sender.date
+        
+        
 //        viewModel.timeBinding.value = sender.date
     }
     
@@ -119,6 +173,5 @@ class PickTimeViewController: ResizableViewController {
             time = Date()
             date = Date()
         }
-        
     }
 }

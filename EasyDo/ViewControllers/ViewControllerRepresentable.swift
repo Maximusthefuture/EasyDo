@@ -19,7 +19,7 @@ struct ViewControllerRepresentable: UIViewControllerRepresentable {
     
     
     func makeUIViewController(context: Context) -> some UIViewController {
-        return container.makeDayTasksViewContoller()
+        return PickTimeViewController(initialHeight: 0)
     }
     
 }
@@ -27,9 +27,7 @@ struct ViewControllerRepresentable: UIViewControllerRepresentable {
 struct ViewController_Preview: PreviewProvider {
     static var previews: some View {
         Group {
-            ViewControllerRepresentable()
-            ViewControllerRepresentable()
-            ViewControllerRepresentable()
+            ViewControllerRepresentable().previewLayout(.fixed(width: 300, height: 70))
         }
     }
 }
