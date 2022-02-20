@@ -19,6 +19,7 @@ extension DailyItems {
     @NSManaged public var inTime: Date?
     @NSManaged public var inDate: Date?
     @NSManaged public var task: Task?
+    //pomodoroCount?
 
 }
 

@@ -15,6 +15,7 @@ protocol DayTaskViewModelProtocol: AnyObject {
     var coreDataStack: CoreDataStack? { get }
     func moveToNextDay(indexPath: Int, fetchRequest: NSFetchRequest<DailyItems>)
     func deleteItem(indexPath: Int, fetchRequest: NSFetchRequest<DailyItems>)
+    func getPomodoroCount(pomodoroCount: Int) -> Int
 }
 
 class DayTasksViewModel: ViewModelBased, DayTaskViewModelProtocol {
@@ -77,7 +78,7 @@ class DayTasksViewModel: ViewModelBased, DayTaskViewModelProtocol {
         calendar.timeZone = .autoupdatingCurrent
         guard let firstWeekDay = week?.start else { return }
         
-        (0...30).forEach { day in
+        (0...15).forEach { day in
             if let weekday = calendar.date(byAdding: .day, value: day, to: firstWeekDay) {
                
                 currentWeek.append(weekday)
@@ -85,5 +86,42 @@ class DayTasksViewModel: ViewModelBased, DayTaskViewModelProtocol {
             }
         }
     }
+    
+    
+    func getPomodoroCount(pomodoroCount: Int) -> Int {
+      
+        let fetchRequest = NSFetchRequest<DailyItems>(entityName: "DailyItems")
+        
+//        fetchRequest.resultType = .dictionaryResultType
+        
+        let sumExpressionDesc = NSExpressionDescription()
+        sumExpressionDesc.name = "sumPomodoro"
+        //получить помидоры от всех тасков?
+        //потом сравнить даты? долго же? хэшмэп быстрое чтение?
+        
+        let pomodoroCountExp = NSExpression(forKeyPath: #keyPath(DailyItems.task.pomodoroCount))
+//        sumExpressionDesc.expression = NSExpression(forFunction: "sum:", arguments: [pomodoroCountExp])
+//        sumExpressionDesc.expressionResultType = .integer32AttributeType
+//        
+//        fetchRequest.propertiesToFetch = [sumExpressionDesc]
+        
+        do {
+//            let results = try coreDataStack?.managedContext.fetch(fetchRequest)
+//            let resultDict = results?.first
+            let oneMoreResult = try coreDataStack?.managedContext.fetch(fetchRequest)
+            oneMoreResult?.map({ value in
+                print("count", value.task?.pomodoroCount)
+            })
+//            let count = resultDict?["sumPomodoro"] as? Int ?? 0
+            return 0
+            
+        }
+        catch let error as NSError {
+            print(error.localizedDescription)
+        }
+        return 0
+    }
+    
+
    
 }

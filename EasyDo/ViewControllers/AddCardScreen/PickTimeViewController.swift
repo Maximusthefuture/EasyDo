@@ -87,6 +87,9 @@ class PickTimeViewController: ResizableViewController {
         timePicker.date = lastItem?.inTime ?? Date()
     }
     
+    fileprivate func buttonStackViewInit() {
+        
+    }
     
     fileprivate func stackViewInit() {
         let horizontalDateStackView = UIStackView(arrangedSubviews: [dateLabel, datePicker])

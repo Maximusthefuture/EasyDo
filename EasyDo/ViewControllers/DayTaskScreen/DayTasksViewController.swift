@@ -100,6 +100,9 @@ class DayTasksViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         emptyLabelInit()
         weeklyPickerCollectionView.dayTaskViewModel = dayTaskViewModel
+//        let items = try? dayTaskViewModel?.coreDataStack?.managedContext.fetch(fetchRequest!)
+        var count = dayTaskViewModel?.getPomodoroCount(pomodoroCount: 1)
+        print("count", count)
         
         do {
             try fetchedResultsController.performFetch()
@@ -227,17 +230,7 @@ class DayTasksViewController: UIViewController {
         let currentHour = calendar.component(.hour, from: Date())
         return hour == currentHour
     }
-    
-    
-    @objc func handleCheckBoxSelection(sender: UIView) {
-        //MARK: Read docs
-        selectionGenerator.prepare()
-        selectionGenerator.selectionChanged()
-        print(sender.description)
-       
-    }
-   
-    
+ 
     //MARK: Change this to addEditVC
     //then add project selection when card create
     @objc fileprivate func goToProjectList(sender: UIButton) {
@@ -365,7 +358,7 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
     func configure(cell: UITableViewCell, for indexPath: IndexPath) {
         guard let cell = cell as? DayTasksViewCell else { return }
         let items = fetchedResultsController.object(at: indexPath)
-       
+        
         //MARK: MOve to cell or VM?
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .none

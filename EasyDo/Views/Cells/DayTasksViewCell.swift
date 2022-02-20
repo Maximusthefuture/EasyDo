@@ -52,12 +52,12 @@ class DayTasksViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-    
+        
         let marginGuide = contentView.layoutMarginsGuide
-                contentView.addSubview(roundedView)
+        contentView.addSubview(roundedView)
         contentView.addSubview(taskLabel)
         contentView.addSubview(taskDescription)
-                contentView.addSubview(tagView)
+        contentView.addSubview(tagView)
         roundedView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 10, left: 8, bottom: 0, right: 8))
         taskLabel.anchor(top: marginGuide.topAnchor, leading: marginGuide.leadingAnchor, bottom: nil, trailing: marginGuide.trailingAnchor, padding: .init(top: 8, left: 8, bottom: 0, right: 0))
         taskDescription.anchor(top: taskLabel.bottomAnchor, leading: marginGuide.leadingAnchor, bottom: nil, trailing: marginGuide.trailingAnchor, padding: .init(top: 16, left: 8, bottom: 0, right: 0))
