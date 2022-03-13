@@ -70,10 +70,6 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
         let isFormValid = cardName?.isEmpty == false && cardName!.count <= 20 &&
             cardDescription?.isEmpty == false && cardDescription!.count <= 45
         bindableIsFormValidObserver.value = isFormValid
-//        if cardName!.count < 18 || cardDescription!.count < 40  {
-////            bindableError.value = Errors.CardNameValidationError.tooLong
-//            print("TOOO LONG")
-//        }
     }
     
     func updateCreateTask() throws {
@@ -89,6 +85,7 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
     
 //    repository.saveTask(name: _, tag: _, taskDescription: _, pomodoroCount: _, )
     fileprivate func createNewTask() throws {
+      
         if let coreDataStack = coreDataStack {
             let task = Task(context: coreDataStack.managedContext)
             task.tags = tagsArray
@@ -105,10 +102,15 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
             }
             coreDataStack.saveContext()
         }
+        
     }
     
     func addCardToDayTask(time: Date?, date: Date?) {
+        NotificationManager.shared.requestAuthorization { granted in
+            print("GRANTED: ", granted)
+        }
         saveToDayTask(time: time, date: date)
+        
     }
     
 //    repository.updateTask()
@@ -129,6 +131,7 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
             dailyItem.inDate = date?.onlyDate
             self.taskDetail?.mainTag = "In Progress"
             coreDataStack.saveContext()
+            NotificationManager.shared.scheduleNotification(dailyTask: dailyItem)
         } else {
             //            error handling?
             print("NULL NULL NULL")

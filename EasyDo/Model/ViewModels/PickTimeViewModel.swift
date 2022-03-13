@@ -26,8 +26,9 @@ class PickTimeViewModel: PickTimeViewModelProtocol {
     
     
     
-    func setPickerTime(date: Date, datePicker: PickDate) {
+    func setPickerTime(date: Date, datePicker: PickDate) -> Date {
         bindableDate.value = date.tommorow
+        return date.tommorow
     }
     
 }

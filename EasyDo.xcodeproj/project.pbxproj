@@ -18,11 +18,13 @@
 		38086CD027B149540025540E /* EasyDoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38086CCF27B149540025540E /* EasyDoTests.swift */; };
 		38086CD727B1496E0025540E /* AddEditViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38086CD627B1496E0025540E /* AddEditViewModelTest.swift */; };
 		3808A1922796F1C700460A16 /* ViewControllerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3808A1912796F1C700460A16 /* ViewControllerRepresentable.swift */; };
+		3809CFD627C4E2E1001B461C /* PickTimeViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3809CFD527C4E2E1001B461C /* PickTimeViewModelTest.swift */; };
 		380ADEDA2779F5B300B97EB9 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380ADED92779F5B300B97EB9 /* Project.swift */; };
 		380ADEDC2779F62A00B97EB9 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380ADEDB2779F62A00B97EB9 /* Task.swift */; };
 		380ADEDF2779F95000B97EB9 /* ProjectMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380ADEDE2779F95000B97EB9 /* ProjectMainViewController.swift */; };
 		380B4C9327998F4100E81A4F /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380B4C9227998F4100E81A4F /* VerticalStackView.swift */; };
 		3812D68227A82B750065F190 /* DayTasksViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3812D68127A82B750065F190 /* DayTasksViewCell.swift */; };
+		38161CFC27DE03A20021BE6B /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38161CFB27DE03A20021BE6B /* NotificationService.swift */; };
 		381CAAAB2781EA8000E8AB00 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CAAAA2781EA8000E8AB00 /* CoreDataStack.swift */; };
 		381CAACB278207F900E8AB00 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CAAC7278207F900E8AB00 /* Project+CoreDataClass.swift */; };
 		381CAACC278207F900E8AB00 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CAAC8278207F900E8AB00 /* Project+CoreDataProperties.swift */; };
@@ -133,11 +135,13 @@
 		38086CCF27B149540025540E /* EasyDoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyDoTests.swift; sourceTree = "<group>"; };
 		38086CD627B1496E0025540E /* AddEditViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditViewModelTest.swift; sourceTree = "<group>"; };
 		3808A1912796F1C700460A16 /* ViewControllerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRepresentable.swift; sourceTree = "<group>"; };
+		3809CFD527C4E2E1001B461C /* PickTimeViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickTimeViewModelTest.swift; sourceTree = "<group>"; };
 		380ADED92779F5B300B97EB9 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		380ADEDB2779F62A00B97EB9 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		380ADEDE2779F95000B97EB9 /* ProjectMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectMainViewController.swift; sourceTree = "<group>"; };
 		380B4C9227998F4100E81A4F /* VerticalStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
 		3812D68127A82B750065F190 /* DayTasksViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTasksViewCell.swift; sourceTree = "<group>"; };
+		38161CFB27DE03A20021BE6B /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		381CAAAA2781EA8000E8AB00 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		381CAAB52781F48D00E8AB00 /* EasyDo v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EasyDo v2.xcdatamodel"; sourceTree = "<group>"; };
 		381CAABE278206F500E8AB00 /* EasyDo v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EasyDo v3.xcdatamodel"; sourceTree = "<group>"; };
@@ -263,6 +267,7 @@
 				38086CD627B1496E0025540E /* AddEditViewModelTest.swift */,
 				38086CCF27B149540025540E /* EasyDoTests.swift */,
 				38D5FDA527B152D000D78F7B /* TestCoreDataStack.swift */,
+				3809CFD527C4E2E1001B461C /* PickTimeViewModelTest.swift */,
 			);
 			path = EasyDoTests;
 			sourceTree = "<group>";
@@ -275,6 +280,14 @@
 				3868B934276E383C00F2B765 /* TableViewController+Drop.swift */,
 			);
 			path = Dragging;
+			sourceTree = "<group>";
+		};
+		38161CFA27DE03920021BE6B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				38161CFB27DE03A20021BE6B /* NotificationService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		381CAAA82781EA6F00E8AB00 /* Helpers */ = {
@@ -367,6 +380,7 @@
 		386F83E8275AAD45004DC280 /* EasyDo */ = {
 			isa = PBXGroup;
 			children = (
+				38161CFA27DE03920021BE6B /* Services */,
 				385EB09D27ABBEAE00D05F6A /* TableManager */,
 				389DABD0278DBFF400A600BF /* BottomSheetHelpers */,
 				381CAAA82781EA6F00E8AB00 /* Helpers */,
@@ -631,6 +645,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3809CFD627C4E2E1001B461C /* PickTimeViewModelTest.swift in Sources */,
 				38086CD727B1496E0025540E /* AddEditViewModelTest.swift in Sources */,
 				38086CD027B149540025540E /* EasyDoTests.swift in Sources */,
 				38D5FDA627B152D000D78F7B /* TestCoreDataStack.swift in Sources */,
@@ -680,6 +695,7 @@
 				386F83EE275AAD45004DC280 /* ProjectsListViewController.swift in Sources */,
 				381CAACB278207F900E8AB00 /* Project+CoreDataClass.swift in Sources */,
 				381CAACD278207F900E8AB00 /* Task+CoreDataClass.swift in Sources */,
+				38161CFC27DE03A20021BE6B /* NotificationService.swift in Sources */,
 				385EB0A927ABFDC600D05F6A /* TodoViewController.swift in Sources */,
 				38E69BF02795BC4300E942BA /* WeeklyPickerViewCell.swift in Sources */,
 				388AF31C278D6A3100C44021 /* CreateProjectVC.swift in Sources */,

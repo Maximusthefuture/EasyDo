@@ -22,13 +22,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let dayTasksViewContoller = container.makeDayTasksViewContoller()
         window = UIWindow(windowScene: winScene)
         window?.makeKeyAndVisible()
+        var isTrue = true
 //        var controller = ProjectMainViewController()
 //        var viewController = ProjectsListViewController()
 //        var addVC = AddEditTaskViewController(viewModel: AddEditCardViewModel())
 //        var timeVC = DayTasksViewController()
 //        coreDataStack.clearDatabase()
-        window?.rootViewController = UINavigationController(rootViewController: dayTasksViewContoller)
+        if isTrue {
+            window?.rootViewController = UINavigationController(rootViewController: dayTasksViewContoller)
+        } else {
+            window?.rootViewController = UINavigationController(rootViewController: ProjectsListViewController())
+        }
         
+         
        
 //        timeVC.coreDataStack = coreDataStack
     }

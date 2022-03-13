@@ -115,7 +115,9 @@ class AddEditTaskViewController: UIViewController {
     var addButton: UIButton = {
         var b = UIButton()
         //MARK: CHANGE ICON +
-        b.setTitle("+", for: .normal)
+//        b.setTitle(, for: .normal)
+        var imageConfig = UIImage.SymbolConfiguration(scale: .large)
+        b.setImage(UIImage(systemName: "plus.circle", withConfiguration: imageConfig), for: .normal)
         b.setTitleColor(.blue, for: .normal)
         b.titleLabel?.font = UIFont.systemFont(ofSize: 32, weight: .bold)
         b.addTarget(self, action: #selector(addCardToDayTask), for: .touchUpInside)
@@ -216,6 +218,7 @@ class AddEditTaskViewController: UIViewController {
         vc.dataSavedWithDate = { [weak self] time, date in
             self?.addEditCardViewModel?.taskDetail = self?.addEditCardViewModel?.taskDetail
             self?.addEditCardViewModel?.addCardToDayTask(time: time, date: date)
+            print("time: \(time), date: \(date)")
             self?.presentingViewController?.dismiss(animated: true)
         }
     }

@@ -50,8 +50,7 @@ class PickTimeViewController: ResizableViewController {
         let dp = UIDatePicker()
         dp.locale = Locale.current
         dp.datePickerMode = .time
-        dp.addTarget(self, action: #selector(handleTimePickerChange), for: .editingDidEnd)
-       
+        dp.addTarget(self, action: #selector(handleTimePickerChange), for: .valueChanged)
         return dp
     }()
     
@@ -60,7 +59,7 @@ class PickTimeViewController: ResizableViewController {
         dp.locale = Locale.current
         dp.datePickerMode = .date
         dp.addTarget(self, action: #selector(handleDatePickerChange), for: .editingDidEnd)
-        
+
         return dp
     }()
     
@@ -86,8 +85,8 @@ class PickTimeViewController: ResizableViewController {
     
     fileprivate func checkPrevTime() {
         //MARK: TODO move to VM?
-        let lastItem = dailyItems.filter { $0.inDate?.onlyDate == datePicker.date.onlyDate }.last
-        timePicker.date = lastItem?.inTime ?? Date()
+//        let lastItem = dailyItems.filter { $0.inDate?.onlyDate == datePicker.date.onlyDate }.last
+//        timePicker.date = lastItem?.inTime ?? Date()
     }
     
     let todayButton: UIButton = {
@@ -130,32 +129,27 @@ class PickTimeViewController: ResizableViewController {
     }
     
     
-    let today = Date()
+    var today = Date()
     
     @objc func handleDateChangeButton(_ sender: UIButton) {
         sender.isSelected = true
         sender.backgroundColor = .blue
         if sender == tommorowButton {
-            date = today.tommorow
+            date = vm.setPickerTime(date: Date(), datePicker: .tommorow)
+            print("date", date)
         }
         if sender == todayButton {
             date = Date()
         }
-    }
     
-    fileprivate func stackViewInit() {
-        let horizontalDateStackView = UIStackView(arrangedSubviews: [dateLabel, datePicker])
-        horizontalDateStackView.spacing = 20
-        let horizontalTimeStackView = UIStackView(arrangedSubviews: [timeLabel, timePicker])
-        horizontalTimeStackView.spacing  = 20
-        let verticalStackView = VerticalStackView(arrangedSubviews: [horizontalDateStackView, horizontalTimeStackView], spacing: 30)
-        view.addSubview(verticalStackView)
-        verticalStackView.centerInSuperview(padding: .init(top: 0, left: 0, bottom: 30, right: 0))
     }
-    
+
     @objc func handleTimePickerChange(sender: UIDatePicker) {
         sender.timeZone = .autoupdatingCurrent
         time = sender.date
+        date = sender.date.onlyDate
+        print("time", time)
+        print("sender", sender.date)
         
         
 //        viewModel.timeBinding.value = sender.date
@@ -167,11 +161,16 @@ class PickTimeViewController: ResizableViewController {
     }
     
     @objc func handleSaveButton(sender: UIButton) {
-        if let time = time, let date = date {
-            dataSavedWithDate?(time, date)
-        } else {
-            time = Date()
+        vm.bindableDate.value = date
+        if let time = time
+//            , let date = date
+        {
             date = Date()
+            dataSavedWithDate?(time, date)
         }
+//        else {
+//            time = Date()
+//            date = Date()
+//        }
     }
 }
