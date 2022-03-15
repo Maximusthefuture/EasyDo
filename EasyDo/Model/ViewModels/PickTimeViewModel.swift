@@ -23,6 +23,7 @@ class PickTimeViewModel: PickTimeViewModelProtocol {
     
     var bindableDate = Bindable<Date>(Date())
     var bindableTime = Bindable<Date>(Date())
+    var bindableNotificationAccess = Bindable<Bool>(false)
     
     
     

@@ -10,7 +10,7 @@ import Foundation
 
 
 protocol AddEditCardViewModelProtocol: ViewModelBased {
-    func addCardToDayTask(time: Date?, date: Date?)
+    func addCardToDayTask(time: Date?, date: Date?, isNotificationOn: Bool?)
     var cardName: String? { get set }
     var cardDescription: String? { get set }
     var dueDate: Date? { get set }
@@ -21,7 +21,7 @@ protocol AddEditCardViewModelProtocol: ViewModelBased {
     var pomodoroCount: Int? { get set }
     var coreDataStack: CoreDataStack? { get }
     func updateCreateTask() throws
-  
+    
 }
 
 //Заполненые поля даты сразу?
@@ -29,7 +29,7 @@ protocol AddEditCardViewModelProtocol: ViewModelBased {
 class AddEditCardViewModel: AddEditCardViewModelProtocol {
     
     var bindableIsFormValidObserver: Bindable<Bool> = Bindable(false)
-   
+    
     //Change this to db after?
     var recentlyUsedTags: [String]?
     
@@ -68,7 +68,7 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
     
     fileprivate func checkFormValidation() {
         let isFormValid = cardName?.isEmpty == false && cardName!.count <= 20 &&
-            cardDescription?.isEmpty == false && cardDescription!.count <= 45
+        cardDescription?.isEmpty == false && cardDescription!.count <= 45
         bindableIsFormValidObserver.value = isFormValid
     }
     
@@ -83,9 +83,9 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
         }
     }
     
-//    repository.saveTask(name: _, tag: _, taskDescription: _, pomodoroCount: _, )
+    //    repository.saveTask(name: _, tag: _, taskDescription: _, pomodoroCount: _, )
     fileprivate func createNewTask() throws {
-      
+        
         if let coreDataStack = coreDataStack {
             let task = Task(context: coreDataStack.managedContext)
             task.tags = tagsArray
@@ -105,16 +105,16 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
         
     }
     
-    func addCardToDayTask(time: Date?, date: Date?) {
+    func addCardToDayTask(time: Date?, date: Date?, isNotificationOn: Bool?) {
         NotificationManager.shared.requestAuthorization { granted in
             print("GRANTED: ", granted)
         }
-        saveToDayTask(time: time, date: date)
+        saveToDayTask(time: time, date: date, isNotificationOn: isNotificationOn)
         
     }
     
-//    repository.updateTask()
-   fileprivate func updateTask() {
+    //    repository.updateTask()
+    fileprivate func updateTask() {
         taskDetail?.title = cardName
         taskDetail?.taskDescription = cardDescription
         taskDetail?.pomodoroCount = Int16(pomodoroCount ?? 0 )
@@ -123,18 +123,29 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
         
     }
     
-    fileprivate func saveToDayTask(time: Date?, date: Date?) {
+    fileprivate func saveToDayTask(time: Date?, date: Date?, isNotificationOn: Bool?) {
         if let coreDataStack = coreDataStack {
             let dailyItem = DailyItems(context: coreDataStack.managedContext)
+            let calendar = Calendar.current
+            guard let time = time else {
+                return
+            }
+            let scheduledTime = calendar.date(byAdding: .minute, value: -10, to: time)
             dailyItem.task = self.taskDetail
             dailyItem.inTime = time
             dailyItem.inDate = date?.onlyDate
             self.taskDetail?.mainTag = "In Progress"
             coreDataStack.saveContext()
-            NotificationManager.shared.scheduleNotification(dailyTask: dailyItem)
+            if let isNotificationOn = isNotificationOn {
+                if isNotificationOn {
+                    NotificationManager.shared.scheduleNotification(time: scheduledTime, dailyTask: dailyItem)
+                }
+            }
+           
+            
         } else {
             //            error handling?
-            print("NULL NULL NULL")
+            print("Problem with coreDataStack")
         }
     }
 }

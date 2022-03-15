@@ -26,16 +26,16 @@ class NotificationManager {
         }
     }
     
-    func scheduleNotification(dailyTask: DailyItems) {
+    func scheduleNotification(time: Date?, dailyTask: DailyItems) {
         var trigger: UNCalendarNotificationTrigger?
         let content = UNMutableNotificationContent()
         content.title = dailyTask.task?.title ?? "Title"
         content.body = dailyTask.task?.taskDescription ?? "Body"
         content.categoryIdentifier = "CategoryHere"
-        if let date = dailyTask.inTime {
+        if let date = time {
   
          trigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents(
-            [.hour, .minute], from:  date), repeats: false)
+            [.month, .day, .hour, .minute], from:  date), repeats: false)
         }
         
         let request = UNNotificationRequest(identifier: dailyTask.task?.description ?? "", content: content, trigger: trigger)

@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+
 class PickTimeViewController: ResizableViewController {
     
     var vm = PickTimeViewModel()
@@ -33,17 +34,17 @@ class PickTimeViewController: ResizableViewController {
     var isTimeChanged: Bool?
     var date: Date?
     var time: Date?
-    var dataSavedWithDate: ((Date?, Date?) -> Void)?
+    var dataSavedWithDate: ((Date?, Date?, Bool?) -> Void)?
     var coreDataStack: CoreDataStack?
     
     let saveButton: UIButton = {
-       let b = UIButton()
+        let b = UIButton()
         b.setTitle("Save", for: .normal)
         b.layer.cornerRadius = 10
         b.backgroundColor = .blue
-//        b.backgroundColor = .darkGray
         b.addTarget(self, action: #selector(handleSaveButton), for: .touchUpInside)
         return b
+        
     }()
     
     let timePicker: UIDatePicker = {
@@ -58,13 +59,26 @@ class PickTimeViewController: ResizableViewController {
         let dp = UIDatePicker()
         dp.locale = Locale.current
         dp.datePickerMode = .date
-        dp.addTarget(self, action: #selector(handleDatePickerChange), for: .editingDidEnd)
-
+        dp.addTarget(self, action: #selector(handleDatePickerChange), for: .valueChanged)
+        
         return dp
     }()
     
-    var dailyItems: [DailyItems] = []
+    var isNotificationOn: Bool?
     
+    let notificationLabel: UILabel = {
+        $0.text = "Notification"
+        $0.textColor = .black
+        $0.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        return $0
+    }(UILabel(frame: .zero))
+    
+    let notificationSwitch: UISwitch = {
+        $0.addTarget(self, action: #selector(handleNotificationSwitch), for: .valueChanged)
+        return $0
+    }(UISwitch(frame: .zero))
+    
+    var dailyItems: [DailyItems] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,17 +90,25 @@ class PickTimeViewController: ResizableViewController {
         whenLabel.text = "When?"
         whenLabel.centerInTop(padding: .init(top: 20, left: 0, bottom: 0, right: 0))
         saveButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 16, bottom: 0, right: 16),size: CGSize(width: 0, height: 60))
+        
         dateLabel.text = "Date"
         timeLabel.text = "Time"
         checkPrevTime()
-//        stackViewInit()
         buttonStackViewInit()
     }
     
+    let her = PickTimeViewModel()
+    
     fileprivate func checkPrevTime() {
         //MARK: TODO move to VM?
-//        let lastItem = dailyItems.filter { $0.inDate?.onlyDate == datePicker.date.onlyDate }.last
-//        timePicker.date = lastItem?.inTime ?? Date()
+                let lastItem = dailyItems.filter { 
+                  
+                    $0.inDate?.onlyDate == datePicker.date.onlyDate }.last
+                timePicker.date = lastItem?.inTime ?? Date()
+    }
+    
+    @objc fileprivate func handleNotificationSwitch(_ sender: UISwitch) {
+        isNotificationOn = sender.isOn
     }
     
     let todayButton: UIButton = {
@@ -121,11 +143,15 @@ class PickTimeViewController: ResizableViewController {
         horizontalStackView.distribution = .fillEqually
         horizontalStackView.spacing = 10
         horizontalStackView.axis = .horizontal
+        let notificationStackView = UIStackView(arrangedSubviews: [notificationLabel, notificationSwitch])
         view.addSubview(horizontalStackView)
+        view.addSubview(notificationStackView)
+        
         horizontalStackView.anchor(top: whenLabel.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: Padding.sixteen, left: Padding.sixteen, bottom: 0, right: Padding.sixteen))
         timePicker.preferredDatePickerStyle = .wheels
         view.addSubview(timePicker)
-        timePicker.anchor(top: horizontalStackView.bottomAnchor, leading: view.leadingAnchor, bottom: saveButton.topAnchor, trailing: view.trailingAnchor, padding: .init(top: Padding.eight, left: Padding.sixteen, bottom: Padding.eight, right: Padding.sixteen))
+        timePicker.anchor(top: horizontalStackView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: Padding.eight, left: Padding.sixteen, bottom: 0, right: Padding.sixteen))
+        notificationStackView.anchor(top: timePicker.bottomAnchor, leading: view.leadingAnchor, bottom: saveButton.topAnchor, trailing: view.trailingAnchor, padding: .init(top: Padding.sixteen, left: Padding.sixteen, bottom: Padding.sixteen, right: Padding.sixteen))
     }
     
     
@@ -136,41 +162,29 @@ class PickTimeViewController: ResizableViewController {
         sender.backgroundColor = .blue
         if sender == tommorowButton {
             date = vm.setPickerTime(date: Date(), datePicker: .tommorow)
-            print("date", date)
         }
         if sender == todayButton {
             date = Date()
         }
-    
+        
     }
-
+    
     @objc func handleTimePickerChange(sender: UIDatePicker) {
         sender.timeZone = .autoupdatingCurrent
         time = sender.date
-        date = sender.date.onlyDate
-        print("time", time)
-        print("sender", sender.date)
-        
-        
-//        viewModel.timeBinding.value = sender.date
+        //        viewModel.timeBinding.value = sender.date
     }
     
     @objc func handleDatePickerChange(sender: UIDatePicker) {
         sender.timeZone = .autoupdatingCurrent
         date = sender.date
     }
-    
+       
     @objc func handleSaveButton(sender: UIButton) {
         vm.bindableDate.value = date
-        if let time = time
-//            , let date = date
-        {
-            date = Date()
-            dataSavedWithDate?(time, date)
+        if let time = time {
+            dataSavedWithDate?(time, date ?? Date(), isNotificationOn)
         }
-//        else {
-//            time = Date()
-//            date = Date()
-//        }
+ 
     }
 }
