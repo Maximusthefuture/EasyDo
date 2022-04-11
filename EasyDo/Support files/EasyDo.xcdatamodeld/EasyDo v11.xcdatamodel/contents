@@ -19,9 +19,16 @@
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="tasks" inverseEntity="Project"/>
     </entity>
+    <entity name="WeeklyGoal" representedClassName="WeeklyGoal" syncable="YES">
+        <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="goalDescription" optional="YES" attributeType="String"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+    </entity>
     <elements>
         <element name="DailyItems" positionX="2025" positionY="-2826" width="128" height="74"/>
         <element name="Project" positionX="2019.559997558594" positionY="-2885.511840820312" width="128" height="74"/>
         <element name="Task" positionX="2016" positionY="-2889" width="128" height="134"/>
+        <element name="WeeklyGoal" positionX="2025" positionY="-2826" width="128" height="89"/>
     </elements>
 </model>

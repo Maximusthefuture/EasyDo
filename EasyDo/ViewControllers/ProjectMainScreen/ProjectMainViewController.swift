@@ -128,6 +128,7 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
     
     var currentTag: Int?
     let container = DependencyContainer()
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AppsViewCell", for: indexPath) as! ProjectsViewCell
         

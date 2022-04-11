@@ -9,12 +9,6 @@ import UIKit
 import CoreData
 import SwiftUI
 
-//MARK: Add in daily items, Repeat: Bool??
-
-//delegate doesn't work in AddDetailVC
-protocol IsNeedToAddDayTaskDelegate: AnyObject {
-    func isShowButton(vc: DayTasksViewController, show: Bool)
-}
 
 class DayTasksViewController: UIViewController {
     private let reuseIdentifier = "Cell"
@@ -45,8 +39,6 @@ class DayTasksViewController: UIViewController {
     let viewWithCorners = ViewWithCorners()
     
     lazy var isAddMyDay: Bool = false
-    weak var dayTaskDelegate: IsNeedToAddDayTaskDelegate?
-//    var coreDataStack: CoreDataStack?
     var myDayLabel = UIButton()
     var tableView = UITableView()
     
@@ -61,7 +53,7 @@ class DayTasksViewController: UIViewController {
     }()
     var weeklyPickerCollectionView = HDayPickerUICollectionView()
     var fetchRequest: NSFetchRequest<DailyItems>?
-   
+    
     lazy var selectionGenerator = UISelectionFeedbackGenerator()
     
     lazy var fetchedResultsController:
@@ -100,9 +92,6 @@ class DayTasksViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         emptyLabelInit()
         weeklyPickerCollectionView.dayTaskViewModel = dayTaskViewModel
-//        let items = try? dayTaskViewModel?.coreDataStack?.managedContext.fetch(fetchRequest!)
-        var count = dayTaskViewModel?.getPomodoroCount(pomodoroCount: 1)
-        print("count", count)
         
         do {
             try fetchedResultsController.performFetch()
@@ -119,13 +108,12 @@ class DayTasksViewController: UIViewController {
     fileprivate func weeeklyGoalViewTest() {
         view.addSubview(viewWithCorners)
         viewWithCorners.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: nil, bottom: myDayLabel.bottomAnchor, trailing: view.trailingAnchor,padding: .init(top: 0, left: 30, bottom: 0, right: 16), size: .init(width: 200, height: 40))
-        viewWithCorners.label.text = "Weekly goal here??"
+        viewWithCorners.label.text = dayTaskViewModel?.weeklyGoalTitle
         viewWithCorners.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapWeeklyGoal)))
     }
     
     fileprivate func initStackViewDayWeek() {
         stackView = UIStackView()
-        
         for dayOfWeek in array {
             let label = UILabel()
             label.text = dayOfWeek
@@ -138,21 +126,58 @@ class DayTasksViewController: UIViewController {
     }
     
     @objc func handleTapWeeklyGoal() {
-//        alert????
+        var edit = ""
+        let alert = UIAlertController(title: dayTaskViewModel?.weeklyGoalTitle, message: dayTaskViewModel?.weekltyGoalDescription, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { alert in
+            self.dismiss(animated: true)
+        }))
+        if dayTaskViewModel!.isHaveWeeklyItem() {
+            edit = "Edit"
+        } else {
+            edit = "Add"
+            alert.addTextField { textField in
+                textField.placeholder = "Title"
+                
+            }
+            alert.addTextField { textField in
+                textField.placeholder = "Description"
+            }
+        }
+        alert.addAction(UIAlertAction(title: edit, style: .default, handler: { [weak self] action in
+            if action.title == "Edit" {
+                self?.showEditingAlert()
+            } else {
+
+                self?.dayTaskViewModel?.saveWeeklyGoalItem(title: alert.textFields!.first!.text, description: alert.textFields![1].text)
+            }
+            
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("VIEW WILL APPEAR daytasks")
+    func showEditingAlert() {
+        let newEditingAlert = UIAlertController(title: "Editing", message: "", preferredStyle: .alert)
+        newEditingAlert.addTextField { textField in
+            
+        }
+        newEditingAlert.addTextField { textField in
+            
+        }
+        newEditingAlert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { alert in
+            self.dismiss(animated: true)
+        }))
+       
+        newEditingAlert.addAction(UIAlertAction(title: "Save", style: .default, handler: { [weak self] action in
+            self?.dayTaskViewModel?.saveWeeklyGoalItem(title: newEditingAlert.textFields!.first!.text, description: newEditingAlert.textFields![1].text)
+            self?.viewWithCorners.label.text = newEditingAlert.textFields!.first!.text
+        }))
+        present(newEditingAlert, animated: true, completion: nil)
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        print("VIEW DISAPERA daytasks")
-    }
-    
+ 
     fileprivate func emptyLabelInit() {
-//        emptyLabel.text = " "
+        //        emptyLabel.text = " "
         view.addSubview(emptyLabel)
         emptyLabel.centerInSuperview()
         emptyLabel.isHidden = true
@@ -168,7 +193,7 @@ class DayTasksViewController: UIViewController {
         view.addSubview(tableView)
         tableView.anchor(top: weeklyPickerCollectionView.view.bottomAnchor, leading: view.leadingAnchor, bottom:  view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 16, left: 0, bottom: 0, right: 0))
         tableView.register(DayTasksViewCell.self, forCellReuseIdentifier: reuseIdentifier)
-//        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        //        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.backgroundColor = .white
         tableView.delegate = self
@@ -201,7 +226,7 @@ class DayTasksViewController: UIViewController {
         let menu = UIMenu(title: "", options: .destructive, children: [
             UIAction(title: "Projects")  { _ in
                 let vc = ProjectsListViewController()
-//                vc.coreDataStack = dayTaskViewModel?.coreDataStack
+                //                vc.coreDataStack = dayTaskViewModel?.coreDataStack
                 self.present(vc, animated: true)
             },
             UIAction(title: "????") { [weak self] _ in
@@ -230,20 +255,18 @@ class DayTasksViewController: UIViewController {
         let currentHour = calendar.component(.hour, from: Date())
         return hour == currentHour
     }
- 
+    
     //MARK: Change this to addEditVC
     //then add project selection when card create
     @objc fileprivate func goToProjectList(sender: UIButton) {
         let vc = container.makeProjectListViewController()
-//        let vc = ProjectsListViewController()
-        
         self.isAddMyDay = true
         vc.isAddMyDay = self.isAddMyDay
-        dayTaskDelegate?.isShowButton(vc: self, show: true)
-//        vc.coreDataStack = coreDataStack
         present(vc, animated: true)
     }
     
+    
+    //MARK: DELETE
     func deleteAll() {
         guard let fetchRequest = fetchRequest else {
             return
@@ -258,9 +281,7 @@ class DayTasksViewController: UIViewController {
     
     let image = UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)
     
-   
 }
-
 
 extension DayTasksViewController: HDayPickerUICollectionViewDelegate {
     func filterTasksByDate(didSelectPredicate: NSPredicate?, sortDescriptor: NSSortDescriptor?) {
@@ -290,46 +311,9 @@ extension DayTasksViewController {
         tableView.reloadData()
     }
     
-   
-    
-    
 }
 
 extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    //    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-    //           if velocity.y > 0 {
-    //               UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn) {
-    //
-    //                   self.addButton.transform = CGAffineTransform(translationX: 0, y: 100)
-    //
-    //               }
-    //           } else {
-    //               UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn) {
-    //                   self.addButton.transform = CGAffineTransform(translationX: 0, y: 0)
-    //                   self.addButton.isHidden = false
-    //               }
-    //           }
-    //       }
-    
-    
-    //    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    //        let scrollViewContentHeight = scrollView.contentSize.height
-    //        let scrollViewHeight = scrollView.frame.height
-    //
-    //
-    //        if scrollView.contentOffset.y < (scrollViewContentHeight - scrollViewHeight){
-    //            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn) {
-    //                self.addButton.transform = CGAffineTransform(translationX: 0, y: 0)
-    //                self.addButton.isHidden = false
-    //            }
-    //        } else {
-    //            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn) {
-    //                self.addButton.transform = CGAffineTransform(translationX: 0, y: 100)
-    //
-    //            }
-    //        }
-    //    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         addButton.isHidden = true
@@ -353,7 +337,7 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
         //or change section count?? use section intead of new cell???
         return fetchedResultsController.sections![section].numberOfObjects
     }
-
+    
     //MARK: Move to cell????
     func configure(cell: UITableViewCell, for indexPath: IndexPath) {
         guard let cell = cell as? DayTasksViewCell else { return }
@@ -375,14 +359,7 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
         } else {
             cell.tagView.isHidden = false
             cell.taskDescription.isHidden = false
-           
         }
-      
-        //MARK: TODO заполнение???
-        //Notification asking isThisDone? Statistics???
-//        if isCurrentHour(date: items.inTime ?? Date()) {
-//            cell.roundedView.backgroundColor = .init(white: 0.5, alpha: 0.9)
-//        }
     }
     
     func letsInsert() {
@@ -391,9 +368,9 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DayTasksViewCell
-            configure(cell: cell, for: indexPath)
-            return cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DayTasksViewCell
+        configure(cell: cell, for: indexPath)
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -513,7 +490,7 @@ extension DayTasksViewController {
     func duplicateAction() -> UIAction {
         return UIAction(title: NSLocalizedString("DuplicateTitle", comment: ""),
                         image: UIImage(systemName: "plus.square.on.square")) { action in
-            
+            print("DUPLICATE")
         }
     }
     func deleteAction() -> UIAction {

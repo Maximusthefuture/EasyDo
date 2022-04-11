@@ -141,8 +141,6 @@ class AddEditCardViewModel: AddEditCardViewModelProtocol {
                     NotificationManager.shared.scheduleNotification(time: scheduledTime, dailyTask: dailyItem)
                 }
             }
-           
-            
         } else {
             //            error handling?
             print("Problem with coreDataStack")
