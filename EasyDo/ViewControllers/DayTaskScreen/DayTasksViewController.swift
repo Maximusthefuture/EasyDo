@@ -157,7 +157,7 @@ class DayTasksViewController: UIViewController {
     
     }
     
-    func showEditingAlert() {
+    private func showEditingAlert() {
         let newEditingAlert = UIAlertController(title: "Editing", message: "", preferredStyle: .alert)
         newEditingAlert.addTextField { textField in
             
@@ -174,6 +174,7 @@ class DayTasksViewController: UIViewController {
             self?.viewWithCorners.label.text = newEditingAlert.textFields!.first!.text
         }))
         present(newEditingAlert, animated: true, completion: nil)
+        
     }
  
     fileprivate func emptyLabelInit() {
@@ -215,30 +216,25 @@ class DayTasksViewController: UIViewController {
         myDayLabel.setTitle("My day", for: .normal)
         myDayLabel.titleLabel?.font = UIFont.systemFont(ofSize: 32, weight: .bold)
         myDayLabel.setTitleColor(.black, for: .normal)
-        let interaction = UIContextMenuInteraction(delegate: self)
+//        let interaction = UIContextMenuInteraction(delegate: self)
         myDayLabel.showsMenuAsPrimaryAction = true
-        self.myDayLabel.addInteraction(interaction)
+//        self.myDayLabel.addInteraction(interaction)
         contextMenuLabel()
     }
     
-    fileprivate func contextMenuLabel() {
+    private func contextMenuLabel() {
         //MARK: TODO
-        let menu = UIMenu(title: "", options: .destructive, children: [
-            UIAction(title: "Projects")  { _ in
-                let vc = ProjectsListViewController()
-                //                vc.coreDataStack = dayTaskViewModel?.coreDataStack
-                self.present(vc, animated: true)
-            },
-            UIAction(title: "????") { [weak self] _ in
-                self?.fetchRequest?.predicate = nil
-                self?.fetchAndReload()
-            }
+        let settingsAction = self.settingAction()
+        let menu = UIMenu(title: "Menu", options: .displayInline, children: [
+            settingsAction
         ])
-        let duplicateAction = self.duplicateAction()
-        //        let deleteAction = self.deleteAction()
+        
+        let projectsAction = self.projectsAction()
+      
         //Submenu
-        let mainMenu = UIMenu(title: "", children: [duplicateAction, menu])
+        let mainMenu = UIMenu(title: "", children: [projectsAction, menu])
         myDayLabel.menu = mainMenu
+        
     }
     
     //MARK: ADD to external file
@@ -413,31 +409,31 @@ extension DayTasksViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 //MARK: UIContextMenuInteractionDelegate
-extension DayTasksViewController: UIContextMenuInteractionDelegate {
-    
-    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
-        let configuration = UIContextMenuConfiguration(identifier: NSString(utf8String: "Menu"), previewProvider: nil) { (elements) -> UIMenu? in
-            let inspectAction = self.inspectAction()
-            let duplicateAction = self.duplicateAction()
-            let deleteAction = self.deleteAction()
-            let editMenu = UIMenu(title: NSLocalizedString("EditTitle", comment: ""),
-                                  children: [duplicateAction, deleteAction])
-            return UIMenu(title: "Project", children: [inspectAction, editMenu])
-        }
-        return configuration
-        
-    }
-    
-    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, previewForHighlightingMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
-        let parameters = UIPreviewParameters()
-        parameters.backgroundColor = UIColor.clear
-        let visibleRect = myDayLabel.bounds.insetBy(dx: -10, dy: -10)
-        let visiblePath = UIBezierPath(roundedRect: visibleRect, cornerRadius: 10.0)
-        parameters.visiblePath = visiblePath
-        return UITargetedPreview(view: myDayLabel, parameters: parameters)
-    }
-    
-}
+//extension DayTasksViewController: UIContextMenuInteractionDelegate {
+//
+//    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+//        let configuration = UIContextMenuConfiguration(identifier: NSString(utf8String: "Menu"), previewProvider: nil) { (elements) -> UIMenu? in
+//            let inspectAction = self.inspectAction()
+//            let duplicateAction = self.duplicateAction()
+//            let deleteAction = self.deleteAction()
+//            let editMenu = UIMenu(title: NSLocalizedString("EditTitle", comment: ""),
+//                                  children: [duplicateAction, deleteAction])
+//            return UIMenu(title: "Project", children: [inspectAction, editMenu])
+//        }
+//        return configuration
+//
+//    }
+//
+//    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, previewForHighlightingMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+//        let parameters = UIPreviewParameters()
+//        parameters.backgroundColor = UIColor.clear
+//        let visibleRect = myDayLabel.bounds.insetBy(dx: -10, dy: -10)
+//        let visiblePath = UIBezierPath(roundedRect: visibleRect, cornerRadius: 10.0)
+//        parameters.visiblePath = visiblePath
+//        return UITargetedPreview(view: myDayLabel, parameters: parameters)
+//    }
+//
+//}
 
 //MARK: NSFetchedResultsControllerDelegate
 extension DayTasksViewController: NSFetchedResultsControllerDelegate {
@@ -483,7 +479,6 @@ extension DayTasksViewController {
     func inspectAction() -> UIAction {
         return UIAction(title: NSLocalizedString("InspectTitle", comment: ""),
                         image: UIImage(systemName: "arrow.up.square")) { action in
-            
         }
     }
     
@@ -498,6 +493,18 @@ extension DayTasksViewController {
                         image: UIImage(systemName: "trash"),
                         attributes: .destructive) { action in
             //           self.performDelete()
+        }
+    }
+    
+    func projectsAction() -> UIAction {
+        return UIAction(title: "Projects")  { [weak self] _ in
+            let vc = ProjectsListViewController(viewModel: self?.container.makeProjectListViewModel() as! ProjectListViewModelProtocol)
+            self?.present(vc, animated: true)
+        }
+    }
+    func settingAction() -> UIAction {
+        return UIAction(title: "Settings", image: UIImage(systemName: "seal"))  { [weak self] _ in
+//            present(SettingsViewController(), animated: true, completion: nil)
         }
     }
 }
