@@ -12,21 +12,11 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
     
     var tasksList: [Task]?
     var coreDataStack: CoreDataStack?
-//    var controller = ProjectMainViewController()
     var isAddMyDay: Bool?
     var currentTag: Int?
     var changeTagClosure: ((Int) -> Void)?
     var tagsArray: [String]?
-   
-//    init(coreDataStack: CoreDataStack) {
-//        self.coreDataStack = coreDataStack
-//        super.init()
-//    }
-//    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.register(TasksCollectionViewCell.self, forCellWithReuseIdentifier: "apps")
@@ -41,17 +31,6 @@ class TagsHorizontalController: BaseListController, UICollectionViewDelegateFlow
        
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("IS PRESENTED: \(self.isBeingPresented)")
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("IS PRESENTED: \(self.isBeingPresented)")
-    }
-    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "apps", for: indexPath) as! TasksCollectionViewCell
         let task = tasksList?[indexPath.row]

@@ -28,8 +28,6 @@
 		381CAAAB2781EA8000E8AB00 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CAAAA2781EA8000E8AB00 /* CoreDataStack.swift */; };
 		381CAACB278207F900E8AB00 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CAAC7278207F900E8AB00 /* Project+CoreDataClass.swift */; };
 		381CAACC278207F900E8AB00 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CAAC8278207F900E8AB00 /* Project+CoreDataProperties.swift */; };
-		381CAACD278207F900E8AB00 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CAAC9278207F900E8AB00 /* Task+CoreDataClass.swift */; };
-		381CAACE278207F900E8AB00 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CAACA278207F900E8AB00 /* Task+CoreDataProperties.swift */; };
 		381E8E26278ED0850021FDC6 /* HeaderLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E8E25278ED0850021FDC6 /* HeaderLabel.swift */; };
 		381E8E29278ED7040021FDC6 /* AttachmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E8E28278ED7040021FDC6 /* AttachmentsViewController.swift */; };
 		381E8E2B278ED8B70021FDC6 /* ResizableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E8E2A278ED8B70021FDC6 /* ResizableViewController.swift */; };
@@ -72,6 +70,10 @@
 		386F83F6275AAD47004DC280 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 386F83F5275AAD47004DC280 /* Assets.xcassets */; };
 		386F83F9275AAD47004DC280 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 386F83F7275AAD47004DC280 /* LaunchScreen.storyboard */; };
 		3870093027A03FA500342642 /* TagHorizontalViewController + Drop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3870092F27A03FA500342642 /* TagHorizontalViewController + Drop.swift */; };
+		3876B0AD280560C4001B42EB /* Attachments+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3876B0AB280560C4001B42EB /* Attachments+CoreDataClass.swift */; };
+		3876B0AE280560C4001B42EB /* Attachments+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3876B0AC280560C4001B42EB /* Attachments+CoreDataProperties.swift */; };
+		3876B0B1280560EF001B42EB /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3876B0AF280560EF001B42EB /* Task+CoreDataClass.swift */; };
+		3876B0B2280560EF001B42EB /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3876B0B0280560EF001B42EB /* Task+CoreDataProperties.swift */; };
 		3876EE1B279D4F85001A9955 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3876EE1A279D4F85001A9955 /* Errors.swift */; };
 		3876EE1D279D649F001A9955 /* ViewModelBased.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3876EE1C279D649F001A9955 /* ViewModelBased.swift */; };
 		3876EE20279D64FA001A9955 /* AddEditCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3876EE1F279D64FA001A9955 /* AddEditCardViewModel.swift */; };
@@ -149,8 +151,6 @@
 		381CAABE278206F500E8AB00 /* EasyDo v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EasyDo v3.xcdatamodel"; sourceTree = "<group>"; };
 		381CAAC7278207F900E8AB00 /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
 		381CAAC8278207F900E8AB00 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		381CAAC9278207F900E8AB00 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
-		381CAACA278207F900E8AB00 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		381CAACF27820A1C00E8AB00 /* EasyDo v4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EasyDo v4.xcdatamodel"; sourceTree = "<group>"; };
 		381CAAD027820A3B00E8AB00 /* EasyDo v5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EasyDo v5.xcdatamodel"; sourceTree = "<group>"; };
 		381CAAD127820BBE00E8AB00 /* EasyDo v6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EasyDo v6.xcdatamodel"; sourceTree = "<group>"; };
@@ -200,6 +200,10 @@
 		386F83F8275AAD47004DC280 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		386F83FA275AAD47004DC280 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3870092F27A03FA500342642 /* TagHorizontalViewController + Drop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TagHorizontalViewController + Drop.swift"; sourceTree = "<group>"; };
+		3876B0AB280560C4001B42EB /* Attachments+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Attachments+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3876B0AC280560C4001B42EB /* Attachments+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Attachments+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3876B0AF280560EF001B42EB /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3876B0B0280560EF001B42EB /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3876EE1A279D4F85001A9955 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		3876EE1C279D649F001A9955 /* ViewModelBased.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelBased.swift; sourceTree = "<group>"; };
 		3876EE1F279D64FA001A9955 /* AddEditCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditCardViewModel.swift; sourceTree = "<group>"; };
@@ -313,6 +317,10 @@
 		381CAAB42781EDBA00E8AB00 /* CoreDataClass */ = {
 			isa = PBXGroup;
 			children = (
+				3876B0AF280560EF001B42EB /* Task+CoreDataClass.swift */,
+				3876B0B0280560EF001B42EB /* Task+CoreDataProperties.swift */,
+				3876B0AB280560C4001B42EB /* Attachments+CoreDataClass.swift */,
+				3876B0AC280560C4001B42EB /* Attachments+CoreDataProperties.swift */,
 			);
 			path = CoreDataClass;
 			sourceTree = "<group>";
@@ -363,8 +371,6 @@
 				3832ABEF2798600800FFFE85 /* DailyItems+CoreDataProperties.swift */,
 				381CAAC7278207F900E8AB00 /* Project+CoreDataClass.swift */,
 				381CAAC8278207F900E8AB00 /* Project+CoreDataProperties.swift */,
-				381CAAC9278207F900E8AB00 /* Task+CoreDataClass.swift */,
-				381CAACA278207F900E8AB00 /* Task+CoreDataProperties.swift */,
 				381CAAB42781EDBA00E8AB00 /* CoreDataClass */,
 				386F83E8275AAD45004DC280 /* EasyDo */,
 				384F0773279AF1EF00C950B7 /* EasyDoUITests */,
@@ -686,6 +692,7 @@
 				3812D68227A82B750065F190 /* DayTasksViewCell.swift in Sources */,
 				383A3F7327A95EE400F153B8 /* PomodoroCountViewModel.swift in Sources */,
 				381E8E2D278F0B4A0021FDC6 /* PickTimeViewController.swift in Sources */,
+				3876B0AE280560C4001B42EB /* Attachments+CoreDataProperties.swift in Sources */,
 				3868B933276E383700F2B765 /* TableViewController+Drag.swift in Sources */,
 				386F83F4275AAD45004DC280 /* EasyDo.xcdatamodeld in Sources */,
 				3832ABF02798600800FFFE85 /* DailyItems+CoreDataClass.swift in Sources */,
@@ -696,14 +703,15 @@
 				38B20B762779FADC002AD934 /* BaseListController.swift in Sources */,
 				38FF9F1527848C8B00EB9805 /* Extensions.swift in Sources */,
 				3876EE1D279D649F001A9955 /* ViewModelBased.swift in Sources */,
+				3876B0B2280560EF001B42EB /* Task+CoreDataProperties.swift in Sources */,
 				38B20B7A2779FD1E002AD934 /* ProjectsViewCell.swift in Sources */,
 				38B51D7E27AD4FDA009DBAE5 /* ProjectMainViewModel.swift in Sources */,
 				386F83EE275AAD45004DC280 /* ProjectsListViewController.swift in Sources */,
 				381CAACB278207F900E8AB00 /* Project+CoreDataClass.swift in Sources */,
-				381CAACD278207F900E8AB00 /* Task+CoreDataClass.swift in Sources */,
 				38161CFC27DE03A20021BE6B /* NotificationService.swift in Sources */,
 				385EB0A927ABFDC600D05F6A /* TodoViewController.swift in Sources */,
 				38E69BF02795BC4300E942BA /* WeeklyPickerViewCell.swift in Sources */,
+				3876B0AD280560C4001B42EB /* Attachments+CoreDataClass.swift in Sources */,
 				388AF31C278D6A3100C44021 /* CreateProjectVC.swift in Sources */,
 				38B20B7C2779FF3A002AD934 /* TagsHorizontalViewController.swift in Sources */,
 				389DABD5278DC05B00A600BF /* BottomSheetPresentationController.swift in Sources */,
@@ -715,10 +723,10 @@
 				385EB0AB27ABFE4D00D05F6A /* TodoViewCell.swift in Sources */,
 				389DABD9278DC2FB00A600BF /* CustomTextField.swift in Sources */,
 				383A3F7527A95F9900F153B8 /* AddEditViewModelFactory.swift in Sources */,
+				3876B0B1280560EF001B42EB /* Task+CoreDataClass.swift in Sources */,
 				38E992892760F97C00E2D1E6 /* DataTableViewCell.swift in Sources */,
 				38FF9F11278488F100EB9805 /* DayTasksViewController.swift in Sources */,
 				3806314127A3E03600AC4CC3 /* AttachmentsViewModel.swift in Sources */,
-				381CAACE278207F900E8AB00 /* Task+CoreDataProperties.swift in Sources */,
 				3876EE1B279D4F85001A9955 /* Errors.swift in Sources */,
 				383A8ABF27888381003EE8F7 /* HorizontalAttachmentsController.swift in Sources */,
 				3833589227C27F7300BCB646 /* PickTimeViewModel.swift in Sources */,

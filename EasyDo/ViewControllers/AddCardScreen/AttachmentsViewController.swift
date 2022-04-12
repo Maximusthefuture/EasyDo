@@ -46,8 +46,7 @@ class AttachmentsViewController: ResizableViewController {
         //video, audio???? avfoundation practies?
         //then share attachment???
 //        let picker = UIImagePickerController()
-        let picker =
-        UIDocumentPickerViewController(forExporting: [])
+        let picker = UIDocumentPickerViewController(forExporting: [])
         present(picker, animated: true)
         print("HANDLE IT")
     }

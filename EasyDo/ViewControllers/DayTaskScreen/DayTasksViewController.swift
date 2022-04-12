@@ -44,8 +44,8 @@ class DayTasksViewController: UIViewController {
     
     let emptyLabel: UIButton = {
         let button = UIButton()
-        button.setTitle("NOTHING HERE Add item +", for: .normal)
-        button.backgroundColor = .blue
+        button.setTitle("Nothing here add item +", for: .normal)
+        button.backgroundColor = .white
         button.layer.cornerRadius = 10
         button.setTitleColor(.black, for: .normal)
         button.addTarget(self, action: #selector(handleEmptyLabelTap), for: .touchUpInside)
@@ -85,7 +85,6 @@ class DayTasksViewController: UIViewController {
         weeklyPickerCollectionView.delegate = self
         myDayLabelInit()
         initStackViewDayWeek()
-        
         initWeeklyDayPickerCollection()
         weeeklyGoalViewTest()
         tableViewInit()
@@ -147,7 +146,6 @@ class DayTasksViewController: UIViewController {
             if action.title == "Edit" {
                 self?.showEditingAlert()
             } else {
-
                 self?.dayTaskViewModel?.saveWeeklyGoalItem(title: alert.textFields!.first!.text, description: alert.textFields![1].text)
             }
             

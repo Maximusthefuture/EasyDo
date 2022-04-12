@@ -2,7 +2,7 @@
 //  Task+CoreDataProperties.swift
 //  EasyDo
 //
-//  Created by Maximus on 02.01.2022.
+//  Created by Maximus on 12.04.2022.
 //
 //
 
@@ -23,21 +23,10 @@ extension Task {
     @NSManaged public var taskDescription: String?
     @NSManaged public var title: String?
     @NSManaged public var project: Project?
+    @NSManaged public var attachments: Attachments?
 
 }
 
 extension Task : Identifiable {
 
-}
-
-extension Task: NSItemProviderWriting {
-    public static var writableTypeIdentifiersForItemProvider: [String] {
-        return []
-    }
-    
-    public func loadData(withTypeIdentifier typeIdentifier: String, forItemProviderCompletionHandler completionHandler: @escaping (Data?, Error?) -> Void) -> Progress? {
-        return Progress()
-    }
-    
-    
 }

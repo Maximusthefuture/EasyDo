@@ -17,6 +17,7 @@ class AddEditTaskViewController: UIViewController {
 
     var vmFactory = AddEditViewModelFactory()
     var enumProp: Properties?
+    
     //Move to VM?
     var tableManager: AddEditTableManager = AddEditTableManager()
     
@@ -136,15 +137,56 @@ class AddEditTaskViewController: UIViewController {
     let seeAllButton: UIButton = {
         let b = UIButton()
         b.setTitleColor(.black, for: .normal)
-        b.setTitle("See all", for: .normal)
+        b.setTitle("More", for: .normal)
         b.addTarget(self, action: #selector(handleSeeAllAttachments), for: .touchUpInside)
         return b
     }()
     
     //MARK: TODO Bottom Sheet when we can add items? First image then can add
     @objc private func handleSeeAllAttachments() {
-        let vc = AttachmentsViewController(initialHeight: 300)
-        present(vc, animated: true)
+        attachmentsAlert()
+    }
+    
+    
+    private func attachmentsAlert() {
+        let attachmentAlert = UIAlertController(title: "Options", message: "", preferredStyle: .actionSheet)
+        let photoLibraryAction = UIAlertAction(title: "Photo library", style: .default) { [weak self] alert in
+            self?.showPhotoLibrary()
+        }
+        let cameraAction = UIAlertAction(title: "Camera", style: .default) { [weak self] alert in
+            self?.showCamera()
+        }
+        let filesAction = UIAlertAction(title: "Files", style: .default) { [weak self] alert in
+            self?.showFilePicker()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        attachmentAlert.addAction(photoLibraryAction)
+        attachmentAlert.addAction(cameraAction)
+        attachmentAlert.addAction(filesAction)
+        attachmentAlert.addAction(cancelAction)
+        present(attachmentAlert, animated: true, completion: nil)
+        
+    }
+    let picker = UIImagePickerController()
+    
+    private func showCamera() {
+        picker.sourceType = .camera
+        picker.allowsEditing = true
+        picker.delegate = self
+        present(picker, animated: true)
+        
+    }
+    
+    private func showPhotoLibrary() {
+        picker.sourceType = .photoLibrary
+        picker.allowsEditing = true
+        picker.delegate = self
+        present(picker, animated: true)
+    }
+    
+    private func showFilePicker() {
+        let picker = UIDocumentPickerViewController(forExporting: [])
+        present(picker, animated: true)
     }
     
     lazy var attachmentsHeader: UIView = {
@@ -341,6 +383,10 @@ extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource 
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: attachmentsCell, for: indexPath) as! AttachmentsCardViewCell
             cell.selectionStyle = .none
+            cell.horizontalAttachments.viewModel =  vmFactory.makeAttachmentViewModel()
+            cell.horizontalAttachments.viewModel?.coreDataStack = addEditCardViewModel?.coreDataStack
+            cell.horizontalAttachments.viewModel?.task = addEditCardViewModel?.taskDetail
+            
             return cell
         }
         else  {
@@ -381,5 +427,17 @@ extension AddEditTaskViewController: UITextViewDelegate {
 //        self.addButton.isHidden = false
         self.addButton.isHidden = true
         self.editButton.isHidden = false
+    }
+}
+
+extension AddEditTaskViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[.originalImage] as? UIImage
+        vmFactory.attachmentViewModel.saveImageToCoreData(image?.pngData())
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true)
     }
 }

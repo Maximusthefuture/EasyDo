@@ -13,15 +13,19 @@ class HorizontalAttachmentsController: BaseListController, UICollectionViewDeleg
     
     let cellId = "HorizontalViewCell"
     
+    //viewModel here
+    var viewModel: AttachmentsViewModel?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .brown
-        
+      
         collectionView.register(AttachmentsHorizontallViewCell.self, forCellWithReuseIdentifier: cellId)
         
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
         }
+       
     }
     
     
@@ -31,11 +35,12 @@ class HorizontalAttachmentsController: BaseListController, UICollectionViewDeleg
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return viewModel?.attachmetsImages?.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! AttachmentsHorizontallViewCell
+        cell.imageView.image = viewModel?.attachmetsImages?[indexPath.item]
         return cell
     }
     

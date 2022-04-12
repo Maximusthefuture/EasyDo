@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="2">
+    <entity name="Attachments" representedClassName="Attachments" syncable="YES">
+        <attribute name="files" optional="YES" attributeType="Transformable" customClassName="[Data]"/>
+        <attribute name="images" optional="YES" attributeType="Transformable" customClassName="[Data]"/>
+        <relationship name="task" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Task" inverseName="attachments" inverseEntity="Task"/>
+    </entity>
     <entity name="DailyItems" representedClassName="DailyItems" syncable="YES">
         <attribute name="inDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="inTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -17,6 +22,7 @@
         <attribute name="tags" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>
         <attribute name="taskDescription" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="attachments" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Attachments" inverseName="task" inverseEntity="Attachments"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="tasks" inverseEntity="Project"/>
     </entity>
     <entity name="WeeklyGoal" representedClassName="WeeklyGoal" syncable="YES">
@@ -26,9 +32,10 @@
         <attribute name="title" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="DailyItems" positionX="2025" positionY="-2826" width="128" height="74"/>
-        <element name="Project" positionX="2019.559997558594" positionY="-2885.511840820312" width="128" height="74"/>
-        <element name="Task" positionX="2016" positionY="-2889" width="128" height="134"/>
-        <element name="WeeklyGoal" positionX="2025" positionY="-2826" width="128" height="89"/>
+        <element name="DailyItems" positionX="2137.8701171875" positionY="-2740.225372314453" width="128" height="74"/>
+        <element name="Project" positionX="2093.836242675781" positionY="-2831.022262573242" width="128" height="74"/>
+        <element name="Task" positionX="1749.206604003906" positionY="-2658.239700317383" width="128" height="163"/>
+        <element name="WeeklyGoal" positionX="2062.017456054688" positionY="-2588.625091552734" width="128" height="89"/>
+        <element name="Attachments" positionX="1639.720336914062" positionY="-2843.057830810547" width="128" height="88"/>
     </elements>
 </model>
