@@ -98,16 +98,6 @@ class ProjectMainViewController: BaseListController, UICollectionViewDelegateFlo
         addButton.backgroundColor = .blue
         addButton.addTarget(self, action: #selector(addNewCardButton), for: .touchUpInside)
     }
-    
-//    func dragItems(at indexPath: IndexPath, collectionView: UICollectionView) -> [UIDragItem] {
-//        let cell = collectionView.cellForItem(at: indexPath) as! ProjectsViewCell
-//        let item = collectionView == collectionView ? currentProject?.tasks?[indexPath.row] : cell.horizontalController.tasksList?[indexPath.row]
-////        let item = currentProject?.tasks?[indexPath.row] as! Task
-//        let dragItem = UIDragItem(itemProvider: NSItemProvider(object: item as! NSString))
-//        dragItem.localObject = item
-//        return [dragItem]
-//    }
-    
    
     @objc private func addNewCardButton(button: UIButton) {
         let container = DependencyContainer()

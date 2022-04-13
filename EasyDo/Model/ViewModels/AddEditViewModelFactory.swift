@@ -9,7 +9,7 @@ import Foundation
 
 protocol AddEditViewModelFactoryProtocol {
     func makePomodoroViewModel() -> PomodoroCountViewModelProtocol
-    func makeAttachmentViewModel() -> AttachmentsViewModel
+//    func makeAttachmentViewModel() -> AttachmentsViewModel
     func makeCardAddTagsViewModel() -> CardAddTagsViewModelProtocol
     func makePickTimeViewModel() -> PickTimeViewModelProtocol
 }
@@ -26,9 +26,9 @@ class AddEditViewModelFactory: AddEditViewModelFactoryProtocol {
         return pomodoroViewModel
     }
     
-    func makeAttachmentViewModel() -> AttachmentsViewModel{
-        return attachmentViewModel
-    }
+//    func makeAttachmentViewModel() -> AttachmentsViewModel{
+//        return attachmentViewModel
+//    }
     
     func makeCardAddTagsViewModel() -> CardAddTagsViewModelProtocol {
         return cardAddTagsViewModel

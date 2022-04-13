@@ -13,38 +13,37 @@ protocol AttachmentsViewModelProtocol: AnyObject {
     var task: Task? { get set }
     var attachmetsImages: [UIImage]? { get set }
     func saveImageToCoreData(_ image: Data?)
-    func getAttachments()
+    func getAttachments(completion: @escaping ([Attachments]?) -> Void)
 }
 
 class AttachmentsViewModel: AttachmentsViewModelProtocol {
-    
+  
     var coreDataStack: CoreDataStack?
     var task: Task?
     var attachmetsImages: [UIImage]?
     
     
     init() {
-        getAttachments()
+        
     }
     
     func saveImageToCoreData(_ image: Data?) {
         let attachments = Attachments(context: coreDataStack!.managedContext)
-        attachments.images?.append(image ?? Data())
+        
         if let task = task {
+            attachments.images?.append(image ?? Data())
             task.attachments = attachments
         }
         coreDataStack?.saveContext()
     }
     
-    func getAttachments() {
+    func getTask(completion: @escaping () -> Void) {
+        completion()
+    }
+    
+    func getAttachments(completion: @escaping ([Attachments]?) -> Void) {
         let fetch = Attachments.fetchRequest()
         let attachments = try? coreDataStack?.managedContext.fetch(fetch)
-        
-        attachments?.compactMap { attachment in
-            attachment.images?.compactMap({ data in
-                let image = UIImage(data: data)
-                self.attachmetsImages?.append(image ?? UIImage())
-            })
-        }
+        completion(attachments)
     }
 }

@@ -25,7 +25,6 @@ class ProjectListViewModel: ProjectListViewModelProtocol {
     }
     
     
-    
     func fetchAndReload() {
         guard let fetchRequest = fetchRequest else { return }
         do {

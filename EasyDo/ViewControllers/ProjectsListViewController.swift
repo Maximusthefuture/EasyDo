@@ -185,10 +185,7 @@ extension ProjectsListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! DataTableViewCell
-        var project = viewModel?.projects[indexPath.row]
-//        cell.config(label: array[indexPath.row])
-//        cell.title.text = projects[indexPath.row].title
-//        cell.config(label: projects[indexPath.row].title ?? "zopa")
+        let project = viewModel?.projects[indexPath.row]
         cell.title.text = project?.title
                 cell.config(label: project?.title ?? "zopa")
         cell.delegateDelete = self

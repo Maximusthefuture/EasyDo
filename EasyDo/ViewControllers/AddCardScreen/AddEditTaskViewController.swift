@@ -12,7 +12,6 @@ enum AddEditTaskState {
     case edit
 }
 
-
 class AddEditTaskViewController: UIViewController {
 
     var vmFactory = AddEditViewModelFactory()
@@ -334,14 +333,10 @@ extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource 
             case 0:
                 cell.datePicker.isHidden = true
                 cell.pomodoroCount.isHidden = false
-                
             case 1:
                 cell.stackView.isHidden = false
-                
             case 2:
                 cell.datePicker.isHidden = false
-                
-                
             default:
                 print("default")
             }
@@ -383,9 +378,10 @@ extension AddEditTaskViewController: UITableViewDelegate, UITableViewDataSource 
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: attachmentsCell, for: indexPath) as! AttachmentsCardViewCell
             cell.selectionStyle = .none
-            cell.horizontalAttachments.viewModel =  vmFactory.makeAttachmentViewModel()
-            cell.horizontalAttachments.viewModel?.coreDataStack = addEditCardViewModel?.coreDataStack
-            cell.horizontalAttachments.viewModel?.task = addEditCardViewModel?.taskDetail
+            cell.horizontalAttachments.viewModel =  vmFactory.attachmentViewModel
+            cell.horizontalAttachments.viewModel?.coreDataStack = self.addEditCardViewModel?.coreDataStack
+            cell.horizontalAttachments.viewModel?.task = self.addEditCardViewModel?.taskDetail
+            cell.horizontalAttachments.collectionView.reloadData()
             
             return cell
         }
